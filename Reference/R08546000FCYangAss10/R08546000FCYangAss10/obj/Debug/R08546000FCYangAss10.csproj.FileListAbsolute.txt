@@ -1,0 +1,13 @@
+C:\Users\teacher\Desktop\R08546000FCYangAss10\R08546000FCYangAss10\bin\Debug\R08546000FCYangAss10.exe.config
+C:\Users\teacher\Desktop\R08546000FCYangAss10\R08546000FCYangAss10\bin\Debug\R08546000FCYangAss10.exe
+C:\Users\teacher\Desktop\R08546000FCYangAss10\R08546000FCYangAss10\bin\Debug\R08546000FCYangAss10.pdb
+C:\Users\teacher\Desktop\R08546000FCYangAss10\R08546000FCYangAss10\bin\Debug\TSPBenchmark.dll
+C:\Users\teacher\Desktop\R08546000FCYangAss10\R08546000FCYangAss10\bin\Debug\TSPBenchmark.xml
+C:\Users\teacher\Desktop\R08546000FCYangAss10\R08546000FCYangAss10\obj\Debug\R08546000FCYangAss10.csprojAssemblyReference.cache
+C:\Users\teacher\Desktop\R08546000FCYangAss10\R08546000FCYangAss10\obj\Debug\R08546000FCYangAss10.MainForm.resources
+C:\Users\teacher\Desktop\R08546000FCYangAss10\R08546000FCYangAss10\obj\Debug\R08546000FCYangAss10.Properties.Resources.resources
+C:\Users\teacher\Desktop\R08546000FCYangAss10\R08546000FCYangAss10\obj\Debug\R08546000FCYangAss10.csproj.GenerateResource.cache
+C:\Users\teacher\Desktop\R08546000FCYangAss10\R08546000FCYangAss10\obj\Debug\R08546000FCYangAss10.csproj.CoreCompileInputs.cache
+C:\Users\teacher\Desktop\R08546000FCYangAss10\R08546000FCYangAss10\obj\Debug\R08546000FCYangAss10.csproj.CopyComplete
+C:\Users\teacher\Desktop\R08546000FCYangAss10\R08546000FCYangAss10\obj\Debug\R08546000FCYangAss10.exe
+C:\Users\teacher\Desktop\R08546000FCYangAss10\R08546000FCYangAss10\obj\Debug\R08546000FCYangAss10.pdb

@@ -1,0 +1,9 @@
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\r08546000FCYang000Ass08\bin\Debug\r08546000FCYang000Ass08.exe.config
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\r08546000FCYang000Ass08\bin\Debug\r08546000FCYang000Ass08.exe
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\r08546000FCYang000Ass08\bin\Debug\r08546000FCYang000Ass08.pdb
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\r08546000FCYang000Ass08\obj\Debug\r08546000FCYang000Ass08.csprojAssemblyReference.cache
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\r08546000FCYang000Ass08\obj\Debug\r08546000FCYang000Ass08.Properties.Resources.resources
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\r08546000FCYang000Ass08\obj\Debug\r08546000FCYang000Ass08.csproj.GenerateResource.cache
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\r08546000FCYang000Ass08\obj\Debug\r08546000FCYang000Ass08.csproj.CoreCompileInputs.cache
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\r08546000FCYang000Ass08\obj\Debug\r08546000FCYang000Ass08.exe
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\r08546000FCYang000Ass08\obj\Debug\r08546000FCYang000Ass08.pdb

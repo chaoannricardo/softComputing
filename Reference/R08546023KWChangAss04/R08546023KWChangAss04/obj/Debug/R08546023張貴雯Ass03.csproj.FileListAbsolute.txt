@@ -1,0 +1,10 @@
+C:\Users\WuGroup\Desktop\R08546023張貴雯Ass03\R08546023張貴雯Ass03\bin\Debug\R08546023張貴雯Ass03.exe.config
+C:\Users\WuGroup\Desktop\R08546023張貴雯Ass03\R08546023張貴雯Ass03\bin\Debug\R08546023張貴雯Ass03.exe
+C:\Users\WuGroup\Desktop\R08546023張貴雯Ass03\R08546023張貴雯Ass03\bin\Debug\R08546023張貴雯Ass03.pdb
+C:\Users\WuGroup\Desktop\R08546023張貴雯Ass03\R08546023張貴雯Ass03\obj\Debug\R08546023張貴雯Ass03.csprojAssemblyReference.cache
+C:\Users\WuGroup\Desktop\R08546023張貴雯Ass03\R08546023張貴雯Ass03\obj\Debug\R08546023張貴雯Ass03.MainForm.resources
+C:\Users\WuGroup\Desktop\R08546023張貴雯Ass03\R08546023張貴雯Ass03\obj\Debug\R08546023張貴雯Ass03.Properties.Resources.resources
+C:\Users\WuGroup\Desktop\R08546023張貴雯Ass03\R08546023張貴雯Ass03\obj\Debug\R08546023張貴雯Ass03.csproj.GenerateResource.cache
+C:\Users\WuGroup\Desktop\R08546023張貴雯Ass03\R08546023張貴雯Ass03\obj\Debug\R08546023張貴雯Ass03.csproj.CoreCompileInputs.cache
+C:\Users\WuGroup\Desktop\R08546023張貴雯Ass03\R08546023張貴雯Ass03\obj\Debug\R08546023張貴雯Ass03.exe
+C:\Users\WuGroup\Desktop\R08546023張貴雯Ass03\R08546023張貴雯Ass03\obj\Debug\R08546023張貴雯Ass03.pdb

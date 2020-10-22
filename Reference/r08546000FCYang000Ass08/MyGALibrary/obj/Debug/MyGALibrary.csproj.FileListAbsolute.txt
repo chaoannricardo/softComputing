@@ -1,0 +1,6 @@
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\MyGALibrary\bin\Debug\MyGALibrary.dll
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\MyGALibrary\bin\Debug\MyGALibrary.pdb
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\MyGALibrary\obj\Debug\MyGALibrary.csproj.CoreCompileInputs.cache
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\MyGALibrary\obj\Debug\MyGALibrary.dll
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\MyGALibrary\obj\Debug\MyGALibrary.pdb
+C:\Users\teacher\Desktop\r08546000FCYang000Ass08\MyGALibrary\obj\Debug\MyGALibrary.csprojAssemblyReference.cache

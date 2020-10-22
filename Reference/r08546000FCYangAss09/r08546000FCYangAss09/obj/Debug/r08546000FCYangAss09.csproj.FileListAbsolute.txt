@@ -1,0 +1,13 @@
+C:\Users\teacher\Desktop\r08546000FCYangAss09\r08546000FCYangAss09\obj\Debug\r08546000FCYangAss09.csprojAssemblyReference.cache
+C:\Users\teacher\Desktop\r08546000FCYangAss09\r08546000FCYangAss09\obj\Debug\r08546000FCYangAss09.MainForm.resources
+C:\Users\teacher\Desktop\r08546000FCYangAss09\r08546000FCYangAss09\obj\Debug\r08546000FCYangAss09.Properties.Resources.resources
+C:\Users\teacher\Desktop\r08546000FCYangAss09\r08546000FCYangAss09\obj\Debug\r08546000FCYangAss09.csproj.GenerateResource.cache
+C:\Users\teacher\Desktop\r08546000FCYangAss09\r08546000FCYangAss09\obj\Debug\r08546000FCYangAss09.csproj.CoreCompileInputs.cache
+C:\Users\teacher\Desktop\r08546000FCYangAss09\r08546000FCYangAss09\bin\Debug\r08546000FCYangAss09.exe.config
+C:\Users\teacher\Desktop\r08546000FCYangAss09\r08546000FCYangAss09\bin\Debug\r08546000FCYangAss09.exe
+C:\Users\teacher\Desktop\r08546000FCYangAss09\r08546000FCYangAss09\bin\Debug\r08546000FCYangAss09.pdb
+C:\Users\teacher\Desktop\r08546000FCYangAss09\r08546000FCYangAss09\bin\Debug\MyGALibrary.dll
+C:\Users\teacher\Desktop\r08546000FCYangAss09\r08546000FCYangAss09\bin\Debug\MyGALibrary.pdb
+C:\Users\teacher\Desktop\r08546000FCYangAss09\r08546000FCYangAss09\obj\Debug\r08546000FCYangAss09.csproj.CopyComplete
+C:\Users\teacher\Desktop\r08546000FCYangAss09\r08546000FCYangAss09\obj\Debug\r08546000FCYangAss09.exe
+C:\Users\teacher\Desktop\r08546000FCYangAss09\r08546000FCYangAss09\obj\Debug\r08546000FCYangAss09.pdb

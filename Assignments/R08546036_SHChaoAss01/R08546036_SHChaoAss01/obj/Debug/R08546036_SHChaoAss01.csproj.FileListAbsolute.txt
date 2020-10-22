@@ -1,0 +1,10 @@
+X:\Windows_Storage\r08546036\College\Courses\10901_SoftComputing\R08546036_SHChaoAss01\R08546036_SHChaoAss01\bin\Debug\R08546036_SHChaoAss01.exe.config
+X:\Windows_Storage\r08546036\College\Courses\10901_SoftComputing\R08546036_SHChaoAss01\R08546036_SHChaoAss01\bin\Debug\R08546036_SHChaoAss01.exe
+X:\Windows_Storage\r08546036\College\Courses\10901_SoftComputing\R08546036_SHChaoAss01\R08546036_SHChaoAss01\bin\Debug\R08546036_SHChaoAss01.pdb
+X:\Windows_Storage\r08546036\College\Courses\10901_SoftComputing\R08546036_SHChaoAss01\R08546036_SHChaoAss01\obj\Debug\R08546036_SHChaoAss01.csprojAssemblyReference.cache
+X:\Windows_Storage\r08546036\College\Courses\10901_SoftComputing\R08546036_SHChaoAss01\R08546036_SHChaoAss01\obj\Debug\R08546036_SHChaoAss01.Properties.Resources.resources
+X:\Windows_Storage\r08546036\College\Courses\10901_SoftComputing\R08546036_SHChaoAss01\R08546036_SHChaoAss01\obj\Debug\R08546036_SHChaoAss01.csproj.GenerateResource.cache
+X:\Windows_Storage\r08546036\College\Courses\10901_SoftComputing\R08546036_SHChaoAss01\R08546036_SHChaoAss01\obj\Debug\R08546036_SHChaoAss01.csproj.CoreCompileInputs.cache
+X:\Windows_Storage\r08546036\College\Courses\10901_SoftComputing\R08546036_SHChaoAss01\R08546036_SHChaoAss01\obj\Debug\R08546036_SHChaoAss01.exe
+X:\Windows_Storage\r08546036\College\Courses\10901_SoftComputing\R08546036_SHChaoAss01\R08546036_SHChaoAss01\obj\Debug\R08546036_SHChaoAss01.pdb
+X:\Windows_Storage\r08546036\College\Courses\10901_SoftComputing\R08546036_SHChaoAss01\R08546036_SHChaoAss01\obj\Debug\R08546036_SHChaoAss01.Ass01.resources

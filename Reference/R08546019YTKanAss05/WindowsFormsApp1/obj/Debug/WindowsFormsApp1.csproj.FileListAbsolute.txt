@@ -1,0 +1,13 @@
+C:\Users\teacher\Desktop\R08546019YTKanAss05\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
+C:\Users\teacher\Desktop\R08546019YTKanAss05\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\Users\teacher\Desktop\R08546019YTKanAss05\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\Users\teacher\Desktop\R08546019YTKanAss05\WindowsFormsApp1\bin\Debug\TeeChart.dll
+C:\Users\teacher\Desktop\R08546019YTKanAss05\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csprojAssemblyReference.cache
+C:\Users\teacher\Desktop\R08546019YTKanAss05\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\Users\teacher\Desktop\R08546019YTKanAss05\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\teacher\Desktop\R08546019YTKanAss05\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\teacher\Desktop\R08546019YTKanAss05\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe.licenses
+C:\Users\teacher\Desktop\R08546019YTKanAss05\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\teacher\Desktop\R08546019YTKanAss05\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CopyComplete
+C:\Users\teacher\Desktop\R08546019YTKanAss05\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\Users\teacher\Desktop\R08546019YTKanAss05\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb

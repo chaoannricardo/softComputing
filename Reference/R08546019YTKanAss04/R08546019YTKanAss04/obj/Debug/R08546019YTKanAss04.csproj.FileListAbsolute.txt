@@ -1,0 +1,10 @@
+C:\Users\teacher\Desktop\R08546019YTKanAss04\R08546019YTKanAss04\bin\Debug\R08546019YTKanAss04.exe.config
+C:\Users\teacher\Desktop\R08546019YTKanAss04\R08546019YTKanAss04\bin\Debug\R08546019YTKanAss04.exe
+C:\Users\teacher\Desktop\R08546019YTKanAss04\R08546019YTKanAss04\bin\Debug\R08546019YTKanAss04.pdb
+C:\Users\teacher\Desktop\R08546019YTKanAss04\R08546019YTKanAss04\obj\Debug\R08546019YTKanAss04.csprojAssemblyReference.cache
+C:\Users\teacher\Desktop\R08546019YTKanAss04\R08546019YTKanAss04\obj\Debug\R08546019YTKanAss04.Properties.Resources.resources
+C:\Users\teacher\Desktop\R08546019YTKanAss04\R08546019YTKanAss04\obj\Debug\R08546019YTKanAss04.csproj.GenerateResource.cache
+C:\Users\teacher\Desktop\R08546019YTKanAss04\R08546019YTKanAss04\obj\Debug\R08546019YTKanAss04.csproj.CoreCompileInputs.cache
+C:\Users\teacher\Desktop\R08546019YTKanAss04\R08546019YTKanAss04\obj\Debug\R08546019YTKanAss04.exe
+C:\Users\teacher\Desktop\R08546019YTKanAss04\R08546019YTKanAss04\obj\Debug\R08546019YTKanAss04.pdb
+C:\Users\teacher\Desktop\R08546019YTKanAss04\R08546019YTKanAss04\obj\Debug\R08546019YTKanAss04.MainForm.resources
