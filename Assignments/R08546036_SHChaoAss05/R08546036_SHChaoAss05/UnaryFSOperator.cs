@@ -25,7 +25,7 @@ namespace R08546036_SHChaoAss04
             }
 
         }
-       
+
 
         public override string ToString()
         {
@@ -122,7 +122,7 @@ namespace R08546036_SHChaoAss04
         }
 
         // properties
-        public override string Title { get => title; set => title = value;}
+        public override string Title { get => title; set => title = value; }
 
         public double ScaleValue
         {
@@ -152,7 +152,7 @@ namespace R08546036_SHChaoAss04
     {
         // variables
         private string title = "Very";
-        
+
         // construct function
         public VeryOperator()
         {
@@ -172,7 +172,7 @@ namespace R08546036_SHChaoAss04
     {
         // variables
         private string title = "Dilation";
-        
+
         // construct function
         public DilationOperator()
         {
@@ -192,7 +192,7 @@ namespace R08546036_SHChaoAss04
     {
         // variables
         private string title = "Extremely";
-        
+
         // construct function
         public ExtremelyOperator()
         {
@@ -212,7 +212,7 @@ namespace R08546036_SHChaoAss04
     {
         // variables
         private string title = "Intensification";
-        
+
         // construct function
         public IntensificationOperator()
         {
@@ -239,7 +239,7 @@ namespace R08546036_SHChaoAss04
     {
         // variables
         private string title = "Diminsher";
-        
+
         // construct function
         public DiminisherOperator()
         {
@@ -270,12 +270,4 @@ namespace R08546036_SHChaoAss04
         }
     }
 
-    // need to be fixed
-    class ScaleOperator : UnaryFSOperator
-    {
-        public override double Evaluate(double a)
-        {
-            throw new NotImplementedException();
-        }
-    }
 }

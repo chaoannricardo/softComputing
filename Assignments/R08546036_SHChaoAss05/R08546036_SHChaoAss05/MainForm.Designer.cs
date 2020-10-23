@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Input");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Output");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Input");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Output");
             this.theTreeContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.universeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,11 +45,14 @@
             this.clearAndRestartAppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this.lbInstruction = new System.Windows.Forms.Label();
             this.theTree = new System.Windows.Forms.TreeView();
+            this.lbSetTip = new System.Windows.Forms.Label();
             this.theGrid = new System.Windows.Forms.PropertyGrid();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.lbIfThenInstruction = new System.Windows.Forms.Label();
             this.dgvRules = new System.Windows.Forms.DataGridView();
             this.fuzzyRuleContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dgvConditions = new System.Windows.Forms.DataGridView();
@@ -102,6 +105,10 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).BeginInit();
+            this.splitContainer6.Panel1.SuspendLayout();
+            this.splitContainer6.Panel2.SuspendLayout();
+            this.splitContainer6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
@@ -278,26 +285,44 @@
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.splitContainer2.Panel1.Controls.Add(this.lbInstruction);
-            this.splitContainer2.Panel1.Controls.Add(this.theTree);
+            this.splitContainer2.Panel1.Controls.Add(this.splitContainer6);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.theGrid);
             this.splitContainer2.Size = new System.Drawing.Size(269, 597);
-            this.splitContainer2.SplitterDistance = 218;
+            this.splitContainer2.SplitterDistance = 261;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // splitContainer6
+            // 
+            this.splitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer6.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer6.Name = "splitContainer6";
+            this.splitContainer6.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer6.Panel1
+            // 
+            this.splitContainer6.Panel1.Controls.Add(this.lbInstruction);
+            this.splitContainer6.Panel1.Controls.Add(this.theTree);
+            // 
+            // splitContainer6.Panel2
+            // 
+            this.splitContainer6.Panel2.Controls.Add(this.lbSetTip);
+            this.splitContainer6.Size = new System.Drawing.Size(269, 261);
+            this.splitContainer6.SplitterDistance = 211;
+            this.splitContainer6.TabIndex = 0;
             // 
             // lbInstruction
             // 
             this.lbInstruction.AutoSize = true;
             this.lbInstruction.BackColor = System.Drawing.Color.Honeydew;
             this.lbInstruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbInstruction.ForeColor = System.Drawing.Color.DarkRed;
-            this.lbInstruction.Location = new System.Drawing.Point(28, 126);
+            this.lbInstruction.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.lbInstruction.Location = new System.Drawing.Point(12, 93);
             this.lbInstruction.Name = "lbInstruction";
             this.lbInstruction.Size = new System.Drawing.Size(362, 40);
-            this.lbInstruction.TabIndex = 9;
+            this.lbInstruction.TabIndex = 10;
             this.lbInstruction.Text = "Right Click Here to Add a Univers/Fuzzy Set\r\nOr Select an Unary/Binary Operation";
             this.lbInstruction.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -308,26 +333,36 @@
             this.theTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.theTree.Location = new System.Drawing.Point(0, 0);
             this.theTree.Name = "theTree";
-            treeNode1.Name = "Input";
-            treeNode1.Text = "Input";
-            treeNode2.Name = "Output";
-            treeNode2.Text = "Output";
+            treeNode3.Name = "Input";
+            treeNode3.Tag = "";
+            treeNode3.Text = "Input";
+            treeNode4.Name = "Output";
+            treeNode4.Tag = "";
+            treeNode4.Text = "Output";
             this.theTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            this.theTree.Size = new System.Drawing.Size(269, 218);
-            this.theTree.TabIndex = 7;
-            this.theTree.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.theTreeDrag);
+            treeNode3,
+            treeNode4});
+            this.theTree.Size = new System.Drawing.Size(269, 211);
+            this.theTree.TabIndex = 12;
             this.theTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.theTree_AfterSelect);
-            this.theTree.DragEnter += new System.Windows.Forms.DragEventHandler(this.theTree_DragEnter);
-            this.theTree.MouseHover += new System.EventHandler(this.CloseInstruction);
+            // 
+            // lbSetTip
+            // 
+            this.lbSetTip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbSetTip.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSetTip.ForeColor = System.Drawing.SystemColors.Control;
+            this.lbSetTip.Location = new System.Drawing.Point(0, 0);
+            this.lbSetTip.Name = "lbSetTip";
+            this.lbSetTip.Size = new System.Drawing.Size(269, 46);
+            this.lbSetTip.TabIndex = 1;
+            this.lbSetTip.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // theGrid
             // 
             this.theGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.theGrid.Location = new System.Drawing.Point(0, 0);
             this.theGrid.Name = "theGrid";
-            this.theGrid.Size = new System.Drawing.Size(269, 375);
+            this.theGrid.Size = new System.Drawing.Size(269, 332);
             this.theGrid.TabIndex = 6;
             this.theGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.theGrid_PropertyValueChanged);
             // 
@@ -359,14 +394,29 @@
             // 
             // splitContainer5.Panel1
             // 
+            this.splitContainer5.Panel1.Controls.Add(this.lbIfThenInstruction);
             this.splitContainer5.Panel1.Controls.Add(this.dgvRules);
             // 
             // splitContainer5.Panel2
             // 
             this.splitContainer5.Panel2.Controls.Add(this.dgvConditions);
             this.splitContainer5.Size = new System.Drawing.Size(878, 133);
-            this.splitContainer5.SplitterDistance = 218;
+            this.splitContainer5.SplitterDistance = 195;
             this.splitContainer5.TabIndex = 4;
+            // 
+            // lbIfThenInstruction
+            // 
+            this.lbIfThenInstruction.AutoSize = true;
+            this.lbIfThenInstruction.BackColor = System.Drawing.Color.Honeydew;
+            this.lbIfThenInstruction.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lbIfThenInstruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbIfThenInstruction.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.lbIfThenInstruction.Location = new System.Drawing.Point(0, 93);
+            this.lbIfThenInstruction.Name = "lbIfThenInstruction";
+            this.lbIfThenInstruction.Size = new System.Drawing.Size(312, 20);
+            this.lbIfThenInstruction.TabIndex = 13;
+            this.lbIfThenInstruction.Text = "Right Click to Add a New If-Then Rule";
+            this.lbIfThenInstruction.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // dgvRules
             // 
@@ -379,8 +429,9 @@
             this.dgvRules.Name = "dgvRules";
             this.dgvRules.RowHeadersWidth = 62;
             this.dgvRules.RowTemplate.Height = 28;
-            this.dgvRules.Size = new System.Drawing.Size(218, 133);
+            this.dgvRules.Size = new System.Drawing.Size(195, 133);
             this.dgvRules.TabIndex = 7;
+            this.dgvRules.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRules_CellClick);
             // 
             // fuzzyRuleContextMenuStrip
             // 
@@ -401,8 +452,9 @@
             this.dgvConditions.Name = "dgvConditions";
             this.dgvConditions.RowHeadersWidth = 62;
             this.dgvConditions.RowTemplate.Height = 28;
-            this.dgvConditions.Size = new System.Drawing.Size(656, 133);
+            this.dgvConditions.Size = new System.Drawing.Size(679, 133);
             this.dgvConditions.TabIndex = 8;
+            this.dgvConditions.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConditions_CellClick);
             // 
             // inferenceContextMenuStrip
             // 
@@ -425,7 +477,6 @@
             // 
             this.topMenuStrip.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.topMenuStrip.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.topMenuStrip.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.topMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.topMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.topFile});
@@ -740,7 +791,7 @@
             this.toolStripMenuItemFuzzy2.SelectedIndex = 0;
             this.toolStripMenuItemFuzzy2.Size = new System.Drawing.Size(156, 32);
             this.toolStripMenuItemFuzzy2.Text = "Inference";
-            this.toolStripMenuItemFuzzy2.Click += new System.EventHandler(this.toolStripMenuItemFuzzy2_Click);
+            this.toolStripMenuItemFuzzy2.Click += new System.EventHandler(this.inference_Click);
             // 
             // MainForm
             // 
@@ -757,15 +808,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.splitContainer6.Panel1.ResumeLayout(false);
+            this.splitContainer6.Panel1.PerformLayout();
+            this.splitContainer6.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).EndInit();
+            this.splitContainer6.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.splitContainer5.Panel1.ResumeLayout(false);
+            this.splitContainer5.Panel1.PerformLayout();
             this.splitContainer5.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
             this.splitContainer5.ResumeLayout(false);
@@ -810,7 +866,6 @@
         private ToolStripMenuItemFuzzy binaryOpSubstraction;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.TreeView theTree;
         private System.Windows.Forms.PropertyGrid theGrid;
         private System.Windows.Forms.MenuStrip topMenuStrip;
         private ToolStripMenuItemFuzzy topFile;
@@ -834,7 +889,6 @@
         private ToolStripMenuItemFuzzy tSMFLinguisticHIntensification;
         private ToolStripMenuItemFuzzy tSMFLinguisticHDiminisher;
         private System.Windows.Forms.ToolStripMenuItem clearAndRestartAppToolStripMenuItem;
-        private System.Windows.Forms.Label lbInstruction;
         private ToolStripMenuItemFuzzy tSMFSMFuzzySet;
         private ToolStripMenuItemFuzzy tSMFZMFuzzySet;
         private ToolStripMenuItemFuzzy tSMFPiFuzzySet;
@@ -847,6 +901,11 @@
         private System.Windows.Forms.DataGridView dgvRules;
         private System.Windows.Forms.DataGridView dgvConditions;
         private ToolStripMenuItemFuzzy toolStripMenuItemFuzzy2;
+        private System.Windows.Forms.SplitContainer splitContainer6;
+        private System.Windows.Forms.Label lbInstruction;
+        private System.Windows.Forms.TreeView theTree;
+        private System.Windows.Forms.Label lbSetTip;
+        private System.Windows.Forms.Label lbIfThenInstruction;
     }
 }
 

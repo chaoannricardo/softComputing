@@ -30,11 +30,12 @@ namespace R08546036_SHChaoAss04
         public MainForm()
         {
             InitializeComponent();
+            // let application to go full screen
+            WindowState = FormWindowState.Maximized;
         }
 
         protected void MainForm_Load(object sender, EventArgs e)
         {
-
             // Tooltips
             ToolTip theTreeToolTip = new ToolTip();
             theTreeToolTip.ShowAlways = true;
@@ -46,6 +47,11 @@ namespace R08546036_SHChaoAss04
 
             // Label
             lbInstruction.BackColor = theTree.BackColor;
+            lbIfThenInstruction.BackColor = dgvRules.BackgroundColor;
+            lbSetTip.Text = "";
+
+            // theTree Property
+
 
         }
 
@@ -54,6 +60,24 @@ namespace R08546036_SHChaoAss04
         {
             Universe uobj;
             Chart mainChart = new Chart();
+
+            // check if selecting input/output node
+            int nodeIndex;
+            if (theTree.SelectedNode.Text == "Input")
+            {
+                nodeIndex = 0;
+            }
+            else if (theTree.SelectedNode.Text == "Output")
+            {
+                nodeIndex = 1;
+            }
+            else
+            {
+                MessageBox.Show("You should either select Input or Output to add an Universe!");
+                return;
+            }
+            // ensure instruction label is set invisible
+            lbInstruction.Visible = false;
 
             // create new tab if new Universe is created
             TabPage newTabPage = new TabPage();
@@ -73,10 +97,10 @@ namespace R08546036_SHChaoAss04
             // tag chart to universe
             uobj.BindedChart = mainChart;
 
-            // Add a node inside the Universe
+            // Add a node inside the Universe, either for input or output
             TreeNode aNode = new TreeNode(uobj.Title);
             aNode.Tag = uobj;
-            theTree.Nodes.Add(aNode);
+            theTree.Nodes[nodeIndex].Nodes.Add(aNode);
             theTree.SelectedNode = aNode;
             theGrid.SelectedObject = uobj;
             theTree.Focus();
@@ -86,9 +110,26 @@ namespace R08546036_SHChaoAss04
             //dgvRules.Columns[uobj.Title]
             //dgvRules.Columns.RemoveAt()
             dgvRules.Columns.Add(uobj.Title, uobj.Title);
+            // column style properties
+            dgvRules.Columns[uobj.Title].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvRules.Columns[uobj.Title].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvRules.Columns[uobj.Title].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvRules.Columns[uobj.Title].DefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+            dgvRules.Columns[uobj.Title].DefaultCellStyle.ForeColor = Color.DarkBlue;
 
-
-
+            // only add input in condition grid
+            if (theTree.SelectedNode.Parent.Text == "Input")
+            {
+                // add row to dgvCondition
+                dgvConditions.Columns.Add(uobj.Title, uobj.Title);
+                if (dgvConditions.Rows.Count < 1) dgvConditions.Rows.Add();
+                // column style properties
+                dgvConditions.Columns[uobj.Title].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvConditions.Columns[uobj.Title].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvConditions.Columns[uobj.Title].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvConditions.Columns[uobj.Title].DefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+                dgvConditions.Columns[uobj.Title].DefaultCellStyle.ForeColor = Color.DarkRed;
+            }
         }
 
         // create fuzzy set function
@@ -174,6 +215,13 @@ namespace R08546036_SHChaoAss04
         private void theTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             theGrid.SelectedObject = theTree.SelectedNode.Tag;
+            if (theTree.SelectedNode.Text != "Input" && theTree.SelectedNode.Text != "Output")
+            {
+                lbSetTip.Width = splitContainer6.Panel2.Width;
+                lbSetTip.Height = splitContainer6.Panel2.Height;
+                lbSetTip.Text = theTree.SelectedNode.Tag.ToString();
+                lbSetTip.TextAlign = ContentAlignment.MiddleCenter;
+            }
         }
 
         // Grid property change function
@@ -225,8 +273,7 @@ namespace R08546036_SHChaoAss04
                         newFs = fs - randomizer.NextDouble();
                         break;
                     case 2: // value scale
-                        op = new ValueScaleOperator();
-                        newFs = new UnaryOperatedFuzzySet(fs, op);
+                        newFs = fs * randomizer.NextDouble();
                         break;
                     case 3: // Very
                         op = new VeryOperator();
@@ -331,44 +378,66 @@ namespace R08546036_SHChaoAss04
                 switch (selectedIndex)
                 {
                     case 0: // Intersection
-                        op = new IntersectionOperator();
+                        newFs = binaryOperationFuzzyOne & binaryOperationFuzzyTwo;
                         break;
                     case 1: // Union Function
-                        op = new UnionOperator();
+                        newFs = binaryOperationFuzzyOne | binaryOperationFuzzyTwo;
                         break;
                     case 2: // substraction
-                        op = new SubstractionOperator();
+                        newFs = binaryOperationFuzzyOne - binaryOperationFuzzyTwo;
                         break;
                     case 3: // T-norm: Minimum
                         op = new TNormMinimumOperator();
+                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
+                                binaryOperationFuzzyTwo,
+                                op);
                         break;
                     case 4:  // T-norm: Algebraic
                         op = new TNormAlgebraicOperator();
+                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
+                                binaryOperationFuzzyTwo,
+                                op);
                         break;
                     case 5: // T-norm: Bounded Product
                         op = new TNormBoundedOperator();
+                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
+                                binaryOperationFuzzyTwo,
+                                op);
                         break;
                     case 6: // T-norm: Drastic Product
                         op = new TNormDrasticOperator();
+                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
+                                binaryOperationFuzzyTwo,
+                                op);
                         break;
                     case 7: // S-norm: Maximum
                         op = new SNormMaximumOperator();
+                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
+                                binaryOperationFuzzyTwo,
+                                op);
                         break;
                     case 8: // S-norm: Algebraic
                         op = new SNormAlgebraicOperator();
+                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
+                                binaryOperationFuzzyTwo,
+                                op);
                         break;
                     case 9: // S-norm: Bouded
                         op = new SNormBoundedOperator();
+                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
+                                binaryOperationFuzzyTwo,
+                                op);
                         break;
                     case 10: // S-norm: Drastic
                         op = new SNormDrasticOperator();
+                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
+                                binaryOperationFuzzyTwo,
+                                op);
                         break;
 
                 }
 
-                newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
-                                binaryOperationFuzzyTwo,
-                                op);
+
 
                 // Add a subnode to selected node
                 TreeNode cNode = new TreeNode(newFs.Title);
@@ -448,62 +517,74 @@ namespace R08546036_SHChaoAss04
 
         private void dgvRules_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewCell theCell = dgvRules.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            try
+            {
+                DataGridViewCell theCell = dgvRules.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                theCell.ReadOnly = true;
+                // Aviod 
+                if (theTree.SelectedNode.Tag is FuzzySet)
+                {
+                    theCell.Tag = theTree.SelectedNode.Tag;
+                    string columnName = dgvRules.CurrentCell.OwningColumn.Name;
+                    // check if the Universe is correct
+                    if (((FuzzySet)theTree.SelectedNode.Tag).TheUniverse.Title != columnName)
+                    {
+                        // selected node is in different Universe
+                        MessageBox.Show("Selected Node is in different Universe");
+                        return;
+                    }
+                    // Text Property
+                    theCell.Value = theTree.SelectedNode.Text;
+
+                }
+                else
+                {
+                    MessageBox.Show("Selected Node is not Fuzzy Set.");
+                }
+            }
+            catch (System.ArgumentOutOfRangeException Exception)
+            {
+                MessageBox.Show("Do not touch the header!");
+            }
+        }
+
+        private void dgvConditions_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewCell theCell = dgvConditions.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            theCell.ReadOnly = true;
+            // Aviod 
             if (theTree.SelectedNode.Tag is FuzzySet)
             {
                 theCell.Tag = theTree.SelectedNode.Tag;
-                //theCell.Value = 
-                // 第0個Universe只能放在第一個row
+                string columnName = dgvConditions.CurrentCell.OwningColumn.Name;
+                // check if the Universe is correct
+                if (((FuzzySet)theTree.SelectedNode.Tag).TheUniverse.Title != columnName)
+                {
+                    // selected node is in different Universe
+                    MessageBox.Show("Selected Node is in different Universe");
+                    return;
+                }
+                // Text Property
+                theCell.Value = theTree.SelectedNode.Text;
             }
             else
             {
                 MessageBox.Show("Selected Node is not Fuzzy Set.");
             }
-
-
         }
 
+        // create new rules of data grid
         private void toolStripMenuItemFuzzy1_Click(object sender, EventArgs e)
         {
-            dgvRules.Rows.Add();
-        }
-
-        private void toolStripMenuItemFuzzy2_Click(object sender, EventArgs e)
-        {
-            // create if-then row
-            IfThenFuzzyRule[] allRules = new IfThenFuzzyRule[dgvRules.Rows.Count];
-            FuzzySet[] inputs = new FuzzySet[dgvRules.Columns.Count - 1];
-            FuzzySet output;
-
-            for (int r = 0; r <= dgvRules.Rows.Count; r++)
+            try
             {
-                for (int c = 0; c < dgvRules.Columns.Count; c++)
-                {
-                    inputs[c] = (FuzzySet)dgvRules.Rows[r].Cells[c].Value;
-                }
-                output = (FuzzySet)dgvRules.Rows[r].Cells[dgvRules.Columns.Count].Value;
-                allRules[r] = new IfThenFuzzyRule(inputs, output);
+                dgvRules.Rows.Add();
+            }
+            catch (System.InvalidOperationException Exception)
+            {
+                MessageBox.Show("Create Universe and Fuzzy Set first!!!");
             }
 
-            // conditions
-            FuzzySet[] conditions = new FuzzySet[dgvConditions.Columns.Count];
-            // set contents of conditions
-            FuzzySet resultingFS = null;
-
-            foreach (IfThenFuzzyRule rule in allRules)
-            {
-                if (resultingFS == null)
-                {
-                    resultingFS = rule.FuzzyInFuzzyOutInferencing(conditions);
-                }
-                else
-                {
-                    resultingFS = resultingFS | rule.FuzzyInFuzzyOutInferencing(conditions);
-
-                }
-            }
-            // show the final fs
-            resultingFS.ShowSeries = true;
         }
 
         // drag event of theTree
@@ -526,8 +607,46 @@ namespace R08546036_SHChaoAss04
         private void theTree_DragEnter(object sender, DragEventArgs e)
         {
             TreeNode selectedNode = (sender as TreeView).SelectedNode;
-            
-
         }
+
+        private void inference_Click(object sender, EventArgs e)
+        {
+            // create if-then row
+            IfThenFuzzyRule[] allRules = new IfThenFuzzyRule[dgvRules.Rows.Count];
+            FuzzySet[] inputs = new FuzzySet[dgvRules.Columns.Count - 1];
+            FuzzySet output;
+
+            for (int r = 0; r <= dgvRules.Rows.Count; r++)
+            {
+                for (int c = 0; c < (dgvRules.Columns.Count - 1); c++)
+                {
+                    inputs[c] = (FuzzySet)dgvRules.Rows[r].Cells[c].Value;
+                }
+                output = (FuzzySet)dgvRules.Rows[r].Cells[dgvRules.Columns.Count].Value;
+                allRules[r] = new IfThenFuzzyRule(inputs, output);
+            }
+
+            // conditions
+            FuzzySet[] conditions = new FuzzySet[dgvConditions.Columns.Count];
+
+            // set contents of conditions
+            FuzzySet resultingFS = null;
+
+            foreach (IfThenFuzzyRule rule in allRules)
+            {
+                if (resultingFS == null)
+                {
+                    resultingFS = rule.FuzzyInFuzzyOutInferencing(conditions);
+                }
+                else
+                {
+                    resultingFS = resultingFS | rule.FuzzyInFuzzyOutInferencing(conditions);
+                }
+            }
+            // show the final fs
+            resultingFS.ShowSeries = true;
+        }
+
+
     }
 }

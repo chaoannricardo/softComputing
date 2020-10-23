@@ -18,45 +18,66 @@ namespace R08546036_SHChaoAss04
         #endregion
 
         // operator overloaded
+        // Unary operators ####################################################
+        // negate
         public static FuzzySet operator !(FuzzySet fs)
         {
             UnaryFSOperator op = new NegateOperator();
             return new UnaryOperatedFuzzySet(fs, op);
         }
 
-        // cut: unary operation for Fuzzy Set
-        //public static FuzzySet operator -(FuzzySet fs)
-        //{
-        //    UnaryFSOperator op = new ValueCutOperator();
-        //    return new UnaryOperatedFuzzySet(fs, op);
-        //}
-
-        // cut: binary operation for Fuzzy Set
-        public static FuzzySet operator -(FuzzySet fs, double cutValue)
+        // for value scale operator
+        public static FuzzySet operator *(FuzzySet fs, double scaleValue)
         {
-            ValueCutOperator op = new ValueCutOperator();
-            op.CutValue = cutValue;
+            ValueScaleOperator op = new ValueScaleOperator();
+            op.ScaleValue = scaleValue;
             return new UnaryOperatedFuzzySet(fs, op);
+        }
+
+        // binary operators ####################################################
+        // cut: binary operation for Fuzzy Set
+
+
+        // for union binary operation
+        public static FuzzySet operator |(FuzzySet leftFS, FuzzySet rightFS)
+        {
+            UnionOperator op = new UnionOperator();
+            return new BinaryOperatedFuzzySet(leftFS, rightFS, op);
         }
 
         // for intersection binary operation
         public static FuzzySet operator &(FuzzySet leftFS, FuzzySet rightFS)
         {
-            return null;
+            IntersectionOperator op = new IntersectionOperator();
+            return new BinaryOperatedFuzzySet(leftFS, rightFS, op);
         }
 
-        public static FuzzySet operator |(FuzzySet leftFS, FuzzySet rightFS)
+        // binary and unary oprations ####################################################
+        public static FuzzySet operator -(FuzzySet fs, object secondInput)
         {
-            return null;
+            // determine wheter unary or binary operation
+            if (secondInput is double)
+            {
+                // unary operation: cut
+                ValueCutOperator op = new ValueCutOperator();
+                op.CutValue = (double)secondInput;
+                return new UnaryOperatedFuzzySet(fs, op);
+            }
+            else if (secondInput is FuzzySet)
+            {
+                // binary operation: substract
+                SubstractionOperator op = new SubstractionOperator();
+                return new BinaryOperatedFuzzySet(fs,
+                                (FuzzySet)secondInput,
+                                op);
+            }
+            else {
+                return null;
+            }
         }
 
-        // need to be fixed
-        //public static FuzzySet operator *(FuzzySet leftFS, FuzzySet rightFS)
-        //{
-        //    UnaryFSOperator op = new ScaleOperator();
-        //    //op.CutValue = scaleValue;
-        //    //return new UnaryOperatedFuzzySet(fs, op);
-        //}
+
+
 
         // Events
         public event EventHandler ParameterChanged;
@@ -75,7 +96,7 @@ namespace R08546036_SHChaoAss04
         {
             get
             {
-               // initiate maxDegree Variable
+                // initiate maxDegree Variable
                 double maxDegree = 0.0;
                 if (theSeries == null)
                 {
