@@ -49,9 +49,8 @@ namespace R08546036_SHChaoAss04
             lbInstruction.BackColor = theTree.BackColor;
             lbIfThenInstruction.BackColor = dgvRules.BackgroundColor;
             lbSetTip.Text = "";
-
-            // theTree Property
-
+            lbInferenceInstruction.ForeColor = Color.White;
+            lbInferenceInstruction.BackColor = dgvConditions.BackgroundColor;
 
         }
 
@@ -436,9 +435,6 @@ namespace R08546036_SHChaoAss04
                         break;
 
                 }
-
-
-
                 // Add a subnode to selected node
                 TreeNode cNode = new TreeNode(newFs.Title);
                 cNode.Tag = newFs;
@@ -524,7 +520,7 @@ namespace R08546036_SHChaoAss04
                 // Aviod 
                 if (theTree.SelectedNode.Tag is FuzzySet)
                 {
-                    theCell.Tag = theTree.SelectedNode.Tag;
+                    theCell.Tag = (FuzzySet)theTree.SelectedNode.Tag;
                     string columnName = dgvRules.CurrentCell.OwningColumn.Name;
                     // check if the Universe is correct
                     if (((FuzzySet)theTree.SelectedNode.Tag).TheUniverse.Title != columnName)
@@ -535,7 +531,6 @@ namespace R08546036_SHChaoAss04
                     }
                     // Text Property
                     theCell.Value = theTree.SelectedNode.Text;
-
                 }
                 else
                 {
@@ -550,26 +545,33 @@ namespace R08546036_SHChaoAss04
 
         private void dgvConditions_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewCell theCell = dgvConditions.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            theCell.ReadOnly = true;
-            // Aviod 
-            if (theTree.SelectedNode.Tag is FuzzySet)
+            try
             {
-                theCell.Tag = theTree.SelectedNode.Tag;
-                string columnName = dgvConditions.CurrentCell.OwningColumn.Name;
-                // check if the Universe is correct
-                if (((FuzzySet)theTree.SelectedNode.Tag).TheUniverse.Title != columnName)
+                DataGridViewCell theCell = dgvConditions.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                theCell.ReadOnly = true;
+                // Aviod 
+                if (theTree.SelectedNode.Tag is FuzzySet)
                 {
-                    // selected node is in different Universe
-                    MessageBox.Show("Selected Node is in different Universe");
-                    return;
+                    theCell.Tag = (FuzzySet)theTree.SelectedNode.Tag;
+                    string columnName = dgvConditions.CurrentCell.OwningColumn.Name;
+                    // check if the Universe is correct
+                    if (((FuzzySet)theTree.SelectedNode.Tag).TheUniverse.Title != columnName)
+                    {
+                        // selected node is in different Universe
+                        MessageBox.Show("Selected Node is in different Universe");
+                        return;
+                    }
+                    // Text Property
+                    theCell.Value = theTree.SelectedNode.Text;
                 }
-                // Text Property
-                theCell.Value = theTree.SelectedNode.Text;
+                else
+                {
+                    MessageBox.Show("Selected Node is not Fuzzy Set.");
+                }
             }
-            else
+            catch (System.ArgumentOutOfRangeException Exception)
             {
-                MessageBox.Show("Selected Node is not Fuzzy Set.");
+                MessageBox.Show("Do not touch the header!");
             }
         }
 
@@ -579,6 +581,7 @@ namespace R08546036_SHChaoAss04
             try
             {
                 dgvRules.Rows.Add();
+                lbIfThenInstruction.Visible = false;
             }
             catch (System.InvalidOperationException Exception)
             {
@@ -611,23 +614,35 @@ namespace R08546036_SHChaoAss04
 
         private void inference_Click(object sender, EventArgs e)
         {
+
+            // set inference instruction label to invisible
+            lbInferenceInstruction.Visible = false;
+
             // create if-then row
             IfThenFuzzyRule[] allRules = new IfThenFuzzyRule[dgvRules.Rows.Count];
-            FuzzySet[] inputs = new FuzzySet[dgvRules.Columns.Count - 1];
-            FuzzySet output;
 
-            for (int r = 0; r <= dgvRules.Rows.Count; r++)
+            for (int r = 0; r < (dgvRules.Rows.Count); r++)
             {
-                for (int c = 0; c < (dgvRules.Columns.Count - 1); c++)
+                FuzzySet[] inputs = new FuzzySet[dgvRules.ColumnCount - 1];
+
+                // input fuzzy list
+                for (int c = 0; c < (inputs.Length); c++)
                 {
-                    inputs[c] = (FuzzySet)dgvRules.Rows[r].Cells[c].Value;
+                    inputs[c] = (FuzzySet)dgvRules.Rows[r].Cells[c].Tag;
                 }
-                output = (FuzzySet)dgvRules.Rows[r].Cells[dgvRules.Columns.Count].Value;
+
+                // output fuzzy list
+                FuzzySet output = (FuzzySet)dgvRules.Rows[r].Cells[dgvRules.Columns.Count - 1].Tag;
+
                 allRules[r] = new IfThenFuzzyRule(inputs, output);
             }
 
             // conditions
             FuzzySet[] conditions = new FuzzySet[dgvConditions.Columns.Count];
+            for (int i = 0; i < dgvConditions.Columns.Count; i++)
+            {
+                conditions[i] = (FuzzySet)dgvConditions.Rows[0].Cells[i].Tag;
+            }
 
             // set contents of conditions
             FuzzySet resultingFS = null;
@@ -643,10 +658,12 @@ namespace R08546036_SHChaoAss04
                     resultingFS = resultingFS | rule.FuzzyInFuzzyOutInferencing(conditions);
                 }
             }
-            // show the final fs
-            resultingFS.ShowSeries = true;
-        }
 
+            // show the final fs
+            resultingFS.ShowInferenceSeries = true;
+
+
+        }
 
     }
 }

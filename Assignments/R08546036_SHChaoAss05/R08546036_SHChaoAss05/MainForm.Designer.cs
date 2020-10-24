@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Input");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Output");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Input");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Output");
             this.theTreeContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.universeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,6 +96,7 @@
             this.TSMFSNormDrasticSum = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.toolStripMenuItemFuzzy1 = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.toolStripMenuItemFuzzy2 = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.lbInferenceInstruction = new System.Windows.Forms.Label();
             this.theTreeContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -333,15 +334,15 @@
             this.theTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.theTree.Location = new System.Drawing.Point(0, 0);
             this.theTree.Name = "theTree";
-            treeNode3.Name = "Input";
-            treeNode3.Tag = "";
-            treeNode3.Text = "Input";
-            treeNode4.Name = "Output";
-            treeNode4.Tag = "";
-            treeNode4.Text = "Output";
+            treeNode1.Name = "Input";
+            treeNode1.Tag = "";
+            treeNode1.Text = "Input";
+            treeNode2.Name = "Output";
+            treeNode2.Tag = "";
+            treeNode2.Text = "Output";
             this.theTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4});
+            treeNode1,
+            treeNode2});
             this.theTree.Size = new System.Drawing.Size(269, 211);
             this.theTree.TabIndex = 12;
             this.theTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.theTree_AfterSelect);
@@ -399,6 +400,7 @@
             // 
             // splitContainer5.Panel2
             // 
+            this.splitContainer5.Panel2.Controls.Add(this.lbInferenceInstruction);
             this.splitContainer5.Panel2.Controls.Add(this.dgvConditions);
             this.splitContainer5.Size = new System.Drawing.Size(878, 133);
             this.splitContainer5.SplitterDistance = 195;
@@ -462,7 +464,7 @@
             this.inferenceContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFuzzy2});
             this.inferenceContextMenuStrip.Name = "contextMenuStrip2";
-            this.inferenceContextMenuStrip.Size = new System.Drawing.Size(157, 36);
+            this.inferenceContextMenuStrip.Size = new System.Drawing.Size(241, 69);
             // 
             // tabControl1
             // 
@@ -477,6 +479,7 @@
             // 
             this.topMenuStrip.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.topMenuStrip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.topMenuStrip.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.topMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.topMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.topFile});
@@ -510,7 +513,7 @@
             this.topFileRestart});
             this.topFile.Name = "topFile";
             this.topFile.SelectedIndex = 0;
-            this.topFile.Size = new System.Drawing.Size(54, 25);
+            this.topFile.Size = new System.Drawing.Size(54, 27);
             this.topFile.Text = "File";
             // 
             // topFileRestart
@@ -789,9 +792,23 @@
             // 
             this.toolStripMenuItemFuzzy2.Name = "toolStripMenuItemFuzzy2";
             this.toolStripMenuItemFuzzy2.SelectedIndex = 0;
-            this.toolStripMenuItemFuzzy2.Size = new System.Drawing.Size(156, 32);
+            this.toolStripMenuItemFuzzy2.Size = new System.Drawing.Size(240, 32);
             this.toolStripMenuItemFuzzy2.Text = "Inference";
             this.toolStripMenuItemFuzzy2.Click += new System.EventHandler(this.inference_Click);
+            // 
+            // lbInferenceInstruction
+            // 
+            this.lbInferenceInstruction.AutoSize = true;
+            this.lbInferenceInstruction.BackColor = System.Drawing.Color.Honeydew;
+            this.lbInferenceInstruction.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lbInferenceInstruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbInferenceInstruction.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.lbInferenceInstruction.Location = new System.Drawing.Point(0, 113);
+            this.lbInferenceInstruction.Name = "lbInferenceInstruction";
+            this.lbInferenceInstruction.Size = new System.Drawing.Size(257, 20);
+            this.lbInferenceInstruction.TabIndex = 15;
+            this.lbInferenceInstruction.Text = "Right Click to Start Inferencing";
+            this.lbInferenceInstruction.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // MainForm
             // 
@@ -823,6 +840,7 @@
             this.splitContainer5.Panel1.ResumeLayout(false);
             this.splitContainer5.Panel1.PerformLayout();
             this.splitContainer5.Panel2.ResumeLayout(false);
+            this.splitContainer5.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
             this.splitContainer5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRules)).EndInit();
@@ -906,6 +924,7 @@
         private System.Windows.Forms.TreeView theTree;
         private System.Windows.Forms.Label lbSetTip;
         private System.Windows.Forms.Label lbIfThenInstruction;
+        private System.Windows.Forms.Label lbInferenceInstruction;
     }
 }
 

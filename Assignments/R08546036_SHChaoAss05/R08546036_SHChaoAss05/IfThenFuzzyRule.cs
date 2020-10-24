@@ -23,13 +23,12 @@ namespace R08546036_SHChaoAss05
         {
             // fault-proof
             //  fuzzy set 給兩個，但condition給了三個
-
             // 
             double fireValue = double.MaxValue;
 
             // debuged code
-            FuzzySet tempFuzzy = null;
-            return tempFuzzy;
+            //FuzzySet tempFuzzy = null;
+            //return tempFuzzy;
 
             // loop thorough each antecedent fuzzy set
             for (int i = 0; i < antecedents.Length; i++)
@@ -46,6 +45,7 @@ namespace R08546036_SHChaoAss05
 
                 maxDegree = (antecedents[i] & conditions[i]).MaxDegree;
                 if (maxDegree < fireValue) fireValue = maxDegree;
+                
             }
 
             if (isCut)

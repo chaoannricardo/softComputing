@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -71,13 +72,11 @@ namespace R08546036_SHChaoAss04
                                 (FuzzySet)secondInput,
                                 op);
             }
-            else {
+            else
+            {
                 return null;
             }
         }
-
-
-
 
         // Events
         public event EventHandler ParameterChanged;
@@ -91,29 +90,33 @@ namespace R08546036_SHChaoAss04
 
         }
 
-        [Category("Property"), Browsable(false)]
+        //[Category("Property"), Browsable(false)]
+        [Category("Property")]
         public virtual double MaxDegree
         {
             get
             {
                 // initiate maxDegree Variable
                 double maxDegree = 0.0;
+
                 if (theSeries == null)
                 {
-                    // traverse the range of universe to get the maximum degree
+                    theSeries = new Series(Title);
+                    theSeries.ChartType = SeriesChartType.Line;
+                    // Update Series Data Points
+                    UpdateSeriesDataPoints();
                 }
-                else
+
+                // traverse each DataPoint of the series
+                for (int i = 0; i < theSeries.Points.Count; i++)
                 {
-                    // traverse each DataPoint of the series
-                    for (int i = 0; i < theSeries.Points.Count; i++)
+                    if (theSeries.Points[i].YValues[0] > maxDegree)
                     {
-                        if (theSeries.Points[i].YValues[0] > maxDegree)
-                        {
-                            maxDegree = theSeries.Points[i].YValues[0];
-                        }
+                        maxDegree = theSeries.Points[i].YValues[0];
                     }
                 }
-                return 0.0;
+
+                return maxDegree;
             }
         }
 
@@ -179,6 +182,28 @@ namespace R08546036_SHChaoAss04
                 {
                     theSeries = new Series(Title);
                     theSeries.ChartType = SeriesChartType.Line;
+                    // Update Series Data Points
+                    UpdateSeriesDataPoints();
+                    // Add this series to chart via universe
+                    theUniverse.AddASeriesOfAFuzzySet(this.theSeries);
+                }
+            }
+            get
+            {
+                return theSeries == null ? false : true;
+            }
+        }
+
+        public bool ShowInferenceSeries
+        {
+            set
+            {
+                if (theSeries == null)
+                {
+                    theSeries = new Series(Title);
+                    theSeries.ChartType = SeriesChartType.Area;
+                    theSeries.Color = Color.FromArgb(150, Color.Gray);
+
                     // Update Series Data Points
                     UpdateSeriesDataPoints();
                     // Add this series to chart via universe
@@ -263,6 +288,7 @@ namespace R08546036_SHChaoAss04
             DisplayName("Information")]
 
         // Parameters
+
         public double A_Value
         {
             set
