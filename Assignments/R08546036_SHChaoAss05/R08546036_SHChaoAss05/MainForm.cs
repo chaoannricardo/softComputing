@@ -69,6 +69,11 @@ namespace R08546036_SHChaoAss04
             else if (theTree.SelectedNode.Text == "Output")
             {
                 nodeIndex = 1;
+                if (theTree.SelectedNode.GetNodeCount(false) > 0)
+                {
+                    MessageBox.Show("You can not all more than one Universe in Output section!!!");
+                    return;
+                }
             }
             else
             {
@@ -275,28 +280,21 @@ namespace R08546036_SHChaoAss04
                         newFs = fs * randomizer.NextDouble();
                         break;
                     case 3: // Very
-                        op = new VeryOperator();
-                        newFs = new UnaryOperatedFuzzySet(fs, op);
+                        newFs = +fs;
                         break;
                     case 4: // Dilation
-                        op = new DilationOperator();
-                        newFs = new UnaryOperatedFuzzySet(fs, op);
+                        newFs = -fs;
                         break;
                     case 5: // Extremely
-                        op = new ExtremelyOperator();
-                        newFs = new UnaryOperatedFuzzySet(fs, op);
+                        newFs = ++fs;
                         break;
                     case 6: // Intensification
-                        op = new IntensificationOperator();
-                        newFs = new UnaryOperatedFuzzySet(fs, op);
+                        newFs = ~fs;
                         break;
                     case 7: //Diminisher
-                        op = new DiminisherOperator();
-                        newFs = new UnaryOperatedFuzzySet(fs, op);
+                        newFs = --fs;
                         break;
                 }
-
-                //newFs = new UnaryOperatedFuzzySet(fs, op);
 
                 // Add a subnode to selected node
                 TreeNode cNode = new TreeNode(newFs.Title);
@@ -392,22 +390,13 @@ namespace R08546036_SHChaoAss04
                                 op);
                         break;
                     case 4:  // T-norm: Algebraic
-                        op = new TNormAlgebraicOperator();
-                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
-                                binaryOperationFuzzyTwo,
-                                op);
+                        newFs = binaryOperationFuzzyOne < binaryOperationFuzzyTwo;
                         break;
                     case 5: // T-norm: Bounded Product
-                        op = new TNormBoundedOperator();
-                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
-                                binaryOperationFuzzyTwo,
-                                op);
+                        newFs = binaryOperationFuzzyOne + binaryOperationFuzzyTwo;
                         break;
                     case 6: // T-norm: Drastic Product
-                        op = new TNormDrasticOperator();
-                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
-                                binaryOperationFuzzyTwo,
-                                op);
+                        newFs = binaryOperationFuzzyOne / binaryOperationFuzzyTwo;
                         break;
                     case 7: // S-norm: Maximum
                         op = new SNormMaximumOperator();
@@ -416,22 +405,13 @@ namespace R08546036_SHChaoAss04
                                 op);
                         break;
                     case 8: // S-norm: Algebraic
-                        op = new SNormAlgebraicOperator();
-                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
-                                binaryOperationFuzzyTwo,
-                                op);
+                        newFs = binaryOperationFuzzyOne > binaryOperationFuzzyTwo;
                         break;
                     case 9: // S-norm: Bouded
-                        op = new SNormBoundedOperator();
-                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
-                                binaryOperationFuzzyTwo,
-                                op);
+                        newFs = binaryOperationFuzzyOne ^ binaryOperationFuzzyTwo;
                         break;
                     case 10: // S-norm: Drastic
-                        op = new SNormDrasticOperator();
-                        newFs = new BinaryOperatedFuzzySet(binaryOperationFuzzyOne,
-                                binaryOperationFuzzyTwo,
-                                op);
+                        newFs = binaryOperationFuzzyOne % binaryOperationFuzzyTwo;
                         break;
 
                 }
@@ -659,8 +639,15 @@ namespace R08546036_SHChaoAss04
                 }
             }
 
-            // show the final fs
-            resultingFS.ShowInferenceSeries = true;
+            try
+            {
+                // show the final fs
+                resultingFS.ShowInferenceSeries = true;
+            }
+            catch (System.NullReferenceException Exception)
+            {
+                return;
+            }
 
 
         }

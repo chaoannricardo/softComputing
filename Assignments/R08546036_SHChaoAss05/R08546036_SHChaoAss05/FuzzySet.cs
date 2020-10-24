@@ -35,6 +35,41 @@ namespace R08546036_SHChaoAss04
             return new UnaryOperatedFuzzySet(fs, op);
         }
 
+        //Dilation
+        public static FuzzySet operator -(FuzzySet operand)
+        {
+            DilationOperator op = new DilationOperator();
+            return new UnaryOperatedFuzzySet(operand, op);
+        }
+
+        //Very
+        public static FuzzySet operator +(FuzzySet operand)
+        {
+            VeryOperator op = new VeryOperator();
+            return new UnaryOperatedFuzzySet(operand, op);
+        }
+
+        //Extremely
+        public static FuzzySet operator ++(FuzzySet operand)
+        {
+            ExtremelyOperator op = new ExtremelyOperator();
+            return new UnaryOperatedFuzzySet(operand, op);
+        }
+
+        //Intensification
+        public static FuzzySet operator ~(FuzzySet operand)
+        {
+            IntensificationOperator op = new IntensificationOperator();
+            return new UnaryOperatedFuzzySet(operand, op);
+        }
+
+        //Diminisher
+        public static FuzzySet operator --(FuzzySet operand)
+        {
+            DiminisherOperator op = new DiminisherOperator();
+            return new UnaryOperatedFuzzySet(operand, op);
+        }
+
         // binary operators ####################################################
         // cut: binary operation for Fuzzy Set
 
@@ -51,6 +86,54 @@ namespace R08546036_SHChaoAss04
         {
             IntersectionOperator op = new IntersectionOperator();
             return new BinaryOperatedFuzzySet(leftFS, rightFS, op);
+        }
+
+        //  TNormAlgebraicOperator
+        public static FuzzySet operator <(FuzzySet left, FuzzySet right)
+        {
+            TNormAlgebraicOperator op = new TNormAlgebraicOperator();
+            BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(left, right, op);
+            return fs;
+        }
+
+        // SNormAlgebraicOperator
+        public static FuzzySet operator >(FuzzySet left, FuzzySet right)
+        {
+            SNormAlgebraicOperator op = new SNormAlgebraicOperator();
+            BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(left, right, op);
+            return fs;
+        }
+
+        //Bounded Product
+        public static FuzzySet operator +(FuzzySet left, FuzzySet right)
+        {
+            TNormBoundedOperator op = new TNormBoundedOperator();
+            BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(left, right, op);
+            return fs;
+        }
+
+        //Drastic Product
+        public static FuzzySet operator /(FuzzySet left, FuzzySet right)
+        {
+            TNormDrasticOperator op = new TNormDrasticOperator();
+            BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(left, right, op);
+            return fs;
+        }
+
+        //Bounded Sum
+        public static FuzzySet operator ^(FuzzySet left, FuzzySet right)
+        {
+            SNormBoundedOperator op = new SNormBoundedOperator();
+            BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(left, right, op);
+            return fs;
+        }
+
+        //Drastic Sum
+        public static FuzzySet operator %(FuzzySet left, FuzzySet right)
+        {
+            SNormDrasticOperator op = new SNormDrasticOperator();
+            BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(left, right, op);
+            return fs;
         }
 
         // binary and unary oprations ####################################################

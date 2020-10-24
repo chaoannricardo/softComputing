@@ -21,40 +21,47 @@ namespace R08546036_SHChaoAss05
 
         public FuzzySet FuzzyInFuzzyOutInferencing(FuzzySet[] conditions, bool isCut = true)
         {
-            // fault-proof
-            //  fuzzy set 給兩個，但condition給了三個
-            // 
-            double fireValue = double.MaxValue;
-
-            // debuged code
-            //FuzzySet tempFuzzy = null;
-            //return tempFuzzy;
-
-            // loop thorough each antecedent fuzzy set
-            for (int i = 0; i < antecedents.Length; i++)
+            try
             {
-                // cariables
-                double maxDegree;
-
-                // check if the universe is the same
-                if (antecedents[i].TheUniverse != conditions[i].TheUniverse)
+                double fireValue = double.MaxValue;
+                // fault-proof
+                if (antecedents.Length != conditions.Length)
                 {
-                    MessageBox.Show("Conditions and Antecedents are not in same Universe");
-                    return null;
+                    MessageBox.Show("Not enough rule or condition is given.");
+                    return null; ;
                 }
 
-                maxDegree = (antecedents[i] & conditions[i]).MaxDegree;
-                if (maxDegree < fireValue) fireValue = maxDegree;
-                
-            }
+                // loop thorough each antecedent fuzzy set
+                for (int i = 0; i < antecedents.Length; i++)
+                {
+                    // cariables
+                    double maxDegree;
 
-            if (isCut)
-            {
-                return conclusion - fireValue;
+                    // check if the universe is the same
+                    if (antecedents[i].TheUniverse != conditions[i].TheUniverse)
+                    {
+                        MessageBox.Show("Conditions and Antecedents are not in same Universe");
+                        return null;
+                    }
+
+                    maxDegree = (antecedents[i] & conditions[i]).MaxDegree;
+                    if (maxDegree < fireValue) fireValue = maxDegree;
+
+                }
+
+                if (isCut)
+                {
+                    return conclusion - fireValue;
+                }
+                else
+                {
+                    return conclusion * fireValue;
+                }
             }
-            else
+            catch (System.NullReferenceException Exception)
             {
-                return conclusion * fireValue;
+                MessageBox.Show("Not enough rule or condition is given.");
+                return null;
             }
         }
     }
