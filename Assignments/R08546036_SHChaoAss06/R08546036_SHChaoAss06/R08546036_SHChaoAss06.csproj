@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B1304F69-668E-43D1-AEB9-22C848F265F2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>R08546036_SHChaoAss05</RootNamespace>
-    <AssemblyName>R08546036_SHChaoAss05</AssemblyName>
+    <RootNamespace>R08546036_SHChaoAss06</RootNamespace>
+    <AssemblyName>R08546036_SHChaoAss06</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

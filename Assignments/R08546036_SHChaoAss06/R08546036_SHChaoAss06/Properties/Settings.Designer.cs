@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace R08546036_SHChaoAss05.Properties {
+namespace R08546036_SHChaoAss06.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
