@@ -173,6 +173,15 @@ namespace R08546036_SHChaoAss04
 
         }
 
+        public virtual double BOACrispValue
+        {
+            get
+            {
+                return 0.0;
+            }
+
+        }
+
         //[Category("Property"), Browsable(false)]
         [Category("Property")]
         public virtual double MaxDegree
@@ -609,6 +618,8 @@ namespace R08546036_SHChaoAss04
             }
 
         }
+
+        public override double BOACrispValue => parameters[0];
 
         public override double GetMembershipDegree(double x)
         {

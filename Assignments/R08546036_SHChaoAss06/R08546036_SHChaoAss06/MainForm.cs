@@ -598,7 +598,7 @@ namespace R08546036_SHChaoAss04
             // set inference instruction label to invisible
             lbInferenceInstruction.Visible = false;
 
-            // create if-then row
+            // create if-then rules
             IfThenFuzzyRule[] allRules = new IfThenFuzzyRule[dgvRules.Rows.Count];
 
             for (int r = 0; r < (dgvRules.Rows.Count); r++)
@@ -652,5 +652,25 @@ namespace R08546036_SHChaoAss04
 
         }
 
+        private void teeChartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int numXValues = 100;
+            int numZValues = 80;
+
+            surface1.NumXValues = numXValues;
+            surface1.NumZValues = numZValues;
+            surface1.IrregularGrid = true;
+            surface1.Clear();
+
+            for (double x = 0; x < numXValues; x++)
+            {
+                for (double zz = 0; zz < numZValues; zz++)
+                {
+                    double y;
+                    y = Math.Sin(x / 10.0) * Math.Cos(zz / 4.0);
+                    surface1.Add(x, y, zz);
+                }
+            }
+        }
     }
 }

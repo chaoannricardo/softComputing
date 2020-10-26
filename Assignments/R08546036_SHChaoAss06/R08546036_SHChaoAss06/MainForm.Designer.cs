@@ -92,7 +92,12 @@
             this.dgvConditions = new System.Windows.Forms.DataGridView();
             this.inferenceContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFuzzy2 = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.teeChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainer7 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.chartController1 = new Steema.TeeChart.ChartController();
+            this.tChart1 = new Steema.TeeChart.TChart();
+            this.surface1 = new Steema.TeeChart.Styles.Surface();
             this.topMenuStrip = new System.Windows.Forms.MenuStrip();
             this.topFile = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.topFileRestart = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
@@ -122,6 +127,10 @@
             this.fuzzyRuleContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConditions)).BeginInit();
             this.inferenceContextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).BeginInit();
+            this.splitContainer7.Panel1.SuspendLayout();
+            this.splitContainer7.Panel2.SuspendLayout();
+            this.splitContainer7.SuspendLayout();
             this.topMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
@@ -529,7 +538,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer1.Panel2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.splitContainer1.Size = new System.Drawing.Size(1151, 597);
-            this.splitContainer1.SplitterDistance = 269;
+            this.splitContainer1.SplitterDistance = 200;
             this.splitContainer1.TabIndex = 8;
             // 
             // splitContainer2
@@ -547,7 +556,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.theGrid);
-            this.splitContainer2.Size = new System.Drawing.Size(269, 597);
+            this.splitContainer2.Size = new System.Drawing.Size(200, 597);
             this.splitContainer2.SplitterDistance = 194;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -566,7 +575,7 @@
             // splitContainer6.Panel2
             // 
             this.splitContainer6.Panel2.Controls.Add(this.lbSetTip);
-            this.splitContainer6.Size = new System.Drawing.Size(269, 194);
+            this.splitContainer6.Size = new System.Drawing.Size(200, 194);
             this.splitContainer6.SplitterDistance = 156;
             this.splitContainer6.TabIndex = 0;
             // 
@@ -599,7 +608,7 @@
             this.theTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2});
-            this.theTree.Size = new System.Drawing.Size(269, 156);
+            this.theTree.Size = new System.Drawing.Size(200, 156);
             this.theTree.TabIndex = 12;
             this.theTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.theTree_AfterSelect);
             // 
@@ -610,7 +619,7 @@
             this.lbSetTip.ForeColor = System.Drawing.SystemColors.Control;
             this.lbSetTip.Location = new System.Drawing.Point(0, 0);
             this.lbSetTip.Name = "lbSetTip";
-            this.lbSetTip.Size = new System.Drawing.Size(269, 34);
+            this.lbSetTip.Size = new System.Drawing.Size(200, 34);
             this.lbSetTip.TabIndex = 1;
             this.lbSetTip.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -619,7 +628,7 @@
             this.theGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.theGrid.Location = new System.Drawing.Point(0, 0);
             this.theGrid.Name = "theGrid";
-            this.theGrid.Size = new System.Drawing.Size(269, 399);
+            this.theGrid.Size = new System.Drawing.Size(200, 399);
             this.theGrid.TabIndex = 6;
             this.theGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.theGrid_PropertyValueChanged);
             // 
@@ -638,8 +647,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.splitContainer3.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer3.Size = new System.Drawing.Size(878, 597);
+            this.splitContainer3.Panel2.Controls.Add(this.splitContainer7);
+            this.splitContainer3.Size = new System.Drawing.Size(947, 597);
             this.splitContainer3.SplitterDistance = 133;
             this.splitContainer3.TabIndex = 2;
             // 
@@ -658,8 +667,8 @@
             // 
             this.splitContainer5.Panel2.Controls.Add(this.lbInferenceInstruction);
             this.splitContainer5.Panel2.Controls.Add(this.dgvConditions);
-            this.splitContainer5.Size = new System.Drawing.Size(878, 133);
-            this.splitContainer5.SplitterDistance = 195;
+            this.splitContainer5.Size = new System.Drawing.Size(947, 133);
+            this.splitContainer5.SplitterDistance = 210;
             this.splitContainer5.TabIndex = 4;
             // 
             // lbIfThenInstruction
@@ -687,7 +696,7 @@
             this.dgvRules.Name = "dgvRules";
             this.dgvRules.RowHeadersWidth = 62;
             this.dgvRules.RowTemplate.Height = 28;
-            this.dgvRules.Size = new System.Drawing.Size(195, 133);
+            this.dgvRules.Size = new System.Drawing.Size(210, 133);
             this.dgvRules.TabIndex = 7;
             this.dgvRules.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRules_CellClick);
             // 
@@ -732,7 +741,7 @@
             this.dgvConditions.Name = "dgvConditions";
             this.dgvConditions.RowHeadersWidth = 62;
             this.dgvConditions.RowTemplate.Height = 28;
-            this.dgvConditions.Size = new System.Drawing.Size(679, 133);
+            this.dgvConditions.Size = new System.Drawing.Size(733, 133);
             this.dgvConditions.TabIndex = 8;
             this.dgvConditions.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConditions_CellClick);
             // 
@@ -740,9 +749,10 @@
             // 
             this.inferenceContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.inferenceContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemFuzzy2});
+            this.toolStripMenuItemFuzzy2,
+            this.teeChartToolStripMenuItem});
             this.inferenceContextMenuStrip.Name = "contextMenuStrip2";
-            this.inferenceContextMenuStrip.Size = new System.Drawing.Size(157, 36);
+            this.inferenceContextMenuStrip.Size = new System.Drawing.Size(157, 68);
             // 
             // toolStripMenuItemFuzzy2
             // 
@@ -752,14 +762,131 @@
             this.toolStripMenuItemFuzzy2.Text = "Inference";
             this.toolStripMenuItemFuzzy2.Click += new System.EventHandler(this.inference_Click);
             // 
+            // teeChartToolStripMenuItem
+            // 
+            this.teeChartToolStripMenuItem.Name = "teeChartToolStripMenuItem";
+            this.teeChartToolStripMenuItem.Size = new System.Drawing.Size(156, 32);
+            this.teeChartToolStripMenuItem.Text = "TeeChart";
+            this.teeChartToolStripMenuItem.Click += new System.EventHandler(this.teeChartToolStripMenuItem_Click);
+            // 
+            // splitContainer7
+            // 
+            this.splitContainer7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer7.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer7.Name = "splitContainer7";
+            // 
+            // splitContainer7.Panel1
+            // 
+            this.splitContainer7.Panel1.Controls.Add(this.tabControl1);
+            // 
+            // splitContainer7.Panel2
+            // 
+            this.splitContainer7.Panel2.Controls.Add(this.chartController1);
+            this.splitContainer7.Panel2.Controls.Add(this.tChart1);
+            this.splitContainer7.Size = new System.Drawing.Size(947, 460);
+            this.splitContainer7.SplitterDistance = 207;
+            this.splitContainer7.TabIndex = 0;
+            // 
             // tabControl1
             // 
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(878, 460);
-            this.tabControl1.TabIndex = 2;
+            this.tabControl1.Size = new System.Drawing.Size(207, 460);
+            this.tabControl1.TabIndex = 3;
+            // 
+            // chartController1
+            // 
+            this.chartController1.ButtonSize = Steema.TeeChart.ControllerButtonSize.x16;
+            this.chartController1.Chart = this.tChart1;
+            this.chartController1.LabelValues = true;
+            this.chartController1.Location = new System.Drawing.Point(0, 0);
+            this.chartController1.Name = "chartController1";
+            this.chartController1.Size = new System.Drawing.Size(736, 25);
+            this.chartController1.TabIndex = 1;
+            this.chartController1.Text = "chartController1";
+            // 
+            // tChart1
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Aspect.Chart3DPercent = 45;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Bottom.Title.Caption = "Temperature";
+            this.tChart1.Axes.Bottom.Title.Lines = new string[] {
+        "Temperature"};
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Depth.LabelsAsSeriesTitles = true;
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Depth.Title.Caption = "Pressure";
+            this.tChart1.Axes.Depth.Title.Lines = new string[] {
+        "Pressure"};
+            // 
+            // 
+            // 
+            this.tChart1.Axes.DepthTop.LabelsAsSeriesTitles = true;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.Title.Caption = "Force";
+            this.tChart1.Axes.Left.Title.Lines = new string[] {
+        "Force"};
+            this.tChart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tChart1.Location = new System.Drawing.Point(0, 0);
+            this.tChart1.Name = "tChart1";
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Panel.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tChart1.Series.Add(this.surface1);
+            this.tChart1.Size = new System.Drawing.Size(736, 460);
+            this.tChart1.TabIndex = 0;
+            // 
+            // surface1
+            // 
+            // 
+            // 
+            // 
+            this.surface1.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(102)))), ((int)(((byte)(163)))));
+            this.surface1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(102)))), ((int)(((byte)(163)))));
+            this.surface1.ColorEach = false;
+            this.surface1.IrregularGrid = true;
+            this.surface1.PaletteMin = 0D;
+            this.surface1.PaletteStep = 0D;
+            this.surface1.PaletteStyle = Steema.TeeChart.Styles.PaletteStyles.Pale;
+            this.surface1.Title = "ResponseSurface";
+            // 
+            // 
+            // 
+            this.surface1.XValues.DataMember = "X";
+            // 
+            // 
+            // 
+            this.surface1.YValues.DataMember = "Y";
+            // 
+            // 
+            // 
+            this.surface1.ZValues.DataMember = "Z";
             // 
             // topMenuStrip
             // 
@@ -847,6 +974,11 @@
             this.fuzzyRuleContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvConditions)).EndInit();
             this.inferenceContextMenuStrip.ResumeLayout(false);
+            this.splitContainer7.Panel1.ResumeLayout(false);
+            this.splitContainer7.Panel2.ResumeLayout(false);
+            this.splitContainer7.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).EndInit();
+            this.splitContainer7.ResumeLayout(false);
             this.topMenuStrip.ResumeLayout(false);
             this.topMenuStrip.PerformLayout();
             this.splitContainer4.Panel1.ResumeLayout(false);
@@ -911,7 +1043,6 @@
         private ToolStripMenuItemFuzzy tSMFZMFuzzySet;
         private ToolStripMenuItemFuzzy tSMFPiFuzzySet;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.ContextMenuStrip fuzzyRuleContextMenuStrip;
         private ToolStripMenuItemFuzzy toolStripMenuItemFuzzy1;
         private System.Windows.Forms.ContextMenuStrip inferenceContextMenuStrip;
@@ -925,6 +1056,12 @@
         private System.Windows.Forms.Label lbSetTip;
         private System.Windows.Forms.Label lbIfThenInstruction;
         private System.Windows.Forms.Label lbInferenceInstruction;
+        private System.Windows.Forms.SplitContainer splitContainer7;
+        private System.Windows.Forms.TabControl tabControl1;
+        private Steema.TeeChart.ChartController chartController1;
+        private Steema.TeeChart.TChart tChart1;
+        private Steema.TeeChart.Styles.Surface surface1;
+        private System.Windows.Forms.ToolStripMenuItem teeChartToolStripMenuItem;
     }
 }
 

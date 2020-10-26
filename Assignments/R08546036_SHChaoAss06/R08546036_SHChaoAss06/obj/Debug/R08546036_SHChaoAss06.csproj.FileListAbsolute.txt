@@ -8,3 +8,6 @@ D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss0
 D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss06\R08546036_SHChaoAss06\obj\Debug\R08546036_SHChaoAss06.csproj.CoreCompileInputs.cache
 D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss06\R08546036_SHChaoAss06\obj\Debug\R08546036_SHChaoAss06.exe
 D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss06\R08546036_SHChaoAss06\obj\Debug\R08546036_SHChaoAss06.pdb
+D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss06\R08546036_SHChaoAss06\bin\Debug\TeeChart.dll
+D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss06\R08546036_SHChaoAss06\bin\Debug\TeeChart.xml
+D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss06\R08546036_SHChaoAss06\obj\Debug\R08546036_SHChaoAss06.csproj.CopyComplete
