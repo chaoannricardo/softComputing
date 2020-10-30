@@ -63,27 +63,27 @@ namespace R08546036_SHChaoAss06
             double result = 0;
             FuzzySet resultFS = null;
 
-            foreach (IfThenFuzzyRule ifr in rules)
-            {
-                if (resultFS == null)
-                {
-                    resultFS = ifr.CrispInFuzzyOutInferencing(conditions);
-                }
-                else {
-                    resultFS = resultFS | ifr.CrispInFuzzyOutInferencing(conditions);
-                }
-            }
+            //foreach (IfThenFuzzyRule ifr in rules)
+            //{
+            //    if (resultFS == null)
+            //    {
+            //        resultFS = ifr.CrispInFuzzyOutInferencing(conditions);
+            //    }
+            //    else {
+            //        resultFS = resultFS | ifr.CrispInFuzzyOutInferencing(conditions);
+            //    }
+            //}
 
-            switch (defuzzification) {
-                case DefuzzificationType.BOA:
-                    return resultFS.BOACrispValue;
-                    break;
-                case DefuzzificationType.COA:
-                    return resultFS.COACrispValue;
-                    break;
-                    // and continue on 
+            //switch (defuzzification) {
+            //    case DefuzzificationType.BOA:
+            //        return resultFS.BOACrispValue;
+            //        break;
+            //    case DefuzzificationType.COA:
+            //        return resultFS.COACrispValue;
+            //        break;
+            //        // and continue on 
 
-            }
+            //}
 
             return result;
 
@@ -123,9 +123,9 @@ namespace R08546036_SHChaoAss06
                 }
 
                 // output fuzzy list
-                int output = (FuzzySet)dgv.Rows[r].Cells[dgv.Columns.Count - 1].Tag;
+                //int output = (FuzzySet)dgv.Rows[r].Cells[dgv.Columns.Count - 1].Tag;
 
-                allRules[r] = new IfThenFuzzyRule(inputs, output);
+                //allRules[r] = new IfThenFuzzyRule(inputs, output);
             }
         }
 

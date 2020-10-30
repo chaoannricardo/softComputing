@@ -49,9 +49,9 @@ namespace R08546036_SHChaoAss04
             lbInstruction.BackColor = theTree.BackColor;
             lbIfThenInstruction.BackColor = dgvRules.BackgroundColor;
             lbSetTip.Text = "";
-            lbInferenceInstruction.ForeColor = Color.White;
-            lbInferenceInstruction.BackColor = dgvConditions.BackgroundColor;
 
+            // tebpage2
+            tabControl2.TabPages[0].Text = "If-Then Rule";
         }
 
         // create universe function
@@ -592,11 +592,34 @@ namespace R08546036_SHChaoAss04
             TreeNode selectedNode = (sender as TreeView).SelectedNode;
         }
 
+
+        // sample tee chart function
+        private void teeChartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int numXValues = 100;
+            int numZValues = 80;
+
+            surface1.NumXValues = numXValues;
+            surface1.NumZValues = numZValues;
+            surface1.IrregularGrid = true;
+            surface1.Clear();
+
+            for (double x = 0; x < numXValues; x++)
+            {
+                for (double zz = 0; zz < numZValues; zz++)
+                {
+                    double y;
+                    y = Math.Sin(x / 10.0) * Math.Cos(zz / 4.0);
+                    surface1.Add(x, y, zz);
+                }
+            }
+        }
+
+
         private void inference_Click(object sender, EventArgs e)
         {
 
             // set inference instruction label to invisible
-            lbInferenceInstruction.Visible = false;
 
             // create if-then rules
             IfThenFuzzyRule[] allRules = new IfThenFuzzyRule[dgvRules.Rows.Count];
@@ -652,25 +675,6 @@ namespace R08546036_SHChaoAss04
 
         }
 
-        private void teeChartToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int numXValues = 100;
-            int numZValues = 80;
-
-            surface1.NumXValues = numXValues;
-            surface1.NumZValues = numZValues;
-            surface1.IrregularGrid = true;
-            surface1.Clear();
-
-            for (double x = 0; x < numXValues; x++)
-            {
-                for (double zz = 0; zz < numZValues; zz++)
-                {
-                    double y;
-                    y = Math.Sin(x / 10.0) * Math.Cos(zz / 4.0);
-                    surface1.Add(x, y, zz);
-                }
-            }
-        }
+       
     }
 }
