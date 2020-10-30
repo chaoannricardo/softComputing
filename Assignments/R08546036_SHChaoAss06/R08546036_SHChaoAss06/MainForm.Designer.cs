@@ -36,13 +36,45 @@
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.universeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fuzzySetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSMFTriangular = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFBell = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFGaussian = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFSigmoidal = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFTrapezoidal = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFLeftRight = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFSMFuzzySet = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFZMFuzzySet = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFPiFuzzySet = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSMFRemoveUniverse = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFRemoveFuzzy = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.selectCreateUnaryFuzzySetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSMFUnaryNegate = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFUnaryValueCut = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFUnaryValueScale = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.linguisticHedgeOperatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSMFLinguisticHVery = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFLinguisticHDilation = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFLinguisticHExtremely = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFLinguisticHIntensification = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFLinguisticHDiminisher = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.tSMFBinary = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSMFSelectAsFuzzy1 = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFSelectAsFuzzy2 = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.chooseOperationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.binaryOpTraditionalIntersection = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.binaryOpUnion = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.binaryOpSubstraction = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.TNormsActions = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSMFMinimumT = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFAlgebraicT = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFBoundedT = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tSMFDrasticT = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.SNormsActions = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSMFSNormMaximum = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.TSMFSAlgebraicSum = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.TSMFSNormBoundedSum = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.TSMFSNormDrasticSum = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.clearAndRestartAppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -53,64 +85,33 @@
             this.theGrid = new System.Windows.Forms.PropertyGrid();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer8 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer9 = new System.Windows.Forms.SplitContainer();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lbInference = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lbIfThenInstruction = new System.Windows.Forms.Label();
+            this.dgvRules = new System.Windows.Forms.DataGridView();
             this.fuzzyRuleContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemFuzzy1 = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dgvConditions = new System.Windows.Forms.DataGridView();
             this.inferenceContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemFuzzy2 = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.teeChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer7 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.chartController1 = new Steema.TeeChart.ChartController();
             this.tChart1 = new Steema.TeeChart.TChart();
+            this.surface1 = new Steema.TeeChart.Styles.Surface();
             this.topMenuStrip = new System.Windows.Forms.MenuStrip();
-            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
-            this.teeChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.dgvRules = new System.Windows.Forms.DataGridView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.dgvConditions = new System.Windows.Forms.DataGridView();
-            this.lbIfThenInstruction = new System.Windows.Forms.Label();
-            this.splitContainer8 = new System.Windows.Forms.SplitContainer();
-            this.button1 = new System.Windows.Forms.Button();
-            this.splitContainer9 = new System.Windows.Forms.SplitContainer();
             this.topFile = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.topFileRestart = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFTriangular = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFBell = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFGaussian = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFSigmoidal = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFTrapezoidal = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFLeftRight = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFSMFuzzySet = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFZMFuzzySet = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFPiFuzzySet = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFRemoveUniverse = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFRemoveFuzzy = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFUnaryNegate = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFUnaryValueCut = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFUnaryValueScale = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFLinguisticHVery = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFLinguisticHDilation = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFLinguisticHExtremely = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFLinguisticHIntensification = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFLinguisticHDiminisher = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFSelectAsFuzzy1 = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFSelectAsFuzzy2 = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.binaryOpTraditionalIntersection = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.binaryOpUnion = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.binaryOpSubstraction = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFMinimumT = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFAlgebraicT = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFBoundedT = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.tSMFDrasticT = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.TSMFSNormMaximum = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.TSMFSAlgebraicSum = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.TSMFSNormBoundedSum = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.TSMFSNormDrasticSum = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.toolStripMenuItemFuzzy1 = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.toolStripMenuItemFuzzy2 = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.surface1 = new Steema.TeeChart.Styles.Surface();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lbInference = new System.Windows.Forms.ListBox();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.outputEquationContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tSMAddSelectedOutputEquation = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.theTreeContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -132,7 +133,20 @@
             this.splitContainer5.Panel1.SuspendLayout();
             this.splitContainer5.Panel2.SuspendLayout();
             this.splitContainer5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer8)).BeginInit();
+            this.splitContainer8.Panel1.SuspendLayout();
+            this.splitContainer8.Panel2.SuspendLayout();
+            this.splitContainer8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer9)).BeginInit();
+            this.splitContainer9.Panel1.SuspendLayout();
+            this.splitContainer9.Panel2.SuspendLayout();
+            this.splitContainer9.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRules)).BeginInit();
             this.fuzzyRuleContextMenuStrip.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvConditions)).BeginInit();
             this.inferenceContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).BeginInit();
             this.splitContainer7.Panel1.SuspendLayout();
@@ -143,19 +157,7 @@
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
-            this.tabControl2.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRules)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvConditions)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer8)).BeginInit();
-            this.splitContainer8.Panel1.SuspendLayout();
-            this.splitContainer8.Panel2.SuspendLayout();
-            this.splitContainer8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer9)).BeginInit();
-            this.splitContainer9.Panel1.SuspendLayout();
-            this.splitContainer9.Panel2.SuspendLayout();
-            this.splitContainer9.SuspendLayout();
+            this.outputEquationContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // theTreeContextMenuStrip
@@ -202,6 +204,78 @@
             this.fuzzySetToolStripMenuItem.Size = new System.Drawing.Size(188, 34);
             this.fuzzySetToolStripMenuItem.Text = "Fuzzy Set";
             // 
+            // tSMFTriangular
+            // 
+            this.tSMFTriangular.Name = "tSMFTriangular";
+            this.tSMFTriangular.SelectedIndex = 0;
+            this.tSMFTriangular.Size = new System.Drawing.Size(214, 34);
+            this.tSMFTriangular.Text = "Triangular";
+            this.tSMFTriangular.Click += new System.EventHandler(this.CreateFuzzySet);
+            // 
+            // tSMFBell
+            // 
+            this.tSMFBell.Name = "tSMFBell";
+            this.tSMFBell.SelectedIndex = 1;
+            this.tSMFBell.Size = new System.Drawing.Size(214, 34);
+            this.tSMFBell.Text = "Bell";
+            this.tSMFBell.Click += new System.EventHandler(this.CreateFuzzySet);
+            // 
+            // tSMFGaussian
+            // 
+            this.tSMFGaussian.Name = "tSMFGaussian";
+            this.tSMFGaussian.SelectedIndex = 2;
+            this.tSMFGaussian.Size = new System.Drawing.Size(214, 34);
+            this.tSMFGaussian.Text = "Gaussian";
+            this.tSMFGaussian.Click += new System.EventHandler(this.CreateFuzzySet);
+            // 
+            // tSMFSigmoidal
+            // 
+            this.tSMFSigmoidal.Name = "tSMFSigmoidal";
+            this.tSMFSigmoidal.SelectedIndex = 3;
+            this.tSMFSigmoidal.Size = new System.Drawing.Size(214, 34);
+            this.tSMFSigmoidal.Text = "Sigmoidal";
+            this.tSMFSigmoidal.Click += new System.EventHandler(this.CreateFuzzySet);
+            // 
+            // tSMFTrapezoidal
+            // 
+            this.tSMFTrapezoidal.Name = "tSMFTrapezoidal";
+            this.tSMFTrapezoidal.SelectedIndex = 4;
+            this.tSMFTrapezoidal.Size = new System.Drawing.Size(214, 34);
+            this.tSMFTrapezoidal.Text = "Trapezoidal";
+            this.tSMFTrapezoidal.Click += new System.EventHandler(this.CreateFuzzySet);
+            // 
+            // tSMFLeftRight
+            // 
+            this.tSMFLeftRight.Name = "tSMFLeftRight";
+            this.tSMFLeftRight.SelectedIndex = 5;
+            this.tSMFLeftRight.Size = new System.Drawing.Size(214, 34);
+            this.tSMFLeftRight.Text = "LeftRight";
+            this.tSMFLeftRight.Click += new System.EventHandler(this.CreateFuzzySet);
+            // 
+            // tSMFSMFuzzySet
+            // 
+            this.tSMFSMFuzzySet.Name = "tSMFSMFuzzySet";
+            this.tSMFSMFuzzySet.SelectedIndex = 6;
+            this.tSMFSMFuzzySet.Size = new System.Drawing.Size(214, 34);
+            this.tSMFSMFuzzySet.Text = "S MFuzzySet";
+            this.tSMFSMFuzzySet.Click += new System.EventHandler(this.CreateFuzzySet);
+            // 
+            // tSMFZMFuzzySet
+            // 
+            this.tSMFZMFuzzySet.Name = "tSMFZMFuzzySet";
+            this.tSMFZMFuzzySet.SelectedIndex = 7;
+            this.tSMFZMFuzzySet.Size = new System.Drawing.Size(214, 34);
+            this.tSMFZMFuzzySet.Text = "Z MFuzzySet";
+            this.tSMFZMFuzzySet.Click += new System.EventHandler(this.CreateFuzzySet);
+            // 
+            // tSMFPiFuzzySet
+            // 
+            this.tSMFPiFuzzySet.Name = "tSMFPiFuzzySet";
+            this.tSMFPiFuzzySet.SelectedIndex = 8;
+            this.tSMFPiFuzzySet.Size = new System.Drawing.Size(214, 34);
+            this.tSMFPiFuzzySet.Text = "Pi Fuzzy Set";
+            this.tSMFPiFuzzySet.Click += new System.EventHandler(this.CreateFuzzySet);
+            // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -210,6 +284,22 @@
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
             this.removeToolStripMenuItem.Size = new System.Drawing.Size(256, 32);
             this.removeToolStripMenuItem.Text = "Remove This...";
+            // 
+            // tSMFRemoveUniverse
+            // 
+            this.tSMFRemoveUniverse.Name = "tSMFRemoveUniverse";
+            this.tSMFRemoveUniverse.SelectedIndex = 0;
+            this.tSMFRemoveUniverse.Size = new System.Drawing.Size(188, 34);
+            this.tSMFRemoveUniverse.Text = "Universe";
+            this.tSMFRemoveUniverse.Click += new System.EventHandler(this.removeUniverseOrFuzzy);
+            // 
+            // tSMFRemoveFuzzy
+            // 
+            this.tSMFRemoveFuzzy.Name = "tSMFRemoveFuzzy";
+            this.tSMFRemoveFuzzy.SelectedIndex = 1;
+            this.tSMFRemoveFuzzy.Size = new System.Drawing.Size(188, 34);
+            this.tSMFRemoveFuzzy.Text = "Fuzzy Set";
+            this.tSMFRemoveFuzzy.Click += new System.EventHandler(this.removeUniverseOrFuzzy);
             // 
             // selectCreateUnaryFuzzySetToolStripMenuItem
             // 
@@ -221,6 +311,30 @@
             this.selectCreateUnaryFuzzySetToolStripMenuItem.Name = "selectCreateUnaryFuzzySetToolStripMenuItem";
             this.selectCreateUnaryFuzzySetToolStripMenuItem.Size = new System.Drawing.Size(256, 32);
             this.selectCreateUnaryFuzzySetToolStripMenuItem.Text = "Unary Operation";
+            // 
+            // tSMFUnaryNegate
+            // 
+            this.tSMFUnaryNegate.Name = "tSMFUnaryNegate";
+            this.tSMFUnaryNegate.SelectedIndex = 0;
+            this.tSMFUnaryNegate.Size = new System.Drawing.Size(330, 34);
+            this.tSMFUnaryNegate.Text = "Negate";
+            this.tSMFUnaryNegate.Click += new System.EventHandler(this.createUnaryFuzzySet);
+            // 
+            // tSMFUnaryValueCut
+            // 
+            this.tSMFUnaryValueCut.Name = "tSMFUnaryValueCut";
+            this.tSMFUnaryValueCut.SelectedIndex = 1;
+            this.tSMFUnaryValueCut.Size = new System.Drawing.Size(330, 34);
+            this.tSMFUnaryValueCut.Text = "Value Cut";
+            this.tSMFUnaryValueCut.Click += new System.EventHandler(this.createUnaryFuzzySet);
+            // 
+            // tSMFUnaryValueScale
+            // 
+            this.tSMFUnaryValueScale.Name = "tSMFUnaryValueScale";
+            this.tSMFUnaryValueScale.SelectedIndex = 2;
+            this.tSMFUnaryValueScale.Size = new System.Drawing.Size(330, 34);
+            this.tSMFUnaryValueScale.Text = "Value Scale";
+            this.tSMFUnaryValueScale.Click += new System.EventHandler(this.createUnaryFuzzySet);
             // 
             // linguisticHedgeOperatorsToolStripMenuItem
             // 
@@ -234,6 +348,46 @@
             this.linguisticHedgeOperatorsToolStripMenuItem.Size = new System.Drawing.Size(330, 34);
             this.linguisticHedgeOperatorsToolStripMenuItem.Text = "Linguistic Hedge Operators";
             // 
+            // tSMFLinguisticHVery
+            // 
+            this.tSMFLinguisticHVery.Name = "tSMFLinguisticHVery";
+            this.tSMFLinguisticHVery.SelectedIndex = 3;
+            this.tSMFLinguisticHVery.Size = new System.Drawing.Size(224, 34);
+            this.tSMFLinguisticHVery.Text = "Very";
+            this.tSMFLinguisticHVery.Click += new System.EventHandler(this.createUnaryFuzzySet);
+            // 
+            // tSMFLinguisticHDilation
+            // 
+            this.tSMFLinguisticHDilation.Name = "tSMFLinguisticHDilation";
+            this.tSMFLinguisticHDilation.SelectedIndex = 4;
+            this.tSMFLinguisticHDilation.Size = new System.Drawing.Size(224, 34);
+            this.tSMFLinguisticHDilation.Text = "More or Less";
+            this.tSMFLinguisticHDilation.Click += new System.EventHandler(this.createUnaryFuzzySet);
+            // 
+            // tSMFLinguisticHExtremely
+            // 
+            this.tSMFLinguisticHExtremely.Name = "tSMFLinguisticHExtremely";
+            this.tSMFLinguisticHExtremely.SelectedIndex = 5;
+            this.tSMFLinguisticHExtremely.Size = new System.Drawing.Size(224, 34);
+            this.tSMFLinguisticHExtremely.Text = "Extremely";
+            this.tSMFLinguisticHExtremely.Click += new System.EventHandler(this.createUnaryFuzzySet);
+            // 
+            // tSMFLinguisticHIntensification
+            // 
+            this.tSMFLinguisticHIntensification.Name = "tSMFLinguisticHIntensification";
+            this.tSMFLinguisticHIntensification.SelectedIndex = 6;
+            this.tSMFLinguisticHIntensification.Size = new System.Drawing.Size(224, 34);
+            this.tSMFLinguisticHIntensification.Text = "Intensification";
+            this.tSMFLinguisticHIntensification.Click += new System.EventHandler(this.createUnaryFuzzySet);
+            // 
+            // tSMFLinguisticHDiminisher
+            // 
+            this.tSMFLinguisticHDiminisher.Name = "tSMFLinguisticHDiminisher";
+            this.tSMFLinguisticHDiminisher.SelectedIndex = 7;
+            this.tSMFLinguisticHDiminisher.Size = new System.Drawing.Size(224, 34);
+            this.tSMFLinguisticHDiminisher.Text = "Diminisher";
+            this.tSMFLinguisticHDiminisher.Click += new System.EventHandler(this.createUnaryFuzzySet);
+            // 
             // tSMFBinary
             // 
             this.tSMFBinary.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -243,6 +397,22 @@
             this.tSMFBinary.Name = "tSMFBinary";
             this.tSMFBinary.Size = new System.Drawing.Size(256, 32);
             this.tSMFBinary.Text = "Binary Operation";
+            // 
+            // tSMFSelectAsFuzzy1
+            // 
+            this.tSMFSelectAsFuzzy1.Name = "tSMFSelectAsFuzzy1";
+            this.tSMFSelectAsFuzzy1.SelectedIndex = 0;
+            this.tSMFSelectAsFuzzy1.Size = new System.Drawing.Size(276, 34);
+            this.tSMFSelectAsFuzzy1.Text = "Select as Fuzzy Set 1";
+            this.tSMFSelectAsFuzzy1.Click += new System.EventHandler(this.selectAsBinaryFuzzy);
+            // 
+            // tSMFSelectAsFuzzy2
+            // 
+            this.tSMFSelectAsFuzzy2.Name = "tSMFSelectAsFuzzy2";
+            this.tSMFSelectAsFuzzy2.SelectedIndex = 1;
+            this.tSMFSelectAsFuzzy2.Size = new System.Drawing.Size(276, 34);
+            this.tSMFSelectAsFuzzy2.Text = "Select as Fuzzy Set 2";
+            this.tSMFSelectAsFuzzy2.Click += new System.EventHandler(this.selectAsBinaryFuzzy);
             // 
             // chooseOperationsToolStripMenuItem
             // 
@@ -256,6 +426,30 @@
             this.chooseOperationsToolStripMenuItem.Size = new System.Drawing.Size(276, 34);
             this.chooseOperationsToolStripMenuItem.Text = "Choose Operations:";
             // 
+            // binaryOpTraditionalIntersection
+            // 
+            this.binaryOpTraditionalIntersection.Name = "binaryOpTraditionalIntersection";
+            this.binaryOpTraditionalIntersection.SelectedIndex = 0;
+            this.binaryOpTraditionalIntersection.Size = new System.Drawing.Size(292, 34);
+            this.binaryOpTraditionalIntersection.Text = "Traditional Intersection";
+            this.binaryOpTraditionalIntersection.Click += new System.EventHandler(this.createBinaryFuzzySet);
+            // 
+            // binaryOpUnion
+            // 
+            this.binaryOpUnion.Name = "binaryOpUnion";
+            this.binaryOpUnion.SelectedIndex = 1;
+            this.binaryOpUnion.Size = new System.Drawing.Size(292, 34);
+            this.binaryOpUnion.Text = "Union";
+            this.binaryOpUnion.Click += new System.EventHandler(this.createBinaryFuzzySet);
+            // 
+            // binaryOpSubstraction
+            // 
+            this.binaryOpSubstraction.Name = "binaryOpSubstraction";
+            this.binaryOpSubstraction.SelectedIndex = 2;
+            this.binaryOpSubstraction.Size = new System.Drawing.Size(292, 34);
+            this.binaryOpSubstraction.Text = "Substraction";
+            this.binaryOpSubstraction.Click += new System.EventHandler(this.createBinaryFuzzySet);
+            // 
             // TNormsActions
             // 
             this.TNormsActions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -267,6 +461,38 @@
             this.TNormsActions.Size = new System.Drawing.Size(292, 34);
             this.TNormsActions.Text = "T-norm Operations:";
             // 
+            // tSMFMinimumT
+            // 
+            this.tSMFMinimumT.Name = "tSMFMinimumT";
+            this.tSMFMinimumT.SelectedIndex = 3;
+            this.tSMFMinimumT.Size = new System.Drawing.Size(255, 34);
+            this.tSMFMinimumT.Text = "Minimum T-norm";
+            this.tSMFMinimumT.Click += new System.EventHandler(this.createBinaryFuzzySet);
+            // 
+            // tSMFAlgebraicT
+            // 
+            this.tSMFAlgebraicT.Name = "tSMFAlgebraicT";
+            this.tSMFAlgebraicT.SelectedIndex = 4;
+            this.tSMFAlgebraicT.Size = new System.Drawing.Size(255, 34);
+            this.tSMFAlgebraicT.Text = "Algebraic Product";
+            this.tSMFAlgebraicT.Click += new System.EventHandler(this.createBinaryFuzzySet);
+            // 
+            // tSMFBoundedT
+            // 
+            this.tSMFBoundedT.Name = "tSMFBoundedT";
+            this.tSMFBoundedT.SelectedIndex = 5;
+            this.tSMFBoundedT.Size = new System.Drawing.Size(255, 34);
+            this.tSMFBoundedT.Text = "Bounded Product";
+            this.tSMFBoundedT.Click += new System.EventHandler(this.createBinaryFuzzySet);
+            // 
+            // tSMFDrasticT
+            // 
+            this.tSMFDrasticT.Name = "tSMFDrasticT";
+            this.tSMFDrasticT.SelectedIndex = 6;
+            this.tSMFDrasticT.Size = new System.Drawing.Size(255, 34);
+            this.tSMFDrasticT.Text = "Drastic Product";
+            this.tSMFDrasticT.Click += new System.EventHandler(this.createBinaryFuzzySet);
+            // 
             // SNormsActions
             // 
             this.SNormsActions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -277,6 +503,38 @@
             this.SNormsActions.Name = "SNormsActions";
             this.SNormsActions.Size = new System.Drawing.Size(292, 34);
             this.SNormsActions.Text = "S-norm Operations:";
+            // 
+            // TSMFSNormMaximum
+            // 
+            this.TSMFSNormMaximum.Name = "TSMFSNormMaximum";
+            this.TSMFSNormMaximum.SelectedIndex = 7;
+            this.TSMFSNormMaximum.Size = new System.Drawing.Size(258, 34);
+            this.TSMFSNormMaximum.Text = "Maximum S-norm";
+            this.TSMFSNormMaximum.Click += new System.EventHandler(this.createBinaryFuzzySet);
+            // 
+            // TSMFSAlgebraicSum
+            // 
+            this.TSMFSAlgebraicSum.Name = "TSMFSAlgebraicSum";
+            this.TSMFSAlgebraicSum.SelectedIndex = 8;
+            this.TSMFSAlgebraicSum.Size = new System.Drawing.Size(258, 34);
+            this.TSMFSAlgebraicSum.Text = "Algebraic Sum";
+            this.TSMFSAlgebraicSum.Click += new System.EventHandler(this.createBinaryFuzzySet);
+            // 
+            // TSMFSNormBoundedSum
+            // 
+            this.TSMFSNormBoundedSum.Name = "TSMFSNormBoundedSum";
+            this.TSMFSNormBoundedSum.SelectedIndex = 9;
+            this.TSMFSNormBoundedSum.Size = new System.Drawing.Size(258, 34);
+            this.TSMFSNormBoundedSum.Text = "Bounded Sum";
+            this.TSMFSNormBoundedSum.Click += new System.EventHandler(this.createBinaryFuzzySet);
+            // 
+            // TSMFSNormDrasticSum
+            // 
+            this.TSMFSNormDrasticSum.Name = "TSMFSNormDrasticSum";
+            this.TSMFSNormDrasticSum.SelectedIndex = 10;
+            this.TSMFSNormDrasticSum.Size = new System.Drawing.Size(258, 34);
+            this.TSMFSNormDrasticSum.Text = "Drastic Sum";
+            this.TSMFSNormDrasticSum.Click += new System.EventHandler(this.createBinaryFuzzySet);
             // 
             // clearAndRestartAppToolStripMenuItem
             // 
@@ -433,6 +691,135 @@
             this.splitContainer5.SplitterDistance = 103;
             this.splitContainer5.TabIndex = 4;
             // 
+            // splitContainer8
+            // 
+            this.splitContainer8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer8.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer8.Name = "splitContainer8";
+            this.splitContainer8.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer8.Panel1
+            // 
+            this.splitContainer8.Panel1.Controls.Add(this.splitContainer9);
+            // 
+            // splitContainer8.Panel2
+            // 
+            this.splitContainer8.Panel2.Controls.Add(this.button1);
+            this.splitContainer8.Size = new System.Drawing.Size(103, 150);
+            this.splitContainer8.SplitterDistance = 99;
+            this.splitContainer8.TabIndex = 0;
+            // 
+            // splitContainer9
+            // 
+            this.splitContainer9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer9.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer9.Name = "splitContainer9";
+            this.splitContainer9.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer9.Panel1
+            // 
+            this.splitContainer9.Panel1.Controls.Add(this.label1);
+            // 
+            // splitContainer9.Panel2
+            // 
+            this.splitContainer9.Panel2.Controls.Add(this.lbInference);
+            this.splitContainer9.Size = new System.Drawing.Size(103, 99);
+            this.splitContainer9.SplitterDistance = 25;
+            this.splitContainer9.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.SystemColors.Highlight;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.Control;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(103, 25);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Choose Inference Method";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbInference
+            // 
+            this.lbInference.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbInference.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbInference.FormattingEnabled = true;
+            this.lbInference.ItemHeight = 37;
+            this.lbInference.Items.AddRange(new object[] {
+            "Mamdani",
+            "Sugeno",
+            "Tsukamoto"});
+            this.lbInference.Location = new System.Drawing.Point(0, 0);
+            this.lbInference.Name = "lbInference";
+            this.lbInference.Size = new System.Drawing.Size(103, 70);
+            this.lbInference.TabIndex = 1;
+            this.lbInference.SelectedIndexChanged += new System.EventHandler(this.lbInference_SelectedIndexChanged);
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 47);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Start Inferencing";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.inference_Click);
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage1);
+            this.tabControl2.Controls.Add(this.tabPage2);
+            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl2.Location = new System.Drawing.Point(0, 0);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(840, 150);
+            this.tabControl2.TabIndex = 16;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.lbIfThenInstruction);
+            this.tabPage1.Controls.Add(this.dgvRules);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(832, 117);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lbIfThenInstruction
+            // 
+            this.lbIfThenInstruction.AutoSize = true;
+            this.lbIfThenInstruction.BackColor = System.Drawing.Color.Honeydew;
+            this.lbIfThenInstruction.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lbIfThenInstruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbIfThenInstruction.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.lbIfThenInstruction.Location = new System.Drawing.Point(3, 94);
+            this.lbIfThenInstruction.Name = "lbIfThenInstruction";
+            this.lbIfThenInstruction.Size = new System.Drawing.Size(312, 20);
+            this.lbIfThenInstruction.TabIndex = 14;
+            this.lbIfThenInstruction.Text = "Right Click to Add a New If-Then Rule";
+            this.lbIfThenInstruction.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // dgvRules
+            // 
+            this.dgvRules.BackgroundColor = System.Drawing.Color.LightBlue;
+            this.dgvRules.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvRules.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRules.ContextMenuStrip = this.fuzzyRuleContextMenuStrip;
+            this.dgvRules.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRules.Location = new System.Drawing.Point(3, 3);
+            this.dgvRules.Name = "dgvRules";
+            this.dgvRules.RowHeadersWidth = 62;
+            this.dgvRules.RowTemplate.Height = 28;
+            this.dgvRules.Size = new System.Drawing.Size(826, 111);
+            this.dgvRules.TabIndex = 9;
+            // 
             // fuzzyRuleContextMenuStrip
             // 
             this.fuzzyRuleContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -440,6 +827,39 @@
             this.toolStripMenuItemFuzzy1});
             this.fuzzyRuleContextMenuStrip.Name = "contextMenuStrip1";
             this.fuzzyRuleContextMenuStrip.Size = new System.Drawing.Size(212, 36);
+            // 
+            // toolStripMenuItemFuzzy1
+            // 
+            this.toolStripMenuItemFuzzy1.Name = "toolStripMenuItemFuzzy1";
+            this.toolStripMenuItemFuzzy1.SelectedIndex = 0;
+            this.toolStripMenuItemFuzzy1.Size = new System.Drawing.Size(211, 32);
+            this.toolStripMenuItemFuzzy1.Text = "Add a New Rule";
+            this.toolStripMenuItemFuzzy1.Click += new System.EventHandler(this.toolStripMenuItemFuzzy1_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.dgvConditions);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(832, 117);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dgvConditions
+            // 
+            this.dgvConditions.BackgroundColor = System.Drawing.Color.SteelBlue;
+            this.dgvConditions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvConditions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvConditions.ContextMenuStrip = this.inferenceContextMenuStrip;
+            this.dgvConditions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvConditions.Location = new System.Drawing.Point(3, 3);
+            this.dgvConditions.Name = "dgvConditions";
+            this.dgvConditions.RowHeadersWidth = 62;
+            this.dgvConditions.RowTemplate.Height = 28;
+            this.dgvConditions.Size = new System.Drawing.Size(826, 111);
+            this.dgvConditions.TabIndex = 9;
             // 
             // inferenceContextMenuStrip
             // 
@@ -449,6 +869,20 @@
             this.teeChartToolStripMenuItem});
             this.inferenceContextMenuStrip.Name = "contextMenuStrip2";
             this.inferenceContextMenuStrip.Size = new System.Drawing.Size(157, 68);
+            // 
+            // toolStripMenuItemFuzzy2
+            // 
+            this.toolStripMenuItemFuzzy2.Name = "toolStripMenuItemFuzzy2";
+            this.toolStripMenuItemFuzzy2.SelectedIndex = 0;
+            this.toolStripMenuItemFuzzy2.Size = new System.Drawing.Size(156, 32);
+            this.toolStripMenuItemFuzzy2.Text = "Inference";
+            // 
+            // teeChartToolStripMenuItem
+            // 
+            this.teeChartToolStripMenuItem.Name = "teeChartToolStripMenuItem";
+            this.teeChartToolStripMenuItem.Size = new System.Drawing.Size(156, 32);
+            this.teeChartToolStripMenuItem.Text = "TeeChart";
+            this.teeChartToolStripMenuItem.Click += new System.EventHandler(this.teeChartToolStripMenuItem_Click);
             // 
             // splitContainer7
             // 
@@ -543,458 +977,6 @@
             this.tChart1.Size = new System.Drawing.Size(736, 443);
             this.tChart1.TabIndex = 0;
             // 
-            // topMenuStrip
-            // 
-            this.topMenuStrip.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.topMenuStrip.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.topMenuStrip.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
-            this.topMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.topMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.topFile});
-            this.topMenuStrip.Location = new System.Drawing.Point(0, 0);
-            this.topMenuStrip.Name = "topMenuStrip";
-            this.topMenuStrip.Size = new System.Drawing.Size(1151, 31);
-            this.topMenuStrip.TabIndex = 9;
-            this.topMenuStrip.Text = "menuStrip1";
-            // 
-            // splitContainer4
-            // 
-            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer4.Name = "splitContainer4";
-            this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer4.Panel1
-            // 
-            this.splitContainer4.Panel1.Controls.Add(this.topMenuStrip);
-            // 
-            // splitContainer4.Panel2
-            // 
-            this.splitContainer4.Panel2.Controls.Add(this.splitContainer1);
-            this.splitContainer4.Size = new System.Drawing.Size(1151, 632);
-            this.splitContainer4.SplitterDistance = 31;
-            this.splitContainer4.TabIndex = 10;
-            // 
-            // teeChartToolStripMenuItem
-            // 
-            this.teeChartToolStripMenuItem.Name = "teeChartToolStripMenuItem";
-            this.teeChartToolStripMenuItem.Size = new System.Drawing.Size(156, 32);
-            this.teeChartToolStripMenuItem.Text = "TeeChart";
-            this.teeChartToolStripMenuItem.Click += new System.EventHandler(this.teeChartToolStripMenuItem_Click);
-            // 
-            // tabControl2
-            // 
-            this.tabControl2.Controls.Add(this.tabPage1);
-            this.tabControl2.Controls.Add(this.tabPage2);
-            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl2.Location = new System.Drawing.Point(0, 0);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(840, 150);
-            this.tabControl2.TabIndex = 16;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.lbIfThenInstruction);
-            this.tabPage1.Controls.Add(this.dgvRules);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(832, 117);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // dgvRules
-            // 
-            this.dgvRules.BackgroundColor = System.Drawing.Color.LightBlue;
-            this.dgvRules.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvRules.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRules.ContextMenuStrip = this.fuzzyRuleContextMenuStrip;
-            this.dgvRules.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRules.Location = new System.Drawing.Point(3, 3);
-            this.dgvRules.Name = "dgvRules";
-            this.dgvRules.RowHeadersWidth = 62;
-            this.dgvRules.RowTemplate.Height = 28;
-            this.dgvRules.Size = new System.Drawing.Size(826, 111);
-            this.dgvRules.TabIndex = 9;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.dgvConditions);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(725, 100);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // dgvConditions
-            // 
-            this.dgvConditions.BackgroundColor = System.Drawing.Color.SteelBlue;
-            this.dgvConditions.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvConditions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvConditions.ContextMenuStrip = this.inferenceContextMenuStrip;
-            this.dgvConditions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvConditions.Location = new System.Drawing.Point(3, 3);
-            this.dgvConditions.Name = "dgvConditions";
-            this.dgvConditions.RowHeadersWidth = 62;
-            this.dgvConditions.RowTemplate.Height = 28;
-            this.dgvConditions.Size = new System.Drawing.Size(719, 94);
-            this.dgvConditions.TabIndex = 9;
-            // 
-            // lbIfThenInstruction
-            // 
-            this.lbIfThenInstruction.AutoSize = true;
-            this.lbIfThenInstruction.BackColor = System.Drawing.Color.Honeydew;
-            this.lbIfThenInstruction.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lbIfThenInstruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbIfThenInstruction.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.lbIfThenInstruction.Location = new System.Drawing.Point(3, 94);
-            this.lbIfThenInstruction.Name = "lbIfThenInstruction";
-            this.lbIfThenInstruction.Size = new System.Drawing.Size(312, 20);
-            this.lbIfThenInstruction.TabIndex = 14;
-            this.lbIfThenInstruction.Text = "Right Click to Add a New If-Then Rule";
-            this.lbIfThenInstruction.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // splitContainer8
-            // 
-            this.splitContainer8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer8.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer8.Name = "splitContainer8";
-            this.splitContainer8.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer8.Panel1
-            // 
-            this.splitContainer8.Panel1.Controls.Add(this.splitContainer9);
-            // 
-            // splitContainer8.Panel2
-            // 
-            this.splitContainer8.Panel2.Controls.Add(this.button1);
-            this.splitContainer8.Size = new System.Drawing.Size(103, 150);
-            this.splitContainer8.SplitterDistance = 99;
-            this.splitContainer8.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 47);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Start Inferencing";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.inference_Click);
-            // 
-            // splitContainer9
-            // 
-            this.splitContainer9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer9.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer9.Name = "splitContainer9";
-            this.splitContainer9.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer9.Panel1
-            // 
-            this.splitContainer9.Panel1.Controls.Add(this.label1);
-            // 
-            // splitContainer9.Panel2
-            // 
-            this.splitContainer9.Panel2.Controls.Add(this.lbInference);
-            this.splitContainer9.Size = new System.Drawing.Size(103, 99);
-            this.splitContainer9.SplitterDistance = 25;
-            this.splitContainer9.TabIndex = 0;
-            // 
-            // topFile
-            // 
-            this.topFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.topFileRestart});
-            this.topFile.Name = "topFile";
-            this.topFile.SelectedIndex = 0;
-            this.topFile.Size = new System.Drawing.Size(54, 27);
-            this.topFile.Text = "File";
-            // 
-            // topFileRestart
-            // 
-            this.topFileRestart.Name = "topFileRestart";
-            this.topFileRestart.SelectedIndex = 0;
-            this.topFileRestart.Size = new System.Drawing.Size(286, 34);
-            this.topFileRestart.Text = "Clear and Restart App";
-            this.topFileRestart.Click += new System.EventHandler(this.topFileRestart_Click);
-            // 
-            // tSMFTriangular
-            // 
-            this.tSMFTriangular.Name = "tSMFTriangular";
-            this.tSMFTriangular.SelectedIndex = 0;
-            this.tSMFTriangular.Size = new System.Drawing.Size(214, 34);
-            this.tSMFTriangular.Text = "Triangular";
-            this.tSMFTriangular.Click += new System.EventHandler(this.CreateFuzzySet);
-            // 
-            // tSMFBell
-            // 
-            this.tSMFBell.Name = "tSMFBell";
-            this.tSMFBell.SelectedIndex = 1;
-            this.tSMFBell.Size = new System.Drawing.Size(214, 34);
-            this.tSMFBell.Text = "Bell";
-            this.tSMFBell.Click += new System.EventHandler(this.CreateFuzzySet);
-            // 
-            // tSMFGaussian
-            // 
-            this.tSMFGaussian.Name = "tSMFGaussian";
-            this.tSMFGaussian.SelectedIndex = 2;
-            this.tSMFGaussian.Size = new System.Drawing.Size(214, 34);
-            this.tSMFGaussian.Text = "Gaussian";
-            this.tSMFGaussian.Click += new System.EventHandler(this.CreateFuzzySet);
-            // 
-            // tSMFSigmoidal
-            // 
-            this.tSMFSigmoidal.Name = "tSMFSigmoidal";
-            this.tSMFSigmoidal.SelectedIndex = 3;
-            this.tSMFSigmoidal.Size = new System.Drawing.Size(214, 34);
-            this.tSMFSigmoidal.Text = "Sigmoidal";
-            this.tSMFSigmoidal.Click += new System.EventHandler(this.CreateFuzzySet);
-            // 
-            // tSMFTrapezoidal
-            // 
-            this.tSMFTrapezoidal.Name = "tSMFTrapezoidal";
-            this.tSMFTrapezoidal.SelectedIndex = 4;
-            this.tSMFTrapezoidal.Size = new System.Drawing.Size(214, 34);
-            this.tSMFTrapezoidal.Text = "Trapezoidal";
-            this.tSMFTrapezoidal.Click += new System.EventHandler(this.CreateFuzzySet);
-            // 
-            // tSMFLeftRight
-            // 
-            this.tSMFLeftRight.Name = "tSMFLeftRight";
-            this.tSMFLeftRight.SelectedIndex = 5;
-            this.tSMFLeftRight.Size = new System.Drawing.Size(214, 34);
-            this.tSMFLeftRight.Text = "LeftRight";
-            this.tSMFLeftRight.Click += new System.EventHandler(this.CreateFuzzySet);
-            // 
-            // tSMFSMFuzzySet
-            // 
-            this.tSMFSMFuzzySet.Name = "tSMFSMFuzzySet";
-            this.tSMFSMFuzzySet.SelectedIndex = 6;
-            this.tSMFSMFuzzySet.Size = new System.Drawing.Size(214, 34);
-            this.tSMFSMFuzzySet.Text = "S MFuzzySet";
-            this.tSMFSMFuzzySet.Click += new System.EventHandler(this.CreateFuzzySet);
-            // 
-            // tSMFZMFuzzySet
-            // 
-            this.tSMFZMFuzzySet.Name = "tSMFZMFuzzySet";
-            this.tSMFZMFuzzySet.SelectedIndex = 7;
-            this.tSMFZMFuzzySet.Size = new System.Drawing.Size(214, 34);
-            this.tSMFZMFuzzySet.Text = "Z MFuzzySet";
-            this.tSMFZMFuzzySet.Click += new System.EventHandler(this.CreateFuzzySet);
-            // 
-            // tSMFPiFuzzySet
-            // 
-            this.tSMFPiFuzzySet.Name = "tSMFPiFuzzySet";
-            this.tSMFPiFuzzySet.SelectedIndex = 8;
-            this.tSMFPiFuzzySet.Size = new System.Drawing.Size(214, 34);
-            this.tSMFPiFuzzySet.Text = "Pi Fuzzy Set";
-            this.tSMFPiFuzzySet.Click += new System.EventHandler(this.CreateFuzzySet);
-            // 
-            // tSMFRemoveUniverse
-            // 
-            this.tSMFRemoveUniverse.Name = "tSMFRemoveUniverse";
-            this.tSMFRemoveUniverse.SelectedIndex = 0;
-            this.tSMFRemoveUniverse.Size = new System.Drawing.Size(188, 34);
-            this.tSMFRemoveUniverse.Text = "Universe";
-            this.tSMFRemoveUniverse.Click += new System.EventHandler(this.removeUniverseOrFuzzy);
-            // 
-            // tSMFRemoveFuzzy
-            // 
-            this.tSMFRemoveFuzzy.Name = "tSMFRemoveFuzzy";
-            this.tSMFRemoveFuzzy.SelectedIndex = 1;
-            this.tSMFRemoveFuzzy.Size = new System.Drawing.Size(188, 34);
-            this.tSMFRemoveFuzzy.Text = "Fuzzy Set";
-            this.tSMFRemoveFuzzy.Click += new System.EventHandler(this.removeUniverseOrFuzzy);
-            // 
-            // tSMFUnaryNegate
-            // 
-            this.tSMFUnaryNegate.Name = "tSMFUnaryNegate";
-            this.tSMFUnaryNegate.SelectedIndex = 0;
-            this.tSMFUnaryNegate.Size = new System.Drawing.Size(330, 34);
-            this.tSMFUnaryNegate.Text = "Negate";
-            this.tSMFUnaryNegate.Click += new System.EventHandler(this.createUnaryFuzzySet);
-            // 
-            // tSMFUnaryValueCut
-            // 
-            this.tSMFUnaryValueCut.Name = "tSMFUnaryValueCut";
-            this.tSMFUnaryValueCut.SelectedIndex = 1;
-            this.tSMFUnaryValueCut.Size = new System.Drawing.Size(330, 34);
-            this.tSMFUnaryValueCut.Text = "Value Cut";
-            this.tSMFUnaryValueCut.Click += new System.EventHandler(this.createUnaryFuzzySet);
-            // 
-            // tSMFUnaryValueScale
-            // 
-            this.tSMFUnaryValueScale.Name = "tSMFUnaryValueScale";
-            this.tSMFUnaryValueScale.SelectedIndex = 2;
-            this.tSMFUnaryValueScale.Size = new System.Drawing.Size(330, 34);
-            this.tSMFUnaryValueScale.Text = "Value Scale";
-            this.tSMFUnaryValueScale.Click += new System.EventHandler(this.createUnaryFuzzySet);
-            // 
-            // tSMFLinguisticHVery
-            // 
-            this.tSMFLinguisticHVery.Name = "tSMFLinguisticHVery";
-            this.tSMFLinguisticHVery.SelectedIndex = 3;
-            this.tSMFLinguisticHVery.Size = new System.Drawing.Size(224, 34);
-            this.tSMFLinguisticHVery.Text = "Very";
-            this.tSMFLinguisticHVery.Click += new System.EventHandler(this.createUnaryFuzzySet);
-            // 
-            // tSMFLinguisticHDilation
-            // 
-            this.tSMFLinguisticHDilation.Name = "tSMFLinguisticHDilation";
-            this.tSMFLinguisticHDilation.SelectedIndex = 4;
-            this.tSMFLinguisticHDilation.Size = new System.Drawing.Size(224, 34);
-            this.tSMFLinguisticHDilation.Text = "More or Less";
-            this.tSMFLinguisticHDilation.Click += new System.EventHandler(this.createUnaryFuzzySet);
-            // 
-            // tSMFLinguisticHExtremely
-            // 
-            this.tSMFLinguisticHExtremely.Name = "tSMFLinguisticHExtremely";
-            this.tSMFLinguisticHExtremely.SelectedIndex = 5;
-            this.tSMFLinguisticHExtremely.Size = new System.Drawing.Size(224, 34);
-            this.tSMFLinguisticHExtremely.Text = "Extremely";
-            this.tSMFLinguisticHExtremely.Click += new System.EventHandler(this.createUnaryFuzzySet);
-            // 
-            // tSMFLinguisticHIntensification
-            // 
-            this.tSMFLinguisticHIntensification.Name = "tSMFLinguisticHIntensification";
-            this.tSMFLinguisticHIntensification.SelectedIndex = 6;
-            this.tSMFLinguisticHIntensification.Size = new System.Drawing.Size(224, 34);
-            this.tSMFLinguisticHIntensification.Text = "Intensification";
-            this.tSMFLinguisticHIntensification.Click += new System.EventHandler(this.createUnaryFuzzySet);
-            // 
-            // tSMFLinguisticHDiminisher
-            // 
-            this.tSMFLinguisticHDiminisher.Name = "tSMFLinguisticHDiminisher";
-            this.tSMFLinguisticHDiminisher.SelectedIndex = 7;
-            this.tSMFLinguisticHDiminisher.Size = new System.Drawing.Size(224, 34);
-            this.tSMFLinguisticHDiminisher.Text = "Diminisher";
-            this.tSMFLinguisticHDiminisher.Click += new System.EventHandler(this.createUnaryFuzzySet);
-            // 
-            // tSMFSelectAsFuzzy1
-            // 
-            this.tSMFSelectAsFuzzy1.Name = "tSMFSelectAsFuzzy1";
-            this.tSMFSelectAsFuzzy1.SelectedIndex = 0;
-            this.tSMFSelectAsFuzzy1.Size = new System.Drawing.Size(276, 34);
-            this.tSMFSelectAsFuzzy1.Text = "Select as Fuzzy Set 1";
-            this.tSMFSelectAsFuzzy1.Click += new System.EventHandler(this.selectAsBinaryFuzzy);
-            // 
-            // tSMFSelectAsFuzzy2
-            // 
-            this.tSMFSelectAsFuzzy2.Name = "tSMFSelectAsFuzzy2";
-            this.tSMFSelectAsFuzzy2.SelectedIndex = 1;
-            this.tSMFSelectAsFuzzy2.Size = new System.Drawing.Size(276, 34);
-            this.tSMFSelectAsFuzzy2.Text = "Select as Fuzzy Set 2";
-            this.tSMFSelectAsFuzzy2.Click += new System.EventHandler(this.selectAsBinaryFuzzy);
-            // 
-            // binaryOpTraditionalIntersection
-            // 
-            this.binaryOpTraditionalIntersection.Name = "binaryOpTraditionalIntersection";
-            this.binaryOpTraditionalIntersection.SelectedIndex = 0;
-            this.binaryOpTraditionalIntersection.Size = new System.Drawing.Size(292, 34);
-            this.binaryOpTraditionalIntersection.Text = "Traditional Intersection";
-            this.binaryOpTraditionalIntersection.Click += new System.EventHandler(this.createBinaryFuzzySet);
-            // 
-            // binaryOpUnion
-            // 
-            this.binaryOpUnion.Name = "binaryOpUnion";
-            this.binaryOpUnion.SelectedIndex = 1;
-            this.binaryOpUnion.Size = new System.Drawing.Size(292, 34);
-            this.binaryOpUnion.Text = "Union";
-            this.binaryOpUnion.Click += new System.EventHandler(this.createBinaryFuzzySet);
-            // 
-            // binaryOpSubstraction
-            // 
-            this.binaryOpSubstraction.Name = "binaryOpSubstraction";
-            this.binaryOpSubstraction.SelectedIndex = 2;
-            this.binaryOpSubstraction.Size = new System.Drawing.Size(292, 34);
-            this.binaryOpSubstraction.Text = "Substraction";
-            this.binaryOpSubstraction.Click += new System.EventHandler(this.createBinaryFuzzySet);
-            // 
-            // tSMFMinimumT
-            // 
-            this.tSMFMinimumT.Name = "tSMFMinimumT";
-            this.tSMFMinimumT.SelectedIndex = 3;
-            this.tSMFMinimumT.Size = new System.Drawing.Size(255, 34);
-            this.tSMFMinimumT.Text = "Minimum T-norm";
-            this.tSMFMinimumT.Click += new System.EventHandler(this.createBinaryFuzzySet);
-            // 
-            // tSMFAlgebraicT
-            // 
-            this.tSMFAlgebraicT.Name = "tSMFAlgebraicT";
-            this.tSMFAlgebraicT.SelectedIndex = 4;
-            this.tSMFAlgebraicT.Size = new System.Drawing.Size(255, 34);
-            this.tSMFAlgebraicT.Text = "Algebraic Product";
-            this.tSMFAlgebraicT.Click += new System.EventHandler(this.createBinaryFuzzySet);
-            // 
-            // tSMFBoundedT
-            // 
-            this.tSMFBoundedT.Name = "tSMFBoundedT";
-            this.tSMFBoundedT.SelectedIndex = 5;
-            this.tSMFBoundedT.Size = new System.Drawing.Size(255, 34);
-            this.tSMFBoundedT.Text = "Bounded Product";
-            this.tSMFBoundedT.Click += new System.EventHandler(this.createBinaryFuzzySet);
-            // 
-            // tSMFDrasticT
-            // 
-            this.tSMFDrasticT.Name = "tSMFDrasticT";
-            this.tSMFDrasticT.SelectedIndex = 6;
-            this.tSMFDrasticT.Size = new System.Drawing.Size(255, 34);
-            this.tSMFDrasticT.Text = "Drastic Product";
-            this.tSMFDrasticT.Click += new System.EventHandler(this.createBinaryFuzzySet);
-            // 
-            // TSMFSNormMaximum
-            // 
-            this.TSMFSNormMaximum.Name = "TSMFSNormMaximum";
-            this.TSMFSNormMaximum.SelectedIndex = 7;
-            this.TSMFSNormMaximum.Size = new System.Drawing.Size(258, 34);
-            this.TSMFSNormMaximum.Text = "Maximum S-norm";
-            this.TSMFSNormMaximum.Click += new System.EventHandler(this.createBinaryFuzzySet);
-            // 
-            // TSMFSAlgebraicSum
-            // 
-            this.TSMFSAlgebraicSum.Name = "TSMFSAlgebraicSum";
-            this.TSMFSAlgebraicSum.SelectedIndex = 8;
-            this.TSMFSAlgebraicSum.Size = new System.Drawing.Size(258, 34);
-            this.TSMFSAlgebraicSum.Text = "Algebraic Sum";
-            this.TSMFSAlgebraicSum.Click += new System.EventHandler(this.createBinaryFuzzySet);
-            // 
-            // TSMFSNormBoundedSum
-            // 
-            this.TSMFSNormBoundedSum.Name = "TSMFSNormBoundedSum";
-            this.TSMFSNormBoundedSum.SelectedIndex = 9;
-            this.TSMFSNormBoundedSum.Size = new System.Drawing.Size(258, 34);
-            this.TSMFSNormBoundedSum.Text = "Bounded Sum";
-            this.TSMFSNormBoundedSum.Click += new System.EventHandler(this.createBinaryFuzzySet);
-            // 
-            // TSMFSNormDrasticSum
-            // 
-            this.TSMFSNormDrasticSum.Name = "TSMFSNormDrasticSum";
-            this.TSMFSNormDrasticSum.SelectedIndex = 10;
-            this.TSMFSNormDrasticSum.Size = new System.Drawing.Size(258, 34);
-            this.TSMFSNormDrasticSum.Text = "Drastic Sum";
-            this.TSMFSNormDrasticSum.Click += new System.EventHandler(this.createBinaryFuzzySet);
-            // 
-            // toolStripMenuItemFuzzy1
-            // 
-            this.toolStripMenuItemFuzzy1.Name = "toolStripMenuItemFuzzy1";
-            this.toolStripMenuItemFuzzy1.SelectedIndex = 0;
-            this.toolStripMenuItemFuzzy1.Size = new System.Drawing.Size(211, 32);
-            this.toolStripMenuItemFuzzy1.Text = "Add a New Rule";
-            this.toolStripMenuItemFuzzy1.Click += new System.EventHandler(this.toolStripMenuItemFuzzy1_Click);
-            // 
-            // toolStripMenuItemFuzzy2
-            // 
-            this.toolStripMenuItemFuzzy2.Name = "toolStripMenuItemFuzzy2";
-            this.toolStripMenuItemFuzzy2.SelectedIndex = 0;
-            this.toolStripMenuItemFuzzy2.Size = new System.Drawing.Size(156, 32);
-            this.toolStripMenuItemFuzzy2.Text = "Inference";
-            // 
             // surface1
             // 
             // 
@@ -1021,40 +1003,69 @@
             // 
             this.surface1.ZValues.DataMember = "Z";
             // 
-            // label1
+            // topMenuStrip
             // 
-            this.label1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 25);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Choose Inference Method";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.topMenuStrip.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.topMenuStrip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.topMenuStrip.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            this.topMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.topMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.topFile});
+            this.topMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.topMenuStrip.Name = "topMenuStrip";
+            this.topMenuStrip.Size = new System.Drawing.Size(1151, 31);
+            this.topMenuStrip.TabIndex = 9;
+            this.topMenuStrip.Text = "menuStrip1";
             // 
-            // lbInference
+            // topFile
             // 
-            this.lbInference.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbInference.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbInference.FormattingEnabled = true;
-            this.lbInference.ItemHeight = 37;
-            this.lbInference.Items.AddRange(new object[] {
-            "Mamdani",
-            "Sugeno",
-            "Tsukamoto"});
-            this.lbInference.Location = new System.Drawing.Point(0, 0);
-            this.lbInference.Name = "lbInference";
-            this.lbInference.Size = new System.Drawing.Size(103, 70);
-            this.lbInference.TabIndex = 1;
-            this.lbInference.SelectedIndexChanged += new System.EventHandler(this.lbInference_SelectedIndexChanged);
+            this.topFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.topFileRestart});
+            this.topFile.Name = "topFile";
+            this.topFile.SelectedIndex = 0;
+            this.topFile.Size = new System.Drawing.Size(54, 27);
+            this.topFile.Text = "File";
+            // 
+            // topFileRestart
+            // 
+            this.topFileRestart.Name = "topFileRestart";
+            this.topFileRestart.SelectedIndex = 0;
+            this.topFileRestart.Size = new System.Drawing.Size(286, 34);
+            this.topFileRestart.Text = "Clear and Restart App";
+            this.topFileRestart.Click += new System.EventHandler(this.topFileRestart_Click);
+            // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.Name = "splitContainer4";
+            this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.topMenuStrip);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.splitContainer1);
+            this.splitContainer4.Size = new System.Drawing.Size(1151, 632);
+            this.splitContainer4.SplitterDistance = 31;
+            this.splitContainer4.TabIndex = 10;
             // 
             // outputEquationContextMenuStrip
             // 
             this.outputEquationContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.outputEquationContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tSMAddSelectedOutputEquation});
             this.outputEquationContextMenuStrip.Name = "outputEquationContextMenuStrip";
-            this.outputEquationContextMenuStrip.Size = new System.Drawing.Size(61, 4);
+            this.outputEquationContextMenuStrip.Size = new System.Drawing.Size(327, 69);
+            // 
+            // tSMAddSelectedOutputEquation
+            // 
+            this.tSMAddSelectedOutputEquation.Name = "tSMAddSelectedOutputEquation";
+            this.tSMAddSelectedOutputEquation.SelectedIndex = 0;
+            this.tSMAddSelectedOutputEquation.Size = new System.Drawing.Size(326, 32);
+            this.tSMAddSelectedOutputEquation.Text = "Add Selected Output Equation";
             // 
             // MainForm
             // 
@@ -1087,7 +1098,21 @@
             this.splitContainer5.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
             this.splitContainer5.ResumeLayout(false);
+            this.splitContainer8.Panel1.ResumeLayout(false);
+            this.splitContainer8.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer8)).EndInit();
+            this.splitContainer8.ResumeLayout(false);
+            this.splitContainer9.Panel1.ResumeLayout(false);
+            this.splitContainer9.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer9)).EndInit();
+            this.splitContainer9.ResumeLayout(false);
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRules)).EndInit();
             this.fuzzyRuleContextMenuStrip.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvConditions)).EndInit();
             this.inferenceContextMenuStrip.ResumeLayout(false);
             this.splitContainer7.Panel1.ResumeLayout(false);
             this.splitContainer7.Panel2.ResumeLayout(false);
@@ -1101,20 +1126,7 @@
             this.splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
-            this.tabControl2.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRules)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvConditions)).EndInit();
-            this.splitContainer8.Panel1.ResumeLayout(false);
-            this.splitContainer8.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer8)).EndInit();
-            this.splitContainer8.ResumeLayout(false);
-            this.splitContainer9.Panel1.ResumeLayout(false);
-            this.splitContainer9.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer9)).EndInit();
-            this.splitContainer9.ResumeLayout(false);
+            this.outputEquationContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1199,6 +1211,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox lbInference;
         private System.Windows.Forms.ContextMenuStrip outputEquationContextMenuStrip;
+        private ToolStripMenuItemFuzzy tSMAddSelectedOutputEquation;
     }
 }
 

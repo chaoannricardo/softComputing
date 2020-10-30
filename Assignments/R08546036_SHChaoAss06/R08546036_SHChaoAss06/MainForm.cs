@@ -70,6 +70,7 @@ namespace R08546036_SHChaoAss04
 
             // sugeno tab page
             sugenoTabPage.Font = new Font("Arial", 12, FontStyle.Bold);
+            sugenoTabPage.ContextMenuStrip = outputEquationContextMenuStrip;
         }
 
         // create universe function
