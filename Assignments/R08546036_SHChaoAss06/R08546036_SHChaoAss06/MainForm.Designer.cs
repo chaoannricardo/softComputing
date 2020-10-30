@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Input");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Output");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.theTreeContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.universeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,7 +93,6 @@
             this.dgvConditions = new System.Windows.Forms.DataGridView();
             this.inferenceContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFuzzy2 = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
-            this.teeChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer7 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.chartController1 = new Steema.TeeChart.ChartController();
@@ -102,6 +102,10 @@
             this.topFile = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.topFileRestart = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.teeChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inferenceMamdani = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.inferenceSugeno = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
+            this.inferenceTsukamoto = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.theTreeContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -756,18 +760,14 @@
             // 
             // toolStripMenuItemFuzzy2
             // 
+            this.toolStripMenuItemFuzzy2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inferenceMamdani,
+            this.inferenceSugeno,
+            this.inferenceTsukamoto});
             this.toolStripMenuItemFuzzy2.Name = "toolStripMenuItemFuzzy2";
             this.toolStripMenuItemFuzzy2.SelectedIndex = 0;
             this.toolStripMenuItemFuzzy2.Size = new System.Drawing.Size(156, 32);
             this.toolStripMenuItemFuzzy2.Text = "Inference";
-            this.toolStripMenuItemFuzzy2.Click += new System.EventHandler(this.inference_Click);
-            // 
-            // teeChartToolStripMenuItem
-            // 
-            this.teeChartToolStripMenuItem.Name = "teeChartToolStripMenuItem";
-            this.teeChartToolStripMenuItem.Size = new System.Drawing.Size(156, 32);
-            this.teeChartToolStripMenuItem.Text = "TeeChart";
-            this.teeChartToolStripMenuItem.Click += new System.EventHandler(this.teeChartToolStripMenuItem_Click);
             // 
             // splitContainer7
             // 
@@ -937,6 +937,34 @@
             this.splitContainer4.SplitterDistance = 31;
             this.splitContainer4.TabIndex = 10;
             // 
+            // teeChartToolStripMenuItem
+            // 
+            this.teeChartToolStripMenuItem.Name = "teeChartToolStripMenuItem";
+            this.teeChartToolStripMenuItem.Size = new System.Drawing.Size(156, 32);
+            this.teeChartToolStripMenuItem.Text = "TeeChart";
+            this.teeChartToolStripMenuItem.Click += new System.EventHandler(this.teeChartToolStripMenuItem_Click);
+            // 
+            // inferenceMamdani
+            // 
+            this.inferenceMamdani.Name = "inferenceMamdani";
+            this.inferenceMamdani.SelectedIndex = 0;
+            this.inferenceMamdani.Size = new System.Drawing.Size(304, 34);
+            this.inferenceMamdani.Text = "Inference by Mamdani";
+            // 
+            // inferenceSugeno
+            // 
+            this.inferenceSugeno.Name = "inferenceSugeno";
+            this.inferenceSugeno.SelectedIndex = 0;
+            this.inferenceSugeno.Size = new System.Drawing.Size(304, 34);
+            this.inferenceSugeno.Text = "Inference by Sugeno";
+            // 
+            // inferenceTsukamoto
+            // 
+            this.inferenceTsukamoto.Name = "inferenceTsukamoto";
+            this.inferenceTsukamoto.SelectedIndex = 0;
+            this.inferenceTsukamoto.Size = new System.Drawing.Size(304, 34);
+            this.inferenceTsukamoto.Text = "Inference by Tsukamoto";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1061,6 +1089,9 @@
         private Steema.TeeChart.ChartController chartController1;
         private Steema.TeeChart.TChart tChart1;
         private Steema.TeeChart.Styles.Surface surface1;
+        private ToolStripMenuItemFuzzy inferenceMamdani;
+        private ToolStripMenuItemFuzzy inferenceSugeno;
+        private ToolStripMenuItemFuzzy inferenceTsukamoto;
         private System.Windows.Forms.ToolStripMenuItem teeChartToolStripMenuItem;
     }
 }
