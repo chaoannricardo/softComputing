@@ -109,7 +109,8 @@
             this.toolStripMenuItemFuzzy2 = new R08546036_SHChaoAss04.ToolStripMenuItemFuzzy();
             this.surface1 = new Steema.TeeChart.Styles.Surface();
             this.label1 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lbInference = new System.Windows.Forms.ListBox();
+            this.outputEquationContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.theTreeContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -701,9 +702,9 @@
             // 
             // splitContainer9.Panel2
             // 
-            this.splitContainer9.Panel2.Controls.Add(this.listBox1);
+            this.splitContainer9.Panel2.Controls.Add(this.lbInference);
             this.splitContainer9.Size = new System.Drawing.Size(103, 99);
-            this.splitContainer9.SplitterDistance = 49;
+            this.splitContainer9.SplitterDistance = 25;
             this.splitContainer9.TabIndex = 0;
             // 
             // topFile
@@ -712,7 +713,7 @@
             this.topFileRestart});
             this.topFile.Name = "topFile";
             this.topFile.SelectedIndex = 0;
-            this.topFile.Size = new System.Drawing.Size(54, 25);
+            this.topFile.Size = new System.Drawing.Size(54, 27);
             this.topFile.Text = "File";
             // 
             // topFileRestart
@@ -1028,25 +1029,32 @@
             this.label1.ForeColor = System.Drawing.SystemColors.Control;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 49);
+            this.label1.Size = new System.Drawing.Size(103, 25);
             this.label1.TabIndex = 2;
             this.label1.Text = "Choose Inference Method";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // listBox1
+            // lbInference
             // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 37;
-            this.listBox1.Items.AddRange(new object[] {
+            this.lbInference.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbInference.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbInference.FormattingEnabled = true;
+            this.lbInference.ItemHeight = 37;
+            this.lbInference.Items.AddRange(new object[] {
             "Mamdani",
             "Sugeno",
             "Tsukamoto"});
-            this.listBox1.Location = new System.Drawing.Point(0, 0);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(103, 46);
-            this.listBox1.TabIndex = 1;
+            this.lbInference.Location = new System.Drawing.Point(0, 0);
+            this.lbInference.Name = "lbInference";
+            this.lbInference.Size = new System.Drawing.Size(103, 70);
+            this.lbInference.TabIndex = 1;
+            this.lbInference.SelectedIndexChanged += new System.EventHandler(this.lbInference_SelectedIndexChanged);
+            // 
+            // outputEquationContextMenuStrip
+            // 
+            this.outputEquationContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.outputEquationContextMenuStrip.Name = "outputEquationContextMenuStrip";
+            this.outputEquationContextMenuStrip.Size = new System.Drawing.Size(61, 4);
             // 
             // MainForm
             // 
@@ -1189,7 +1197,8 @@
         private System.Windows.Forms.SplitContainer splitContainer9;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lbInference;
+        private System.Windows.Forms.ContextMenuStrip outputEquationContextMenuStrip;
     }
 }
 

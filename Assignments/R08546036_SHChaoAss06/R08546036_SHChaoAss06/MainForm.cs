@@ -25,6 +25,9 @@ namespace R08546036_SHChaoAss04
         private static int graphTabCount = 0;
         // other variables
         private Random randomizer = new Random();
+        // Sugeno configurations
+        ListBox lbOutputEquation = new ListBox();
+        TabPage sugenoTabPage = new TabPage();
         #endregion
 
         public MainForm()
@@ -32,6 +35,8 @@ namespace R08546036_SHChaoAss04
             InitializeComponent();
             // let application to go full screen
             WindowState = FormWindowState.Maximized;
+
+            
         }
 
         protected void MainForm_Load(object sender, EventArgs e)
@@ -50,8 +55,21 @@ namespace R08546036_SHChaoAss04
             lbIfThenInstruction.BackColor = dgvRules.BackgroundColor;
             lbSetTip.Text = "";
 
-            // tebpage2
+            // tebcontrol2
             tabControl2.TabPages[0].Text = "If-Then Rule";
+            tabControl2.TabPages[1].Text = "Conditions";
+
+            Label outputEquationInstruction = new Label();
+            outputEquationInstruction.Parent = lbOutputEquation;
+            outputEquationInstruction.Text = "Right click to add selected equations.";
+            outputEquationInstruction.Font = new Font("Arial", 16, FontStyle.Bold);
+            outputEquationInstruction.Width = 300;
+            outputEquationInstruction.Dock = DockStyle.Bottom;
+            outputEquationInstruction.ForeColor = Color.Blue;
+            outputEquationInstruction.BackColor = lbOutputEquation.BackColor;
+
+            // sugeno tab page
+            sugenoTabPage.Font = new Font("Arial", 12, FontStyle.Bold);
         }
 
         // create universe function
@@ -619,62 +637,110 @@ namespace R08546036_SHChaoAss04
         private void inference_Click(object sender, EventArgs e)
         {
 
-            // set inference instruction label to invisible
-
-            // create if-then rules
-            IfThenFuzzyRule[] allRules = new IfThenFuzzyRule[dgvRules.Rows.Count];
-
-            for (int r = 0; r < (dgvRules.Rows.Count); r++)
+            // check inference method
+            if (lbInference.SelectedIndex == 0)
             {
-                FuzzySet[] inputs = new FuzzySet[dgvRules.ColumnCount - 1];
-
-                // input fuzzy list
-                for (int c = 0; c < (inputs.Length); c++)
-                {
-                    inputs[c] = (FuzzySet)dgvRules.Rows[r].Cells[c].Tag;
-                }
-
-                // output fuzzy list
-                FuzzySet output = (FuzzySet)dgvRules.Rows[r].Cells[dgvRules.Columns.Count - 1].Tag;
-
-                allRules[r] = new IfThenFuzzyRule(inputs, output);
+                // Mamdani method
+                MessageBox.Show("");
+            }
+            else if (lbInference.SelectedIndex == 1)
+            {
+                // Sugeno method
+                MessageBox.Show("");
+            }
+            else if(lbInference.SelectedIndex == 2){
+                //Tsukamo method
+                MessageBox.Show("");
             }
 
-            // conditions
-            FuzzySet[] conditions = new FuzzySet[dgvConditions.Columns.Count];
-            for (int i = 0; i < dgvConditions.Columns.Count; i++)
-            {
-                conditions[i] = (FuzzySet)dgvConditions.Rows[0].Cells[i].Tag;
-            }
+            //// create if-then rules
+            //IfThenFuzzyRule[] allRules = new IfThenFuzzyRule[dgvRules.Rows.Count];
 
-            // set contents of conditions
-            FuzzySet resultingFS = null;
+            //for (int r = 0; r < (dgvRules.Rows.Count); r++)
+            //{
+            //    FuzzySet[] inputs = new FuzzySet[dgvRules.ColumnCount - 1];
 
-            foreach (IfThenFuzzyRule rule in allRules)
-            {
-                if (resultingFS == null)
-                {
-                    resultingFS = rule.FuzzyInFuzzyOutInferencing(conditions);
-                }
-                else
-                {
-                    resultingFS = resultingFS | rule.FuzzyInFuzzyOutInferencing(conditions);
-                }
-            }
+            //    // input fuzzy list
+            //    for (int c = 0; c < (inputs.Length); c++)
+            //    {
+            //        inputs[c] = (FuzzySet)dgvRules.Rows[r].Cells[c].Tag;
+            //    }
 
-            try
-            {
-                // show the final fs
-                resultingFS.ShowInferenceSeries = true;
-            }
-            catch (System.NullReferenceException Exception)
-            {
-                return;
-            }
+            //    // output fuzzy list
+            //    FuzzySet output = (FuzzySet)dgvRules.Rows[r].Cells[dgvRules.Columns.Count - 1].Tag;
+
+            //    allRules[r] = new IfThenFuzzyRule(inputs, output);
+            //}
+
+            //// conditions
+            //FuzzySet[] conditions = new FuzzySet[dgvConditions.Columns.Count];
+            //for (int i = 0; i < dgvConditions.Columns.Count; i++)
+            //{
+            //    conditions[i] = (FuzzySet)dgvConditions.Rows[0].Cells[i].Tag;
+            //}
+
+            //// set contents of conditions
+            //FuzzySet resultingFS = null;
+
+            //foreach (IfThenFuzzyRule rule in allRules)
+            //{
+            //    if (resultingFS == null)
+            //    {
+            //        resultingFS = rule.FuzzyInFuzzyOutInferencing(conditions);
+            //    }
+            //    else
+            //    {
+            //        resultingFS = resultingFS | rule.FuzzyInFuzzyOutInferencing(conditions);
+            //    }
+            //}
+
+            //try
+            //{
+            //    // show the final fs
+            //    resultingFS.ShowInferenceSeries = true;
+            //}
+            //catch (System.NullReferenceException Exception)
+            //{
+            //    return;
+            //}
 
 
         }
 
-       
+        private void lbInference_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbInference.SelectedIndex == 1)
+            {
+                if (tabControl2.TabPages.Count < 3)
+                {
+                    // add tab into tabcontrol
+                    tabControl2.TabPages.Add(sugenoTabPage);
+                    tabControl2.SelectedTab = sugenoTabPage;
+                    sugenoTabPage.Text = "Output Equation";
+                    lbOutputEquation.Parent = sugenoTabPage;
+                    lbOutputEquation.Dock = DockStyle.Fill;
+                    
+
+                    // add equations into listbox
+                    lbOutputEquation.Items.Clear();
+                    lbOutputEquation.Items.Add("0: Y=0.1X+6.4");
+                    lbOutputEquation.Items.Add("1: Y=0.5X+4");
+                    lbOutputEquation.Items.Add("2: Y=X-2");
+                    lbOutputEquation.Items.Add("3: Z=-X+Y+1");
+                    lbOutputEquation.Items.Add("4: Z=-Y+3");
+                    lbOutputEquation.Items.Add("5: Z=-X+3");
+                    lbOutputEquation.Items.Add("6: Z=-X+Y+2");
+
+
+                }
+            }
+            else {
+                if (tabControl2.TabPages.Count == 3)
+                {
+                    tabControl2.TabPages.Remove(sugenoTabPage);
+                }
+
+            }
+        }
     }
 }
