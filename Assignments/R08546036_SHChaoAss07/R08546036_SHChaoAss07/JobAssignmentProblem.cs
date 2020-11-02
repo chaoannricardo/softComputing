@@ -13,19 +13,22 @@ namespace R08546036_SHChaoAss07
         double[,] SetupTimes;
         string fileName;
 
+        public int NumberOfJobs { get => numberOfJobs; set => numberOfJobs = value; }
+
         public void OpenFile(string path)
         {
             fileName = path;
             StreamReader sr = new StreamReader(fileName);
             string str;
             string[] items;
+            char[] sep = { ' ' };
             str = sr.ReadLine();
             numberOfJobs = Convert.ToInt32(str);
             SetupTimes = new double[numberOfJobs, numberOfJobs];
             for (int r = 0; r < numberOfJobs; r++)
             {
                 str = sr.ReadLine();
-                items = str.Split(' ');
+                items = str.Split(sep, StringSplitOptions.RemoveEmptyEntries);
 
                 for (int c = 0; c < numberOfJobs; c++)
                 {
@@ -37,6 +40,19 @@ namespace R08546036_SHChaoAss07
 
 
             sr.Close();
+        }
+
+        public double GetTotalSetupTimeForAnAssignment(int[] ass)
+        {
+            double total = 0;
+            
+            for (int j = 0; j < numberOfJobs; j++) {
+                total += SetupTimes[ass[j], j];
+            
+            }
+
+            return total;
+
         }
     }
 }

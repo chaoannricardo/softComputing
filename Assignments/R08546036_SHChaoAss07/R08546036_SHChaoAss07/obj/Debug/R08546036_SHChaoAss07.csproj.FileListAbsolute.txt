@@ -1,0 +1,10 @@
+D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss07\R08546036_SHChaoAss07\bin\Debug\R08546036_SHChaoAss07.exe.config
+D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss07\R08546036_SHChaoAss07\bin\Debug\R08546036_SHChaoAss07.exe
+D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss07\R08546036_SHChaoAss07\bin\Debug\R08546036_SHChaoAss07.pdb
+D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss07\R08546036_SHChaoAss07\obj\Debug\R08546036_SHChaoAss07.csprojAssemblyReference.cache
+D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss07\R08546036_SHChaoAss07\obj\Debug\R08546036_SHChaoAss07.Mainform.resources
+D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss07\R08546036_SHChaoAss07\obj\Debug\R08546036_SHChaoAss07.Properties.Resources.resources
+D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss07\R08546036_SHChaoAss07\obj\Debug\R08546036_SHChaoAss07.csproj.GenerateResource.cache
+D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss07\R08546036_SHChaoAss07\obj\Debug\R08546036_SHChaoAss07.csproj.CoreCompileInputs.cache
+D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss07\R08546036_SHChaoAss07\obj\Debug\R08546036_SHChaoAss07.exe
+D:\Windows_Storage\Storage\Github\softComputing\Assignments\R08546036_SHChaoAss07\R08546036_SHChaoAss07\obj\Debug\R08546036_SHChaoAss07.pdb
