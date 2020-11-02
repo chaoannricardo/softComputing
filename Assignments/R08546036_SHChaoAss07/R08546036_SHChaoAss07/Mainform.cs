@@ -22,6 +22,7 @@ namespace R08546036_SHChaoAss07
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             if (dlgOpen.ShowDialog() != DialogResult.OK) return;
+            theProblem.OpenFile(dlgOpen.FileName);
 
         }
     }
