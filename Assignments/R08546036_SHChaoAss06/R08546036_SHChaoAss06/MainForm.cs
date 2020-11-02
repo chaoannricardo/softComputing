@@ -1,10 +1,12 @@
-﻿using R08546036_SHChaoAss05;
+﻿using R08546036_SHChaoAss06;
+using R08546036_SHChaoAss06;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Channels;
 using System.Text;
@@ -28,15 +30,20 @@ namespace R08546036_SHChaoAss04
         // Sugeno configurations
         ListBox lbOutputEquation = new ListBox();
         TabPage sugenoTabPage = new TabPage();
+        // inference cut or scale
+        private bool isCut;
+        // inference fuzzy set cariable
+        private IFuzzyInferencing mySystem;
         #endregion
 
         public MainForm()
         {
             InitializeComponent();
+
+            splitContainer11.SplitterDistance = (cbResulting.Height) / 2;
+            splitContainer11.IsSplitterFixed = true;
             // let application to go full screen
             WindowState = FormWindowState.Maximized;
-
-            
         }
 
         protected void MainForm_Load(object sender, EventArgs e)
@@ -54,6 +61,10 @@ namespace R08546036_SHChaoAss04
             lbInstruction.BackColor = theTree.BackColor;
             lbIfThenInstruction.BackColor = dgvRules.BackgroundColor;
             lbSetTip.Text = "";
+            lbSaveAndOpen.Text = "Press File to further Load or Save Files";
+            lbSaveAndOpen.Font = new Font("Arial", 12, FontStyle.Bold);
+            lbSaveAndOpen.ForeColor = Color.DarkBlue;
+            lbSaveAndOpen.BackColor = topMenuStrip.BackColor;
 
             // tebcontrol2
             tabControl2.TabPages[0].Text = "If-Then Rule";
@@ -62,7 +73,7 @@ namespace R08546036_SHChaoAss04
             Label outputEquationInstruction = new Label();
             outputEquationInstruction.Parent = lbOutputEquation;
             outputEquationInstruction.Text = "Right click to add selected equations.";
-            outputEquationInstruction.Font = new Font("Arial", 16, FontStyle.Bold);
+            outputEquationInstruction.Font = new Font("Arial", 14, FontStyle.Bold);
             outputEquationInstruction.Width = 300;
             outputEquationInstruction.Dock = DockStyle.Bottom;
             outputEquationInstruction.ForeColor = Color.Blue;
@@ -71,6 +82,46 @@ namespace R08546036_SHChaoAss04
             // sugeno tab page
             sugenoTabPage.Font = new Font("Arial", 12, FontStyle.Bold);
             sugenoTabPage.ContextMenuStrip = outputEquationContextMenuStrip;
+
+
+            // cbResulting configuration
+            cbResulting.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            // Inferencing Method label
+            Label lbResultingType = new Label();
+            lbResultingType.Parent = splitContainer11.Panel1;
+            lbResultingType.Text = "Choose Resulting Input & Output Method";
+            lbResultingType.Font = new Font("Arial", 8, FontStyle.Bold);
+            lbResultingType.Width = 300;
+            lbResultingType.Height = 15;
+            lbResultingType.Dock = DockStyle.Bottom;
+            lbResultingType.ForeColor = Color.DarkBlue;
+            lbResultingType.BackColor = lbInference.BackColor;
+
+            // Inferencing Method label
+            Label lbInferenceType = new Label();
+            lbInferenceType.Parent = lbInference;
+            lbInferenceType.Text = "Choose Inferencing Method";
+            lbInferenceType.Font = new Font("Arial", 8, FontStyle.Bold);
+            lbInferenceType.Width = 300;
+            lbInferenceType.Dock = DockStyle.Bottom;
+            lbInferenceType.ForeColor = Color.DarkBlue;
+            lbInferenceType.BackColor = lbInference.BackColor;
+
+            // tsmFCut or Scale
+            toolStripMCut.Checked = true;
+            isCut = true;
+
+            // select mamdani when initiate
+            cbResulting.Enabled = true;
+            if (tabControl2.TabPages.Count == 3)
+            {
+                tabControl2.TabPages.Remove(sugenoTabPage);
+            }
+            mySystem = new MamdaniFuzzySystem();
+            cbResulting.SelectedIndex = 0;
+            lbInference.SelectedIndex = 0;
+            ppGSystem.SelectedObject = mySystem;
         }
 
         // create universe function
@@ -158,6 +209,13 @@ namespace R08546036_SHChaoAss04
         // create fuzzy set function
         private void CreateFuzzySet(object sender, EventArgs e)
         {
+            // could not create fuzzy set in output when sugeno mode
+            if (theTree.SelectedNode.Text == "Output" && lbInference.SelectedIndex == 1)
+            {
+                MessageBox.Show("You could not add fuzzy set in output when in Sugeno mode!");
+                return;
+            }
+
             // get property of defined menuitem control
             int selectedIndex = (sender as ToolStripMenuItemFuzzy).SelectedIndex;
 
@@ -182,6 +240,14 @@ namespace R08546036_SHChaoAss04
                             break;
                         case 2:
                             // Gaussian Function
+
+                            // can not be created under Tsukamoto mode
+                            if (lbInference.SelectedIndex == 2)
+                            {
+                                MessageBox.Show("The selected output fuzzy set for a Tsukamoto model is not monotonic.");
+                                return;
+                            }
+
                             aFS = new GaussianFuzzySet(selectedU);
                             break;
                         case 3:
@@ -508,6 +574,7 @@ namespace R08546036_SHChaoAss04
         private void CloseInstruction(object sender, EventArgs e)
         {
             lbInstruction.Visible = false;
+            lbSaveAndOpen.Visible = false;
         }
 
         private void dgvRules_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -589,51 +656,27 @@ namespace R08546036_SHChaoAss04
 
         }
 
-        // drag event of theTree
-        private void theTreeDrag(object sender, ItemDragEventArgs e)
-        {
-            // only drag node when using mouse left button
-            if (e.Button == MouseButtons.Left)
-            {
-                // change selceted node to dragging node
-                theTree.SelectedNode = (TreeNode)e.Item;
-                // do drag drop
-                ((TreeView)sender).DoDragDrop(e.Item, DragDropEffects.Move);
-
-
-
-            }
-
-        }
-
-        private void theTree_DragEnter(object sender, DragEventArgs e)
-        {
-            TreeNode selectedNode = (sender as TreeView).SelectedNode;
-        }
-
-
         // sample tee chart function
         private void teeChartToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int numXValues = 100;
-            int numZValues = 80;
+            //int numXValues = 100;
+            //int numZValues = 80;
 
-            surface1.NumXValues = numXValues;
-            surface1.NumZValues = numZValues;
-            surface1.IrregularGrid = true;
-            surface1.Clear();
+            //surface1.NumXValues = numXValues;
+            //surface1.NumZValues = numZValues;
+            //surface1.IrregularGrid = true;
+            //surface1.Clear();
 
-            for (double x = 0; x < numXValues; x++)
-            {
-                for (double zz = 0; zz < numZValues; zz++)
-                {
-                    double y;
-                    y = Math.Sin(x / 10.0) * Math.Cos(zz / 4.0);
-                    surface1.Add(x, y, zz);
-                }
-            }
+            //for (double x = 0; x < numXValues; x++)
+            //{
+            //    for (double zz = 0; zz < numZValues; zz++)
+            //    {
+            //        double y;
+            //        y = Math.Sin(x / 10.0) * Math.Cos(zz / 4.0);
+            //        surface1.Add(x, y, zz);
+            //    }
+            //}
         }
-
 
         private void inference_Click(object sender, EventArgs e)
         {
@@ -642,76 +685,47 @@ namespace R08546036_SHChaoAss04
             if (lbInference.SelectedIndex == 0)
             {
                 // Mamdani method
-                MessageBox.Show("");
+                mySystem.ConstructSystem(dgvRules);
+                mySystem.Inferencing(dgvConditions);
             }
             else if (lbInference.SelectedIndex == 1)
             {
                 // Sugeno method
                 MessageBox.Show("");
             }
-            else if(lbInference.SelectedIndex == 2){
+            else if (lbInference.SelectedIndex == 2)
+            {
                 //Tsukamo method
                 MessageBox.Show("");
             }
-
-            //// create if-then rules
-            //IfThenFuzzyRule[] allRules = new IfThenFuzzyRule[dgvRules.Rows.Count];
-
-            //for (int r = 0; r < (dgvRules.Rows.Count); r++)
-            //{
-            //    FuzzySet[] inputs = new FuzzySet[dgvRules.ColumnCount - 1];
-
-            //    // input fuzzy list
-            //    for (int c = 0; c < (inputs.Length); c++)
-            //    {
-            //        inputs[c] = (FuzzySet)dgvRules.Rows[r].Cells[c].Tag;
-            //    }
-
-            //    // output fuzzy list
-            //    FuzzySet output = (FuzzySet)dgvRules.Rows[r].Cells[dgvRules.Columns.Count - 1].Tag;
-
-            //    allRules[r] = new IfThenFuzzyRule(inputs, output);
-            //}
-
-            //// conditions
-            //FuzzySet[] conditions = new FuzzySet[dgvConditions.Columns.Count];
-            //for (int i = 0; i < dgvConditions.Columns.Count; i++)
-            //{
-            //    conditions[i] = (FuzzySet)dgvConditions.Rows[0].Cells[i].Tag;
-            //}
-
-            //// set contents of conditions
-            //FuzzySet resultingFS = null;
-
-            //foreach (IfThenFuzzyRule rule in allRules)
-            //{
-            //    if (resultingFS == null)
-            //    {
-            //        resultingFS = rule.FuzzyInFuzzyOutInferencing(conditions);
-            //    }
-            //    else
-            //    {
-            //        resultingFS = resultingFS | rule.FuzzyInFuzzyOutInferencing(conditions);
-            //    }
-            //}
-
-            //try
-            //{
-            //    // show the final fs
-            //    resultingFS.ShowInferenceSeries = true;
-            //}
-            //catch (System.NullReferenceException Exception)
-            //{
-            //    return;
-            //}
-
 
         }
 
         private void lbInference_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lbInference.SelectedIndex == 1)
+
+
+            if (lbInference.SelectedIndex == 0)
             {
+                // Mamdani
+                cbResulting.Enabled = true;
+
+                if (tabControl2.TabPages.Count == 3)
+                {
+                    tabControl2.TabPages.Remove(sugenoTabPage);
+                }
+
+                // create system
+                mySystem = new MamdaniFuzzySystem();
+                cbResulting.SelectedIndex = 0;
+
+
+
+            }
+            else if (lbInference.SelectedIndex == 1)
+            {
+                // Sugeno
+                cbResulting.Enabled = false;
                 if (tabControl2.TabPages.Count < 3)
                 {
                     // add tab into tabcontrol
@@ -720,7 +734,7 @@ namespace R08546036_SHChaoAss04
                     sugenoTabPage.Text = "Output Equation";
                     lbOutputEquation.Parent = sugenoTabPage;
                     lbOutputEquation.Dock = DockStyle.Fill;
-                    
+
 
                     // add equations into listbox
                     lbOutputEquation.Items.Clear();
@@ -731,16 +745,352 @@ namespace R08546036_SHChaoAss04
                     lbOutputEquation.Items.Add("4: Z=-Y+3");
                     lbOutputEquation.Items.Add("5: Z=-X+3");
                     lbOutputEquation.Items.Add("6: Z=-X+Y+2");
-
-
                 }
+
+                // create system
+                mySystem = new SugenoFuzzySystem();
+
             }
-            else {
+            else // selected index = 3
+            {
+                // Tsukamoto
+                cbResulting.Enabled = false;
+
                 if (tabControl2.TabPages.Count == 3)
                 {
                     tabControl2.TabPages.Remove(sugenoTabPage);
                 }
 
+                // create system
+                mySystem = new TsukamotoFuzzySystem();
+            }
+
+            ppGSystem.SelectedObject = mySystem;
+
+        }
+
+        private void tSMAddSelectedOutputEquation_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CutScaleClick(object sender, EventArgs e)
+        {
+            int selectedIndex = (sender as ToolStripMenuItemFuzzy).SelectedIndex;
+            try
+            {
+                switch (selectedIndex)
+                {
+                    case 0:
+                        mySystem.IsCut = true;
+                        toolStripMCut.Checked = true;
+                        toolStripMScale.Checked = false;
+                        break;
+                    case 1:
+                        mySystem.IsCut = false;
+                        toolStripMCut.Checked = false;
+                        toolStripMScale.Checked = true;
+                        break;
+                }
+
+                ppGSystem.SelectedObject = mySystem;
+            }
+            catch (System.NullReferenceException Exception)
+            {
+                MessageBox.Show("Choose Inference Method first!");
+            }
+        }
+
+        private void CrispInference_Click(object sender, EventArgs e)
+        {
+            Universe u1 = null, u2 = null;
+
+            int res = 100;
+            double dx = (u1.Maximum - u1.Minimum) / res;
+            double dz = (u2.Maximum - u2.Minimum) / res;
+
+            double[] conditions = new double[2];
+
+            for (double x = u1.Maximum; x < u1.Maximum; x += dx)
+            {
+                for (double z = u2.Maximum; z < u2.Maximum; z += dz)
+                {
+                    conditions[0] = x;
+                    conditions[1] = z;
+
+                    double y = mySystem.CrispInCrispOutInferencing(conditions);
+                }
+            }
+        }
+
+        private void cbResulting_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cbResulting.SelectedIndex)
+            {
+                case 0:
+                    mySystem.Defuzzification = DefuzzificationType.COA;
+                    break;
+                case 1:
+                    mySystem.Defuzzification = DefuzzificationType.BOA;
+                    break;
+                case 2:
+                    mySystem.Defuzzification = DefuzzificationType.MOM;
+                    break;
+                case 3:
+                    mySystem.Defuzzification = DefuzzificationType.SOM;
+                    break;
+                case 4:
+                    mySystem.Defuzzification = DefuzzificationType.LOM;
+                    break;
+                default:
+                    mySystem.Defuzzification = DefuzzificationType.COA;
+                    break;
+            }
+        }
+
+        // open and save function
+        private void OpenOrSave(object sender, EventArgs e)
+        {
+            TreeNode univNode;
+            TreeNode aNode;
+            Universe uobj;
+            Chart mainChart = new Chart();
+
+            switch ((sender as ToolStripMenuItemFuzzy).SelectedIndex)
+            {
+                case 0: // open function
+                    if (dlgOpen.ShowDialog() != DialogResult.OK) return;
+                    string str;
+                    string[] items;
+                    StreamReader sr = new StreamReader(dlgOpen.FileName);
+                    items = sr.ReadLine().Split(':');
+                    switch (items[1]) {
+                        case "Mamdani":
+                            lbInference.SelectedIndex = 0;
+                            break;
+                        case "Sugeno":
+                            lbInference.SelectedIndex = 1;
+                            break;
+                        case "Tsukamoto":
+                            lbInference.SelectedIndex = 2;
+                            break;
+                    }
+
+                    // clear up tab control and tree view
+                    if (tabControl1.TabPages.Count > 0) {
+                        for (int i = 0; i < tabControl1.TabPages.Count; i++)
+                        {
+                            tabControl1.TabPages.RemoveAt(i);
+                        }
+                    }
+                    theTree.Nodes[0].Nodes.Clear();
+                    theTree.Nodes[1].Nodes.Clear();
+
+                    // set up tree view
+                    // input
+                    ////////////////////////////////////////////////
+                    ////////////////////////////////////////////////
+                    items = sr.ReadLine().Split(':');
+                    int numInputUniverse = Convert.ToInt32(items[1]);
+                    int numFS;
+                    TreeNode fsNode;
+                    FuzzySet fs;
+                    Dictionary<int,FuzzySet> codeVsFS = new Dictionary<int, FuzzySet>();
+
+                    for (int i = 0; i < numInputUniverse; i++) {
+                        univNode = new TreeNode();
+                        // create new tab if new Universe is created
+                        TabPage newTabPage = new TabPage();
+                        // add tab into tabcontrol
+                        tabControl1.TabPages.Add(newTabPage);
+                        tabControl1.SelectedTab = newTabPage;
+                        mainChart.Parent = newTabPage;
+                        uobj = new Universe(mainChart);
+
+                        // read file with universe
+                        uobj.ReadFile(sr);
+
+                        newTabPage.Text = uobj.Title;
+                        newTabPage.ToolTipText = $"Chart of {uobj.Title}.";
+                        // adjust chart size to fit tab
+                        mainChart.Dock = DockStyle.Fill;
+
+                        // tag tab to universe
+                        uobj.BindedTab = tabControl1.TabPages[graphTabCount];
+                        graphTabCount += 1;
+                        // tag chart to universe
+                        uobj.BindedChart = mainChart;
+                        // Add a node inside the Universe, either for input or output
+                        TreeNode aNodeI = new TreeNode(uobj.Title);
+                        aNodeI.Tag = uobj;
+                        theTree.Nodes[0].Nodes.Add(aNodeI);
+                        theTree.SelectedNode = aNodeI;
+                        theGrid.SelectedObject = uobj;
+                        theTree.Focus();
+
+                        // add columns to two data grid views
+                        dgvRules.Columns.Add(uobj.Title, uobj.Title);
+                        // column style properties
+                        dgvRules.Columns[uobj.Title].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        dgvRules.Columns[uobj.Title].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        dgvRules.Columns[uobj.Title].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dgvRules.Columns[uobj.Title].DefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+                        dgvRules.Columns[uobj.Title].DefaultCellStyle.ForeColor = Color.DarkBlue;
+
+                        // only add input in condition grid
+                        if (theTree.SelectedNode.Parent.Text == "Input")
+                        {
+                            // add row to dgvCondition
+                            dgvConditions.Columns.Add(uobj.Title, uobj.Title);
+                            if (dgvConditions.Rows.Count < 1) dgvConditions.Rows.Add();
+                            // column style properties
+                            dgvConditions.Columns[uobj.Title].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dgvConditions.Columns[uobj.Title].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dgvConditions.Columns[uobj.Title].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                            dgvConditions.Columns[uobj.Title].DefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+                            dgvConditions.Columns[uobj.Title].DefaultCellStyle.ForeColor = Color.DarkRed;
+                        }
+
+                        // add fuzzy set
+                        /////////////////////////////////////////////////
+                        items = sr.ReadLine().Split(':');
+                        numFS = Convert.ToInt32(items[1]);
+                        for (int j = 0; j < numFS; j++) {
+                            fsNode = new TreeNode();
+                            items = sr.ReadLine().Split(':');
+                            switch (items[1]) 
+                            {
+                                case "GaussianFuzzySet":
+                                    fs = new GaussianFuzzySet(uobj);
+                                    break;
+                                case "TriangularFuzzySet":
+                                    fs = new TriangularFuzzySet(uobj);
+                                    break;
+                                default:
+                                    fs = new GaussianFuzzySet(uobj);
+                                    break;
+
+                            }
+                            items = sr.ReadLine().Split(':');
+                            int hash = Convert.ToInt32(items[1]);
+                            codeVsFS.Add(hash, fs);
+                            // let fs read its fuzzy set
+                            fs.ReadFile(sr);
+                            fsNode.Tag = fs;
+                            fsNode.Text = fs.Title;
+                            univNode.Nodes.Add(fsNode);
+                            fs.ShowSeries = true;
+                        }
+
+                    }
+
+                    // output
+                    /////////////////////////////////////////////
+                    ////////////////////////////////////////////////
+                    items = sr.ReadLine().Split(':');
+                    univNode = new TreeNode();
+                    // check if selecting input/output node
+                    int nodeIndex = 0;
+                    // create new tab if new Universe is created
+                    TabPage newTabPageII = new TabPage();
+                    // add tab into tabcontrol
+                    tabControl1.TabPages.Add(newTabPageII);
+                    tabControl1.SelectedTab = newTabPageII;
+                    mainChart.Parent = newTabPageII;
+                    uobj = new Universe(mainChart);
+
+                    // read file with universe
+                    uobj.ReadFile(sr);
+
+
+                    newTabPageII.Text = uobj.Title;
+                    newTabPageII.ToolTipText = $"Chart of {uobj.Title}.";
+                    // adjust chart size to fit tab
+                    mainChart.Dock = DockStyle.Fill;
+
+                    // tag tab to universe
+                    uobj.BindedTab = tabControl1.TabPages[graphTabCount];
+                    graphTabCount += 1;
+                    // tag chart to universe
+                    uobj.BindedChart = mainChart;
+                    // Add a node inside the Universe, either for input or output
+                    TreeNode bNode = new TreeNode(uobj.Title);
+                    bNode.Tag = uobj;
+                    theTree.Nodes[1].Nodes.Add(bNode);
+                    theTree.SelectedNode = bNode;
+                    theGrid.SelectedObject = uobj;
+                    theTree.Focus();
+
+                    // add columns to two data grid views
+                    dgvRules.Columns.Add(uobj.Title, uobj.Title);
+                    // column style properties
+                    dgvRules.Columns[uobj.Title].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgvRules.Columns[uobj.Title].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgvRules.Columns[uobj.Title].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvRules.Columns[uobj.Title].DefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+                    dgvRules.Columns[uobj.Title].DefaultCellStyle.ForeColor = Color.DarkBlue;
+
+                    sr.Close();
+                    break;
+                case 1: // save function
+                    DialogResult ans = dlgSave.ShowDialog();
+                    if (ans != DialogResult.OK) return;
+                    StreamWriter sw = new StreamWriter(dlgSave.FileName);
+                    // write model name
+                    switch (lbInference.SelectedIndex)
+                    {
+                        case 0: // mamdani
+                            sw.WriteLine($"Model:Mamdani");
+                            break;
+                        case 1: // sugeno
+                            sw.WriteLine($"Model:Sugeno");
+                            break;
+                        case 2: // tsukamoto
+                            sw.WriteLine($"Model:Tsukamoto");
+                            break;
+                    }
+                    // write tree view
+                    int numUniverse = theTree.Nodes[0].Nodes.Count; // input
+                    sw.WriteLine($"NumberOfInputUniverse:{numUniverse}");
+
+                    for (int i = 0; i < numUniverse; i++) {
+                        univNode = theTree.Nodes[0].Nodes[i];
+                        uobj = (Universe)univNode.Tag;
+                        uobj.SaveFile(sw);
+
+                        // report included fuzzy set
+                        numFS = univNode.Nodes.Count;
+                        sw.WriteLine($"NumberOfInputFuzzySet:{numFS}");
+
+                        for (int j = 0; j < numFS; j++) {
+                            fsNode = univNode.Nodes[j];
+                            fs = (FuzzySet)fsNode.Tag;
+                            fs.SaveFile(sw);
+                        
+                        }
+                    }
+
+                    sw.WriteLine($"NumberOfOutputUniverse:1");// output
+                    univNode = theTree.Nodes[1].Nodes[0];
+                    uobj = (Universe)univNode.Tag;
+                    uobj.SaveFile(sw);
+                    // report included fuzzy set
+                    numFS = univNode.Nodes.Count;
+                    sw.WriteLine($"NumberOfInputFuzzySet:{numFS}");
+
+                    for (int j = 0; j < numFS; j++)
+                    {
+                        fsNode = univNode.Nodes[j];
+                        fs = (FuzzySet)fsNode.Tag;
+                        fs.SaveFile(sw);
+
+                    }
+
+
+                    // datagridview
+
+                    sw.Close();
+                    break;
             }
         }
     }

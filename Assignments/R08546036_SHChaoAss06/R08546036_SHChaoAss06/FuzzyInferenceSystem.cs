@@ -1,7 +1,8 @@
 ﻿using R08546036_SHChaoAss04;
-using R08546036_SHChaoAss05;
+using R08546036_SHChaoAss06;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,122 +17,291 @@ namespace R08546036_SHChaoAss06
 
     public interface IFuzzyInferencing
     {
-        void ConstructSystem(DataGridView dgv);
-        double CrispInCrispOutInferencing(double[] conditions);
+
+        // properties
+        DefuzzificationType Defuzzification { get; set; }
+        bool IsCut { get; set; }
+
+        void ConstructSystem(DataGridView dgvRules);
+        void Inferencing(DataGridView dgvConditions);
+        double CrispInCrispOutInferencing(double[] dgvConditions);
     }
 
-    class MamdaniFuzzySystem : IFuzzyInferencing
-    {
-        IfThenFuzzyRule[] rules;
-        DefuzzificationType defuzzification = DefuzzificationType.COA;
 
-        // property
-        public DefuzzificationType Defuzzification { get => defuzzification; set => defuzzification = value; }
+    public class MamdaniFuzzySystem : IFuzzyInferencing
+    {
+        IfThenFuzzyRule[] allRules;
+        private bool isCut = true;
+        // initiate defuzzification with a value
+        private DefuzzificationType defuzzification = DefuzzificationType.COA;
+
+        // properties
+        public DefuzzificationType Defuzzification
+        {
+            get
+            {
+                return defuzzification;
+            }
+            set
+            {
+                if (value is DefuzzificationType)
+                {
+                    defuzzification = value;
+                }
+            }
+        }
 
         public bool IsCut
         {
-            get;
-            set;
-        } = true;
+            get
+            {
+                return isCut;
+            }
+            set
+            {
+                if (value is bool)
+                {
+                    isCut = value;
+                }
+            }
+        }
 
-
-
+        public MamdaniFuzzySystem()
+        {
+            
+        }
 
         // functions
-        public void ConstructSystem(DataGridView dgv)
+        public void ConstructSystem(DataGridView dgvRules)
         {
-            IfThenFuzzyRule[] allRules = new IfThenFuzzyRule[dgv.Rows.Count];
-            for (int r = 0; r < (dgv.Rows.Count); r++)
-            {
-                FuzzySet[] inputs = new FuzzySet[dgv.ColumnCount - 1];
+            // create if-then rules
+            allRules = new IfThenFuzzyRule[dgvRules.Rows.Count];
 
+            for (int r = 0; r < (dgvRules.Rows.Count); r++)
+            {
+                FuzzySet[] inputs = new FuzzySet[dgvRules.ColumnCount - 1];
                 // input fuzzy list
                 for (int c = 0; c < (inputs.Length); c++)
                 {
-                    inputs[c] = (FuzzySet)dgv.Rows[r].Cells[c].Tag;
+                    inputs[c] = (FuzzySet)dgvRules.Rows[r].Cells[c].Tag;
                 }
-
                 // output fuzzy list
-                FuzzySet output = (FuzzySet)dgv.Rows[r].Cells[dgv.Columns.Count - 1].Tag;
+                FuzzySet output = (FuzzySet)dgvRules.Rows[r].Cells[dgvRules.Columns.Count - 1].Tag;
 
                 allRules[r] = new IfThenFuzzyRule(inputs, output);
             }
         }
 
-        public double CrispInCrispOutInferencing(double[] conditions)
+        public void Inferencing(DataGridView dgvConditions)
         {
-            double result = 0;
+            // conditions
+            FuzzySet[] conditions = new FuzzySet[dgvConditions.Columns.Count];
+            for (int i = 0; i < dgvConditions.Columns.Count; i++)
+            {
+                conditions[i] = (FuzzySet)dgvConditions.Rows[0].Cells[i].Tag;
+            }
+
+            // set contents of conditions
+            FuzzySet resultingFS = null;
+
+            foreach (IfThenFuzzyRule rule in allRules)
+            {
+                if (resultingFS == null)
+                {
+                    resultingFS = rule.FuzzyInFuzzyOutInferencing(conditions, isCut);
+                }
+                else
+                {
+                    resultingFS = resultingFS | rule.FuzzyInFuzzyOutInferencing(conditions, isCut);
+                }
+            }
+
+            try
+            {
+                // show the final fs
+                resultingFS.ShowInferenceSeries = true;
+            }
+            catch (System.NullReferenceException Exception)
+            {
+                return;
+            }
+
+        }
+
+        public double CrispInCrispOutInferencing(double[] dgvConditions)
+        {
+            return 0;
             FuzzySet resultFS = null;
 
-            //foreach (IfThenFuzzyRule ifr in rules)
-            //{
-            //    if (resultFS == null)
-            //    {
-            //        resultFS = ifr.CrispInFuzzyOutInferencing(conditions);
-            //    }
-            //    else {
-            //        resultFS = resultFS | ifr.CrispInFuzzyOutInferencing(conditions);
-            //    }
-            //}
-
-            //switch (defuzzification) {
-            //    case DefuzzificationType.BOA:
-            //        return resultFS.BOACrispValue;
-            //        break;
-            //    case DefuzzificationType.COA:
-            //        return resultFS.COACrispValue;
-            //        break;
-            //        // and continue on 
-
-            //}
-
-            return result;
-
-        }
-    }
-
-    class TsukamotoFuzzySystem : IFuzzyInferencing
-    {
-        IfThenFuzzyRule[] rules;
-
-        public void ConstructSystem(DataGridView dgv)
-        {
-            throw new NotImplementedException();
-        }
-
-        public double CrispInCrispOutInferencing(double[] conditions)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    class SugenoFuzzySystem : IFuzzyInferencing
-    {
-        SugenoIfThenRule[] rules;
-
-        public void ConstructSystem(DataGridView dgv)
-        {
-            IfThenFuzzyRule[] allRules = new IfThenFuzzyRule[dgv.Rows.Count];
-            for (int r = 0; r < (dgv.Rows.Count); r++)
+            // inferencing function
+            foreach (IfThenFuzzyRule ifr in allRules)
             {
-                FuzzySet[] inputs = new FuzzySet[dgv.ColumnCount - 1];
-
-                // input fuzzy list
-                for (int c = 0; c < (inputs.Length); c++)
+                if (resultFS == null)
                 {
-                    inputs[c] = (FuzzySet)dgv.Rows[r].Cells[c].Tag;
+                    resultFS = ifr.CrispInFuzzyOutInferencing(dgvConditions);
                 }
+                else
+                {
+                    resultFS = resultFS | ifr.CrispInFuzzyOutInferencing(dgvConditions);
+                }
+            }
 
-                // output fuzzy list
-                //int output = (FuzzySet)dgv.Rows[r].Cells[dgv.Columns.Count - 1].Tag;
+            switch (defuzzification)
+            {
+                case DefuzzificationType.BOA:
+                    return resultFS.BOACrispValue;
+                    break;
+                case DefuzzificationType.COA:
+                    return resultFS.COACrispValue;
+                    break;
+                case DefuzzificationType.MOM:
+                    return resultFS.MOMCrispValue;
+                    break;
+                case DefuzzificationType.SOM:
+                    return resultFS.SOMCrispValue;
+                    break;
+                case DefuzzificationType.LOM:
+                    return resultFS.LOMCrispValue;
+                    break;
+            }
 
-                //allRules[r] = new IfThenFuzzyRule(inputs, output);
+        }
+    }
+
+    public class TsukamotoFuzzySystem : IFuzzyInferencing
+    {
+        IfThenFuzzyRule[] allRules;
+        private bool isCut = true;
+        private bool isWeighted = false;
+
+        // property
+        public bool IsWeighted
+        {
+            get
+            {
+                return isWeighted;
+            }
+            set
+            {
+                if (value is bool)
+                {
+                    isWeighted = value;
+                }
+            }
+        }
+        
+        [Browsable(false)]
+        public DefuzzificationType Defuzzification { get; set; }
+
+        public bool IsCut
+        {
+            get
+            {
+                return isCut;
+            }
+            set
+            {
+                if (value is bool)
+                {
+                    isCut = value;
+                }
             }
         }
 
+        // functions
+        public void ConstructSystem(DataGridView dgvRules)
+        {
+            // create if-then rules
+            allRules = new IfThenFuzzyRule[dgvRules.Rows.Count];
+
+            for (int r = 0; r < (dgvRules.Rows.Count); r++)
+            {
+                FuzzySet[] inputs = new FuzzySet[dgvRules.ColumnCount - 1];
+                // input fuzzy list
+                for (int c = 0; c < (inputs.Length); c++)
+                {
+                    inputs[c] = (FuzzySet)dgvRules.Rows[r].Cells[c].Tag;
+                }
+                // output fuzzy list
+                FuzzySet output = (FuzzySet)dgvRules.Rows[r].Cells[dgvRules.Columns.Count - 1].Tag;
+
+                allRules[r] = new IfThenFuzzyRule(inputs, output);
+            }
+        }
+
+        public void Inferencing(DataGridView dgvConditions)
+        {
+
+
+        }
+
         public double CrispInCrispOutInferencing(double[] conditions)
         {
             throw new NotImplementedException();
+            if (isWeighted)
+            {
+                //when true
+
+            }
+            else
+            {
+                // when false
+            }
+        }
+    }
+
+    public class SugenoFuzzySystem : IFuzzyInferencing
+    {
+        SugenoIfThenRule[] allRules;
+        private bool isCut = true;
+
+        [Browsable(false)]
+        public DefuzzificationType Defuzzification { get; set;}
+        
+        public bool IsCut
+        {
+            get
+            {
+                return isCut;
+            }
+            set
+            {
+                if (value is bool)
+                {
+                    isCut = value;
+                }
+            }
+        }
+
+        public void ConstructSystem(DataGridView dgvRules)
+        {
+            // create if-then rules
+            allRules = new SugenoIfThenRule[dgvRules.Rows.Count];
+
+            for (int r = 0; r < (dgvRules.Rows.Count); r++)
+            {
+                FuzzySet[] inputs = new FuzzySet[dgvRules.ColumnCount - 1];
+                // input fuzzy list
+                for (int c = 0; c < (inputs.Length); c++)
+                {
+                    inputs[c] = (FuzzySet)dgvRules.Rows[r].Cells[c].Tag;
+                }
+                // output fuzzy list
+                int output = (int)dgvRules.Rows[r].Cells[dgvRules.Columns.Count - 1].Tag;
+
+                allRules[r] = new SugenoIfThenRule(inputs, output);
+            }
+        }
+
+        public void Inferencing(DataGridView dgvConditions)
+        {
+
+
+        }
+
+        public double CrispInCrispOutInferencing(double[] conditions)
+        {
+            return 0;
         }
     }
 }

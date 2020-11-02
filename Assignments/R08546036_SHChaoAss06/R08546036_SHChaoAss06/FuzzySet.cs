@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -173,7 +174,44 @@ namespace R08546036_SHChaoAss04
 
         }
 
+        // defuzzization property
+        public virtual double COACrispValue
+        {
+            get
+            {
+                return 0.0;
+            }
+
+        }
+
         public virtual double BOACrispValue
+        {
+            get
+            {
+                return 0.0;
+            }
+
+        }
+
+        public virtual double MOMCrispValue
+        {
+            get
+            {
+                return 0.0;
+            }
+
+        }
+
+        public virtual double SOMCrispValue
+        {
+            get
+            {
+                return 0.0;
+            }
+
+        }
+
+        public virtual double LOMCrispValue
         {
             get
             {
@@ -308,9 +346,58 @@ namespace R08546036_SHChaoAss04
             }
         }
 
+        public virtual bool IsMonotonic
+        {
+            get; set;
+        } = false;
+
+        // functions
+
+        // Support Tsukamoto
+        public virtual double GetUniverseValueForADegree(double degree) {
+            double x = double.NaN; // no intersection
+
+            // tranverse universe values
+
+
+            return x;
+        }
+
+
         public override string ToString()
         {
             return title;
+        }
+
+
+        // functions
+        public virtual void SaveFile(StreamWriter sw)
+        {
+            sw.WriteLine($"FuzzySetType:{this.GetType().Name}");
+            sw.WriteLine($"OriginalHashCode:{this.GetHashCode()}");
+            sw.WriteLine($"Title:{Title}");
+            sw.WriteLine($"NumberOfParameters:{parameters.Length}");
+            int c = 0;
+            foreach (double p in parameters) {
+                sw.WriteLine($"Par{c}:{parameters[c++]}");
+            }
+        }
+
+        public virtual void ReadFile(StreamReader sr)
+        {
+            string[] items;
+            items = sr.ReadLine().Split(':');
+            Title = items[1];
+
+            items = sr.ReadLine().Split(':');
+            int num;
+            num = Convert.ToInt32(items[1]);
+
+            for (int i = 0; i < num; i++) {
+                items = sr.ReadLine().Split(':');
+                parameters[i] = Convert.ToInt32(items[i]);
+            }
+
         }
 
         public void UpdateSeriesDataPoints()
@@ -368,6 +455,8 @@ namespace R08546036_SHChaoAss04
         {
             if (ShowSeries) UpdateSeriesDataPoints();
         }
+
+        
     }
 
     class BellFuzzySet : FuzzySet

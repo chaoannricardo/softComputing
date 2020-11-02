@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -166,6 +167,26 @@ namespace R08546036_SHChaoAss04
             theArea.AxisX.Maximum = Maximum = 30;
         }
 
+        public void SaveFile(StreamWriter sw)
+        {
+            sw.WriteLine($"Title:{Title}");
+            sw.WriteLine($"Minimum:{Minimum}");
+            sw.WriteLine($"Maximum:{Maximum}");
+            sw.WriteLine($"Resolution:{Resolution}");
+        }
 
+        public void ReadFile(StreamReader sr)
+        {
+            string[] items;
+
+            items = sr.ReadLine().Split(':');
+            Title = items[1];
+            items = sr.ReadLine().Split(':');
+            Minimum = Convert.ToDouble(items[1]);
+            items = sr.ReadLine().Split(':');
+            Maximum = Convert.ToDouble(items[1]);
+            items = sr.ReadLine().Split(':');
+            Resolution = Convert.ToInt32(items[1]);
+        }
     }
 }
