@@ -231,6 +231,37 @@ namespace R08546036_SHChaoAss06
 
         public void Inferencing(DataGridView dgvConditions)
         {
+            // conditions
+            FuzzySet[] conditions = new FuzzySet[dgvConditions.Columns.Count];
+            for (int i = 0; i < dgvConditions.Columns.Count; i++)
+            {
+                conditions[i] = (FuzzySet)dgvConditions.Rows[0].Cells[i].Tag;
+            }
+
+            // set contents of conditions
+            FuzzySet resultingFS = null;
+
+            foreach (IfThenFuzzyRule rule in allRules)
+            {
+                if (resultingFS == null)
+                {
+                    resultingFS = rule.FuzzyInFuzzyOutInferencing(conditions, isCut);
+                }
+                else
+                {
+                    resultingFS = resultingFS | rule.FuzzyInFuzzyOutInferencing(conditions, isCut);
+                }
+            }
+
+            try
+            {
+                // show the final fs
+                resultingFS.ShowInferenceSeries = true;
+            }
+            catch (System.NullReferenceException Exception)
+            {
+                return;
+            }
 
 
         }
@@ -255,6 +286,7 @@ namespace R08546036_SHChaoAss06
         SugenoIfThenRule[] allRules;
         private bool isCut = true;
 
+        // do not need this
         [Browsable(false)]
         public DefuzzificationType Defuzzification { get; set;}
         

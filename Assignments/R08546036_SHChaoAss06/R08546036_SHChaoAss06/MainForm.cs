@@ -579,10 +579,37 @@ namespace R08546036_SHChaoAss04
 
         private void dgvRules_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            DataGridViewCell theCell = dgvRules.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            theCell.ReadOnly = true;
+
+            // Sugeno part to avoid inputing fuzzy
+            if (lbInference.SelectedIndex == 1)
+            {
+                if (dgvRules.CurrentCell.OwningColumn.Name == theTree.Nodes[1].Nodes[0].Text)
+                {
+                    theCell.Tag = lbOutputEquation.SelectedIndex;
+                    theCell.Value = lbOutputEquation.SelectedItem.ToString();
+                    return;
+                }
+
+                try
+                {
+                    if (theTree.SelectedNode.Parent.Parent.Text == "Output")
+                    {
+                        theCell.Tag = lbOutputEquation.SelectedIndex;
+                        theCell.Value = lbOutputEquation.SelectedItem.ToString();
+                        return;
+                    }
+                }
+                catch (System.NullReferenceException Exception)
+                {
+                    return;
+                }
+            }
+
             try
             {
-                DataGridViewCell theCell = dgvRules.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                theCell.ReadOnly = true;
+
                 // Aviod 
                 if (theTree.SelectedNode.Tag is FuzzySet)
                 {
@@ -749,7 +776,7 @@ namespace R08546036_SHChaoAss04
 
         private void tSMAddSelectedOutputEquation_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("");
         }
 
         private void CutScaleClick(object sender, EventArgs e)
@@ -803,6 +830,13 @@ namespace R08546036_SHChaoAss04
 
         private void cbResulting_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // clear datagrid view
+            dgvRules.Rows.Clear();
+            dgvRules.Refresh();
+            dgvConditions.Rows.Clear();
+            dgvConditions.Refresh();
+
+            // switch inference method index
             switch (cbResulting.SelectedIndex)
             {
                 case 0:
@@ -842,7 +876,8 @@ namespace R08546036_SHChaoAss04
                     string[] items;
                     StreamReader sr = new StreamReader(dlgOpen.FileName);
                     items = sr.ReadLine().Split(':');
-                    switch (items[1]) {
+                    switch (items[1])
+                    {
                         case "Mamdani":
                             lbInference.SelectedIndex = 0;
                             break;
@@ -855,7 +890,8 @@ namespace R08546036_SHChaoAss04
                     }
 
                     // clear up tab control and tree view
-                    if (tabControl1.TabPages.Count > 0) {
+                    if (tabControl1.TabPages.Count > 0)
+                    {
                         for (int i = 0; i < tabControl1.TabPages.Count; i++)
                         {
                             tabControl1.TabPages.RemoveAt(i);
@@ -873,9 +909,10 @@ namespace R08546036_SHChaoAss04
                     int numFS;
                     TreeNode fsNode;
                     FuzzySet fs;
-                    Dictionary<int,FuzzySet> codeVsFS = new Dictionary<int, FuzzySet>();
+                    Dictionary<int, FuzzySet> codeVsFS = new Dictionary<int, FuzzySet>();
 
-                    for (int i = 0; i < numInputUniverse; i++) {
+                    for (int i = 0; i < numInputUniverse; i++)
+                    {
                         univNode = new TreeNode();
                         // create new tab if new Universe is created
                         TabPage newTabPage = new TabPage();
@@ -933,10 +970,11 @@ namespace R08546036_SHChaoAss04
                         /////////////////////////////////////////////////
                         items = sr.ReadLine().Split(':');
                         numFS = Convert.ToInt32(items[1]);
-                        for (int j = 0; j < numFS; j++) {
+                        for (int j = 0; j < numFS; j++)
+                        {
                             fsNode = new TreeNode();
                             items = sr.ReadLine().Split(':');
-                            switch (items[1]) 
+                            switch (items[1])
                             {
                                 case "GaussianFuzzySet":
                                     fs = new GaussianFuzzySet(uobj);
@@ -1031,7 +1069,8 @@ namespace R08546036_SHChaoAss04
                     int numUniverse = theTree.Nodes[0].Nodes.Count; // input
                     sw.WriteLine($"NumberOfInputUniverse:{numUniverse}");
 
-                    for (int i = 0; i < numUniverse; i++) {
+                    for (int i = 0; i < numUniverse; i++)
+                    {
                         univNode = theTree.Nodes[0].Nodes[i];
                         uobj = (Universe)univNode.Tag;
                         uobj.SaveFile(sw);
@@ -1040,11 +1079,12 @@ namespace R08546036_SHChaoAss04
                         numFS = univNode.Nodes.Count;
                         sw.WriteLine($"NumberOfInputFuzzySet:{numFS}");
 
-                        for (int j = 0; j < numFS; j++) {
+                        for (int j = 0; j < numFS; j++)
+                        {
                             fsNode = univNode.Nodes[j];
                             fs = (FuzzySet)fsNode.Tag;
                             fs.SaveFile(sw);
-                        
+
                         }
                     }
 

@@ -148,7 +148,6 @@ namespace R08546036_SHChaoAss06
         // for weighted average requirement
         public double FiringSrength { get; set; } = 0.0;
 
-
         public SugenoIfThenRule(FuzzySet[] inputs, int output)
         {
             antecedents = inputs;
