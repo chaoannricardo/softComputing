@@ -656,28 +656,6 @@ namespace R08546036_SHChaoAss04
 
         }
 
-        // sample tee chart function
-        private void teeChartToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //int numXValues = 100;
-            //int numZValues = 80;
-
-            //surface1.NumXValues = numXValues;
-            //surface1.NumZValues = numZValues;
-            //surface1.IrregularGrid = true;
-            //surface1.Clear();
-
-            //for (double x = 0; x < numXValues; x++)
-            //{
-            //    for (double zz = 0; zz < numZValues; zz++)
-            //    {
-            //        double y;
-            //        y = Math.Sin(x / 10.0) * Math.Cos(zz / 4.0);
-            //        surface1.Add(x, y, zz);
-            //    }
-            //}
-        }
-
         private void inference_Click(object sender, EventArgs e)
         {
 
@@ -1091,6 +1069,28 @@ namespace R08546036_SHChaoAss04
 
                     sw.Close();
                     break;
+            }
+        }
+
+        // sample tee chart function
+        private void teeChartDemoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int numXValues = 100;
+            int numZValues = 80;
+
+            surface1.NumXValues = numXValues;
+            surface1.NumZValues = numZValues;
+            surface1.IrregularGrid = true;
+            surface1.Clear();
+
+            for (double x = 0; x < numXValues; x++)
+            {
+                for (double zz = 0; zz < numZValues; zz++)
+                {
+                    double y;
+                    y = Math.Sin(x / 10.0) * Math.Cos(zz / 4.0);
+                    surface1.Add(x, y, zz);
+                }
             }
         }
     }
