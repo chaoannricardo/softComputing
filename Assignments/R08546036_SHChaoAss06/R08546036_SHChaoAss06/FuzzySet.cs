@@ -1,7 +1,10 @@
-﻿using System;
+﻿using R08546036_SHChaoAss06;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -15,8 +18,16 @@ namespace R08546036_SHChaoAss04
         protected string title;
         protected static Random randomizer = new Random();
         protected Universe theUniverse;
+        protected double theUniverseMin;
+        protected double theUniverseMax;
         protected Series theSeries;
         private Series bindedSeries;
+        // defuzzification
+        private double coaValue;
+        private double boaValue;
+        private double momValue;
+        private double somValue;
+        private double lomValue;
         #endregion
 
         // operator overloaded
@@ -112,6 +123,12 @@ namespace R08546036_SHChaoAss04
             BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(left, right, op);
             return fs;
         }
+        public static FuzzySet operator +(FuzzySet fs, double secondInput)
+        {
+            ValueCutOperator op = new ValueCutOperator();
+            op.CutValue = (double)(-secondInput);
+            return new UnaryOperatedFuzzySet(fs, op);
+        }
 
         //Drastic Product
         public static FuzzySet operator /(FuzzySet left, FuzzySet right)
@@ -174,12 +191,22 @@ namespace R08546036_SHChaoAss04
 
         }
 
+        //[TypeConverter(typeof(ExpandableObjectConverter)), Category("Universe Property")]
+        [Category("Property"), Browsable(false)]
+        public Universe TheUniverse
+        {
+            get { return theUniverse; }
+            set { }
+
+        }
+
         // defuzzization property
+
         public virtual double COACrispValue
         {
             get
             {
-                return 0.0;
+                return coaValue;
             }
 
         }
@@ -188,7 +215,7 @@ namespace R08546036_SHChaoAss04
         {
             get
             {
-                return 0.0;
+                return boaValue;
             }
 
         }
@@ -197,7 +224,7 @@ namespace R08546036_SHChaoAss04
         {
             get
             {
-                return 0.0;
+                return momValue;
             }
 
         }
@@ -206,18 +233,16 @@ namespace R08546036_SHChaoAss04
         {
             get
             {
-                return 0.0;
+                return somValue;
             }
 
         }
 
         public virtual double LOMCrispValue
         {
-            get
-            {
-                return 0.0;
+            get {
+                return lomValue;
             }
-
         }
 
         //[Category("Property"), Browsable(false)]
@@ -277,15 +302,6 @@ namespace R08546036_SHChaoAss04
                     MessageBox.Show("Title name already exists!!!");
                 }
             }
-        }
-
-        //[TypeConverter(typeof(ExpandableObjectConverter)), Category("Universe Property")]
-        [Category("Property"), Browsable(false)]
-        public Universe TheUniverse
-        {
-            get { return theUniverse; }
-            set { }
-
         }
 
         [Browsable(false)]
@@ -363,12 +379,10 @@ namespace R08546036_SHChaoAss04
             return x;
         }
 
-
         public override string ToString()
         {
             return title;
         }
-
 
         // functions
         public virtual void SaveFile(StreamWriter sw)
@@ -445,8 +459,205 @@ namespace R08546036_SHChaoAss04
         public FuzzySet(Universe u)
         {
             theUniverse = u;
+            theUniverseMin = u.Minimum;
+            theUniverseMax = u.Maximum;
+
             // subscribe the event
             u.ParameterChanged += Universe_ParameterChanged;
+        }
+
+        public void AssignDefuzzificationValue() {
+            // assign defuzzification value
+            double startNotZero = double.NaN;
+            double endNotZero = double.NaN;
+            double cumulative = 0;
+            double startMaxDegree = double.NaN;
+            double endMaxDegree = double.NaN;
+            List<double> cumulativeForEach = new List<double>();
+            double delta = 0.01;
+
+            for (double i = theUniverseMin; i <= theUniverseMax; i += delta)
+            {
+                if (startNotZero is double.NaN && GetMembershipDegree(i) > 0)
+                {
+                    startNotZero = i;
+                }
+
+                if (!(startNotZero is double.NaN) && GetMembershipDegree(i) == 0)
+                {
+                    endNotZero = i;
+                }
+                // add value to cumulative
+                cumulative += GetMembershipDegree(i);
+                cumulativeForEach.Add(GetMembershipDegree(i));
+            }
+            
+            // if endNotZero is still zero, assign it to max universe
+            if (endNotZero is double.NaN) {
+                endNotZero = theUniverseMax;
+            }
+
+            // coa value
+            coaValue = (endNotZero - startNotZero) / 2;
+
+            // boa value
+            List<double> checkingList = new List<double>();
+
+            for (int i = 0; i < cumulativeForEach.Count; i++)
+            {
+                checkingList.Add(cumulativeForEach[i]);
+                // boa value
+                if ((double)checkingList.Max() >= (cumulative / 2))
+                {
+                    boaValue = i;
+                    break;
+                }
+            }
+
+            // lom, som, mom value
+            for (int i = 0; i < cumulativeForEach.Count; i++)
+            {
+                if (startMaxDegree is double.NaN && (double)cumulativeForEach[i] == (double)cumulativeForEach.Max())
+                {
+                    startMaxDegree = theUniverseMin + i * delta;
+                }
+
+                if (!(startMaxDegree is double.NaN) && (double)cumulativeForEach[i] == (double)cumulativeForEach.Max())
+                {
+                    endMaxDegree = theUniverseMin + i * delta;
+                }
+            }
+            lomValue = endMaxDegree;
+            somValue = startMaxDegree;
+            momValue = (endMaxDegree + startMaxDegree) / 2;
+
+        }
+
+        public void AssignDefuzzificationValueEach(DefuzzificationType type)
+        {
+            // assign defuzzification value
+            double startNotZero = double.NaN;
+            double endNotZero = double.NaN;
+            double cumulative = 0;
+            double startMaxDegree = double.NaN;
+            double endMaxDegree = double.NaN;
+            List<double> cumulativeForEach = new List<double>();
+            List<double> checkingList = new List<double>();
+            double delta = 0.01;
+
+            for (double i = theUniverseMin; i <= theUniverseMax; i += delta)
+            {
+                if (startNotZero is double.NaN && GetMembershipDegree(i) > 0)
+                {
+                    startNotZero = i;
+                }
+
+                if (!(startNotZero is double.NaN) && GetMembershipDegree(i) == 0)
+                {
+                    endNotZero = i;
+                }
+                // add value to cumulative
+                cumulative += GetMembershipDegree(i);
+                cumulativeForEach.Add(GetMembershipDegree(i));
+            }
+
+            switch (type) {
+                case DefuzzificationType.BOA:
+                    // if endNotZero is still zero, assign it to max universe
+                    if (endNotZero is double.NaN)
+                    {
+                        endNotZero = theUniverseMax;
+                    }
+                    // coa value
+                    coaValue = (endNotZero - startNotZero) / 2;
+                    for (int i = 0; i < cumulativeForEach.Count; i++)
+                    {
+                        checkingList.Add(cumulativeForEach[i]);
+                        // boa value
+                        if ((double)checkingList.Max() >= (cumulative / 2))
+                        {
+                            boaValue = i;
+                            break;
+                        }
+                    }
+                    break;
+                case DefuzzificationType.COA:
+                    // if endNotZero is still zero, assign it to max universe
+                    if (endNotZero is double.NaN)
+                    {
+                        endNotZero = theUniverseMax;
+                    }
+                    // coa value
+                    coaValue = (endNotZero - startNotZero) / 2;
+                    // boa value
+                    for (int i = 0; i < cumulativeForEach.Count; i++)
+                    {
+                        checkingList.Add(cumulativeForEach[i]);
+                        // boa value
+                        if ((double)checkingList.Max() >= (cumulative / 2))
+                        {
+                            boaValue = i;
+                            break;
+                        }
+                    }
+                    break;
+                case DefuzzificationType.MOM:
+                    // lom, som, mom value
+                    for (int i = 0; i < cumulativeForEach.Count; i++)
+                    {
+                        if (startMaxDegree is double.NaN && (double)cumulativeForEach[i] == (double)cumulativeForEach.Max())
+                        {
+                            startMaxDegree = theUniverseMin + i * delta;
+                        }
+
+                        if (!(startMaxDegree is double.NaN) && (double)cumulativeForEach[i] == (double)cumulativeForEach.Max())
+                        {
+                            endMaxDegree = theUniverseMin + i * delta;
+                        }
+                    }
+                    lomValue = endMaxDegree;
+                    somValue = startMaxDegree;
+                    momValue = (endMaxDegree + startMaxDegree) / 2;
+                    break;
+                case DefuzzificationType.SOM:
+                    // lom, som, mom value
+                    for (int i = 0; i < cumulativeForEach.Count; i++)
+                    {
+                        if (startMaxDegree is double.NaN && (double)cumulativeForEach[i] == (double)cumulativeForEach.Max())
+                        {
+                            startMaxDegree = theUniverseMin + i * delta;
+                        }
+
+                        if (!(startMaxDegree is double.NaN) && (double)cumulativeForEach[i] == (double)cumulativeForEach.Max())
+                        {
+                            endMaxDegree = theUniverseMin + i * delta;
+                        }
+                    }
+                    lomValue = endMaxDegree;
+                    somValue = startMaxDegree;
+                    momValue = (endMaxDegree + startMaxDegree) / 2;
+                    break;
+                case DefuzzificationType.LOM:
+                    // lom, som, mom value
+                    for (int i = 0; i < cumulativeForEach.Count; i++)
+                    {
+                        if (startMaxDegree is double.NaN && (double)cumulativeForEach[i] == (double)cumulativeForEach.Max())
+                        {
+                            startMaxDegree = theUniverseMin + i * delta;
+                        }
+
+                        if (!(startMaxDegree is double.NaN) && (double)cumulativeForEach[i] == (double)cumulativeForEach.Max())
+                        {
+                            endMaxDegree = theUniverseMin + i * delta;
+                        }
+                    }
+                    lomValue = endMaxDegree;
+                    somValue = startMaxDegree;
+                    momValue = (endMaxDegree + startMaxDegree) / 2;
+                    break;
+                default:
+                    break;
+            }
 
         }
 
@@ -455,8 +666,6 @@ namespace R08546036_SHChaoAss04
         {
             if (ShowSeries) UpdateSeriesDataPoints();
         }
-
-        
     }
 
     class BellFuzzySet : FuzzySet
@@ -543,6 +752,8 @@ namespace R08546036_SHChaoAss04
             parameters[2] = (u.Maximum - u.Minimum) * randomizer.NextDouble();
 
             title = $"Bell Fuzzy Set {++count}";
+
+            AssignDefuzzificationValue();
         }
     }
 
@@ -654,6 +865,8 @@ namespace R08546036_SHChaoAss04
             }
 
             title = $"Triangular Fuzzy Set {++count}";
+
+            AssignDefuzzificationValue();
         }
 
     }
@@ -738,6 +951,8 @@ namespace R08546036_SHChaoAss04
             }
 
             title = $"Gaussian Fuzzy Set {++count}";
+
+            AssignDefuzzificationValue();
         }
 
     }
@@ -807,6 +1022,8 @@ namespace R08546036_SHChaoAss04
             parameters[1] = (u.Maximum - u.Minimum) * randomizer.NextDouble();
 
             title = $"Sigmoidal Fuzzy Set {++count}";
+
+            AssignDefuzzificationValue();
         }
     }
 
@@ -943,6 +1160,8 @@ namespace R08546036_SHChaoAss04
             }
 
             title = $"TrapezoidalFuzzySet {++count}";
+
+            AssignDefuzzificationValue();
         }
     }
 
@@ -1041,6 +1260,8 @@ namespace R08546036_SHChaoAss04
             parameters[2] = parameters[1] + 3;
 
             title = $"LeftRightFuzzySet {++count}";
+
+            AssignDefuzzificationValue();
         }
 
     }
@@ -1119,6 +1340,8 @@ namespace R08546036_SHChaoAss04
             parameters[1] = (u.Maximum - u.Minimum) * randomizer.NextDouble() + (2);
 
             title = $"SMFuzzySet {++count}";
+
+            AssignDefuzzificationValue();
         }
 
     }
@@ -1197,6 +1420,8 @@ namespace R08546036_SHChaoAss04
             parameters[1] = (u.Maximum - u.Minimum) * randomizer.NextDouble() + (2);
 
             title = $"ZMFuzzySet {++count}";
+
+            AssignDefuzzificationValue();
         }
 
     }
@@ -1267,6 +1492,8 @@ namespace R08546036_SHChaoAss04
             parameters[1] = (u.Maximum - u.Minimum) * randomizer.NextDouble() + (2);
 
             title = $"PiFuzzySe {++count}";
+
+            AssignDefuzzificationValue();
         }
 
         private double SMFFunction(double x, double left, double right)

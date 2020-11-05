@@ -7,6 +7,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml;
 
 namespace R08546036_SHChaoAss06
@@ -77,49 +78,45 @@ namespace R08546036_SHChaoAss06
 
         public FuzzySet CrispInFuzzyOutInferencing(double[] conditions, bool isCut = true)
         {
-            return null;
-            //try
-            //{
-            //    double fireValue = double.MaxValue;
-            //    // fault-proof
-            //    if (antecedents.Length != conditions.Length)
-            //    {
-            //        MessageBox.Show("Not enough rule or condition is given.");
-            //        return null; ;
-            //    }
+            try
+            {
+                List<double> canditates = new List<double>();
+                List<double> xDegree = new List<double>();
+                List<double> yDegree = new List<double>();
+                double fireValue;
 
-            //    // loop thorough each antecedent fuzzy set
-            //    for (int i = 0; i < antecedents.Length; i++)
-            //    {
-            //        // cariables
-            //        double maxDegree;
+                // loop thorough each antecedent fuzzy set
+                for (int i = 0; i < antecedents.Length; i++)
+                {
+                    // variables
+                    double maxDegree;
 
-            //        // check if the universe is the same
-            //        if (antecedents[i].TheUniverse != conditions[i].TheUniverse)
-            //        {
-            //            MessageBox.Show("Conditions and Antecedents are not in same Universe");
-            //            return null;
-            //        }
+                    maxDegree = antecedents[i].GetMembershipDegree(conditions[i]);
 
-            //        maxDegree = (antecedents[i] & conditions[i]).MaxDegree;
-            //        if (maxDegree < fireValue) fireValue = maxDegree;
+                    canditates.Add(maxDegree);
+                }
 
-            //    }
+                fireValue = canditates.Min();
 
-            //    if (isCut)
-            //    {
-            //        return conclusion - fireValue;
-            //    }
-            //    else
-            //    {
-            //        return conclusion * fireValue;
-            //    }
-            //}
-            //catch (System.NullReferenceException Exception)
-            //{
-            //    MessageBox.Show("Not enough rule or condition is given.");
-            //    return null;
-            //}
+                //if (fireValue >= 0.5) {
+                //    MessageBox.Show("Larger than 0.5");
+                //}
+
+
+                if (isCut)
+                {
+                    return conclusion - fireValue;
+                }
+                else
+                {
+                    return conclusion * fireValue;
+                }
+            }
+            catch (System.NullReferenceException Exception)
+            {
+                MessageBox.Show("Not enough rule or condition is given.");
+                return null;
+            }
         }
 
         // for Tsukamoto
@@ -155,25 +152,46 @@ namespace R08546036_SHChaoAss06
         }
 
         // need to be done
-        public double FuzzyInCrispOutInferencing(FuzzySet[] conditions, int equationID)
+        public double FuzzyInCrispOutInferencing(FuzzySet[] conditions)
         {
-            FiringSrength = 0.0;
-
             return 0;
+            FiringSrength = 0.0;
+            FuzzySet tempFS;
+            FuzzySet yFS;
+            FuzzySet zFS;
 
-            //switch (equationID)
-            //{
-            //    case 0:
-            //        return 0.1 * inputs[0] + 6.4;
-            //        break;
-            //    case 1:
-            //        return 0.5 * inputs[0] + 4; break;
-            //        break;
+            //lbOutputEquation.Items.Add("0: Y=0.1X+6.4");
+            //lbOutputEquation.Items.Add("1: Y=0.5X+4");
+            //lbOutputEquation.Items.Add("2: Y=X-2");
+            //lbOutputEquation.Items.Add("3: Z=-X+Y+1");
+            //lbOutputEquation.Items.Add("4: Z=-Y+3");
+            //lbOutputEquation.Items.Add("5: Z=-X+3");
+            //lbOutputEquation.Items.Add("6: Z=-X+Y+2");
 
-            //        // fault proof
-            //}
-
-            // only output number
+            switch (conclusion)
+            {
+                case 0:
+                    yFS =  antecedents[0] * 0.1 + 6.4;
+                    break;
+                case 1:
+                    yFS = antecedents[0] * 0.5 + 4;
+                    break;
+                case 2:
+                    yFS = antecedents[0] - 2;
+                    break;
+                case 3:
+                    zFS = -(antecedents[0]) + (antecedents[1]) + 1;
+                    break;
+                case 4:
+                    zFS = -(antecedents[1]) + 3;
+                    break;
+                case 5:
+                    zFS = -(antecedents[0]) + 3;
+                    break;
+                case 6:
+                    zFS = -(antecedents[0]) + (antecedents[1]) + 2;
+                    break;
+            }
 
 
         }

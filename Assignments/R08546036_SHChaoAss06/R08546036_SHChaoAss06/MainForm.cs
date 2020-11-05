@@ -32,7 +32,7 @@ namespace R08546036_SHChaoAss04
         TabPage sugenoTabPage = new TabPage();
         // inference cut or scale
         private bool isCut;
-        // inference fuzzy set cariable
+        // inference fuzzy set variable
         private IFuzzyInferencing mySystem;
         #endregion
 
@@ -221,6 +221,7 @@ namespace R08546036_SHChaoAss04
 
             Universe selectedU;
             FuzzySet aFS;
+
             try
             {
                 if (theTree.SelectedNode.Tag is Universe)
@@ -579,36 +580,37 @@ namespace R08546036_SHChaoAss04
 
         private void dgvRules_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewCell theCell = dgvRules.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            theCell.ReadOnly = true;
-
-            // Sugeno part to avoid inputing fuzzy
-            if (lbInference.SelectedIndex == 1)
+            try
             {
-                if (dgvRules.CurrentCell.OwningColumn.Name == theTree.Nodes[1].Nodes[0].Text)
-                {
-                    theCell.Tag = lbOutputEquation.SelectedIndex;
-                    theCell.Value = lbOutputEquation.SelectedItem.ToString();
-                    return;
-                }
+                DataGridViewCell theCell = dgvRules.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                theCell.ReadOnly = true;
 
-                try
+                // Sugeno part to avoid inputing fuzzy
+                if (lbInference.SelectedIndex == 1)
                 {
-                    if (theTree.SelectedNode.Parent.Parent.Text == "Output")
+                    if (dgvRules.CurrentCell.OwningColumn.Name == theTree.Nodes[1].Nodes[0].Text)
                     {
                         theCell.Tag = lbOutputEquation.SelectedIndex;
                         theCell.Value = lbOutputEquation.SelectedItem.ToString();
                         return;
                     }
-                }
-                catch (System.NullReferenceException Exception)
-                {
-                    return;
-                }
-            }
 
-            try
-            {
+                    try
+                    {
+                        if (theTree.SelectedNode.Parent.Parent.Text == "Output")
+                        {
+                            theCell.Tag = lbOutputEquation.SelectedIndex;
+                            theCell.Value = lbOutputEquation.SelectedItem.ToString();
+                            return;
+                        }
+                    }
+                    catch (System.NullReferenceException Exception)
+                    {
+                        return;
+                    }
+                }
+
+
 
                 // Aviod 
                 if (theTree.SelectedNode.Tag is FuzzySet)
@@ -696,12 +698,14 @@ namespace R08546036_SHChaoAss04
             else if (lbInference.SelectedIndex == 1)
             {
                 // Sugeno method
-                MessageBox.Show("");
+                mySystem.ConstructSystem(dgvRules);
+                mySystem.Inferencing(dgvConditions);
             }
             else if (lbInference.SelectedIndex == 2)
             {
                 //Tsukamo method
-                MessageBox.Show("");
+                mySystem.ConstructSystem(dgvRules);
+                mySystem.Inferencing(dgvConditions);
             }
 
         }
@@ -808,7 +812,8 @@ namespace R08546036_SHChaoAss04
 
         private void CrispInference_Click(object sender, EventArgs e)
         {
-            Universe u1 = null, u2 = null;
+            Universe u1 = ((FuzzySet)(dgvRules.Rows[0].Cells[0].Tag)).TheUniverse;
+            Universe u2 = ((FuzzySet)(dgvRules.Rows[0].Cells[1].Tag)).TheUniverse;
 
             int res = 100;
             double dx = (u1.Maximum - u1.Minimum) / res;
@@ -816,15 +821,48 @@ namespace R08546036_SHChaoAss04
 
             double[] conditions = new double[2];
 
-            for (double x = u1.Maximum; x < u1.Maximum; x += dx)
+            //// idiotic function to calculate nums
+            //int numXValues = 0;
+            //int numZValues = 0;
+            //for (double x = u1.Maximum; x < u1.Maximum; x += dx)
+            //{
+            //    numXValues += 1;
+            //}
+            //for (double z = u2.Maximum; z < u2.Maximum; z += dz)
+            //{
+            //    numZValues += 1;
+            //}
+
+            //// clear surface and initiate surface1
+            //surface1.NumXValues = numXValues;
+            //surface1.NumZValues = numZValues;
+            surface1.IrregularGrid = true;
+            surface1.Clear();
+
+            MessageBox.Show("Start Inferencing..");
+            for (double x = u1.Minimum; x < u1.Maximum; x += dx)
             {
-                for (double z = u2.Maximum; z < u2.Maximum; z += dz)
+                for (double z = u2.Minimum; z < u2.Maximum; z += dz)
                 {
                     conditions[0] = x;
                     conditions[1] = z;
 
+                    mySystem.ConstructSystem(dgvRules);
+                   
                     double y = mySystem.CrispInCrispOutInferencing(conditions);
+
+                    surface1.Add(x, y, z);
                 }
+            }
+            MessageBox.Show("Inferencing Done");
+
+            try
+            {
+
+            }
+            catch (System.NullReferenceException)
+            {
+                MessageBox.Show("You still have to construct if then rules!");
             }
         }
 

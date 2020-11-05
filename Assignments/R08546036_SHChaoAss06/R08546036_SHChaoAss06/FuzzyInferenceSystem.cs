@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Caching;
 using System.Windows.Forms;
 
 namespace R08546036_SHChaoAss06
@@ -32,6 +33,7 @@ namespace R08546036_SHChaoAss06
     {
         IfThenFuzzyRule[] allRules;
         private bool isCut = true;
+        DataGridView rulesDG;
         // initiate defuzzification with a value
         private DefuzzificationType defuzzification = DefuzzificationType.COA;
 
@@ -74,6 +76,8 @@ namespace R08546036_SHChaoAss06
         // functions
         public void ConstructSystem(DataGridView dgvRules)
         {
+            rulesDG = dgvRules;
+
             // create if-then rules
             allRules = new IfThenFuzzyRule[dgvRules.Rows.Count];
 
@@ -130,7 +134,7 @@ namespace R08546036_SHChaoAss06
 
         public double CrispInCrispOutInferencing(double[] dgvConditions)
         {
-            return 0;
+            double crispValue;
             FuzzySet resultFS = null;
 
             // inferencing function
@@ -146,24 +150,32 @@ namespace R08546036_SHChaoAss06
                 }
             }
 
+            resultFS.AssignDefuzzificationValueEach(defuzzification);
+
+            // defuzzification
             switch (defuzzification)
             {
                 case DefuzzificationType.BOA:
-                    return resultFS.BOACrispValue;
+                    crispValue = resultFS.BOACrispValue;
                     break;
                 case DefuzzificationType.COA:
-                    return resultFS.COACrispValue;
+                    crispValue = resultFS.COACrispValue;
                     break;
                 case DefuzzificationType.MOM:
-                    return resultFS.MOMCrispValue;
+                    crispValue = resultFS.MOMCrispValue;
                     break;
                 case DefuzzificationType.SOM:
-                    return resultFS.SOMCrispValue;
+                    crispValue = resultFS.SOMCrispValue;
                     break;
                 case DefuzzificationType.LOM:
-                    return resultFS.LOMCrispValue;
+                    crispValue = resultFS.LOMCrispValue;
+                    break;
+                default:
+                    crispValue = resultFS.COACrispValue;
                     break;
             }
+
+            return crispValue;
 
         }
     }
@@ -327,7 +339,29 @@ namespace R08546036_SHChaoAss06
 
         public void Inferencing(DataGridView dgvConditions)
         {
+            // conditions
+            FuzzySet[] conditions = new FuzzySet[dgvConditions.Columns.Count];
+            for (int i = 0; i < dgvConditions.Columns.Count; i++)
+            {
+                conditions[i] = (FuzzySet)dgvConditions.Rows[0].Cells[i].Tag;
+            }
 
+            // set contents of conditions
+            double resultingFS = 0;
+
+            foreach (SugenoIfThenRule rule in allRules)
+            {
+                if (resultingFS == null)
+                {
+                    resultingFS = rule.FuzzyInCrispOutInferencing (conditions);
+                }
+                else
+                {
+                    //resultingFS = resultingFS | rule.FuzzyInCrispOutInferencing(conditions);
+                }
+            }
+
+            MessageBox.Show($"Inference value is {resultingFS}");
 
         }
 
