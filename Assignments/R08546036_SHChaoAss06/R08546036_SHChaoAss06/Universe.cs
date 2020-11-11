@@ -43,6 +43,12 @@ namespace R08546036_SHChaoAss04
             return Title;
         }
 
+        [Browsable(false)]
+        public double Delta
+        {
+            get => ((Maximum - Minimum) / (resolution - 1));
+        }
+
         public double Minimum
         {
             get

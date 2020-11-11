@@ -78,38 +78,26 @@ namespace R08546036_SHChaoAss06
 
         public FuzzySet CrispInFuzzyOutInferencing(double[] conditions, bool isCut = true)
         {
+            double maxDegree;
             try
             {
-                List<double> canditates = new List<double>();
-                List<double> xDegree = new List<double>();
-                List<double> yDegree = new List<double>();
-                double fireValue;
+                FiringSrength = double.MaxValue;
 
                 // loop thorough each antecedent fuzzy set
                 for (int i = 0; i < antecedents.Length; i++)
                 {
                     // variables
-                    double maxDegree;
-
                     maxDegree = antecedents[i].GetMembershipDegree(conditions[i]);
-
-                    canditates.Add(maxDegree);
+                    if (maxDegree < FiringSrength) FiringSrength = maxDegree;
                 }
-
-                fireValue = canditates.Min();
-
-                //if (fireValue >= 0.5) {
-                //    MessageBox.Show("Larger than 0.5");
-                //}
-
 
                 if (isCut)
                 {
-                    return conclusion - fireValue;
+                    return conclusion - FiringSrength;
                 }
                 else
                 {
-                    return conclusion * fireValue;
+                    return conclusion * FiringSrength;
                 }
             }
             catch (System.NullReferenceException Exception)

@@ -868,12 +868,6 @@ namespace R08546036_SHChaoAss04
 
         private void cbResulting_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // clear datagrid view
-            dgvRules.Rows.Clear();
-            dgvRules.Refresh();
-            dgvConditions.Rows.Clear();
-            dgvConditions.Refresh();
-
             // switch inference method index
             switch (cbResulting.SelectedIndex)
             {

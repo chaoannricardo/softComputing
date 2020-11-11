@@ -193,7 +193,7 @@
             this.clearAndRestartAppToolStripMenuItem,
             this.teeChartDemoToolStripMenuItem});
             this.theTreeContextMenuStrip.Name = "contextMenuStrip1";
-            this.theTreeContextMenuStrip.Size = new System.Drawing.Size(257, 196);
+            this.theTreeContextMenuStrip.Size = new System.Drawing.Size(224, 148);
             // 
             // addToolStripMenuItem
             // 
@@ -201,13 +201,13 @@
             this.universeToolStripMenuItem,
             this.fuzzySetToolStripMenuItem});
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(256, 32);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(223, 24);
             this.addToolStripMenuItem.Text = "Add";
             // 
             // universeToolStripMenuItem
             // 
             this.universeToolStripMenuItem.Name = "universeToolStripMenuItem";
-            this.universeToolStripMenuItem.Size = new System.Drawing.Size(188, 34);
+            this.universeToolStripMenuItem.Size = new System.Drawing.Size(153, 26);
             this.universeToolStripMenuItem.Text = "Universe";
             this.universeToolStripMenuItem.Click += new System.EventHandler(this.universeToolStripMenuItem_Click);
             // 
@@ -224,7 +224,7 @@
             this.tSMFZMFuzzySet,
             this.tSMFPiFuzzySet});
             this.fuzzySetToolStripMenuItem.Name = "fuzzySetToolStripMenuItem";
-            this.fuzzySetToolStripMenuItem.Size = new System.Drawing.Size(188, 34);
+            this.fuzzySetToolStripMenuItem.Size = new System.Drawing.Size(153, 26);
             this.fuzzySetToolStripMenuItem.Text = "Fuzzy Set";
             // 
             // removeToolStripMenuItem
@@ -233,7 +233,7 @@
             this.tSMFRemoveUniverse,
             this.tSMFRemoveFuzzy});
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(256, 32);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(223, 24);
             this.removeToolStripMenuItem.Text = "Remove This...";
             // 
             // selectCreateUnaryFuzzySetToolStripMenuItem
@@ -244,7 +244,7 @@
             this.tSMFUnaryValueScale,
             this.linguisticHedgeOperatorsToolStripMenuItem});
             this.selectCreateUnaryFuzzySetToolStripMenuItem.Name = "selectCreateUnaryFuzzySetToolStripMenuItem";
-            this.selectCreateUnaryFuzzySetToolStripMenuItem.Size = new System.Drawing.Size(256, 32);
+            this.selectCreateUnaryFuzzySetToolStripMenuItem.Size = new System.Drawing.Size(223, 24);
             this.selectCreateUnaryFuzzySetToolStripMenuItem.Text = "Unary Operation";
             // 
             // linguisticHedgeOperatorsToolStripMenuItem
@@ -256,7 +256,7 @@
             this.tSMFLinguisticHIntensification,
             this.tSMFLinguisticHDiminisher});
             this.linguisticHedgeOperatorsToolStripMenuItem.Name = "linguisticHedgeOperatorsToolStripMenuItem";
-            this.linguisticHedgeOperatorsToolStripMenuItem.Size = new System.Drawing.Size(330, 34);
+            this.linguisticHedgeOperatorsToolStripMenuItem.Size = new System.Drawing.Size(273, 26);
             this.linguisticHedgeOperatorsToolStripMenuItem.Text = "Linguistic Hedge Operators";
             // 
             // tSMFBinary
@@ -266,7 +266,7 @@
             this.tSMFSelectAsFuzzy2,
             this.chooseOperationsToolStripMenuItem});
             this.tSMFBinary.Name = "tSMFBinary";
-            this.tSMFBinary.Size = new System.Drawing.Size(256, 32);
+            this.tSMFBinary.Size = new System.Drawing.Size(223, 24);
             this.tSMFBinary.Text = "Binary Operation";
             // 
             // chooseOperationsToolStripMenuItem
@@ -278,7 +278,7 @@
             this.TNormsActions,
             this.SNormsActions});
             this.chooseOperationsToolStripMenuItem.Name = "chooseOperationsToolStripMenuItem";
-            this.chooseOperationsToolStripMenuItem.Size = new System.Drawing.Size(276, 34);
+            this.chooseOperationsToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
             this.chooseOperationsToolStripMenuItem.Text = "Choose Operations:";
             // 
             // TNormsActions
@@ -289,7 +289,7 @@
             this.tSMFBoundedT,
             this.tSMFDrasticT});
             this.TNormsActions.Name = "TNormsActions";
-            this.TNormsActions.Size = new System.Drawing.Size(292, 34);
+            this.TNormsActions.Size = new System.Drawing.Size(244, 26);
             this.TNormsActions.Text = "T-norm Operations:";
             // 
             // SNormsActions
@@ -300,20 +300,20 @@
             this.TSMFSNormBoundedSum,
             this.TSMFSNormDrasticSum});
             this.SNormsActions.Name = "SNormsActions";
-            this.SNormsActions.Size = new System.Drawing.Size(292, 34);
+            this.SNormsActions.Size = new System.Drawing.Size(244, 26);
             this.SNormsActions.Text = "S-norm Operations:";
             // 
             // clearAndRestartAppToolStripMenuItem
             // 
             this.clearAndRestartAppToolStripMenuItem.Name = "clearAndRestartAppToolStripMenuItem";
-            this.clearAndRestartAppToolStripMenuItem.Size = new System.Drawing.Size(256, 32);
+            this.clearAndRestartAppToolStripMenuItem.Size = new System.Drawing.Size(223, 24);
             this.clearAndRestartAppToolStripMenuItem.Text = "Clear and Restart App";
             this.clearAndRestartAppToolStripMenuItem.Click += new System.EventHandler(this.topFileRestart_Click);
             // 
             // teeChartDemoToolStripMenuItem
             // 
             this.teeChartDemoToolStripMenuItem.Name = "teeChartDemoToolStripMenuItem";
-            this.teeChartDemoToolStripMenuItem.Size = new System.Drawing.Size(256, 32);
+            this.teeChartDemoToolStripMenuItem.Size = new System.Drawing.Size(223, 24);
             this.teeChartDemoToolStripMenuItem.Text = "Tee Chart Demo";
             this.teeChartDemoToolStripMenuItem.Click += new System.EventHandler(this.teeChartDemoToolStripMenuItem_Click);
             // 
@@ -321,6 +321,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -333,14 +334,15 @@
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Info;
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer1.Panel2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.splitContainer1.Size = new System.Drawing.Size(1151, 603);
-            this.splitContainer1.SplitterDistance = 200;
+            this.splitContainer1.Size = new System.Drawing.Size(1023, 478);
+            this.splitContainer1.SplitterDistance = 177;
             this.splitContainer1.TabIndex = 8;
             // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -352,14 +354,16 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.theGrid);
-            this.splitContainer2.Size = new System.Drawing.Size(200, 603);
-            this.splitContainer2.SplitterDistance = 195;
+            this.splitContainer2.Size = new System.Drawing.Size(177, 478);
+            this.splitContainer2.SplitterDistance = 154;
+            this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 0;
             // 
             // splitContainer6
             // 
             this.splitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer6.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer6.Name = "splitContainer6";
             this.splitContainer6.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -371,8 +375,9 @@
             // splitContainer6.Panel2
             // 
             this.splitContainer6.Panel2.Controls.Add(this.lbSetTip);
-            this.splitContainer6.Size = new System.Drawing.Size(200, 195);
-            this.splitContainer6.SplitterDistance = 156;
+            this.splitContainer6.Size = new System.Drawing.Size(177, 154);
+            this.splitContainer6.SplitterDistance = 123;
+            this.splitContainer6.SplitterWidth = 3;
             this.splitContainer6.TabIndex = 0;
             // 
             // lbInstruction
@@ -381,9 +386,9 @@
             this.lbInstruction.BackColor = System.Drawing.Color.Honeydew;
             this.lbInstruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbInstruction.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.lbInstruction.Location = new System.Drawing.Point(12, 93);
+            this.lbInstruction.Location = new System.Drawing.Point(11, 74);
             this.lbInstruction.Name = "lbInstruction";
-            this.lbInstruction.Size = new System.Drawing.Size(362, 40);
+            this.lbInstruction.Size = new System.Drawing.Size(327, 34);
             this.lbInstruction.TabIndex = 10;
             this.lbInstruction.Text = "Right Click Here to Add a Univers/Fuzzy Set\r\nOr Select an Unary/Binary Operation";
             this.lbInstruction.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -394,6 +399,7 @@
             this.theTree.ContextMenuStrip = this.theTreeContextMenuStrip;
             this.theTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.theTree.Location = new System.Drawing.Point(0, 0);
+            this.theTree.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theTree.Name = "theTree";
             treeNode1.Name = "Input";
             treeNode1.Tag = "";
@@ -404,7 +410,7 @@
             this.theTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2});
-            this.theTree.Size = new System.Drawing.Size(200, 156);
+            this.theTree.Size = new System.Drawing.Size(177, 123);
             this.theTree.TabIndex = 12;
             this.theTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.theTree_AfterSelect);
             this.theTree.MouseHover += new System.EventHandler(this.CloseInstruction);
@@ -416,7 +422,7 @@
             this.lbSetTip.ForeColor = System.Drawing.SystemColors.Control;
             this.lbSetTip.Location = new System.Drawing.Point(0, 0);
             this.lbSetTip.Name = "lbSetTip";
-            this.lbSetTip.Size = new System.Drawing.Size(200, 35);
+            this.lbSetTip.Size = new System.Drawing.Size(177, 28);
             this.lbSetTip.TabIndex = 1;
             this.lbSetTip.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -424,8 +430,9 @@
             // 
             this.theGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.theGrid.Location = new System.Drawing.Point(0, 0);
+            this.theGrid.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.theGrid.Name = "theGrid";
-            this.theGrid.Size = new System.Drawing.Size(200, 404);
+            this.theGrid.Size = new System.Drawing.Size(177, 321);
             this.theGrid.TabIndex = 6;
             this.theGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.theGrid_PropertyValueChanged);
             // 
@@ -433,6 +440,7 @@
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -445,14 +453,16 @@
             // 
             this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer7);
-            this.splitContainer3.Size = new System.Drawing.Size(947, 603);
-            this.splitContainer3.SplitterDistance = 119;
+            this.splitContainer3.Size = new System.Drawing.Size(842, 478);
+            this.splitContainer3.SplitterDistance = 94;
+            this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 2;
             // 
             // splitContainer5
             // 
             this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer5.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer5.Name = "splitContainer5";
             // 
             // splitContainer5.Panel1
@@ -462,14 +472,15 @@
             // splitContainer5.Panel2
             // 
             this.splitContainer5.Panel2.Controls.Add(this.tabControl2);
-            this.splitContainer5.Size = new System.Drawing.Size(947, 119);
-            this.splitContainer5.SplitterDistance = 212;
+            this.splitContainer5.Size = new System.Drawing.Size(842, 94);
+            this.splitContainer5.SplitterDistance = 188;
             this.splitContainer5.TabIndex = 4;
             // 
             // splitContainer8
             // 
             this.splitContainer8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer8.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer8.Name = "splitContainer8";
             this.splitContainer8.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -480,14 +491,16 @@
             // splitContainer8.Panel2
             // 
             this.splitContainer8.Panel2.Controls.Add(this.splitContainer10);
-            this.splitContainer8.Size = new System.Drawing.Size(212, 119);
-            this.splitContainer8.SplitterDistance = 52;
+            this.splitContainer8.Size = new System.Drawing.Size(188, 94);
+            this.splitContainer8.SplitterDistance = 41;
+            this.splitContainer8.SplitterWidth = 3;
             this.splitContainer8.TabIndex = 0;
             // 
             // splitContainer9
             // 
             this.splitContainer9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer9.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer9.Name = "splitContainer9";
             // 
             // splitContainer9.Panel1
@@ -497,8 +510,8 @@
             // splitContainer9.Panel2
             // 
             this.splitContainer9.Panel2.Controls.Add(this.ppGSystem);
-            this.splitContainer9.Size = new System.Drawing.Size(212, 52);
-            this.splitContainer9.SplitterDistance = 38;
+            this.splitContainer9.Size = new System.Drawing.Size(188, 41);
+            this.splitContainer9.SplitterDistance = 33;
             this.splitContainer9.TabIndex = 0;
             // 
             // lbInference
@@ -506,14 +519,15 @@
             this.lbInference.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbInference.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbInference.FormattingEnabled = true;
-            this.lbInference.ItemHeight = 37;
+            this.lbInference.ItemHeight = 31;
             this.lbInference.Items.AddRange(new object[] {
             "Mamdani",
             "Sugeno",
             "Tsukamoto"});
             this.lbInference.Location = new System.Drawing.Point(0, 0);
+            this.lbInference.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lbInference.Name = "lbInference";
-            this.lbInference.Size = new System.Drawing.Size(38, 52);
+            this.lbInference.Size = new System.Drawing.Size(33, 41);
             this.lbInference.TabIndex = 3;
             this.lbInference.SelectedIndexChanged += new System.EventHandler(this.lbInference_SelectedIndexChanged);
             // 
@@ -521,14 +535,16 @@
             // 
             this.ppGSystem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ppGSystem.Location = new System.Drawing.Point(0, 0);
+            this.ppGSystem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ppGSystem.Name = "ppGSystem";
-            this.ppGSystem.Size = new System.Drawing.Size(170, 52);
+            this.ppGSystem.Size = new System.Drawing.Size(151, 41);
             this.ppGSystem.TabIndex = 0;
             // 
             // splitContainer10
             // 
             this.splitContainer10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer10.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer10.Name = "splitContainer10";
             // 
             // splitContainer10.Panel1
@@ -538,8 +554,8 @@
             // splitContainer10.Panel2
             // 
             this.splitContainer10.Panel2.Controls.Add(this.crispInference);
-            this.splitContainer10.Size = new System.Drawing.Size(212, 63);
-            this.splitContainer10.SplitterDistance = 38;
+            this.splitContainer10.Size = new System.Drawing.Size(188, 50);
+            this.splitContainer10.SplitterDistance = 33;
             this.splitContainer10.TabIndex = 0;
             // 
             // btnInference
@@ -548,8 +564,9 @@
             this.btnInference.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInference.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnInference.Location = new System.Drawing.Point(0, 0);
+            this.btnInference.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnInference.Name = "btnInference";
-            this.btnInference.Size = new System.Drawing.Size(38, 63);
+            this.btnInference.Size = new System.Drawing.Size(33, 50);
             this.btnInference.TabIndex = 3;
             this.btnInference.Text = "Start Inferencing";
             this.btnInference.UseVisualStyleBackColor = true;
@@ -561,8 +578,9 @@
             this.crispInference.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.crispInference.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.crispInference.Location = new System.Drawing.Point(0, 0);
+            this.crispInference.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.crispInference.Name = "crispInference";
-            this.crispInference.Size = new System.Drawing.Size(170, 63);
+            this.crispInference.Size = new System.Drawing.Size(151, 50);
             this.crispInference.TabIndex = 4;
             this.crispInference.Text = "Inference All Crisp Inputs";
             this.crispInference.UseVisualStyleBackColor = true;
@@ -574,19 +592,21 @@
             this.tabControl2.Controls.Add(this.tabPage2);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
+            this.tabControl2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(731, 119);
+            this.tabControl2.Size = new System.Drawing.Size(650, 94);
             this.tabControl2.TabIndex = 16;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.lbIfThenInstruction);
             this.tabPage1.Controls.Add(this.dgvRules);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(723, 86);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage1.Size = new System.Drawing.Size(642, 65);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -598,9 +618,9 @@
             this.lbIfThenInstruction.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lbIfThenInstruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbIfThenInstruction.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.lbIfThenInstruction.Location = new System.Drawing.Point(3, 63);
+            this.lbIfThenInstruction.Location = new System.Drawing.Point(3, 46);
             this.lbIfThenInstruction.Name = "lbIfThenInstruction";
-            this.lbIfThenInstruction.Size = new System.Drawing.Size(312, 20);
+            this.lbIfThenInstruction.Size = new System.Drawing.Size(281, 17);
             this.lbIfThenInstruction.TabIndex = 14;
             this.lbIfThenInstruction.Text = "Right Click to Add a New If-Then Rule";
             this.lbIfThenInstruction.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -628,7 +648,8 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvRules.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvRules.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRules.Location = new System.Drawing.Point(3, 3);
+            this.dgvRules.Location = new System.Drawing.Point(3, 2);
+            this.dgvRules.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvRules.Name = "dgvRules";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -640,7 +661,7 @@
             this.dgvRules.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvRules.RowHeadersWidth = 62;
             this.dgvRules.RowTemplate.Height = 28;
-            this.dgvRules.Size = new System.Drawing.Size(717, 80);
+            this.dgvRules.Size = new System.Drawing.Size(636, 61);
             this.dgvRules.TabIndex = 9;
             this.dgvRules.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRules_CellClick);
             // 
@@ -651,7 +672,7 @@
             this.toolStripMenuItemFuzzy1,
             this.cutOrScaleToolStripMenuItem});
             this.fuzzyRuleContextMenuStrip.Name = "contextMenuStrip1";
-            this.fuzzyRuleContextMenuStrip.Size = new System.Drawing.Size(212, 68);
+            this.fuzzyRuleContextMenuStrip.Size = new System.Drawing.Size(186, 52);
             // 
             // cutOrScaleToolStripMenuItem
             // 
@@ -659,16 +680,17 @@
             this.toolStripMCut,
             this.toolStripMScale});
             this.cutOrScaleToolStripMenuItem.Name = "cutOrScaleToolStripMenuItem";
-            this.cutOrScaleToolStripMenuItem.Size = new System.Drawing.Size(211, 32);
+            this.cutOrScaleToolStripMenuItem.Size = new System.Drawing.Size(185, 24);
             this.cutOrScaleToolStripMenuItem.Text = "Cut or Scale?";
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.dgvConditions);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(723, 86);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage2.Size = new System.Drawing.Size(642, 65);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -695,7 +717,8 @@
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvConditions.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvConditions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvConditions.Location = new System.Drawing.Point(3, 3);
+            this.dgvConditions.Location = new System.Drawing.Point(3, 2);
+            this.dgvConditions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvConditions.Name = "dgvConditions";
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
@@ -707,7 +730,7 @@
             this.dgvConditions.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvConditions.RowHeadersWidth = 62;
             this.dgvConditions.RowTemplate.Height = 28;
-            this.dgvConditions.Size = new System.Drawing.Size(717, 80);
+            this.dgvConditions.Size = new System.Drawing.Size(636, 61);
             this.dgvConditions.TabIndex = 9;
             this.dgvConditions.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConditions_CellClick);
             // 
@@ -715,6 +738,7 @@
             // 
             this.splitContainer7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer7.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer7.Name = "splitContainer7";
             // 
             // splitContainer7.Panel1
@@ -724,23 +748,25 @@
             // splitContainer7.Panel2
             // 
             this.splitContainer7.Panel2.Controls.Add(this.splitContainer11);
-            this.splitContainer7.Size = new System.Drawing.Size(947, 480);
-            this.splitContainer7.SplitterDistance = 166;
+            this.splitContainer7.Size = new System.Drawing.Size(842, 381);
+            this.splitContainer7.SplitterDistance = 147;
             this.splitContainer7.TabIndex = 0;
             // 
             // tabControl1
             // 
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(166, 480);
+            this.tabControl1.Size = new System.Drawing.Size(147, 381);
             this.tabControl1.TabIndex = 3;
             // 
             // splitContainer11
             // 
             this.splitContainer11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer11.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer11.Name = "splitContainer11";
             this.splitContainer11.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -752,8 +778,9 @@
             // 
             this.splitContainer11.Panel2.Controls.Add(this.tChart1);
             this.splitContainer11.Panel2.Controls.Add(this.chartController1);
-            this.splitContainer11.Size = new System.Drawing.Size(777, 480);
+            this.splitContainer11.Size = new System.Drawing.Size(691, 381);
             this.splitContainer11.SplitterDistance = 25;
+            this.splitContainer11.SplitterWidth = 3;
             this.splitContainer11.TabIndex = 0;
             // 
             // cbResulting
@@ -767,8 +794,9 @@
             "SOM",
             "LOM"});
             this.cbResulting.Location = new System.Drawing.Point(0, 0);
+            this.cbResulting.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbResulting.Name = "cbResulting";
-            this.cbResulting.Size = new System.Drawing.Size(777, 28);
+            this.cbResulting.Size = new System.Drawing.Size(691, 24);
             this.cbResulting.TabIndex = 1;
             this.cbResulting.Text = "Choose Resulting Input Output";
             this.cbResulting.SelectedIndexChanged += new System.EventHandler(this.cbResulting_SelectedIndexChanged);
@@ -816,6 +844,7 @@
         "Force"};
             this.tChart1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tChart1.Location = new System.Drawing.Point(0, 25);
+            this.tChart1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tChart1.Name = "tChart1";
             // 
             // 
@@ -825,16 +854,17 @@
             // 
             this.tChart1.Panel.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.tChart1.Series.Add(this.surface1);
-            this.tChart1.Size = new System.Drawing.Size(777, 426);
+            this.tChart1.Size = new System.Drawing.Size(691, 328);
             this.tChart1.TabIndex = 16;
             // 
             // chartController1
             // 
             this.chartController1.ButtonSize = Steema.TeeChart.ControllerButtonSize.x16;
+            this.chartController1.Chart = this.tChart1;
             this.chartController1.LabelValues = true;
             this.chartController1.Location = new System.Drawing.Point(0, 0);
             this.chartController1.Name = "chartController1";
-            this.chartController1.Size = new System.Drawing.Size(777, 25);
+            this.chartController1.Size = new System.Drawing.Size(691, 25);
             this.chartController1.TabIndex = 8;
             this.chartController1.Text = "chartController1";
             // 
@@ -842,13 +872,13 @@
             // 
             this.topMenuStrip.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.topMenuStrip.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.topMenuStrip.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.topMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.topMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.topFile});
             this.topMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.topMenuStrip.Name = "topMenuStrip";
-            this.topMenuStrip.Size = new System.Drawing.Size(1151, 25);
+            this.topMenuStrip.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.topMenuStrip.Size = new System.Drawing.Size(1023, 25);
             this.topMenuStrip.TabIndex = 9;
             this.topMenuStrip.Text = "menuStrip1";
             // 
@@ -856,6 +886,7 @@
             // 
             this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer4.Name = "splitContainer4";
             this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -867,16 +898,17 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.splitContainer1);
-            this.splitContainer4.Size = new System.Drawing.Size(1151, 632);
+            this.splitContainer4.Size = new System.Drawing.Size(1023, 506);
             this.splitContainer4.SplitterDistance = 25;
+            this.splitContainer4.SplitterWidth = 3;
             this.splitContainer4.TabIndex = 10;
             // 
             // lbSaveAndOpen
             // 
             this.lbSaveAndOpen.AutoSize = true;
-            this.lbSaveAndOpen.Location = new System.Drawing.Point(77, 5);
+            this.lbSaveAndOpen.Location = new System.Drawing.Point(68, 4);
             this.lbSaveAndOpen.Name = "lbSaveAndOpen";
-            this.lbSaveAndOpen.Size = new System.Drawing.Size(51, 20);
+            this.lbSaveAndOpen.Size = new System.Drawing.Size(46, 17);
             this.lbSaveAndOpen.TabIndex = 10;
             this.lbSaveAndOpen.Text = "label1";
             // 
@@ -886,7 +918,7 @@
             this.outputEquationContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSMAddSelectedOutputEquation});
             this.outputEquationContextMenuStrip.Name = "outputEquationContextMenuStrip";
-            this.outputEquationContextMenuStrip.Size = new System.Drawing.Size(327, 69);
+            this.outputEquationContextMenuStrip.Size = new System.Drawing.Size(281, 28);
             // 
             // dlgOpen
             // 
@@ -905,14 +937,14 @@
             this.tsmSaveToFiles});
             this.topFile.Name = "topFile";
             this.topFile.SelectedIndex = 0;
-            this.topFile.Size = new System.Drawing.Size(54, 21);
+            this.topFile.Size = new System.Drawing.Size(46, 21);
             this.topFile.Text = "File";
             // 
             // topFileRestart
             // 
             this.topFileRestart.Name = "topFileRestart";
             this.topFileRestart.SelectedIndex = 0;
-            this.topFileRestart.Size = new System.Drawing.Size(286, 34);
+            this.topFileRestart.Size = new System.Drawing.Size(237, 26);
             this.topFileRestart.Text = "Clear and Restart App";
             this.topFileRestart.Click += new System.EventHandler(this.topFileRestart_Click);
             // 
@@ -920,7 +952,7 @@
             // 
             this.tsmOpenFromFiles.Name = "tsmOpenFromFiles";
             this.tsmOpenFromFiles.SelectedIndex = 0;
-            this.tsmOpenFromFiles.Size = new System.Drawing.Size(286, 34);
+            this.tsmOpenFromFiles.Size = new System.Drawing.Size(237, 26);
             this.tsmOpenFromFiles.Text = "Open from Files";
             this.tsmOpenFromFiles.Click += new System.EventHandler(this.OpenOrSave);
             // 
@@ -928,7 +960,7 @@
             // 
             this.tsmSaveToFiles.Name = "tsmSaveToFiles";
             this.tsmSaveToFiles.SelectedIndex = 1;
-            this.tsmSaveToFiles.Size = new System.Drawing.Size(286, 34);
+            this.tsmSaveToFiles.Size = new System.Drawing.Size(237, 26);
             this.tsmSaveToFiles.Text = "Save to Files";
             this.tsmSaveToFiles.Click += new System.EventHandler(this.OpenOrSave);
             // 
@@ -936,7 +968,7 @@
             // 
             this.tSMFTriangular.Name = "tSMFTriangular";
             this.tSMFTriangular.SelectedIndex = 0;
-            this.tSMFTriangular.Size = new System.Drawing.Size(214, 34);
+            this.tSMFTriangular.Size = new System.Drawing.Size(175, 26);
             this.tSMFTriangular.Text = "Triangular";
             this.tSMFTriangular.Click += new System.EventHandler(this.CreateFuzzySet);
             // 
@@ -944,7 +976,7 @@
             // 
             this.tSMFBell.Name = "tSMFBell";
             this.tSMFBell.SelectedIndex = 1;
-            this.tSMFBell.Size = new System.Drawing.Size(214, 34);
+            this.tSMFBell.Size = new System.Drawing.Size(175, 26);
             this.tSMFBell.Text = "Bell";
             this.tSMFBell.Click += new System.EventHandler(this.CreateFuzzySet);
             // 
@@ -952,7 +984,7 @@
             // 
             this.tSMFGaussian.Name = "tSMFGaussian";
             this.tSMFGaussian.SelectedIndex = 2;
-            this.tSMFGaussian.Size = new System.Drawing.Size(214, 34);
+            this.tSMFGaussian.Size = new System.Drawing.Size(175, 26);
             this.tSMFGaussian.Text = "Gaussian";
             this.tSMFGaussian.Click += new System.EventHandler(this.CreateFuzzySet);
             // 
@@ -960,7 +992,7 @@
             // 
             this.tSMFSigmoidal.Name = "tSMFSigmoidal";
             this.tSMFSigmoidal.SelectedIndex = 3;
-            this.tSMFSigmoidal.Size = new System.Drawing.Size(214, 34);
+            this.tSMFSigmoidal.Size = new System.Drawing.Size(175, 26);
             this.tSMFSigmoidal.Text = "Sigmoidal";
             this.tSMFSigmoidal.Click += new System.EventHandler(this.CreateFuzzySet);
             // 
@@ -968,7 +1000,7 @@
             // 
             this.tSMFTrapezoidal.Name = "tSMFTrapezoidal";
             this.tSMFTrapezoidal.SelectedIndex = 4;
-            this.tSMFTrapezoidal.Size = new System.Drawing.Size(214, 34);
+            this.tSMFTrapezoidal.Size = new System.Drawing.Size(175, 26);
             this.tSMFTrapezoidal.Text = "Trapezoidal";
             this.tSMFTrapezoidal.Click += new System.EventHandler(this.CreateFuzzySet);
             // 
@@ -976,7 +1008,7 @@
             // 
             this.tSMFLeftRight.Name = "tSMFLeftRight";
             this.tSMFLeftRight.SelectedIndex = 5;
-            this.tSMFLeftRight.Size = new System.Drawing.Size(214, 34);
+            this.tSMFLeftRight.Size = new System.Drawing.Size(175, 26);
             this.tSMFLeftRight.Text = "LeftRight";
             this.tSMFLeftRight.Click += new System.EventHandler(this.CreateFuzzySet);
             // 
@@ -984,7 +1016,7 @@
             // 
             this.tSMFSMFuzzySet.Name = "tSMFSMFuzzySet";
             this.tSMFSMFuzzySet.SelectedIndex = 6;
-            this.tSMFSMFuzzySet.Size = new System.Drawing.Size(214, 34);
+            this.tSMFSMFuzzySet.Size = new System.Drawing.Size(175, 26);
             this.tSMFSMFuzzySet.Text = "S MFuzzySet";
             this.tSMFSMFuzzySet.Click += new System.EventHandler(this.CreateFuzzySet);
             // 
@@ -992,7 +1024,7 @@
             // 
             this.tSMFZMFuzzySet.Name = "tSMFZMFuzzySet";
             this.tSMFZMFuzzySet.SelectedIndex = 7;
-            this.tSMFZMFuzzySet.Size = new System.Drawing.Size(214, 34);
+            this.tSMFZMFuzzySet.Size = new System.Drawing.Size(175, 26);
             this.tSMFZMFuzzySet.Text = "Z MFuzzySet";
             this.tSMFZMFuzzySet.Click += new System.EventHandler(this.CreateFuzzySet);
             // 
@@ -1000,7 +1032,7 @@
             // 
             this.tSMFPiFuzzySet.Name = "tSMFPiFuzzySet";
             this.tSMFPiFuzzySet.SelectedIndex = 8;
-            this.tSMFPiFuzzySet.Size = new System.Drawing.Size(214, 34);
+            this.tSMFPiFuzzySet.Size = new System.Drawing.Size(175, 26);
             this.tSMFPiFuzzySet.Text = "Pi Fuzzy Set";
             this.tSMFPiFuzzySet.Click += new System.EventHandler(this.CreateFuzzySet);
             // 
@@ -1008,7 +1040,7 @@
             // 
             this.tSMFRemoveUniverse.Name = "tSMFRemoveUniverse";
             this.tSMFRemoveUniverse.SelectedIndex = 0;
-            this.tSMFRemoveUniverse.Size = new System.Drawing.Size(188, 34);
+            this.tSMFRemoveUniverse.Size = new System.Drawing.Size(153, 26);
             this.tSMFRemoveUniverse.Text = "Universe";
             this.tSMFRemoveUniverse.Click += new System.EventHandler(this.removeUniverseOrFuzzy);
             // 
@@ -1016,7 +1048,7 @@
             // 
             this.tSMFRemoveFuzzy.Name = "tSMFRemoveFuzzy";
             this.tSMFRemoveFuzzy.SelectedIndex = 1;
-            this.tSMFRemoveFuzzy.Size = new System.Drawing.Size(188, 34);
+            this.tSMFRemoveFuzzy.Size = new System.Drawing.Size(153, 26);
             this.tSMFRemoveFuzzy.Text = "Fuzzy Set";
             this.tSMFRemoveFuzzy.Click += new System.EventHandler(this.removeUniverseOrFuzzy);
             // 
@@ -1024,7 +1056,7 @@
             // 
             this.tSMFUnaryNegate.Name = "tSMFUnaryNegate";
             this.tSMFUnaryNegate.SelectedIndex = 0;
-            this.tSMFUnaryNegate.Size = new System.Drawing.Size(330, 34);
+            this.tSMFUnaryNegate.Size = new System.Drawing.Size(273, 26);
             this.tSMFUnaryNegate.Text = "Negate";
             this.tSMFUnaryNegate.Click += new System.EventHandler(this.createUnaryFuzzySet);
             // 
@@ -1032,7 +1064,7 @@
             // 
             this.tSMFUnaryValueCut.Name = "tSMFUnaryValueCut";
             this.tSMFUnaryValueCut.SelectedIndex = 1;
-            this.tSMFUnaryValueCut.Size = new System.Drawing.Size(330, 34);
+            this.tSMFUnaryValueCut.Size = new System.Drawing.Size(273, 26);
             this.tSMFUnaryValueCut.Text = "Value Cut";
             this.tSMFUnaryValueCut.Click += new System.EventHandler(this.createUnaryFuzzySet);
             // 
@@ -1040,7 +1072,7 @@
             // 
             this.tSMFUnaryValueScale.Name = "tSMFUnaryValueScale";
             this.tSMFUnaryValueScale.SelectedIndex = 2;
-            this.tSMFUnaryValueScale.Size = new System.Drawing.Size(330, 34);
+            this.tSMFUnaryValueScale.Size = new System.Drawing.Size(273, 26);
             this.tSMFUnaryValueScale.Text = "Value Scale";
             this.tSMFUnaryValueScale.Click += new System.EventHandler(this.createUnaryFuzzySet);
             // 
@@ -1048,7 +1080,7 @@
             // 
             this.tSMFLinguisticHVery.Name = "tSMFLinguisticHVery";
             this.tSMFLinguisticHVery.SelectedIndex = 3;
-            this.tSMFLinguisticHVery.Size = new System.Drawing.Size(224, 34);
+            this.tSMFLinguisticHVery.Size = new System.Drawing.Size(185, 26);
             this.tSMFLinguisticHVery.Text = "Very";
             this.tSMFLinguisticHVery.Click += new System.EventHandler(this.createUnaryFuzzySet);
             // 
@@ -1056,7 +1088,7 @@
             // 
             this.tSMFLinguisticHDilation.Name = "tSMFLinguisticHDilation";
             this.tSMFLinguisticHDilation.SelectedIndex = 4;
-            this.tSMFLinguisticHDilation.Size = new System.Drawing.Size(224, 34);
+            this.tSMFLinguisticHDilation.Size = new System.Drawing.Size(185, 26);
             this.tSMFLinguisticHDilation.Text = "More or Less";
             this.tSMFLinguisticHDilation.Click += new System.EventHandler(this.createUnaryFuzzySet);
             // 
@@ -1064,7 +1096,7 @@
             // 
             this.tSMFLinguisticHExtremely.Name = "tSMFLinguisticHExtremely";
             this.tSMFLinguisticHExtremely.SelectedIndex = 5;
-            this.tSMFLinguisticHExtremely.Size = new System.Drawing.Size(224, 34);
+            this.tSMFLinguisticHExtremely.Size = new System.Drawing.Size(185, 26);
             this.tSMFLinguisticHExtremely.Text = "Extremely";
             this.tSMFLinguisticHExtremely.Click += new System.EventHandler(this.createUnaryFuzzySet);
             // 
@@ -1072,7 +1104,7 @@
             // 
             this.tSMFLinguisticHIntensification.Name = "tSMFLinguisticHIntensification";
             this.tSMFLinguisticHIntensification.SelectedIndex = 6;
-            this.tSMFLinguisticHIntensification.Size = new System.Drawing.Size(224, 34);
+            this.tSMFLinguisticHIntensification.Size = new System.Drawing.Size(185, 26);
             this.tSMFLinguisticHIntensification.Text = "Intensification";
             this.tSMFLinguisticHIntensification.Click += new System.EventHandler(this.createUnaryFuzzySet);
             // 
@@ -1080,7 +1112,7 @@
             // 
             this.tSMFLinguisticHDiminisher.Name = "tSMFLinguisticHDiminisher";
             this.tSMFLinguisticHDiminisher.SelectedIndex = 7;
-            this.tSMFLinguisticHDiminisher.Size = new System.Drawing.Size(224, 34);
+            this.tSMFLinguisticHDiminisher.Size = new System.Drawing.Size(185, 26);
             this.tSMFLinguisticHDiminisher.Text = "Diminisher";
             this.tSMFLinguisticHDiminisher.Click += new System.EventHandler(this.createUnaryFuzzySet);
             // 
@@ -1088,7 +1120,7 @@
             // 
             this.tSMFSelectAsFuzzy1.Name = "tSMFSelectAsFuzzy1";
             this.tSMFSelectAsFuzzy1.SelectedIndex = 0;
-            this.tSMFSelectAsFuzzy1.Size = new System.Drawing.Size(276, 34);
+            this.tSMFSelectAsFuzzy1.Size = new System.Drawing.Size(227, 26);
             this.tSMFSelectAsFuzzy1.Text = "Select as Fuzzy Set 1";
             this.tSMFSelectAsFuzzy1.Click += new System.EventHandler(this.selectAsBinaryFuzzy);
             // 
@@ -1096,7 +1128,7 @@
             // 
             this.tSMFSelectAsFuzzy2.Name = "tSMFSelectAsFuzzy2";
             this.tSMFSelectAsFuzzy2.SelectedIndex = 1;
-            this.tSMFSelectAsFuzzy2.Size = new System.Drawing.Size(276, 34);
+            this.tSMFSelectAsFuzzy2.Size = new System.Drawing.Size(227, 26);
             this.tSMFSelectAsFuzzy2.Text = "Select as Fuzzy Set 2";
             this.tSMFSelectAsFuzzy2.Click += new System.EventHandler(this.selectAsBinaryFuzzy);
             // 
@@ -1104,7 +1136,7 @@
             // 
             this.binaryOpTraditionalIntersection.Name = "binaryOpTraditionalIntersection";
             this.binaryOpTraditionalIntersection.SelectedIndex = 0;
-            this.binaryOpTraditionalIntersection.Size = new System.Drawing.Size(292, 34);
+            this.binaryOpTraditionalIntersection.Size = new System.Drawing.Size(244, 26);
             this.binaryOpTraditionalIntersection.Text = "Traditional Intersection";
             this.binaryOpTraditionalIntersection.Click += new System.EventHandler(this.createBinaryFuzzySet);
             // 
@@ -1112,7 +1144,7 @@
             // 
             this.binaryOpUnion.Name = "binaryOpUnion";
             this.binaryOpUnion.SelectedIndex = 1;
-            this.binaryOpUnion.Size = new System.Drawing.Size(292, 34);
+            this.binaryOpUnion.Size = new System.Drawing.Size(244, 26);
             this.binaryOpUnion.Text = "Union";
             this.binaryOpUnion.Click += new System.EventHandler(this.createBinaryFuzzySet);
             // 
@@ -1120,7 +1152,7 @@
             // 
             this.binaryOpSubstraction.Name = "binaryOpSubstraction";
             this.binaryOpSubstraction.SelectedIndex = 2;
-            this.binaryOpSubstraction.Size = new System.Drawing.Size(292, 34);
+            this.binaryOpSubstraction.Size = new System.Drawing.Size(244, 26);
             this.binaryOpSubstraction.Text = "Substraction";
             this.binaryOpSubstraction.Click += new System.EventHandler(this.createBinaryFuzzySet);
             // 
@@ -1128,7 +1160,7 @@
             // 
             this.tSMFMinimumT.Name = "tSMFMinimumT";
             this.tSMFMinimumT.SelectedIndex = 3;
-            this.tSMFMinimumT.Size = new System.Drawing.Size(255, 34);
+            this.tSMFMinimumT.Size = new System.Drawing.Size(211, 26);
             this.tSMFMinimumT.Text = "Minimum T-norm";
             this.tSMFMinimumT.Click += new System.EventHandler(this.createBinaryFuzzySet);
             // 
@@ -1136,7 +1168,7 @@
             // 
             this.tSMFAlgebraicT.Name = "tSMFAlgebraicT";
             this.tSMFAlgebraicT.SelectedIndex = 4;
-            this.tSMFAlgebraicT.Size = new System.Drawing.Size(255, 34);
+            this.tSMFAlgebraicT.Size = new System.Drawing.Size(211, 26);
             this.tSMFAlgebraicT.Text = "Algebraic Product";
             this.tSMFAlgebraicT.Click += new System.EventHandler(this.createBinaryFuzzySet);
             // 
@@ -1144,7 +1176,7 @@
             // 
             this.tSMFBoundedT.Name = "tSMFBoundedT";
             this.tSMFBoundedT.SelectedIndex = 5;
-            this.tSMFBoundedT.Size = new System.Drawing.Size(255, 34);
+            this.tSMFBoundedT.Size = new System.Drawing.Size(211, 26);
             this.tSMFBoundedT.Text = "Bounded Product";
             this.tSMFBoundedT.Click += new System.EventHandler(this.createBinaryFuzzySet);
             // 
@@ -1152,7 +1184,7 @@
             // 
             this.tSMFDrasticT.Name = "tSMFDrasticT";
             this.tSMFDrasticT.SelectedIndex = 6;
-            this.tSMFDrasticT.Size = new System.Drawing.Size(255, 34);
+            this.tSMFDrasticT.Size = new System.Drawing.Size(211, 26);
             this.tSMFDrasticT.Text = "Drastic Product";
             this.tSMFDrasticT.Click += new System.EventHandler(this.createBinaryFuzzySet);
             // 
@@ -1160,7 +1192,7 @@
             // 
             this.TSMFSNormMaximum.Name = "TSMFSNormMaximum";
             this.TSMFSNormMaximum.SelectedIndex = 7;
-            this.TSMFSNormMaximum.Size = new System.Drawing.Size(258, 34);
+            this.TSMFSNormMaximum.Size = new System.Drawing.Size(211, 26);
             this.TSMFSNormMaximum.Text = "Maximum S-norm";
             this.TSMFSNormMaximum.Click += new System.EventHandler(this.createBinaryFuzzySet);
             // 
@@ -1168,7 +1200,7 @@
             // 
             this.TSMFSAlgebraicSum.Name = "TSMFSAlgebraicSum";
             this.TSMFSAlgebraicSum.SelectedIndex = 8;
-            this.TSMFSAlgebraicSum.Size = new System.Drawing.Size(258, 34);
+            this.TSMFSAlgebraicSum.Size = new System.Drawing.Size(211, 26);
             this.TSMFSAlgebraicSum.Text = "Algebraic Sum";
             this.TSMFSAlgebraicSum.Click += new System.EventHandler(this.createBinaryFuzzySet);
             // 
@@ -1176,7 +1208,7 @@
             // 
             this.TSMFSNormBoundedSum.Name = "TSMFSNormBoundedSum";
             this.TSMFSNormBoundedSum.SelectedIndex = 9;
-            this.TSMFSNormBoundedSum.Size = new System.Drawing.Size(258, 34);
+            this.TSMFSNormBoundedSum.Size = new System.Drawing.Size(211, 26);
             this.TSMFSNormBoundedSum.Text = "Bounded Sum";
             this.TSMFSNormBoundedSum.Click += new System.EventHandler(this.createBinaryFuzzySet);
             // 
@@ -1184,7 +1216,7 @@
             // 
             this.TSMFSNormDrasticSum.Name = "TSMFSNormDrasticSum";
             this.TSMFSNormDrasticSum.SelectedIndex = 10;
-            this.TSMFSNormDrasticSum.Size = new System.Drawing.Size(258, 34);
+            this.TSMFSNormDrasticSum.Size = new System.Drawing.Size(211, 26);
             this.TSMFSNormDrasticSum.Text = "Drastic Sum";
             this.TSMFSNormDrasticSum.Click += new System.EventHandler(this.createBinaryFuzzySet);
             // 
@@ -1192,7 +1224,7 @@
             // 
             this.toolStripMenuItemFuzzy1.Name = "toolStripMenuItemFuzzy1";
             this.toolStripMenuItemFuzzy1.SelectedIndex = 0;
-            this.toolStripMenuItemFuzzy1.Size = new System.Drawing.Size(211, 32);
+            this.toolStripMenuItemFuzzy1.Size = new System.Drawing.Size(185, 24);
             this.toolStripMenuItemFuzzy1.Text = "Add a New Rule";
             this.toolStripMenuItemFuzzy1.Click += new System.EventHandler(this.toolStripMenuItemFuzzy1_Click);
             // 
@@ -1200,7 +1232,7 @@
             // 
             this.toolStripMCut.Name = "toolStripMCut";
             this.toolStripMCut.SelectedIndex = 0;
-            this.toolStripMCut.Size = new System.Drawing.Size(154, 34);
+            this.toolStripMCut.Size = new System.Drawing.Size(127, 26);
             this.toolStripMCut.Text = "Cut";
             this.toolStripMCut.Click += new System.EventHandler(this.CutScaleClick);
             // 
@@ -1209,7 +1241,7 @@
             this.toolStripMScale.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripMScale.Name = "toolStripMScale";
             this.toolStripMScale.SelectedIndex = 1;
-            this.toolStripMScale.Size = new System.Drawing.Size(154, 34);
+            this.toolStripMScale.Size = new System.Drawing.Size(127, 26);
             this.toolStripMScale.Text = "Scale";
             this.toolStripMScale.Click += new System.EventHandler(this.CutScaleClick);
             // 
@@ -1242,16 +1274,17 @@
             // 
             this.tSMAddSelectedOutputEquation.Name = "tSMAddSelectedOutputEquation";
             this.tSMAddSelectedOutputEquation.SelectedIndex = 0;
-            this.tSMAddSelectedOutputEquation.Size = new System.Drawing.Size(326, 32);
+            this.tSMAddSelectedOutputEquation.Size = new System.Drawing.Size(280, 24);
             this.tSMAddSelectedOutputEquation.Text = "Add Selected Output Equation";
             this.tSMAddSelectedOutputEquation.Click += new System.EventHandler(this.tSMAddSelectedOutputEquation_Click);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1151, 632);
+            this.ClientSize = new System.Drawing.Size(1023, 506);
             this.Controls.Add(this.splitContainer4);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.MainForm_Load);

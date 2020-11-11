@@ -150,8 +150,6 @@ namespace R08546036_SHChaoAss06
                 }
             }
 
-            resultFS.AssignDefuzzificationValueEach(defuzzification);
-
             // defuzzification
             switch (defuzzification)
             {
