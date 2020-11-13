@@ -359,6 +359,9 @@ namespace R08546036_SHChaoAss04
                 {
                     MessageBox.Show("Title name already exists!!!");
                 }
+                catch (System.NullReferenceException)
+                { 
+                }
             }
         }
 
@@ -465,10 +468,18 @@ namespace R08546036_SHChaoAss04
             int num;
             num = Convert.ToInt32(items[1]);
 
-            for (int i = 0; i < num; i++) {
-                items = sr.ReadLine().Split(':');
-                parameters[i] = Convert.ToInt32(items[i]);
+            try {
+                for (int i = 0; i < num; i++)
+                {
+                    items = sr.ReadLine().Split(':');
+                    parameters[i] = Convert.ToDouble(items[1]);
+                }
             }
+            catch (System.IndexOutOfRangeException Excetion) { 
+            
+            }
+
+            
 
         }
 

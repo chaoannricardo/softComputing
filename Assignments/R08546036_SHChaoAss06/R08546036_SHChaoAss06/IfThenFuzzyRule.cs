@@ -139,72 +139,37 @@ namespace R08546036_SHChaoAss06
             conclusion = output;
         }
 
-        // need to be done
-        public double FuzzyInCrispOutInferencing(FuzzySet[] conditions)
+
+        public double CrispInCrispOutInferencing(double[] conditions)
         {
-            return 0;
             FiringSrength = 0.0;
             FuzzySet tempFS;
             FuzzySet yFS;
             FuzzySet zFS;
 
-            //lbOutputEquation.Items.Add("0: Y=0.1X+6.4");
-            //lbOutputEquation.Items.Add("1: Y=0.5X+4");
-            //lbOutputEquation.Items.Add("2: Y=X-2");
-            //lbOutputEquation.Items.Add("3: Z=-X+Y+1");
-            //lbOutputEquation.Items.Add("4: Z=-Y+3");
-            //lbOutputEquation.Items.Add("5: Z=-X+3");
-            //lbOutputEquation.Items.Add("6: Z=-X+Y+2");
-
-            switch (conclusion)
+            double maxDegree;
+            try
             {
-                case 0:
-                    yFS =  antecedents[0] * 0.1 + 6.4;
-                    break;
-                case 1:
-                    yFS = antecedents[0] * 0.5 + 4;
-                    break;
-                case 2:
-                    yFS = antecedents[0] - 2;
-                    break;
-                case 3:
-                    zFS = -(antecedents[0]) + (antecedents[1]) + 1;
-                    break;
-                case 4:
-                    zFS = -(antecedents[1]) + 3;
-                    break;
-                case 5:
-                    zFS = -(antecedents[0]) + 3;
-                    break;
-                case 6:
-                    zFS = -(antecedents[0]) + (antecedents[1]) + 2;
-                    break;
+                FiringSrength = double.MaxValue;
+
+                // loop thorough each antecedent fuzzy set
+                for (int i = 0; i < antecedents.Length; i++)
+                {
+                    // variables
+                    maxDegree = antecedents[i].GetMembershipDegree(conditions[i]);
+                    if (maxDegree < FiringSrength) FiringSrength = maxDegree;
+                }
+            }
+            catch (System.NullReferenceException Exception)
+            {
+                MessageBox.Show("Not enough rule or condition is given.");
+                return double.NaN;
             }
 
-
-        }
-
-
-        public FuzzySet CrispInCrispOutInferencing(double conditions)
-        {
-            FiringSrength = 0.0;
-
-            return null;
-
-            //switch (equationID)
-            //{
-            //    case 0:
-            //        return 0.1 * inputs[0] + 6.4;
-            //        break;
-            //    case 1:
-            //        return 0.5 * inputs[0] + 4; break;
-            //        break;
-
-            //        // fault proof
-            //}
-
+            return FiringSrength;
 
 
         }
+
     }
 }
