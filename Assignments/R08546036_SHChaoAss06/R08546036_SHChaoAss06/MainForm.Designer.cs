@@ -193,7 +193,7 @@
             this.clearAndRestartAppToolStripMenuItem,
             this.teeChartDemoToolStripMenuItem});
             this.theTreeContextMenuStrip.Name = "contextMenuStrip1";
-            this.theTreeContextMenuStrip.Size = new System.Drawing.Size(224, 148);
+            this.theTreeContextMenuStrip.Size = new System.Drawing.Size(224, 176);
             // 
             // addToolStripMenuItem
             // 
@@ -843,7 +843,7 @@
             this.tChart1.Axes.Left.Title.Lines = new string[] {
         "Force"};
             this.tChart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tChart1.Location = new System.Drawing.Point(0, 31);
+            this.tChart1.Location = new System.Drawing.Point(0, 25);
             this.tChart1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tChart1.Name = "tChart1";
             // 
@@ -854,7 +854,7 @@
             // 
             this.tChart1.Panel.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.tChart1.Series.Add(this.surface1);
-            this.tChart1.Size = new System.Drawing.Size(691, 322);
+            this.tChart1.Size = new System.Drawing.Size(691, 328);
             this.tChart1.TabIndex = 16;
             // 
             // chartController1
@@ -864,7 +864,7 @@
             this.chartController1.LabelValues = true;
             this.chartController1.Location = new System.Drawing.Point(0, 0);
             this.chartController1.Name = "chartController1";
-            this.chartController1.Size = new System.Drawing.Size(691, 31);
+            this.chartController1.Size = new System.Drawing.Size(691, 25);
             this.chartController1.TabIndex = 8;
             this.chartController1.Text = "chartController1";
             // 
@@ -918,7 +918,7 @@
             this.outputEquationContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSMAddSelectedOutputEquation});
             this.outputEquationContextMenuStrip.Name = "outputEquationContextMenuStrip";
-            this.outputEquationContextMenuStrip.Size = new System.Drawing.Size(281, 56);
+            this.outputEquationContextMenuStrip.Size = new System.Drawing.Size(281, 28);
             // 
             // dlgOpen
             // 

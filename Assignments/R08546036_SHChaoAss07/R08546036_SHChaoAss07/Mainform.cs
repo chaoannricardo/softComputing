@@ -13,17 +13,26 @@ namespace R08546036_SHChaoAss07
     public partial class Mainform : Form
     {
         JobAssignmentProblem theProblem;
+        List<string> answerList = new List<string>();
+        List<double> objList = new List<double>();
+        int iteration = 0;
+        int[] assignments;
+        bool[] flags;
 
         public Mainform()
         {
             InitializeComponent();
             theProblem = new JobAssignmentProblem();
+            label1.Text = "";
         }
 
         private void Mainform_Load(object sender, EventArgs e)
         {
             labMessage.Text = "";
             labMessage.Width = 500;
+
+            // let application to go full screen
+            WindowState = FormWindowState.Maximized;
         }
 
 
@@ -33,9 +42,7 @@ namespace R08546036_SHChaoAss07
             theProblem.OpenFile(dlgOpen.FileName);
 
         }
-
-        int[] assignments;
-        bool[] flags;
+        
 
         private void btnBrutalForceMethod_Click(object sender, EventArgs e)
         {
@@ -50,7 +57,18 @@ namespace R08546036_SHChaoAss07
             DateTime endTime = DateTime.Now;
             TimeSpan delta = endTime - startTime;
             labMessage.Text = $"start {startTime}, endtime {endTime}, delta {delta}";
-           
+
+            // find best solution
+            for (int i = 0; i < answerList.Count; i++) {
+                if (objList[i] == objList.Max()) {
+                    label1.Text = ($"\n\nBest Solution:\n{answerList[i]} = {objList[i]}");
+                    label1.Width = 400;
+                    label1.Height = 500;
+                    label1.Font = new Font("Arial", 32, FontStyle.Bold);
+                    label1.ForeColor = Color.Blue;
+                    break;
+                }
+            }
         }
 
         // recursive method
@@ -62,8 +80,10 @@ namespace R08546036_SHChaoAss07
                 {
                     continue;
                 }
+
                 flags[i] = true;
                 assignments[id] = i;
+                
                 if (id == flags.Length - 1)
                 {
                     // done for this assignment
@@ -73,6 +93,9 @@ namespace R08546036_SHChaoAss07
                     }
                     double objective = theProblem.GetTotalSetupTimeForAnAssignment(assignments);
                     richTextBox1.AppendText($"{answer} = {objective}\n");
+
+                    answerList.Add(answer);
+                    objList.Add(objective);
                 }
                 else
                 {
@@ -80,6 +103,9 @@ namespace R08546036_SHChaoAss07
                 }
                 flags[i] = false;
             }
+
+
+
         }
 
        

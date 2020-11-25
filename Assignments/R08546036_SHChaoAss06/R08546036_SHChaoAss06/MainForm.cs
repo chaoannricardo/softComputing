@@ -806,29 +806,62 @@ namespace R08546036_SHChaoAss04
             Universe u1 = ((FuzzySet)(dgvRules.Rows[0].Cells[0].Tag)).TheUniverse;
             Universe u2 = ((FuzzySet)(dgvRules.Rows[0].Cells[1].Tag)).TheUniverse;
 
-            int res = 100;
-            double dx = (u1.Maximum - u1.Minimum) / res;
-            double dz = (u2.Maximum - u2.Minimum) / res;
-
-            double[] conditions = new double[2];
-
-
-            surface1.IrregularGrid = true;
-            surface1.Clear();
-
-            for (double x = u1.Minimum; x < u1.Maximum; x += dx)
+            if (dgvRules.Columns[1].Name != theTree.Nodes[1].Nodes[0].Name)
             {
-                for (double z = u2.Minimum; z < u2.Maximum; z += dz)
+                int res = 100;
+                double dx = (u1.Maximum - u1.Minimum) / res;
+                double dz = (u2.Maximum - u2.Minimum) / res;
+
+                double[] conditions = new double[2];
+
+
+                surface1.IrregularGrid = true;
+                surface1.Clear();
+
+                for (double x = u1.Minimum; x < u1.Maximum; x += dx)
                 {
-                    conditions[0] = x;
-                    conditions[1] = z;
+                    for (double z = u2.Minimum; z < u2.Maximum; z += dz)
+                    {
+                        conditions[0] = x;
+                        conditions[1] = z;
 
-                    mySystem.ConstructSystem(dgvRules);
+                        mySystem.ConstructSystem(dgvRules);
 
-                    double y = mySystem.CrispInCrispOutInferencing(conditions);
+                        double y = mySystem.CrispInCrispOutInferencing(conditions);
 
-                    surface1.Add(x, y, z);
+                        surface1.Add(x, y, z);
+                    }
                 }
+
+            }
+            else {
+                int res = 100;
+                double dx = (u1.Maximum - u1.Minimum) / res;
+                double dz = (u2.Maximum - u2.Minimum) / res;
+
+                double[] conditions = new double[2];
+
+
+                surface1.IrregularGrid = true;
+                surface1.Clear();
+
+                for (double x = u1.Minimum; x < u1.Maximum; x += dx)
+                {
+                    for (double z = u2.Minimum; z < u2.Maximum; z += dz)
+                    {
+                        conditions[0] = x;
+                        conditions[1] = z;
+
+                        mySystem.ConstructSystem(dgvRules);
+
+                        double y = mySystem.CrispInCrispOutInferencing(conditions);
+
+                        surface1.Add(x, 1, y);
+                    }
+                }
+
+
+
             }
 
             try

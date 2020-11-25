@@ -16,7 +16,16 @@ namespace R08546036_SHChaoAss04
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            try
+            {
+                Application.Run(new MainForm());
+            }
+            catch (System.OverflowException Exception) {
+                MessageBox.Show("System overflowed, restart app.");
+                Application.Restart();
+                Environment.Exit(0);
+            }
+            
         }
     }
 }

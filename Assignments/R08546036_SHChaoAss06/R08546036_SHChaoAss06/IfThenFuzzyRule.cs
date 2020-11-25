@@ -171,5 +171,47 @@ namespace R08546036_SHChaoAss06
 
         }
 
+        public double FuzzyInFuzzyOutInferencing(FuzzySet[] conditions, bool isCut = true)
+        {
+            try
+            {
+                FiringSrength = 0.0;
+
+                FiringSrength = double.MaxValue;
+
+                // fault-proof
+                if (antecedents.Length != conditions.Length)
+                {
+                    MessageBox.Show("Not enough rule or condition is given.");
+                    return double.NaN; ;
+                }
+
+                // loop thorough each antecedent fuzzy set
+                for (int i = 0; i < antecedents.Length; i++)
+                {
+                    // cariables
+                    double maxDegree;
+
+                    // check if the universe is the same
+                    if (antecedents[i].TheUniverse != conditions[i].TheUniverse)
+                    {
+                        MessageBox.Show("Conditions and Antecedents are not in same Universe");
+                        return double.NaN;
+                    }
+
+                    maxDegree = (antecedents[i] & conditions[i]).MaxDegree;
+                    if (maxDegree < FiringSrength) FiringSrength = maxDegree;
+
+                }
+
+                return FiringSrength;
+            }
+            catch (System.NullReferenceException Exception)
+            {
+                MessageBox.Show("Not enough rule or condition is given.");
+                return double.NaN;
+            }
+        }
+
     }
 }

@@ -36,6 +36,7 @@ namespace R08546036_SHChaoAss06
         DataGridView rulesDG;
         // initiate defuzzification with a value
         private DefuzzificationType defuzzification = DefuzzificationType.COA;
+        private bool lessThanThreeRows = false;
 
         // properties
         public DefuzzificationType Defuzzification
@@ -94,6 +95,8 @@ namespace R08546036_SHChaoAss06
 
                 allRules[r] = new IfThenFuzzyRule(inputs, output);
             }
+
+            if (dgvRules.Columns.Count < 3) lessThanThreeRows = true;
         }
 
         public void Inferencing(DataGridView dgvConditions)
@@ -172,6 +175,9 @@ namespace R08546036_SHChaoAss06
                     crispValue = resultFS.COACrispValue;
                     break;
             }
+
+
+
 
             return crispValue;
 
