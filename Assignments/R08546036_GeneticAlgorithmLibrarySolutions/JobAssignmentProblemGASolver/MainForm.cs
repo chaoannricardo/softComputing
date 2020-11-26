@@ -32,6 +32,9 @@ namespace JobAssignmentProblemGASolver
         private void MainForm_Load(object sender, EventArgs e)
         {
             txbPenalty.Text = theProblem.Penalty.ToString();
+
+            // let application to go full screen
+            WindowState = FormWindowState.Maximized;
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)

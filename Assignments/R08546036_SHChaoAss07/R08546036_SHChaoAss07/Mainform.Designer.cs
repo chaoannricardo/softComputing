@@ -35,10 +35,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-<<<<<<< HEAD
-            this.label1 = new System.Windows.Forms.Label();
-=======
->>>>>>> 071accb18a07a2d55a812e169273672544f96a2c
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.btnBrutalForceMethod = new System.Windows.Forms.Button();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
@@ -78,11 +74,7 @@
             // openToolStripMenuItem1
             // 
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-<<<<<<< HEAD
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(128, 26);
-=======
             this.openToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
->>>>>>> 071accb18a07a2d55a812e169273672544f96a2c
             this.openToolStripMenuItem1.Text = "Open";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -126,23 +118,8 @@
             this.splitContainer1.SplitterDistance = 360;
             this.splitContainer1.TabIndex = 2;
             // 
-<<<<<<< HEAD
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "label1";
-            // 
             // richTextBox1
             // 
-=======
-            // richTextBox1
-            // 
->>>>>>> 071accb18a07a2d55a812e169273672544f96a2c
             this.richTextBox1.Location = new System.Drawing.Point(220, 18);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.richTextBox1.Name = "richTextBox1";

@@ -37,7 +37,10 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.txbPenalty = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRunOneIteration = new System.Windows.Forms.Button();
+            this.btnRun = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.lbBestObjValue = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +60,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openToolStripMenuItem
@@ -69,16 +72,18 @@
             // 
             // gridGA
             // 
-            this.gridGA.Location = new System.Drawing.Point(12, 200);
+            this.gridGA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.gridGA.Location = new System.Drawing.Point(12, 283);
             this.gridGA.Name = "gridGA";
             this.gridGA.Size = new System.Drawing.Size(390, 339);
             this.gridGA.TabIndex = 1;
             // 
             // btnCreateGASolver
             // 
-            this.btnCreateGASolver.Location = new System.Drawing.Point(175, 129);
+            this.btnCreateGASolver.Location = new System.Drawing.Point(12, 229);
             this.btnCreateGASolver.Name = "btnCreateGASolver";
-            this.btnCreateGASolver.Size = new System.Drawing.Size(125, 65);
+            this.btnCreateGASolver.Size = new System.Drawing.Size(133, 48);
             this.btnCreateGASolver.TabIndex = 2;
             this.btnCreateGASolver.Text = "Create GA";
             this.btnCreateGASolver.UseVisualStyleBackColor = true;
@@ -108,7 +113,7 @@
             // 
             // txbPenalty
             // 
-            this.txbPenalty.Location = new System.Drawing.Point(353, 177);
+            this.txbPenalty.Location = new System.Drawing.Point(151, 77);
             this.txbPenalty.Name = "txbPenalty";
             this.txbPenalty.Size = new System.Drawing.Size(100, 22);
             this.txbPenalty.TabIndex = 5;
@@ -117,27 +122,57 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(350, 133);
+            this.label1.Location = new System.Drawing.Point(77, 77);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 17);
             this.label1.TabIndex = 6;
             this.label1.Text = "Penalty";
             // 
-            // button1
+            // btnRunOneIteration
             // 
-            this.button1.Location = new System.Drawing.Point(175, 64);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Run One Iteration";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnRunOneIteration.Location = new System.Drawing.Point(151, 177);
+            this.btnRunOneIteration.Name = "btnRunOneIteration";
+            this.btnRunOneIteration.Size = new System.Drawing.Size(147, 48);
+            this.btnRunOneIteration.TabIndex = 7;
+            this.btnRunOneIteration.Text = "Run One Iteration";
+            this.btnRunOneIteration.UseVisualStyleBackColor = true;
+            // 
+            // btnRun
+            // 
+            this.btnRun.Location = new System.Drawing.Point(151, 231);
+            this.btnRun.Name = "btnRun";
+            this.btnRun.Size = new System.Drawing.Size(147, 48);
+            this.btnRun.TabIndex = 8;
+            this.btnRun.Text = "Run";
+            this.btnRun.UseVisualStyleBackColor = true;
+            // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(151, 123);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(147, 48);
+            this.btnReset.TabIndex = 9;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            // 
+            // lbBestObjValue
+            // 
+            this.lbBestObjValue.AutoSize = true;
+            this.lbBestObjValue.Location = new System.Drawing.Point(438, 47);
+            this.lbBestObjValue.Name = "lbBestObjValue";
+            this.lbBestObjValue.Size = new System.Drawing.Size(55, 17);
+            this.lbBestObjValue.TabIndex = 10;
+            this.lbBestObjValue.Text = "Penalty";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1074, 754);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(1074, 634);
+            this.Controls.Add(this.lbBestObjValue);
+            this.Controls.Add(this.btnReset);
+            this.Controls.Add(this.btnRun);
+            this.Controls.Add(this.btnRunOneIteration);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txbPenalty);
             this.Controls.Add(this.radioButton2);
@@ -167,7 +202,10 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.TextBox txbPenalty;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRunOneIteration;
+        private System.Windows.Forms.Button btnRun;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Label lbBestObjValue;
     }
 }
 

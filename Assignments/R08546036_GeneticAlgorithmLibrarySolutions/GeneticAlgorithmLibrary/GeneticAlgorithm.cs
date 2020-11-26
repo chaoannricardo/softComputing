@@ -222,7 +222,10 @@ namespace GeneticAlgorithmLibrary
         {
             iterationAverageObj = 0.0;
 
-            iterationBestObj = optimizationType == OptimizationType.Maximization ? double.MinValue;
+            //iterationBestObj = optimizationType == OptimizationType.Maximization ? double.MinValue;
+
+            if (optimizationType == OptimizationType.Maximization) iterationBestObj = double.MinValue; else iterationBestObj = double.MaxValue;
+
 
             int limit = populationSize + numberOfCrossoveredChildren + numberOfMutatedChildren;
             
