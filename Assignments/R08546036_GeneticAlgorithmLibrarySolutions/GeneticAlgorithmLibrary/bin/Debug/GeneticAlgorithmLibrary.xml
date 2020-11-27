@@ -4,11 +4,6 @@
         <name>GeneticAlgorithmLibrary</name>
     </assembly>
     <members>
-        <member name="T:GeneticAlgorithmLibrary.BinaryGASolver.CrossoverType">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="M:GeneticAlgorithmLibrary.BinaryGASolver.#ctor(System.Int32,GeneticAlgorithmLibrary.OptimizationType,GeneticAlgorithmLibrary.ObjectiveFunction{System.Byte})">
             <summary>
             This is the constructor of creating a binary-coded GA solver

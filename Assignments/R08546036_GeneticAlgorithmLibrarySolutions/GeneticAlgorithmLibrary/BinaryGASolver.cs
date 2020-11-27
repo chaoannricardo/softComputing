@@ -10,11 +10,22 @@ namespace GeneticAlgorithmLibrary
 
     public class BinaryGASolver : GeneticAlgorithm<byte>
     {
-        /// <summary>
-        /// 
-        /// </summary>
+        private double penaltyFactor = 100.0;
+
+
+        // properties
         public enum CrossoverType { PMX, OX, POX, OSS, OCCC, OnePointCut, TwoPointCut, N }
         public CrossoverType CrossoverOperator { set; get; } = CrossoverType.TwoPointCut;
+
+        public double PenaltyFactor
+        {
+            get {
+                return penaltyFactor;
+            }
+            set {
+                if (value is double && value > 0 ) penaltyFactor = value;
+            }
+        }
 
         /// <summary>
         /// This is the constructor of creating a binary-coded GA solver

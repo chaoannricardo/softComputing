@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GeneticAlgorithmLibrary
 {
@@ -16,10 +17,14 @@ namespace GeneticAlgorithmLibrary
 
     public delegate double ObjectiveFunction<S>(S[] solution);
 
+    // Create a method for a delegate.
+    
+
     public class GeneticAlgorithm<T>
     {
 
         protected OptimizationType optimizationType = OptimizationType.Minimization;
+
 
         // template class
         protected Random randomizer = new Random();
@@ -42,12 +47,76 @@ namespace GeneticAlgorithmLibrary
 
         protected int numberOfCrossoveredChildren;
         protected int numberOfMutatedChildren;
-        protected T[][] selectedChromosome;
+        protected T[][] selectedChromosomes;
         protected double[] selectedObjectives;
         protected int[] indices;
         protected int[] mutatedPositions;
 
         protected ObjectiveFunction<T> theObjectiveEvaluationMethod;
+
+        // other variables
+        int iterationLimit = 100;
+        private int numberOfVariables;
+        private ObjectiveFunction<double> theMethod;
+        double iterationObjective, iterationAverageObjective;
+        double[] machineJobsWeight;
+
+
+        // properties
+        public SelectionType SelectionMode { set; get; } = SelectionType.Deterministic;
+
+        public int PopulationSize
+        {
+            get => populationSize;
+            set
+            {
+                if (value is int && value > 2) populationSize = value;
+            }
+        }
+
+        public double CrossoverRate
+        {
+            get => crossoverRate;
+            set
+            {
+                if (value > 1.0)
+                    crossoverRate = 1.0;
+                else if (value > 0)
+                    crossoverRate = value;
+            }
+        }
+
+        public int IterationLimit
+        {
+            set
+            {
+                if (value is int && value > 0) iterationLimit = value;
+            }
+            get
+            {
+                return iterationLimit;
+            }
+        }
+
+        public double IterationBestObjective { get; }
+
+        public double SoFarTheBestObjectiveValue { get; set; }
+
+        public double[] MachineJobWeight
+        {
+            get
+            {
+                return machineJobsWeight;
+            }
+            set
+            {
+                if (value is double[]) machineJobsWeight = value;
+            }
+        }
+
+        [Browsable(false)]
+        public int IterationCount { get => iterationCount; }
+
 
         public GeneticAlgorithm(int numberOfVariables, OptimizationType type, ObjectiveFunction<T> theMethod)
         {
@@ -64,57 +133,12 @@ namespace GeneticAlgorithmLibrary
             this.theMethod = theMethod;
         }
 
-        public SelectionType SelectionMode { set; get; } = SelectionType.Deterministic;
-
-        public int PopulationSize
-        {
-            get => populationSize;
-            set
-            {
-                if (value > 2) populationSize = value;
-            }
-        }
-
-        public double CrossoverRate
-        {
-            get => crossoverRate;
-            set
-            {
-                if (value > 1.0) crossoverRate = 1.9;
-            }
-        }
-
-        int iterationLimit = 100;
-        private int numberOfVariables;
-        private ObjectiveFunction<double> theMethod;
-
-        public int IterationLimit
-        {
-            set
-            {
-                if (value is int && value > 0) iterationLimit = value;
-            }
-            get
-            {
-                return iterationLimit;
-            }
-        }
-
-
-        [Browsable(false)]
-        public int IterationCount { get => iterationCount; }
-
-        double iterationObjective, iterationAverageObjective;
-
-        public double IterationBestObjective { get; }
-
-        protected double SoFarTheBestObjectiveValue { get; set; }
-
 
         #region Public Methods
-        bool Reset()
+        public bool Reset()
         {
             // alocate memory
+            //  population genes, crossovered genes, mutated genes 
             chromosomes = new T[populationSize * 3][];
 
             for (int i = 0; i < chromosomes.Length; i++)
@@ -124,11 +148,11 @@ namespace GeneticAlgorithmLibrary
             objectiveValues = new double[populationSize * 3];
             fitnessValues = new double[populationSize * 3];
 
-            selectedChromosome = new T[populationSize][];
+            selectedChromosomes = new T[populationSize][];
 
-            for (int i = 0; i < chromosomes.Length; i++)
+            for (int i = 0; i < selectedChromosomes.Length; i++)
             {
-                selectedChromosome[i] = new T[numberOfGenes];
+                selectedChromosomes[i] = new T[numberOfGenes];
             }
 
             selectedObjectives = new double[populationSize];
@@ -138,23 +162,26 @@ namespace GeneticAlgorithmLibrary
             // randomly assign initial gene values
             initializePopulation();
 
-            // compute obkective values
+            // compute objective values
             for (int r = 0; r < populationSize; r++)
             {
                 objectiveValues[r] = theObjectiveEvaluationMethod(chromosomes[r]);
+                
             }
 
+            // ...
             // set initiate value of iteration
             iterationCount = 0;
             return true;
         }
 
+    
         public virtual bool initializePopulation()
         {
-            throw new NotImplementedException();
+            throw new Exception("No implementation");
         }
 
-        bool RunOneIteration()
+        public bool RunOneIteration()
         {
             performCrossoverOperation();
             performMutationOperation();
@@ -174,7 +201,8 @@ namespace GeneticAlgorithmLibrary
             switch (SelectionMode)
             {
                 case SelectionType.Deterministic:
-                    for (int i = 0; i < limit; i++) {
+                    for (int i = 0; i < limit; i++)
+                    {
                         indices[i] = i;
                     }
                     Array.Sort(fitnessValues, indices, 0, limit);
@@ -187,11 +215,13 @@ namespace GeneticAlgorithmLibrary
             }
             // gene-wise copy selected chromosome
 
-            for (int r = 0; r < populationSize; r++) {
+            for (int r = 0; r < populationSize; r++)
+            {
                 selectedObjectives[r] = objectiveValues[indices[r]];
-                for (int c = 0; c < numberOfGenes; c++) {
-                    selectedChromosome[r][c] = chromosomes[indices[r]][c];
-                
+                for (int c = 0; c < numberOfGenes; c++)
+                {
+                    selectedChromosomes[r][c] = chromosomes[indices[r]][c];
+
                 }
             }
 
@@ -202,7 +232,7 @@ namespace GeneticAlgorithmLibrary
                 objectiveValues[r] = selectedObjectives[indices[r]];
                 for (int c = 0; c < numberOfGenes; c++)
                 {
-                    selectedChromosome[r][c] = chromosomes[indices[r]][c];
+                    selectedChromosomes[r][c] = chromosomes[indices[r]][c];
 
                 }
             }
@@ -228,8 +258,9 @@ namespace GeneticAlgorithmLibrary
 
 
             int limit = populationSize + numberOfCrossoveredChildren + numberOfMutatedChildren;
-            
-            for (int i = 0; i < limit; i++) {
+
+            for (int i = 0; i < limit; i++)
+            {
                 iterationAverageObj += objectiveValues[i];
             }
 

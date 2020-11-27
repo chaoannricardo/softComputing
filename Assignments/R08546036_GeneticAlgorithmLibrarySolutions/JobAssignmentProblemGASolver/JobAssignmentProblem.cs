@@ -64,6 +64,12 @@ namespace JobAssignmentProblemGASolver
         {
             double total = 0;
 
+            for (int j = 0; j < numberOfJobs; j++)
+            {
+                total += SetupTimes[ass[j], j];
+
+            }
+
             return total;
 
         }
