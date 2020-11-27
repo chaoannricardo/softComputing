@@ -18,7 +18,7 @@ namespace GeneticAlgorithmLibrary
     public delegate double ObjectiveFunction<S>(S[] solution);
 
     // Create a method for a delegate.
-    
+
 
     public class GeneticAlgorithm<T>
     {
@@ -53,7 +53,6 @@ namespace GeneticAlgorithmLibrary
         protected int[] mutatedPositions;
 
         protected ObjectiveFunction<T> theObjectiveEvaluationMethod;
-
         // other variables
         int iterationLimit = 100;
         private int numberOfVariables;
@@ -114,6 +113,18 @@ namespace GeneticAlgorithmLibrary
             }
         }
 
+        public OptimizationType OptimizationType
+        {
+            get
+            {
+                return optimizationType;
+            }
+            set
+            {
+                if (value is OptimizationType) optimizationType = value;
+            }
+        }
+
         [Browsable(false)]
         public int IterationCount { get => iterationCount; }
 
@@ -166,7 +177,7 @@ namespace GeneticAlgorithmLibrary
             for (int r = 0; r < populationSize; r++)
             {
                 objectiveValues[r] = theObjectiveEvaluationMethod(chromosomes[r]);
-                
+                //MessageBox.Show(objectiveValues[r].ToString());
             }
 
             // ...
@@ -175,18 +186,18 @@ namespace GeneticAlgorithmLibrary
             return true;
         }
 
-    
+
         public virtual bool initializePopulation()
         {
-            throw new Exception("No implementation");
+            throw new NotImplementedException();
         }
 
         public bool RunOneIteration()
         {
             performCrossoverOperation();
             performMutationOperation();
-            performSelectionOperation();
             updateSoFarTheBestObjectiveAndSolution();
+            performSelectionOperation();
             return true;
         }
 
@@ -240,10 +251,42 @@ namespace GeneticAlgorithmLibrary
 
         private void CalculateFitnessValues()
         {
-            for (int i = 0; i < populationSize + numberOfCrossoveredChildren + numberOfMutatedChildren; i++)
+            if (optimizationType == OptimizationType.Minimization)
             {
-                // 不是這樣的
-                fitnessValues[i] = objectiveValues[i];
+                //minization //
+                double objmin = double.MaxValue;
+                double objmax = double.MinValue;
+                for (int i = 0; i < populationSize + numberOfCrossoveredChildren + numberOfMutatedChildren; i++)
+                {
+                    fitnessValues[i] = objectiveValues[i];
+                    //自己改...
+                    if (objectiveValues[i] > objmax)
+                    {
+                        objmax = objectiveValues[i];
+                    }
+                    else if (objectiveValues[i] < objmin)
+                    {
+                        objmin = objectiveValues[i];
+                    }
+                }
+                double alpha = 0.3; //介在0~0.5之間
+                double b = Math.Max(alpha * (objmax - objmin), 1 / 100000);
+                for (int i = 0; i < populationSize + numberOfCrossoveredChildren + numberOfMutatedChildren; i++)
+                {
+                    if (optimizationType == OptimizationType.Maximization)
+                    {
+                        fitnessValues[i] = objectiveValues[i] - objmin;
+                    }
+                    else if (optimizationType == OptimizationType.Minimization)
+                    {
+                        fitnessValues[i] = objmax - objectiveValues[i];
+                    }
+
+                }
+            }
+            else if (optimizationType == OptimizationType.Maximization)
+            {
+
 
             }
         }
@@ -361,5 +404,7 @@ namespace GeneticAlgorithmLibrary
                 a[pos] = temp;
             }
         }
+
+        
     }
 }

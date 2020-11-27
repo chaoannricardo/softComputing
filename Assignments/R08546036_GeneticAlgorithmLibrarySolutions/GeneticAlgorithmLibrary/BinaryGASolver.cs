@@ -42,13 +42,7 @@ namespace GeneticAlgorithmLibrary
 
         public override bool CrossoverAPairOfChildren(int fatherIdx, int moderOdx, int child1Idx, int child2Idx)
         {
-            switch (CrossoverOperator)
-            {
-
-
-
-
-            }
+           
 
             return true;
         }

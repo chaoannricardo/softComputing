@@ -26,9 +26,9 @@ namespace JobAssignmentProblemGASolver
 
             theProblem = new JobAssignmentProblem();
 
-            double[] fit = { 3, 4, 1, 2, 7, 8, 4.5, 1.2, 4.3, 2.2 };
-            int[] id = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            Array.Sort(fit);
+            //double[] fit = { 3, 4, 1, 2, 7, 8, 4.5, 1.2, 4.3, 2.2 };
+            //int[] id = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            //Array.Sort(fit);
 
         }
 
@@ -52,6 +52,54 @@ namespace JobAssignmentProblemGASolver
             thePermutationGA = new PermutationGASolver(theProblem.NumberOfJobs,
                 OptimizationType.Minimization,
                 theProblem.GetObjectiveValue);
+
+            // assign job weight value
+            machineJobsWeight = new double[(int)(theProblem.NumberOfJobs * theProblem.NumberOfJobs)];
+
+            // create table in datagrid view
+            dgJobsAndMachines.CancelEdit();
+            dgJobsAndMachines.Columns.Clear();
+            dgJobsAndMachines.DataSource = null;
+
+            // create header of datagrid
+            for (int i = 0; i < theProblem.NumberOfJobs; i++)
+            {
+                if (i == 0)
+                {
+                    dgJobsAndMachines.Columns.Add("Job/Machine", "Job/Machine");
+                    dgJobsAndMachines.Columns.Add($"M{i + 1}", $"M{ i + 1}");
+                }
+                else
+                {
+                    dgJobsAndMachines.Columns.Add($"M{i + 1}", $"M{ i + 1}");
+                }
+                dgJobsAndMachines.Rows.Add();
+            }
+
+            int counter = 0;
+
+            for (int i = 0; i < theProblem.NumberOfJobs; i++)
+            {
+                for (int j = 0; j <= theProblem.NumberOfJobs; j++)
+                {
+                    if (j == 0)
+                    {
+                        dgJobsAndMachines.Rows[i].Cells[0].Value = $"J{i + 1}";
+                    }
+                    else
+                    {
+                        dgJobsAndMachines.Rows[i].Cells[j].Value = theProblem.SettingTimes[counter];
+                        machineJobsWeight[counter] = theProblem.SettingTimes[counter];
+                        counter += 1;
+                    }
+
+                }
+            }
+
+            cbGAType.SelectedIndex = 1;
+
+            MessageBox.Show("Warning: You would not have to create a new GA Solver when opening a problem from the file.\nDo not Press the button 'Create a GA solver' then.");
+
         }
 
         private void btnCreateGASolver_Click(object sender, EventArgs e)
@@ -64,7 +112,7 @@ namespace JobAssignmentProblemGASolver
             if (cbGAType.SelectedIndex == 0)
             {
                 theBinaryGA = new BinaryGASolver(theProblem.NumberOfJobs * theProblem.NumberOfJobs,
-                    OptimizationType.Maximization,
+                    OptimizationType.Minimization,
                     theProblem.GetObjectiveValue);
                 gridGA.SelectedObject = theBinaryGA;
             }
@@ -128,24 +176,26 @@ namespace JobAssignmentProblemGASolver
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            switch (cbGAType.SelectedIndex)
+            {
+                // binary GA
+                case 0:
+                    theBinaryGA.Reset();
+                    theBinaryGA.IterationLimit = Convert.ToInt32(tbIteration.Text);
+                    theBinaryGA.MachineJobWeight = machineJobsWeight;
+                    break;
+                // permutation GA
+                case 1:
+                    thePermutationGA.Reset();
+                    thePermutationGA.IterationLimit = Convert.ToInt32(tbIteration.Text);
+                    thePermutationGA.MachineJobWeight = machineJobsWeight;
+                    break;
+
+            }
+
             try
             {
-                switch (cbGAType.SelectedIndex)
-                {
-                    // binary GA
-                    case 0:
-                        theBinaryGA.Reset();
-                        theBinaryGA.IterationLimit = Convert.ToInt32(tbIteration.Text);
-                        theBinaryGA.MachineJobWeight = machineJobsWeight;
-                        break;
-                    // permutation GA
-                    case 1:
-                        thePermutationGA.Reset();
-                        thePermutationGA.IterationLimit = Convert.ToInt32(tbIteration.Text);
-                        thePermutationGA.MachineJobWeight = machineJobsWeight;
-                        break;
-
-                }
+               
 
             }
             catch (System.NullReferenceException)

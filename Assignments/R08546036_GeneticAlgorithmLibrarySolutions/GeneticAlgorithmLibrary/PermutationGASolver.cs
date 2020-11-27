@@ -7,22 +7,13 @@ using System.Threading.Tasks;
 namespace GeneticAlgorithmLibrary
 {
 
-    /// <summary>
-    /// 
-    /// </summary>
     public class PermutationGASolver : GeneticAlgorithm<int>
     {
-        /// <summary>
-        /// 
-        /// </summary>
+        
+        
         public enum CrossoverType { PMX, OX, POX, OSS, OCCC, OnePointCut, TwoPointCut }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public enum MutationType { Swap, XXX }
-
-
 
         int[] temp;
 
@@ -41,6 +32,25 @@ namespace GeneticAlgorithmLibrary
            : base(numberOfVariables, type, theMethod)
         {
             temp = new int[numberOfVariables];
+        }
+
+        public override bool initializePopulation()
+        {
+            List<double> geneList = new List<double>();
+
+            for (int i = 0; i < numberOfGenes; i++) {
+                geneList.Add(i);
+            }
+
+            
+            for (int r = 0; r < populationSize; r++)
+            {
+                for (int c = 0; c < numberOfGenes; c++)
+                {
+                    chromosomes[r][c] = (byte)randomizer.Next(2);
+                }
+            }
+            return true;
         }
 
         /// <summary>
@@ -69,9 +79,12 @@ namespace GeneticAlgorithmLibrary
                     break;
                 case CrossoverType.OX:
                     break;
-
-
-
+                case CrossoverType.POX:
+                    break;
+                case CrossoverType.OSS:
+                    break;
+                case CrossoverType.OCCC:
+                    break;
             }
 
             return true;
@@ -113,5 +126,6 @@ namespace GeneticAlgorithmLibrary
             }
 
         }
+       
     }
 }

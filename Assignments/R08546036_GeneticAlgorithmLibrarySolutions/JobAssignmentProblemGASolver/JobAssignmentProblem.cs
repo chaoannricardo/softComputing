@@ -11,9 +11,16 @@ namespace JobAssignmentProblemGASolver
     {
         int numberOfJobs;
         double[,] SetupTimes;
+        double[] settingTimes;
         string fileName;
 
         public int NumberOfJobs { get => numberOfJobs; set => numberOfJobs = value; }
+
+        public double[] SettingTimes {
+            get {
+                return settingTimes;
+            }
+        }
 
         public void OpenFile(string path)
         {
@@ -25,6 +32,11 @@ namespace JobAssignmentProblemGASolver
             str = sr.ReadLine();
             numberOfJobs = Convert.ToInt32(str);
             SetupTimes = new double[numberOfJobs, numberOfJobs];
+
+            // setting time[]
+            settingTimes = new double[numberOfJobs * numberOfJobs];
+            int counter = 0;
+
             for (int r = 0; r < numberOfJobs; r++)
             {
                 str = sr.ReadLine();
@@ -33,7 +45,8 @@ namespace JobAssignmentProblemGASolver
                 for (int c = 0; c < numberOfJobs; c++)
                 {
                     SetupTimes[r, c] = Convert.ToDouble(items[c]);
-
+                    settingTimes[counter] = Convert.ToDouble(items[c]);
+                    counter += 1;
                 }
             }
 
@@ -63,12 +76,6 @@ namespace JobAssignmentProblemGASolver
         public double GetObjectiveValue(byte[] ass)
         {
             double total = 0;
-
-            for (int j = 0; j < numberOfJobs; j++)
-            {
-                total += SetupTimes[ass[j], j];
-
-            }
 
             return total;
 
