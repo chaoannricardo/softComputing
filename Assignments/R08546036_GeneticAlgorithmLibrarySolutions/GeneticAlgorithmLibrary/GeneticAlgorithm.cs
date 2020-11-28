@@ -19,12 +19,10 @@ namespace GeneticAlgorithmLibrary
 
     // Create a method for a delegate.
 
-
     public class GeneticAlgorithm<T>
     {
 
         protected OptimizationType optimizationType = OptimizationType.Minimization;
-
 
         // template class
         protected Random randomizer = new Random();
@@ -89,7 +87,7 @@ namespace GeneticAlgorithmLibrary
         {
             set
             {
-                if (value is int && value > 0) iterationLimit = value;
+                if (value is int && value > 2) iterationLimit = value;
             }
             get
             {
@@ -186,23 +184,21 @@ namespace GeneticAlgorithmLibrary
             return true;
         }
 
-
         public virtual bool initializePopulation()
         {
             throw new NotImplementedException();
         }
 
-        public bool RunOneIteration()
+        public virtual bool RunOneIteration()
         {
-            performCrossoverOperation();
-            performMutationOperation();
-            updateSoFarTheBestObjectiveAndSolution();
-            performSelectionOperation();
+            PerformCrossoverOperation();
+            PerformMutationOperation();
+            UpdateSoFarTheBestObjectiveAndSolution();
+            PerformSelectionOperation();
             return true;
         }
 
-
-        private void performSelectionOperation()
+        public virtual void PerformSelectionOperation()
         {
             // calculate fitness
             CalculateFitnessValues();
@@ -291,7 +287,7 @@ namespace GeneticAlgorithmLibrary
             }
         }
 
-        private void updateSoFarTheBestObjectiveAndSolution()
+        public virtual void UpdateSoFarTheBestObjectiveAndSolution()
         {
             iterationAverageObj = 0.0;
 
@@ -317,8 +313,7 @@ namespace GeneticAlgorithmLibrary
             // gene-wise copy the chromsome value to soFarTheBestSolution
         }
 
-
-        private void performCrossoverOperation()
+        private void PerformCrossoverOperation()
         {
             ShuffleAnIntegerArray(indices, PopulationSize);
             numberOfCrossoveredChildren = (int)(populationSize * crossoverRate);
@@ -336,7 +331,7 @@ namespace GeneticAlgorithmLibrary
             }
         }
 
-        private void performMutationOperation()
+        private void PerformMutationOperation()
         {
             if (isGeneBasedMutation)
             {
@@ -365,7 +360,6 @@ namespace GeneticAlgorithmLibrary
             }
         }
 
-
         public virtual void MutateAChild(int pid, int cid, int[] pos, int numberOfLocations)
         {
             throw new NotImplementedException();
@@ -381,13 +375,13 @@ namespace GeneticAlgorithmLibrary
             throw new Exception("Not Implemented");
         }
 
-        bool RunToEnd()
+        public virtual bool RunToEnd()
         {
             return true;
         }
         #endregion
 
-        void ShuffleAnIntegerArray(int[] a, int len)
+        public int[] ShuffleAnIntegerArray(int[] a, int len)
         {
             if (a.Length < len) throw new Exception("Length is not correct");
 
@@ -403,8 +397,12 @@ namespace GeneticAlgorithmLibrary
                 a[c] = a[pos];
                 a[pos] = temp;
             }
+
+            return a;
         }
 
         
     }
+
+
 }

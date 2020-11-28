@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace JobAssignmentProblemGASolver
 {
@@ -60,10 +61,10 @@ namespace JobAssignmentProblemGASolver
         public double GetObjectiveValue(int[] ass)
         {
             double total = 0;
-            
+
             for (int j = 0; j < numberOfJobs; j++) {
-                total += SetupTimes[ass[j], j];
-            
+                //total += SetupTimes[ass[j], j];
+                total += SetupTimes[j, j];
             }
 
             return total;

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using GeneticAlgorithmLibrary;
 
 namespace JobAssignmentProblemGASolver
@@ -19,6 +20,8 @@ namespace JobAssignmentProblemGASolver
         Random randomizer = new Random();
         private bool isReset = false;
         private double[] machineJobsWeight;
+        protected Series theSeriesObj;
+        protected Series iterationBest;
 
         public MainForm()
         {
@@ -49,9 +52,11 @@ namespace JobAssignmentProblemGASolver
 
             theProblem.OpenFile(dlg.FileName);
 
-            thePermutationGA = new PermutationGASolver(theProblem.NumberOfJobs,
+            thePermutationGA = new PermutationGASolver(theProblem.NumberOfJobs * theProblem.NumberOfJobs,
                 OptimizationType.Minimization,
                 theProblem.GetObjectiveValue);
+
+            gridGA.SelectedObject = thePermutationGA;
 
             // assign job weight value
             machineJobsWeight = new double[(int)(theProblem.NumberOfJobs * theProblem.NumberOfJobs)];
@@ -98,7 +103,7 @@ namespace JobAssignmentProblemGASolver
 
             cbGAType.SelectedIndex = 1;
 
-            MessageBox.Show("Warning: You would not have to create a new GA Solver when opening a problem from the file.\nDo not Press the button 'Create a GA solver' then.");
+            MessageBox.Show("Warning:\nYou would not have to create a new GA Solver when opening a problem from the file.\nDo not Press the button 'Create a GA solver' then.");
 
         }
 
@@ -114,13 +119,15 @@ namespace JobAssignmentProblemGASolver
                 theBinaryGA = new BinaryGASolver(theProblem.NumberOfJobs * theProblem.NumberOfJobs,
                     OptimizationType.Minimization,
                     theProblem.GetObjectiveValue);
+                theBinaryGA.IterationLimit = Convert.ToInt32(tbIteration.Text);
                 gridGA.SelectedObject = theBinaryGA;
             }
             else if (cbGAType.SelectedIndex == 1)
             {
-                thePermutationGA = new PermutationGASolver(theProblem.NumberOfJobs,
+                thePermutationGA = new PermutationGASolver(theProblem.NumberOfJobs * theProblem.NumberOfJobs,
                     OptimizationType.Minimization,
                     theProblem.GetObjectiveValue);
+                thePermutationGA.IterationLimit = Convert.ToInt32(tbIteration.Text);
                 gridGA.SelectedObject = thePermutationGA;
             }
 
@@ -176,26 +183,49 @@ namespace JobAssignmentProblemGASolver
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            switch (cbGAType.SelectedIndex)
-            {
-                // binary GA
-                case 0:
-                    theBinaryGA.Reset();
-                    theBinaryGA.IterationLimit = Convert.ToInt32(tbIteration.Text);
-                    theBinaryGA.MachineJobWeight = machineJobsWeight;
-                    break;
-                // permutation GA
-                case 1:
-                    thePermutationGA.Reset();
-                    thePermutationGA.IterationLimit = Convert.ToInt32(tbIteration.Text);
-                    thePermutationGA.MachineJobWeight = machineJobsWeight;
-                    break;
-
-            }
+            rtbPopulation.Clear();
 
             try
             {
-               
+                rtbPopulation.AppendText($"【Initial Parents】\n");
+
+                switch (cbGAType.SelectedIndex)
+                {
+                    // binary GA
+                    case 0:
+                        theBinaryGA.Reset();
+                        theBinaryGA.MachineJobWeight = machineJobsWeight;
+                        for (int i = 0; i < theBinaryGA.PopulationSize; i++)
+                        {
+                            rtbPopulation.AppendText($"P Chrom {i + 1}: ");
+                            for (int j = 0; j < (theProblem.NumberOfJobs * theProblem.NumberOfJobs); j++)
+                            {
+                                rtbPopulation.AppendText($"{theBinaryGA.Chromosome[i][j]} ");
+                            }
+                            rtbPopulation.AppendText($"\n");
+                        }
+                        break;
+                    // permutation GA
+                    case 1:
+                        thePermutationGA.Reset();
+                        thePermutationGA.MachineJobWeight = machineJobsWeight;
+                        for (int i = 0; i < thePermutationGA.PopulationSize; i++)
+                        {
+                            rtbPopulation.AppendText($"P Chrom {i + 1}: ");
+                            for (int j = 0; j < (theProblem.NumberOfJobs * theProblem.NumberOfJobs); j++)
+                            {
+                                rtbPopulation.AppendText($"{thePermutationGA.Chromosome[i][j]} ");
+                            }
+                            rtbPopulation.AppendText($"\n");
+                        }
+                        break;
+
+                }
+
+                rtbPopulation.AppendText($"\n");
+                richTextBox_TextChanged();
+
+
 
             }
             catch (System.NullReferenceException)
@@ -210,39 +240,173 @@ namespace JobAssignmentProblemGASolver
 
         private void btnRun_Click(object sender, EventArgs e)
         {
+
             // check if reset
             if (isReset == false)
             {
                 MessageBox.Show("Press reset before running the algorithm!");
                 return;
             }
+
             rtbBestSolution.Clear();
             rtbPopulation.Clear();
+            rtbBestObj.Clear();
+
+            // clear chart 
+            chart1.Series.Clear();
+
+            theSeriesObj = new Series("SoFarTheBest");
+            theSeriesObj.ChartType = SeriesChartType.Line;
+            theSeriesObj.Color = Color.Red;
+            theSeriesObj.BorderWidth = 3;
+            chart1.Series.Add(theSeriesObj);
+
+            iterationBest = new Series("IterationBest");
+            iterationBest.ChartType = SeriesChartType.Line;
+            iterationBest.Color = Color.Orange;
+            iterationBest.BorderWidth = 3;
+            chart1.Series.Add(iterationBest);
 
             // initial time
             DateTime startTime = DateTime.Now;
 
             // start gene algorithm
-
             switch (cbGAType.SelectedIndex)
             {
                 // binary GA
                 case 0:
-                    for (int i = 0; i < theBinaryGA.IterationLimit; i++)
+                    for (int iteration = 0; iteration < theBinaryGA.IterationLimit; iteration++)
                     {
+                        rtbPopulation.AppendText($"======================= Iteration {iteration + 1} =======================\n\n");
+
                         theBinaryGA.RunOneIteration();
-                        rtbBestSolution.Text = theBinaryGA.SoFarTheBestObjectiveValue.ToString();
-                        rtbPopulation.AppendText(($"AAA = {theBinaryGA.SoFarTheBestObjectiveValue}\n"));
+
+                        if (iteration != 0)
+                        {
+                            // print parent
+                            rtbPopulation.AppendText($"【Parent】\n");
+                            for (int i = 0; i < theBinaryGA.PopulationSize; i++)
+                            {
+                                rtbPopulation.AppendText($"Parent Chrom {i + 1 }: ");
+                                for (int j = 0; j < (theProblem.NumberOfJobs * theProblem.NumberOfJobs); j++)
+                                {
+                                    rtbPopulation.AppendText($"{theBinaryGA.Chromosome[i][j]} ");
+                                }
+                                rtbPopulation.AppendText($"\n");
+                            }
+
+                            rtbPopulation.AppendText($"\n\n");
+
+                        }
+
+                        // print children 
+                        rtbPopulation.AppendText($"【Children】\n\n");
+                        for (int i = 0; i < theBinaryGA.PopulationSize; i++)
+                        {
+                            rtbPopulation.AppendText($"Children Chrom {i + 1 }: ");
+                            for (int j = 0; j < (theProblem.NumberOfJobs * theProblem.NumberOfJobs); j++)
+                            {
+                                rtbPopulation.AppendText($"{theBinaryGA.Chromosome[i + theBinaryGA.PopulationSize][j]} ");
+                            }
+                            rtbPopulation.AppendText($"\n");
+                        }
+
+                        // print mutated children
+                        rtbPopulation.AppendText($"\n\n【Mutated Children】\n\n");
+                        for (int i = 0; i < theBinaryGA.PopulationSize; i++)
+                        {
+                            rtbPopulation.AppendText($"Mutated Chrom {i + 1 }: ");
+                            for (int j = 0; j < (theProblem.NumberOfJobs * theProblem.NumberOfJobs); j++)
+                            {
+                                rtbPopulation.AppendText($"{theBinaryGA.Chromosome[i + theBinaryGA.PopulationSize * 2][j]} ");
+                            }
+                            rtbPopulation.AppendText($"\n");
+                        }
+
+
+                        for (int i = 0; i < (theProblem.NumberOfJobs * theProblem.NumberOfJobs); i++)
+                        {
+                            rtbBestSolution.AppendText(theBinaryGA.BestSolutionAnswer[i].ToString() + " ");
+                        }
+                        rtbBestSolution.AppendText("\n");
+                        rtbBestObj.AppendText(theBinaryGA.BestSolutionValue.ToString() + "\n");
+
+                        richTextBox_TextChanged();
+
+                        chart1.Series[0].Points.AddXY(iteration, theBinaryGA.BestSolutionValue);
+
+                        chart1.Series[1].Points.AddXY(iteration, theBinaryGA.IterationBest);
+
                     }
                     break;
                 // permutation GA
                 case 1:
+                    for (int iteration = 0; iteration < thePermutationGA.IterationLimit; iteration++)
+                    {
+                        rtbPopulation.AppendText($"======================= Iteration {iteration + 1} =======================\n\n");
+
+                        thePermutationGA.RunOneIteration();
+
+                        if (iteration != 0)
+                        {
+                            // print parent
+                            rtbPopulation.AppendText($"【Parent】\n");
+                            for (int i = 0; i < thePermutationGA.PopulationSize; i++)
+                            {
+                                rtbPopulation.AppendText($"Parent Chrom {i + 1 }: ");
+                                for (int j = 0; j < (theProblem.NumberOfJobs * theProblem.NumberOfJobs); j++)
+                                {
+                                    rtbPopulation.AppendText($"{thePermutationGA.Chromosome[i][j]} ");
+                                }
+                                rtbPopulation.AppendText($"\n");
+                            }
+
+                            rtbPopulation.AppendText($"\n\n");
+
+                        }
+
+                        // print children 
+                        rtbPopulation.AppendText($"【Children】\n\n");
+                        for (int i = 0; i < thePermutationGA.PopulationSize; i++)
+                        {
+                            rtbPopulation.AppendText($"Children Chrom {i + 1 }: ");
+                            for (int j = 0; j < (theProblem.NumberOfJobs * theProblem.NumberOfJobs); j++)
+                            {
+                                rtbPopulation.AppendText($"{thePermutationGA.Chromosome[i + thePermutationGA.PopulationSize][j]} ");
+                            }
+                            rtbPopulation.AppendText($"\n");
+                        }
+
+                        // print mutated children
+                        rtbPopulation.AppendText($"\n\n【Mutated Children】\n\n");
+                        for (int i = 0; i < thePermutationGA.PopulationSize; i++)
+                        {
+                            rtbPopulation.AppendText($"Mutated Chrom {i + 1 }: ");
+                            for (int j = 0; j < (theProblem.NumberOfJobs * theProblem.NumberOfJobs); j++)
+                            {
+                                rtbPopulation.AppendText($"{thePermutationGA.Chromosome[i + thePermutationGA.PopulationSize * 2][j]} ");
+                            }
+                            rtbPopulation.AppendText($"\n");
+                        }
+
+
+                        for (int i = 0; i < (theProblem.NumberOfJobs * theProblem.NumberOfJobs); i++)
+                        {
+                            rtbBestSolution.AppendText(thePermutationGA.BestSolutionAnswer[i].ToString() + " ");
+                        }
+                        rtbBestSolution.AppendText("\n");
+                        rtbBestObj.AppendText(thePermutationGA.BestSolutionValue.ToString() + "\n");
+
+                        richTextBox_TextChanged();
+
+                        chart1.Series[0].Points.AddXY(iteration, thePermutationGA.BestSolutionValue);
+
+                        chart1.Series[1].Points.AddXY(iteration, thePermutationGA.IterationBest);
+
+                    }
                     break;
 
             }
-
-
-
 
             // calculate taken time
             DateTime endTime = DateTime.Now;
@@ -262,6 +426,58 @@ namespace JobAssignmentProblemGASolver
 
             // initial time
             DateTime startTime = DateTime.Now;
+
+            // start gene algorithm
+            switch (cbGAType.SelectedIndex)
+            {
+                // binary GA
+                case 0:
+                    for (int i = 0; i < theBinaryGA.IterationLimit; i++)
+                    {
+                        theBinaryGA.RunOneIteration();
+                        rtbBestSolution.Text = theBinaryGA.SoFarTheBestObjectiveValue.ToString();
+                        rtbPopulation.AppendText(($"AAA = {theBinaryGA.SoFarTheBestObjectiveValue}\n"));
+                    }
+                    break;
+                // permutation GA
+                case 1:
+                    thePermutationGA.RunOneIteration();
+
+                    // print children 
+                    rtbPopulation.AppendText($"【Children】\n");
+                    for (int i = 0; i < thePermutationGA.PopulationSize; i++)
+                    {
+                        rtbPopulation.AppendText($"Children Chrom {i + 1 }: ");
+                        for (int j = 0; j < (theProblem.NumberOfJobs * theProblem.NumberOfJobs); j++)
+                        {
+                            rtbPopulation.AppendText($"{thePermutationGA.Chromosome[i + thePermutationGA.PopulationSize][j]} ");
+                        }
+                        rtbPopulation.AppendText($"\n");
+                    }
+
+                    // print mutated children
+                    rtbPopulation.AppendText($"\n\n【Mutated Children】\n");
+                    for (int i = 0; i < thePermutationGA.PopulationSize; i++)
+                    {
+                        rtbPopulation.AppendText($"Mutated Chrom {i + 1 }: ");
+                        for (int j = 0; j < (theProblem.NumberOfJobs * theProblem.NumberOfJobs); j++)
+                        {
+                            rtbPopulation.AppendText($"{thePermutationGA.Chromosome[i + thePermutationGA.PopulationSize * 2][j]} ");
+                        }
+                        rtbPopulation.AppendText($"\n");
+                    }
+
+                    rtbBestSolution.Clear();
+                    for (int i = 0; i < (theProblem.NumberOfJobs * theProblem.NumberOfJobs); i++)
+                    {
+                        rtbBestSolution.AppendText(thePermutationGA.BestSolutionAnswer[i].ToString() + " ");
+                    }
+
+                    rtbBestObj.Clear();
+                    rtbBestObj.Text = thePermutationGA.BestSolutionValue.ToString();
+                    break;
+
+            }
 
 
             // calculate taken time
@@ -301,6 +517,17 @@ namespace JobAssignmentProblemGASolver
 
         }
 
+        private void richTextBox_TextChanged()
+        {
+            // set the current caret position to the end
+            rtbPopulation.SelectionStart = rtbPopulation.Text.Length;
+            rtbBestSolution.SelectionStart = rtbBestSolution.Text.Length;
+            rtbBestObj.SelectionStart = rtbBestObj.Text.Length;
+            // scroll it automatically
+            rtbPopulation.ScrollToCaret();
+            rtbBestSolution.ScrollToCaret();
+            rtbBestObj.ScrollToCaret();
+        }
 
     }
 }

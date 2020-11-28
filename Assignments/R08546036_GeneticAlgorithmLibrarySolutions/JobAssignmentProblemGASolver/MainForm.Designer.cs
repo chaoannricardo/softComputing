@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,9 +53,13 @@
             this.lbTimeStamp = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbIteration = new System.Windows.Forms.Label();
             this.tbIteration = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgJobsAndMachines)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -63,7 +69,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1074, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1074, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -134,12 +140,11 @@
             // 
             // rtbPopulation
             // 
-            this.rtbPopulation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtbPopulation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.rtbPopulation.Location = new System.Drawing.Point(441, 366);
             this.rtbPopulation.Name = "rtbPopulation";
-            this.rtbPopulation.Size = new System.Drawing.Size(621, 276);
+            this.rtbPopulation.Size = new System.Drawing.Size(516, 276);
             this.rtbPopulation.TabIndex = 11;
             this.rtbPopulation.Text = "";
             // 
@@ -147,9 +152,9 @@
             // 
             this.rtbBestObj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtbBestObj.Location = new System.Drawing.Point(441, 32);
+            this.rtbBestObj.Location = new System.Drawing.Point(598, 32);
             this.rtbBestObj.Name = "rtbBestObj";
-            this.rtbBestObj.Size = new System.Drawing.Size(621, 40);
+            this.rtbBestObj.Size = new System.Drawing.Size(464, 40);
             this.rtbBestObj.TabIndex = 12;
             this.rtbBestObj.Text = "";
             // 
@@ -157,9 +162,9 @@
             // 
             this.rtbBestSolution.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtbBestSolution.Location = new System.Drawing.Point(441, 78);
+            this.rtbBestSolution.Location = new System.Drawing.Point(598, 78);
             this.rtbBestSolution.Name = "rtbBestSolution";
-            this.rtbBestSolution.Size = new System.Drawing.Size(621, 40);
+            this.rtbBestSolution.Size = new System.Drawing.Size(464, 40);
             this.rtbBestSolution.TabIndex = 13;
             this.rtbBestSolution.Text = "";
             // 
@@ -274,11 +279,48 @@
             this.tbIteration.TabIndex = 24;
             this.tbIteration.Text = "100";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(438, 101);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(137, 17);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "Best Solution So Far";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(438, 55);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(148, 17);
+            this.label2.TabIndex = 26;
+            this.label2.Text = "Best Obj Value So Far";
+            // 
+            // chart1
+            // 
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chart1.BorderlineColor = System.Drawing.SystemColors.Window;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(963, 367);
+            this.chart1.Name = "chart1";
+            this.chart1.Size = new System.Drawing.Size(101, 275);
+            this.chart1.TabIndex = 27;
+            this.chart1.Text = "chart1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1074, 667);
+            this.Controls.Add(this.chart1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.tbIteration);
             this.Controls.Add(this.lbIteration);
             this.Controls.Add(this.statusStrip1);
@@ -308,6 +350,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgJobsAndMachines)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -338,6 +381,9 @@
         private System.Windows.Forms.ToolStripStatusLabel lbTimeStamp;
         private System.Windows.Forms.Label lbIteration;
         private System.Windows.Forms.TextBox tbIteration;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
 
