@@ -13,7 +13,7 @@ namespace GeneticAlgorithmLibrary
 
     public enum OptimizationType { Minimization, Maximization };
 
-    public enum SelectionType { Deterministic, Stochastic, Hybrid };
+    public enum SelectionType { Best, Deterministic, Stochastic, Hybrid };
 
     public delegate double ObjectiveFunction<S>(S[] solution);
 
@@ -60,7 +60,7 @@ namespace GeneticAlgorithmLibrary
 
 
         // properties
-        public SelectionType SelectionMode { set; get; } = SelectionType.Deterministic;
+        public SelectionType SelectionMode { set; get; } = SelectionType.Best;
 
         public int PopulationSize
         {

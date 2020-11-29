@@ -11,6 +11,7 @@ namespace GeneticAlgorithmLibrary
 
     public class PermutationGASolver : GeneticAlgorithm<int>
     {
+        #region variables
         int[] bestSolutionAnswer;
         int[] indexArrayParent;
         int[] indexArrayChild;
@@ -34,13 +35,13 @@ namespace GeneticAlgorithmLibrary
         int pid2;
         int cid1;
         int cid2;
+        #endregion
 
         public enum CrossoverType { PMX, OX, POX, OSS, OCCC, OnePointCut, TwoPointCut }
 
         public enum MutationType { Swap, XXX }
 
         // properties
-
         public CrossoverType CrossoverOperator { get; set; } = CrossoverType.PMX;
 
         public MutationType MutationOperator { set; get; } = MutationType.Swap;
@@ -315,7 +316,7 @@ namespace GeneticAlgorithmLibrary
                     }
                     break;
                 case CrossoverType.OSS:
-                    // position-based crossover
+                    // order-based crossover
                     temp_num = (int)Math.Round(numberOfGenes * crossoverRate);
                     temp_1 = new int[temp_num];
                     // create random value array
@@ -326,8 +327,22 @@ namespace GeneticAlgorithmLibrary
                     // crossover children
                     for (int i = 0; i < numberOfGenes; i++)
                     {
-                        if (!(temp_1.Contains(chromosomes[fatherIdx][i]))) { }
+                        if (!(temp_1.Contains(chromosomes[fatherIdx][i])))
+                        {
+                            chromosomes[child1Idx][i] = chromosomes[motherIdx][i];
+                        }
+                        else {
+                            chromosomes[child1Idx][i] = chromosomes[fatherIdx][i];
+                        }
 
+                        if (!(temp_1.Contains(chromosomes[motherIdx][i])))
+                        {
+                            chromosomes[child2Idx][i] = chromosomes[fatherIdx][i];
+                        }
+                        else
+                        {
+                            chromosomes[child2Idx][i] = chromosomes[motherIdx][i];
+                        }
                     }
 
                     break;
@@ -467,77 +482,356 @@ namespace GeneticAlgorithmLibrary
             //    }
             //}
 
-            /////////////////////////////////////////////
-            //indexArrayParent = objectiveValues.Take(populationSize)
-            //       .Select((value, index) => new { value, index })
-            //       .OrderByDescending(item => item.value)
-            //       .Take(populationSize / 2)
-            //       .Select(item => item.index)
-            //       .ToArray();
-
-            indexArrayParent = objectiveValues.Take(populationSize)
-                   .Select((value, index) => new { value, index })
-                   .OrderByDescending(item => item.value)
-                   .Select(item => item.index)
-                   .ToArray();
-
-            indexArrayChild = objectiveValues.Skip(populationSize)
-                   .Select((value, index) => new { value, index })
-                   .OrderByDescending(item => item.value)
-                   .Select(item => item.index)
-                   .ToArray();
-
-            //ShuffleAnIntegerArray(indexArrayParent, indexArrayParent.Count());
-            //ShuffleAnIntegerArray(indexArrayChild, indexArrayChild.Count());
-
-            temp = new int[numberOfGenes];
-            for (int j = 0; j < numberOfGenes; j++)
+            switch (SelectionMode)
             {
-                temp[j] = j;
-            }
-
-            for (int i = 0; i < (indexArrayParent.Count() / 2); i++)
-            {
-                chromosomes[i] = chromosomes[indexArrayParent[i]];
-            }
-
-            for (int i = 0; i < (indexArrayChild.Count() / 2); i++)
-            {
-                temp_num = 0;
-
-                if (!(chromosomes.Take(populationSize).Contains(chromosomes[indexArrayChild[i]])))
-                {
-                    chromosomes[(populationSize / 2) + i] = chromosomes[indexArrayChild[i]];
-
-                }
-                else
-                {
-                    while (true)
+                case SelectionType.Best:
+                    /////////////////////////////////////////////
+                    //indexArrayParent = objectiveValues.Take(populationSize)
+                    //       .Select((value, index) => new { value, index })
+                    //       .OrderByDescending(item => item.value)
+                    //       .Take(populationSize / 2)
+                    //       .Select(item => item.index)
+                    //       .ToArray();
+                    switch (optimizationType)
                     {
-                        if (!(chromosomes.Take(populationSize).Contains(chromosomes[randomizer.Next(populationSize * 3)])))
-                        {
-                            chromosomes[(populationSize / 2) + i] = chromosomes[randomizer.Next(populationSize * 3)];
-                            break;
-                        }
-                        temp_num++;
+                        case OptimizationType.Maximization:
+                            indexArrayParent = objectiveValues.Take(populationSize)
+                           .Select((value, index) => new { value, index })
+                           .OrderByDescending(item => item.value)
+                           .Select(item => item.index)
+                           .ToArray();
 
-                        if (temp_num == populationSize)
+                            indexArrayChild = objectiveValues.Skip(populationSize)
+                                   .Select((value, index) => new { value, index })
+                                   .OrderByDescending(item => item.value)
+                                   .Select(item => item.index)
+                                   .ToArray();
+                            break;
+                        case OptimizationType.Minimization:
+                            indexArrayParent = objectiveValues.Take(populationSize)
+                           .Select((value, index) => new { value, index })
+                           .OrderBy(item => item.value)
+                           .Select(item => item.index)
+                           .ToArray();
+
+                            indexArrayChild = objectiveValues.Skip(populationSize)
+                                   .Select((value, index) => new { value, index })
+                                   .OrderBy(item => item.value)
+                                   .Select(item => item.index)
+                                   .ToArray();
+                            break;
+                    }
+
+
+                    //ShuffleAnIntegerArray(indexArrayParent, indexArrayParent.Count());
+                    //ShuffleAnIntegerArray(indexArrayChild, indexArrayChild.Count());
+
+                    temp = new int[numberOfGenes];
+                    for (int j = 0; j < numberOfGenes; j++)
+                    {
+                        temp[j] = j;
+                    }
+
+                    for (int i = 0; i < (indexArrayParent.Count() / 2); i++)
+                    {
+                        chromosomes[i] = chromosomes[indexArrayParent[i]];
+                    }
+
+                    for (int i = 0; i < (indexArrayChild.Count() / 2); i++)
+                    {
+                        temp_num = 0;
+
+                        if (!(chromosomes.Take(populationSize).Contains(chromosomes[indexArrayChild[i]])))
                         {
-                            chromosomes[(populationSize / 2) + i] = temp.OrderBy(x => randomizer.Next()).ToArray();
+                            chromosomes[(populationSize / 2) + i] = chromosomes[indexArrayChild[i]];
+
+                        }
+                        else
+                        {
+                            while (true)
+                            {
+                                if (!(chromosomes.Take(populationSize).Contains(chromosomes[randomizer.Next(populationSize * 3)])))
+                                {
+                                    chromosomes[(populationSize / 2) + i] = chromosomes[randomizer.Next(populationSize * 3)];
+                                    break;
+                                }
+                                temp_num++;
+
+                                if (temp_num == populationSize)
+                                {
+                                    chromosomes[(populationSize / 2) + i] = temp.OrderBy(x => randomizer.Next()).ToArray();
+                                }
+                            }
+
                         }
                     }
 
-                }
+                    for (int i = 0; i < populationSize * 3; i++)
+                    {
+                        tempTemp = chromosomes.Take(i).ToArray();
+                        if (tempTemp.Contains(chromosomes[i]))
+                        {
+                            chromosomes[i] = temp.OrderBy(x => randomizer.Next()).ToArray();
+                        }
+                    }
+                    break;
+                case SelectionType.Deterministic:
+                    switch (optimizationType)
+                    {
+                        case OptimizationType.Maximization:
+                            indexArrayParent = objectiveValues.Take(populationSize)
+                           .Select((value, index) => new { value, index })
+                           .OrderByDescending(item => item.value)
+                           .Select(item => item.index)
+                           .ToArray();
+
+                            indexArrayChild = objectiveValues.Skip(populationSize)
+                                   .Select((value, index) => new { value, index })
+                                   .OrderByDescending(item => item.value)
+                                   .Select(item => item.index)
+                                   .ToArray();
+                            break;
+                        case OptimizationType.Minimization:
+                            indexArrayParent = objectiveValues.Take(populationSize)
+                           .Select((value, index) => new { value, index })
+                           .OrderBy(item => item.value)
+                           .Select(item => item.index)
+                           .ToArray();
+
+                            indexArrayChild = objectiveValues.Skip(populationSize)
+                                   .Select((value, index) => new { value, index })
+                                   .OrderBy(item => item.value)
+                                   .Select(item => item.index)
+                                   .ToArray();
+                            break;
+                    }
+
+
+                    //ShuffleAnIntegerArray(indexArrayParent, indexArrayParent.Count());
+                    //ShuffleAnIntegerArray(indexArrayChild, indexArrayChild.Count());
+
+                    temp = new int[numberOfGenes];
+                    for (int j = 0; j < numberOfGenes; j++)
+                    {
+                        temp[j] = j;
+                    }
+
+                    for (int i = 0; i < (indexArrayParent.Count() / 2); i++)
+                    {
+                        chromosomes[i] = chromosomes[indexArrayParent[i]];
+                    }
+
+                    for (int i = 0; i < (indexArrayChild.Count() / 2); i++)
+                    {
+                        temp_num = 0;
+
+                        if (!(chromosomes.Take(populationSize).Contains(chromosomes[indexArrayChild[i]])))
+                        {
+                            chromosomes[(populationSize / 2) + i] = chromosomes[indexArrayChild[i]];
+
+                        }
+                        else
+                        {
+                            while (true)
+                            {
+                                if (!(chromosomes.Take(populationSize).Contains(chromosomes[randomizer.Next(populationSize * 3)])))
+                                {
+                                    chromosomes[(populationSize / 2) + i] = chromosomes[randomizer.Next(populationSize * 3)];
+                                    break;
+                                }
+                                temp_num++;
+
+                                if (temp_num == populationSize)
+                                {
+                                    chromosomes[(populationSize / 2) + i] = temp.OrderBy(x => randomizer.Next()).ToArray();
+                                }
+                            }
+
+                        }
+                    }
+
+                    for (int i = 0; i < populationSize * 3; i++)
+                    {
+                        tempTemp = chromosomes.Take(i).ToArray();
+                        if (tempTemp.Contains(chromosomes[i]))
+                        {
+                            chromosomes[i] = temp.OrderBy(x => randomizer.Next()).ToArray();
+                        }
+                    }
+                    break;
+                case SelectionType.Stochastic:
+                    switch (optimizationType)
+                    {
+                        case OptimizationType.Maximization:
+                            indexArrayParent = objectiveValues.Take(populationSize)
+                           .Select((value, index) => new { value, index })
+                           .OrderByDescending(item => item.value)
+                           .Select(item => item.index)
+                           .ToArray();
+
+                            indexArrayChild = objectiveValues.Skip(populationSize)
+                                   .Select((value, index) => new { value, index })
+                                   .OrderByDescending(item => item.value)
+                                   .Select(item => item.index)
+                                   .ToArray();
+                            break;
+                        case OptimizationType.Minimization:
+                            indexArrayParent = objectiveValues.Take(populationSize)
+                           .Select((value, index) => new { value, index })
+                           .OrderBy(item => item.value)
+                           .Select(item => item.index)
+                           .ToArray();
+
+                            indexArrayChild = objectiveValues.Skip(populationSize)
+                                   .Select((value, index) => new { value, index })
+                                   .OrderBy(item => item.value)
+                                   .Select(item => item.index)
+                                   .ToArray();
+                            break;
+                    }
+
+
+                    //ShuffleAnIntegerArray(indexArrayParent, indexArrayParent.Count());
+                    //ShuffleAnIntegerArray(indexArrayChild, indexArrayChild.Count());
+
+                    temp = new int[numberOfGenes];
+                    for (int j = 0; j < numberOfGenes; j++)
+                    {
+                        temp[j] = j;
+                    }
+
+                    for (int i = 0; i < (indexArrayParent.Count() / 2); i++)
+                    {
+                        chromosomes[i] = chromosomes[indexArrayParent[i]];
+                    }
+
+                    for (int i = 0; i < (indexArrayChild.Count() / 2); i++)
+                    {
+                        temp_num = 0;
+
+                        if (!(chromosomes.Take(populationSize).Contains(chromosomes[indexArrayChild[i]])))
+                        {
+                            chromosomes[(populationSize / 2) + i] = chromosomes[indexArrayChild[i]];
+
+                        }
+                        else
+                        {
+                            while (true)
+                            {
+                                if (!(chromosomes.Take(populationSize).Contains(chromosomes[randomizer.Next(populationSize * 3)])))
+                                {
+                                    chromosomes[(populationSize / 2) + i] = chromosomes[randomizer.Next(populationSize * 3)];
+                                    break;
+                                }
+                                temp_num++;
+
+                                if (temp_num == populationSize)
+                                {
+                                    chromosomes[(populationSize / 2) + i] = temp.OrderBy(x => randomizer.Next()).ToArray();
+                                }
+                            }
+
+                        }
+                    }
+
+                    for (int i = 0; i < populationSize * 3; i++)
+                    {
+                        tempTemp = chromosomes.Take(i).ToArray();
+                        if (tempTemp.Contains(chromosomes[i]))
+                        {
+                            chromosomes[i] = temp.OrderBy(x => randomizer.Next()).ToArray();
+                        }
+                    }
+                    break;
+                case SelectionType.Hybrid:
+                    switch (optimizationType)
+                    {
+                        case OptimizationType.Maximization:
+                            indexArrayParent = objectiveValues.Take(populationSize)
+                           .Select((value, index) => new { value, index })
+                           .OrderByDescending(item => item.value)
+                           .Select(item => item.index)
+                           .ToArray();
+
+                            indexArrayChild = objectiveValues.Skip(populationSize)
+                                   .Select((value, index) => new { value, index })
+                                   .OrderByDescending(item => item.value)
+                                   .Select(item => item.index)
+                                   .ToArray();
+                            break;
+                        case OptimizationType.Minimization:
+                            indexArrayParent = objectiveValues.Take(populationSize)
+                           .Select((value, index) => new { value, index })
+                           .OrderBy(item => item.value)
+                           .Select(item => item.index)
+                           .ToArray();
+
+                            indexArrayChild = objectiveValues.Skip(populationSize)
+                                   .Select((value, index) => new { value, index })
+                                   .OrderBy(item => item.value)
+                                   .Select(item => item.index)
+                                   .ToArray();
+                            break;
+                    }
+
+
+                    //ShuffleAnIntegerArray(indexArrayParent, indexArrayParent.Count());
+                    //ShuffleAnIntegerArray(indexArrayChild, indexArrayChild.Count());
+
+                    temp = new int[numberOfGenes];
+                    for (int j = 0; j < numberOfGenes; j++)
+                    {
+                        temp[j] = j;
+                    }
+
+                    for (int i = 0; i < (indexArrayParent.Count() / 2); i++)
+                    {
+                        chromosomes[i] = chromosomes[indexArrayParent[i]];
+                    }
+
+                    for (int i = 0; i < (indexArrayChild.Count() / 2); i++)
+                    {
+                        temp_num = 0;
+
+                        if (!(chromosomes.Take(populationSize).Contains(chromosomes[indexArrayChild[i]])))
+                        {
+                            chromosomes[(populationSize / 2) + i] = chromosomes[indexArrayChild[i]];
+
+                        }
+                        else
+                        {
+                            while (true)
+                            {
+                                if (!(chromosomes.Take(populationSize).Contains(chromosomes[randomizer.Next(populationSize * 3)])))
+                                {
+                                    chromosomes[(populationSize / 2) + i] = chromosomes[randomizer.Next(populationSize * 3)];
+                                    break;
+                                }
+                                temp_num++;
+
+                                if (temp_num == populationSize)
+                                {
+                                    chromosomes[(populationSize / 2) + i] = temp.OrderBy(x => randomizer.Next()).ToArray();
+                                }
+                            }
+
+                        }
+                    }
+
+                    for (int i = 0; i < populationSize * 3; i++)
+                    {
+                        tempTemp = chromosomes.Take(i).ToArray();
+                        if (tempTemp.Contains(chromosomes[i]))
+                        {
+                            chromosomes[i] = temp.OrderBy(x => randomizer.Next()).ToArray();
+                        }
+                    }
+                    break;
             }
 
-            for (int i = 0; i < populationSize * 3; i++)
-            {
-                tempTemp = chromosomes.Take(i).ToArray();
-                if (tempTemp.Contains(chromosomes[i]))
-                {
-                    chromosomes[i] = temp.OrderBy(x => randomizer.Next()).ToArray();
-                }
-            }
+
+
+
 
         }
 

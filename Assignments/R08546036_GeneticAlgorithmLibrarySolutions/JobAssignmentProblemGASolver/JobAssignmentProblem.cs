@@ -62,10 +62,10 @@ namespace JobAssignmentProblemGASolver
         {
             double total = 0;
 
-            for (int j = 0; j < numberOfJobs; j++) {
-                //total += SetupTimes[ass[j], j];
-                total += SetupTimes[j, j];
-            }
+            //for (int j = 0; j < numberOfJobs; j++) {
+            //    //total += SetupTimes[ass[j], j];
+            //    total += SetupTimes[j, j];
+            //}
 
             return total;
 
