@@ -68,6 +68,14 @@ namespace R08546036SHChaoAss10TSP
             availableCityIDs = new int[numberOfCities];
             fitness = new double[numberOfCities];
 
+            for (int i = 0; i < numberOfCities; i++)
+            {
+                soFarTheBestSolution[i] = i;
+            }
+
+            soFarTheBestSolution =  TSPBenchmark.TSPBenchmarkProblem.GetGreedyShortestRoute();
+
+
         }
 
         internal void Reset()
@@ -115,14 +123,15 @@ namespace R08546036SHChaoAss10TSP
         private void UpdatePheromoneMap()
         {
             //solutions[]
-            
+
             // update so far the best solution pheromone
             int fid, tid;
 
             fid = SoFarTheBestSolution[0];
 
 
-            for (int i = 1; i < NumberOfCities; i++) {
+            for (int i = 1; i < NumberOfCities; i++)
+            {
                 tid = SoFarTheBestSolution[i];
 
                 // to do: add pheromone
@@ -213,7 +222,7 @@ namespace R08546036SHChaoAss10TSP
                     // add pheromone if segment pheromone dropping is enabled
 
                     // to do: add pheromone
-                    pheromoneMap[currentCityID, nextCityID] += 0
+                    pheromoneMap[currentCityID, nextCityID] += 0;
 
 
                     currentCityID = nextCityID;
