@@ -37,9 +37,12 @@
             this.btnReset = new System.Windows.Forms.Button();
             this.btnCreateASolver = new System.Windows.Forms.Button();
             this.btnOpenTSP = new System.Windows.Forms.Button();
-            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.gridTheProblemSolver = new System.Windows.Forms.PropertyGrid();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.SPCThird = new System.Windows.Forms.SplitContainer();
+            this.lbSoFarShortestLength = new System.Windows.Forms.Label();
+            this.lbIterationCount = new System.Windows.Forms.Label();
+            this.lbKnownShortestPath = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -71,7 +74,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer1.Size = new System.Drawing.Size(1170, 754);
-            this.splitContainer1.SplitterDistance = 390;
+            this.splitContainer1.SplitterDistance = 233;
             this.splitContainer1.TabIndex = 6;
             // 
             // splitContainer2
@@ -83,6 +86,7 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.Info;
             this.splitContainer2.Panel1.Controls.Add(this.btnCreateACSSolver);
             this.splitContainer2.Panel1.Controls.Add(this.btnOpenTSPProblem);
             this.splitContainer2.Panel1.Controls.Add(this.btnRunOneIteration);
@@ -93,14 +97,14 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.propertyGrid1);
-            this.splitContainer2.Size = new System.Drawing.Size(390, 754);
+            this.splitContainer2.Panel2.Controls.Add(this.gridTheProblemSolver);
+            this.splitContainer2.Size = new System.Drawing.Size(233, 754);
             this.splitContainer2.SplitterDistance = 329;
             this.splitContainer2.TabIndex = 0;
             // 
             // btnCreateACSSolver
             // 
-            this.btnCreateACSSolver.Location = new System.Drawing.Point(13, 126);
+            this.btnCreateACSSolver.Location = new System.Drawing.Point(13, 128);
             this.btnCreateACSSolver.Name = "btnCreateACSSolver";
             this.btnCreateACSSolver.Size = new System.Drawing.Size(358, 39);
             this.btnCreateACSSolver.TabIndex = 12;
@@ -110,7 +114,7 @@
             // 
             // btnOpenTSPProblem
             // 
-            this.btnOpenTSPProblem.Location = new System.Drawing.Point(12, 81);
+            this.btnOpenTSPProblem.Location = new System.Drawing.Point(12, 83);
             this.btnOpenTSPProblem.Name = "btnOpenTSPProblem";
             this.btnOpenTSPProblem.Size = new System.Drawing.Size(359, 39);
             this.btnOpenTSPProblem.TabIndex = 11;
@@ -120,7 +124,7 @@
             // 
             // btnRunOneIteration
             // 
-            this.btnRunOneIteration.Location = new System.Drawing.Point(12, 267);
+            this.btnRunOneIteration.Location = new System.Drawing.Point(12, 269);
             this.btnRunOneIteration.Name = "btnRunOneIteration";
             this.btnRunOneIteration.Size = new System.Drawing.Size(359, 41);
             this.btnRunOneIteration.TabIndex = 10;
@@ -130,7 +134,7 @@
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(12, 222);
+            this.btnRun.Location = new System.Drawing.Point(12, 224);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(359, 39);
             this.btnRun.TabIndex = 9;
@@ -140,7 +144,7 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(12, 177);
+            this.btnReset.Location = new System.Drawing.Point(12, 179);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(359, 39);
             this.btnReset.TabIndex = 8;
@@ -166,13 +170,13 @@
             this.btnOpenTSP.Text = "Open TSP";
             this.btnOpenTSP.UseVisualStyleBackColor = true;
             // 
-            // propertyGrid1
+            // gridTheProblemSolver
             // 
-            this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
-            this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(390, 421);
-            this.propertyGrid1.TabIndex = 2;
+            this.gridTheProblemSolver.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridTheProblemSolver.Location = new System.Drawing.Point(0, 0);
+            this.gridTheProblemSolver.Name = "gridTheProblemSolver";
+            this.gridTheProblemSolver.Size = new System.Drawing.Size(233, 421);
+            this.gridTheProblemSolver.TabIndex = 2;
             // 
             // splitContainer3
             // 
@@ -186,9 +190,13 @@
             // 
             // splitContainer3.Panel2
             // 
+            this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.Info;
             this.splitContainer3.Panel2.Controls.Add(this.label1);
-            this.splitContainer3.Size = new System.Drawing.Size(776, 754);
-            this.splitContainer3.SplitterDistance = 482;
+            this.splitContainer3.Panel2.Controls.Add(this.lbSoFarShortestLength);
+            this.splitContainer3.Panel2.Controls.Add(this.lbIterationCount);
+            this.splitContainer3.Panel2.Controls.Add(this.lbKnownShortestPath);
+            this.splitContainer3.Size = new System.Drawing.Size(933, 754);
+            this.splitContainer3.SplitterDistance = 402;
             this.splitContainer3.TabIndex = 0;
             // 
             // SPCThird
@@ -201,18 +209,46 @@
             // SPCThird.Panel2
             // 
             this.SPCThird.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer4_Panel2_Paint);
-            this.SPCThird.Size = new System.Drawing.Size(482, 754);
+            this.SPCThird.Size = new System.Drawing.Size(402, 754);
             this.SPCThird.SplitterDistance = 86;
             this.SPCThird.TabIndex = 0;
+            // 
+            // lbSoFarShortestLength
+            // 
+            this.lbSoFarShortestLength.AutoSize = true;
+            this.lbSoFarShortestLength.Location = new System.Drawing.Point(20, 134);
+            this.lbSoFarShortestLength.Name = "lbSoFarShortestLength";
+            this.lbSoFarShortestLength.Size = new System.Drawing.Size(159, 17);
+            this.lbSoFarShortestLength.TabIndex = 18;
+            this.lbSoFarShortestLength.Text = "So Far Shortest Length:";
+            // 
+            // lbIterationCount
+            // 
+            this.lbIterationCount.AutoSize = true;
+            this.lbIterationCount.Location = new System.Drawing.Point(20, 105);
+            this.lbIterationCount.Name = "lbIterationCount";
+            this.lbIterationCount.Size = new System.Drawing.Size(56, 17);
+            this.lbIterationCount.TabIndex = 17;
+            this.lbIterationCount.Text = "Epoch: ";
+            // 
+            // lbKnownShortestPath
+            // 
+            this.lbKnownShortestPath.AutoSize = true;
+            this.lbKnownShortestPath.Location = new System.Drawing.Point(20, 72);
+            this.lbKnownShortestPath.Name = "lbKnownShortestPath";
+            this.lbKnownShortestPath.Size = new System.Drawing.Size(197, 17);
+            this.lbKnownShortestPath.TabIndex = 16;
+            this.lbKnownShortestPath.Text = "Known for the shortest length:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 19);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(17, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 17);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "label1";
+            this.label1.Size = new System.Drawing.Size(255, 32);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Information Panel";
             // 
             // MainForm
             // 
@@ -251,11 +287,14 @@
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button btnCreateASolver;
         private System.Windows.Forms.Button btnOpenTSP;
-        private System.Windows.Forms.PropertyGrid propertyGrid1;
+        private System.Windows.Forms.PropertyGrid gridTheProblemSolver;
         private System.Windows.Forms.Button btnOpenTSPProblem;
         private System.Windows.Forms.Button btnCreateACSSolver;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.SplitContainer SPCThird;
+        private System.Windows.Forms.Label lbKnownShortestPath;
+        private System.Windows.Forms.Label lbIterationCount;
+        private System.Windows.Forms.Label lbSoFarShortestLength;
         private System.Windows.Forms.Label label1;
     }
 }

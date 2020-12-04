@@ -15,6 +15,7 @@ namespace R08546036SHChaoAss10TSP
     public partial class MainForm : Form
     {
         AntColonySystemForTSP theSolver;
+        bool initiateFlag = false;
 
         //TSPBenchmarkProblem theProblem;
 
@@ -30,9 +31,6 @@ namespace R08546036SHChaoAss10TSP
             // let application to go full screen
             WindowState = FormWindowState.Maximized;
 
-            // refresh form
-            label1.Text = "";
-
             //MessageBox.Show(Directory.GetCurrentDirectory());
         }
 
@@ -40,11 +38,12 @@ namespace R08546036SHChaoAss10TSP
         {
             // open
             int status = TSPBenchmarkProblem.ImportATSPFile(true, true);
+            initiateFlag = true;
 
             // refresh painting panel
             SPCThird.Panel2.Refresh();
 
-            label1.Text = $"Known for the shortest length {TSPBenchmarkProblem.GlobalShorestLength4TSP}";
+            lbKnownShortestPath.Text = $"Known for the shortest length: {TSPBenchmarkProblem.GlobalShorestLength4TSP}";
 
         }
 
@@ -54,7 +53,7 @@ namespace R08546036SHChaoAss10TSP
             TSPBenchmarkProblem.DrawCitesAndARoute(e.Graphics, SPCThird.Panel2.Width,
                SPCThird.Panel2.Height, null);
 
-            if (theSolver != null) TSPBenchmarkProblem.DrawCitiesOptimalRouteAndARoute(e.Graphics, SPCThird.Panel2.Width,
+            if (theSolver != null && initiateFlag == false) TSPBenchmarkProblem.DrawCitiesOptimalRouteAndARoute(e.Graphics, SPCThird.Panel2.Width,
                SPCThird.Panel2.Height, theSolver.SoFarTheBestSolution);
         }
 
@@ -65,13 +64,22 @@ namespace R08546036SHChaoAss10TSP
             {
                 theSolver = new AntColonySystemForTSP(TSPBenchmarkProblem.NumberOfCities,
                 TSPBenchmarkProblem.ComputeRouteLength, TSPBenchmarkProblem.FromToDistanceMatrix);
+
                 // refresh painting panel
                 SPCThird.Panel2.Refresh();
+
+                // property gird
+                gridTheProblemSolver.SelectedObject = theSolver;
 
             }
             catch (System.IndexOutOfRangeException Exception)
             {
                 MessageBox.Show("You should first read in the problem set.");
+            }
+            catch (System.OutOfMemoryException Exception)
+            {
+                MessageBox.Show("System Error: Out of Memory\nProcess Terminated.");
+                return;
             }
 
         }
@@ -80,6 +88,10 @@ namespace R08546036SHChaoAss10TSP
         private void btnReset_Click(object sender, EventArgs e)
         {
             theSolver.Reset();
+            initiateFlag = false;
+
+            // update label information
+            lbSoFarShortestLength.Text = $"So Far Shortest Length: {theSolver.SoFarTheBestObjective}";
         }
 
 
@@ -87,11 +99,23 @@ namespace R08546036SHChaoAss10TSP
         private void btnRunOneIteration_Click(object sender, EventArgs e)
         {
             theSolver.RunOneIteration();
+
+            lbSoFarShortestLength.Text = $"So Far Shortest Length: {theSolver.SoFarTheBestObjective}";
+
+
         }
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            
+            for (int i = 0; i < theSolver.IterationCount; i++)
+            {
+
+                theSolver.RunOneIteration();
+
+                // update label informations.
+                lbIterationCount.Text = $"Epoch: {theSolver.IterationCount}";
+                lbSoFarShortestLength.Text = $"So Far Shortest Length: {theSolver.SoFarTheBestObjective}";
+            }
         }
     }
 }
