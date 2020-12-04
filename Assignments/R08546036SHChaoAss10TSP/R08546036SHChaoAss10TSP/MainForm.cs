@@ -101,25 +101,48 @@ namespace R08546036SHChaoAss10TSP
         // run one iteration function
         private void btnRunOneIteration_Click(object sender, EventArgs e)
         {
-            theSolver.RunOneIteration();
+            try
+            {
+                theSolver.RunOneIteration();
 
-            SPCThird.Panel2.Refresh();
+                SPCThird.Panel2.Refresh();
 
-            // update label information & variables
-            epochRunOneIteration++;
-            lbSoFarShortestLength.Text = $"So Far Shortest Length: {theSolver.SoFarTheBestObjective}";
-            lbIterationCount.Text = $"Epoch: {epochRunOneIteration}";
+                // update label information & variables
+                epochRunOneIteration++;
+                lbSoFarShortestLength.Text = $"So Far Shortest Length: {theSolver.SoFarTheBestObjective}";
+                lbIterationCount.Text = $"Epoch: {epochRunOneIteration}";
+            }
+            catch (System.NullReferenceException)
+            {
+                MessageBox.Show("Initate the solver first.");
+            }
         }
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < theSolver.IterationCount; i++)
+            try
             {
-                theSolver.RunOneIteration();
+                for (int i = 0; i < theSolver.IterationCount; i++)
+                {
+                    theSolver.RunOneIteration();
 
-                // update label informations.
-                lbIterationCount.Text = $"Epoch: {theSolver.IterationCount}";
-                lbSoFarShortestLength.Text = $"So Far Shortest Length: {theSolver.SoFarTheBestObjective}";
+                    //SPCThird.Panel2.Refresh();
+
+                    // update label informations.
+                    lbIterationCount.Text = $"Epoch: {theSolver.IterationCount}";
+                    lbSoFarShortestLength.Text = $"So Far Shortest Length: {theSolver.SoFarTheBestObjective}";
+                }
+
+                // messagebox after finished
+                MessageBox.Show("Iteration limit reached, algorithm ended.");
+
+                // refresh graph panel
+                SPCThird.Panel2.Refresh();
+            }
+            catch (System.NullReferenceException)
+            {
+                MessageBox.Show("Initate the solver first.");
+
             }
         }
     }
