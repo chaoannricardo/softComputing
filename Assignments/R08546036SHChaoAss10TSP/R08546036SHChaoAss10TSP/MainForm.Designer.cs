@@ -30,6 +30,7 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnCreateACSSolver = new System.Windows.Forms.Button();
             this.btnOpenTSPProblem = new System.Windows.Forms.Button();
             this.btnRunOneIteration = new System.Windows.Forms.Button();
@@ -40,7 +41,6 @@
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.SPCThird = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -90,20 +90,28 @@
             this.splitContainer2.Panel1.Controls.Add(this.btnReset);
             this.splitContainer2.Panel1.Controls.Add(this.btnCreateASolver);
             this.splitContainer2.Panel1.Controls.Add(this.btnOpenTSP);
-            this.splitContainer2.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Panel1_Paint);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.propertyGrid1);
             this.splitContainer2.Size = new System.Drawing.Size(390, 754);
-            this.splitContainer2.SplitterDistance = 442;
+            this.splitContainer2.SplitterDistance = 329;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 51);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 17);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "label1";
             // 
             // btnCreateACSSolver
             // 
-            this.btnCreateACSSolver.Location = new System.Drawing.Point(13, 174);
+            this.btnCreateACSSolver.Location = new System.Drawing.Point(13, 126);
             this.btnCreateACSSolver.Name = "btnCreateACSSolver";
-            this.btnCreateACSSolver.Size = new System.Drawing.Size(236, 39);
+            this.btnCreateACSSolver.Size = new System.Drawing.Size(358, 39);
             this.btnCreateACSSolver.TabIndex = 12;
             this.btnCreateACSSolver.Text = "Create ACS Solver";
             this.btnCreateACSSolver.UseVisualStyleBackColor = true;
@@ -111,9 +119,9 @@
             // 
             // btnOpenTSPProblem
             // 
-            this.btnOpenTSPProblem.Location = new System.Drawing.Point(12, 129);
+            this.btnOpenTSPProblem.Location = new System.Drawing.Point(12, 81);
             this.btnOpenTSPProblem.Name = "btnOpenTSPProblem";
-            this.btnOpenTSPProblem.Size = new System.Drawing.Size(237, 39);
+            this.btnOpenTSPProblem.Size = new System.Drawing.Size(359, 39);
             this.btnOpenTSPProblem.TabIndex = 11;
             this.btnOpenTSPProblem.Text = "Open a TSP Problem";
             this.btnOpenTSPProblem.UseVisualStyleBackColor = true;
@@ -121,9 +129,9 @@
             // 
             // btnRunOneIteration
             // 
-            this.btnRunOneIteration.Location = new System.Drawing.Point(12, 315);
+            this.btnRunOneIteration.Location = new System.Drawing.Point(12, 267);
             this.btnRunOneIteration.Name = "btnRunOneIteration";
-            this.btnRunOneIteration.Size = new System.Drawing.Size(237, 41);
+            this.btnRunOneIteration.Size = new System.Drawing.Size(359, 41);
             this.btnRunOneIteration.TabIndex = 10;
             this.btnRunOneIteration.Text = "Run One Iteration";
             this.btnRunOneIteration.UseVisualStyleBackColor = true;
@@ -131,18 +139,18 @@
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(12, 270);
+            this.btnRun.Location = new System.Drawing.Point(12, 222);
             this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(237, 39);
+            this.btnRun.Size = new System.Drawing.Size(359, 39);
             this.btnRun.TabIndex = 9;
             this.btnRun.Text = "Run";
             this.btnRun.UseVisualStyleBackColor = true;
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(12, 225);
+            this.btnReset.Location = new System.Drawing.Point(12, 177);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(237, 39);
+            this.btnReset.Size = new System.Drawing.Size(359, 39);
             this.btnReset.TabIndex = 8;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
@@ -171,7 +179,7 @@
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(390, 308);
+            this.propertyGrid1.Size = new System.Drawing.Size(390, 421);
             this.propertyGrid1.TabIndex = 2;
             // 
             // splitContainer3
@@ -205,15 +213,6 @@
             this.SPCThird.SplitterDistance = 86;
             this.SPCThird.TabIndex = 0;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 77);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 17);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "label1";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -221,7 +220,7 @@
             this.ClientSize = new System.Drawing.Size(1170, 754);
             this.Controls.Add(this.splitContainer1);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "ACP Exercise";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

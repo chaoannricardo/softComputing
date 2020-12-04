@@ -33,17 +33,11 @@ namespace R08546036SHChaoAss10TSP
             label1.Text = "";
         }
 
-        private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void Open_Click(object sender, EventArgs e)
         {
-            
-            
             // open
             int status = TSPBenchmarkProblem.ImportATSPFile(true, true);
+
             // refresh painting panel
             SPCThird.Panel2.Refresh();
 

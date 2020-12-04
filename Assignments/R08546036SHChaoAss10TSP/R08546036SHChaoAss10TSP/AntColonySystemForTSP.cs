@@ -7,8 +7,6 @@ namespace R08546036SHChaoAss10TSP
 
     class AntColonySystemForTSP
     {
-
-
         int numberOfAnts = 50;
         int[][] solutions;
         double[] objectiveValues;
