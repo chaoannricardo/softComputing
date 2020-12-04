@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace R08546036SHChaoAss10TSP
 {
@@ -16,7 +17,6 @@ namespace R08546036SHChaoAss10TSP
         double[,] pheromoneMap;
         double[,] heuristicValues;
         Random randomizer = new Random();
-        bool[] cityAvailable;
         int[] availableCityIDs;
         double[] fitness;
 
@@ -70,7 +70,6 @@ namespace R08546036SHChaoAss10TSP
                 }
             }
 
-            cityAvailable = new bool[numberOfCities];
             availableCityIDs = new int[numberOfCities];
             fitness = new double[numberOfCities];
 
@@ -125,47 +124,44 @@ namespace R08546036SHChaoAss10TSP
 
         private void EachAntsConstructItsSolution()
         {
-            int numberCandidates = NumberOfCities;
+            int numberCandidates;
             int currentCityID;
 
             // create solution for each ant
             for (int i = 0; i < NumberOfAnts; i++)
             {
-
                 /*
-                // old method
-                //for (int j = 0; j < NumberOfCities; j++) {
-                //    cityAvailable[j] = true;
-                //}
-                */
+                 * Initial Step
+                 */
 
-                // reset all city as available
+                // reset all city as available 
                 for (int j = 0; j < NumberOfCities; j++)
                 {
                     availableCityIDs[j] = j;
                 }
+                numberCandidates = NumberOfCities;
 
-                /*
-                // old method
-                //solutions[i][0] = randomizer.Next(NumberOfCities); 
-                */
-
-                // initial step: randomly choose city to start
+                // Randomly choose city to start with
                 int pos = randomizer.Next(NumberOfCities);
-
-                // initial step: move to city selected
+                // Move to city selected
                 currentCityID = availableCityIDs[pos];
 
-                // initial step: arrived city set as (Number of Candidate - 1)
+                // Clear-up Step: start city set as (Number of Candidate - 1)
                 availableCityIDs[pos] = availableCityIDs[numberCandidates - 1];
 
-                // initial step: append ant solution
+
+                // Append ant solution
                 solutions[i][0] = currentCityID;
+
+                /*
+                 * Full Construction Step
+                 */
 
                 // construct full solution
                 // step count: start looping and create solution 
                 for (int s = 1; s < NumberOfCities; s++)
                 {
+                    // decrease number of candidate & set initial value of pos
                     numberCandidates--;
                     pos = -1;
 
@@ -176,7 +172,6 @@ namespace R08546036SHChaoAss10TSP
                     for (int j = 0; j < NumberOfCities; j++)
                     {
                         // to do: compute relative probability 
-                        //......
                         int candidateID = availableCityIDs[j];
 
                         // calculate fit value with pheromone map and ita value
@@ -190,13 +185,14 @@ namespace R08546036SHChaoAss10TSP
                                 break;
                         }
 
+                        // calculate fitness value
                         // todo: * power of alpha
                         fitness[j] = Math.Pow(pheromoneMap[currentCityID, candidateID], itaValue); // need to be done
 
                         // check if best
                         switch (OptimizationMethod) {
                             case OptimizationType.Maximization:
-                                if (fitness[j] < maxFit) // 望小 deterministic
+                                if (fitness[j] < maxFit) // 望大 deterministic
                                 {
                                     maxFit = fitness[j];
                                     pos = j;
@@ -211,9 +207,8 @@ namespace R08546036SHChaoAss10TSP
                                 break;
                         }
 
-
+                        // decrease number of candidate
                         numberCandidates--;
-
                     }
 
 
@@ -223,18 +218,22 @@ namespace R08546036SHChaoAss10TSP
                     if (r >= DeterministicThresh)
                     {
                         // stochastic
-
+                        // randomly select city as next one
+                        pos = randomizer.Next(NumberOfCities);
                     }
                     else
                     {
                         // deterministic
-                        nextCityID = availableCityIDs[pos];
-                        solutions[i][s] = nextCityID;
-                        availableCityIDs[pos] = availableCityIDs[NumberOfCities - 1];
-
+                        // choose city with best fitness value
                     }
-                    // add pheromone if segment pheromone dropping is enabled
 
+                    nextCityID = availableCityIDs[pos];
+                    solutions[i][s] = nextCityID;
+
+                    // clear up the position
+                    availableCityIDs[pos] = availableCityIDs[NumberOfCities - 1];
+
+                    // add pheromone if segment pheromone dropping is enabled
                     // to do: add pheromone
                     pheromoneMap[currentCityID, nextCityID] += 0;
 
@@ -283,7 +282,7 @@ namespace R08546036SHChaoAss10TSP
 
         private void ComputeObjectiveValueAndUpdateSoFarTheBest()
         {
-            throw new NotImplementedException();
+            
         }
 
        

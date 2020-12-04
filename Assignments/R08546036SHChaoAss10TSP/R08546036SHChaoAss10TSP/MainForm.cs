@@ -15,7 +15,8 @@ namespace R08546036SHChaoAss10TSP
     public partial class MainForm : Form
     {
         AntColonySystemForTSP theSolver;
-        bool initiateFlag = false;
+        bool initiateFlag;
+        int epochRunOneIteration;
 
         //TSPBenchmarkProblem theProblem;
 
@@ -32,13 +33,13 @@ namespace R08546036SHChaoAss10TSP
             WindowState = FormWindowState.Maximized;
 
             //MessageBox.Show(Directory.GetCurrentDirectory());
+
         }
 
         private void Open_Click(object sender, EventArgs e)
         {
             // open
             int status = TSPBenchmarkProblem.ImportATSPFile(true, true);
-            initiateFlag = true;
 
             // refresh painting panel
             SPCThird.Panel2.Refresh();
@@ -53,7 +54,7 @@ namespace R08546036SHChaoAss10TSP
             TSPBenchmarkProblem.DrawCitesAndARoute(e.Graphics, SPCThird.Panel2.Width,
                SPCThird.Panel2.Height, null);
 
-            if (theSolver != null && initiateFlag == false) TSPBenchmarkProblem.DrawCitiesOptimalRouteAndARoute(e.Graphics, SPCThird.Panel2.Width,
+            if (theSolver != null) TSPBenchmarkProblem.DrawCitiesOptimalRouteAndARoute(e.Graphics, SPCThird.Panel2.Width,
                SPCThird.Panel2.Height, theSolver.SoFarTheBestSolution);
         }
 
@@ -88,10 +89,12 @@ namespace R08546036SHChaoAss10TSP
         private void btnReset_Click(object sender, EventArgs e)
         {
             theSolver.Reset();
-            initiateFlag = false;
 
             // update label information
             lbSoFarShortestLength.Text = $"So Far Shortest Length: {theSolver.SoFarTheBestObjective}";
+
+            // update variables
+            epochRunOneIteration = 0;
         }
 
 
@@ -100,16 +103,18 @@ namespace R08546036SHChaoAss10TSP
         {
             theSolver.RunOneIteration();
 
+            SPCThird.Panel2.Refresh();
+
+            // update label information & variables
+            epochRunOneIteration++;
             lbSoFarShortestLength.Text = $"So Far Shortest Length: {theSolver.SoFarTheBestObjective}";
-
-
+            lbIterationCount.Text = $"Epoch: {epochRunOneIteration}";
         }
 
         private void btnRun_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < theSolver.IterationCount; i++)
             {
-
                 theSolver.RunOneIteration();
 
                 // update label informations.
