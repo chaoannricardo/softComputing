@@ -34,6 +34,9 @@ namespace R08546036SHChaoAss10TSP
 
             //MessageBox.Show(Directory.GetCurrentDirectory());
 
+            // initiate data grid
+            informationDataGrid.Rows[0].Cells[0].Value = "Information Gird";
+
         }
 
         private void Open_Click(object sender, EventArgs e)
@@ -44,7 +47,8 @@ namespace R08546036SHChaoAss10TSP
             // refresh painting panel
             SPCThird.Panel2.Refresh();
 
-            lbKnownShortestPath.Text = $"Known for the shortest length: {TSPBenchmarkProblem.GlobalShorestLength4TSP}";
+            informationDataGrid.Rows[1].Cells[0].Value = "Known for the shortest length:";
+            informationDataGrid.Rows[1].Cells[1].Value = TSPBenchmarkProblem.GlobalShorestLength4TSP.ToString();
 
         }
 
@@ -54,8 +58,15 @@ namespace R08546036SHChaoAss10TSP
             TSPBenchmarkProblem.DrawCitesAndARoute(e.Graphics, SPCThird.Panel2.Width,
                SPCThird.Panel2.Height, null);
 
-            if (theSolver != null) TSPBenchmarkProblem.DrawCitiesOptimalRouteAndARoute(e.Graphics, SPCThird.Panel2.Width,
+            try
+            {
+                if (theSolver != null) TSPBenchmarkProblem.DrawCitiesOptimalRouteAndARoute(e.Graphics, SPCThird.Panel2.Width,
                SPCThird.Panel2.Height, theSolver.SoFarTheBestSolution);
+            }
+            catch (System.IndexOutOfRangeException Excetption)
+            {
+                return;
+            }
         }
 
         // create ASP solver
@@ -88,13 +99,23 @@ namespace R08546036SHChaoAss10TSP
         // reset function
         private void btnReset_Click(object sender, EventArgs e)
         {
-            theSolver.Reset();
+            try
+            {
+                theSolver.Reset();
 
-            // update label information
-            lbSoFarShortestLength.Text = $"So Far Shortest Length: {theSolver.SoFarTheBestObjective}";
+                // update label information
+                informationDataGrid.Rows[3].Cells[0].Value = "So Far Shortest Length:";
+                informationDataGrid.Rows[3].Cells[1].Value = theSolver.SoFarTheBestObjective.ToString();
 
-            // update variables
-            epochRunOneIteration = 0;
+                // update variables
+                epochRunOneIteration = 0;
+
+            }
+            catch (System.NullReferenceException Exception)
+            {
+                MessageBox.Show("You have to create solver first.");
+                return;
+            }
         }
 
 
@@ -109,8 +130,10 @@ namespace R08546036SHChaoAss10TSP
 
                 // update label information & variables
                 epochRunOneIteration++;
-                lbSoFarShortestLength.Text = $"So Far Shortest Length: {theSolver.SoFarTheBestObjective}";
-                lbIterationCount.Text = $"Epoch: {epochRunOneIteration}";
+                informationDataGrid.Rows[2].Cells[0].Value = "Epoch:";
+                informationDataGrid.Rows[2].Cells[1].Value = epochRunOneIteration.ToString();
+                informationDataGrid.Rows[3].Cells[0].Value = "So Far Shortest Length:";
+                informationDataGrid.Rows[3].Cells[1].Value = theSolver.SoFarTheBestObjective.ToString();
             }
             catch (System.NullReferenceException)
             {
@@ -126,11 +149,12 @@ namespace R08546036SHChaoAss10TSP
                 {
                     theSolver.RunOneIteration();
 
-                    //SPCThird.Panel2.Refresh();
 
                     // update label informations.
-                    lbIterationCount.Text = $"Epoch: {theSolver.IterationCount}";
-                    lbSoFarShortestLength.Text = $"So Far Shortest Length: {theSolver.SoFarTheBestObjective}";
+                    informationDataGrid.Rows[2].Cells[0].Value = "Epoch:";
+                    informationDataGrid.Rows[2].Cells[1].Value = i.ToString();
+                    informationDataGrid.Rows[3].Cells[0].Value = "So Far Shortest Length:";
+                    informationDataGrid.Rows[3].Cells[1].Value = theSolver.SoFarTheBestObjective.ToString();
                 }
 
                 // messagebox after finished

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -25,11 +26,13 @@ namespace R08546036SHChaoAss10TSP
         // other variables
         double itaValue = 0;
         double solutionObjValue = 0;
+        double fitnessSum;
+        double iterationBest;
+        List<int> traveledCitiesID = new List<int>();
         #endregion
 
         #region properties
-        public enum UpdateType { Original, RankedAntSystem, AntColonySystem };
-        public enum SelectionType { Deterministic, Stochastic };
+        public enum UpdateType { RankedAntSystem, AntColonySystem };
         public enum OptimizationType { Maximization, Minimization };
 
         // properties
@@ -46,15 +49,17 @@ namespace R08546036SHChaoAss10TSP
         }
         public int[] SoFarTheBestSolution { get => soFarTheBestSolution; }
         public double SoFarTheBestObjective { get => soFarTheBestObjective; }
+        public double IterationBestObjective { get => iterationBest; }
         public int NumberOfCities { get; set; } = 0;
         public double InitialPheromoneValue { set; get; } = 0.01;
         public int IterationCount { set; get; } = 100;
         public double[] Fitness { get => fitness; set => fitness = value; }
         public double DeterministicThresh { get; set; } = 0.8;
         public double PheromoneUpdateAmount { get; set; } = 0.0001;
+        public double AlphaValue { get; set; } = 3;
+        public double BetaValue { get; set; } = 2;
         public double[,] FromToDistance { get; }
-        public UpdateType PheromoneUpdateMode { set; get; } = UpdateType.Original;
-        public SelectionType SelectionMode { set; get; } = SelectionType.Deterministic;
+        public UpdateType PheromoneUpdateMode { set; get; } = UpdateType.AntColonySystem;
         public OptimizationType OptimizationMethod { set; get; } = OptimizationType.Minimization;
         #endregion
 
@@ -120,7 +125,18 @@ namespace R08546036SHChaoAss10TSP
             }
 
             // other properties and variables reset
-            soFarTheBestObjective = 0;
+
+
+            switch (OptimizationMethod)
+            {
+                case OptimizationType.Minimization:
+                    soFarTheBestObjective = double.MaxValue;
+                    break;
+                case OptimizationType.Maximization:
+                    soFarTheBestObjective = double.MinValue;
+                    break;
+            }
+
             soFarTheBestSolution = new int[NumberOfCities];
         }
 
@@ -133,9 +149,7 @@ namespace R08546036SHChaoAss10TSP
 
         private void EachAntsConstructItsSolution()
         {
-            int numberCandidates;
             int currentCityID;
-            fitness = new double[NumberOfAnts];
             objectiveValues = new double[NumberOfAnts];
 
             // create solution for each ant
@@ -150,19 +164,20 @@ namespace R08546036SHChaoAss10TSP
                 {
                     availableCityIDs[j] = j;
                 }
-                numberCandidates = NumberOfCities;
                 Array.Clear(fitness, 0, fitness.Length);
+                traveledCitiesID.Clear();
 
                 // Randomly choose city to start with
                 int pos = randomizer.Next(NumberOfCities);
                 // Move to city selected
                 currentCityID = availableCityIDs[pos];
 
-                // Clear-up Step: start city set as (Number of Candidate - 1)
-                availableCityIDs[pos] = availableCityIDs[numberCandidates - 1];
-
                 // Append ant solution
                 solutions[i][0] = currentCityID;
+
+                // add to traveled cities array
+                traveledCitiesID.Add(currentCityID);
+
 
                 /*
                  * Full Construction Step
@@ -173,8 +188,10 @@ namespace R08546036SHChaoAss10TSP
                 for (int s = 1; s < NumberOfCities; s++)
                 {
                     // decrease number of candidate & set initial value of pos
-                    numberCandidates--;
                     pos = -1;
+
+                    // inititate fitness value
+                    fitnessSum = 0;
 
                     // initiate fit value
                     double maxFit = double.MinValue;
@@ -186,72 +203,71 @@ namespace R08546036SHChaoAss10TSP
                         int candidateID = availableCityIDs[j];
 
                         // calculate fit value with pheromone map and ita value
-                        switch (SelectionMode)
+                        itaValue = heuristicValues[s, j];
+                        fitness[j] = Math.Pow(pheromoneMap[currentCityID, candidateID], AlphaValue) *
+                            Math.Pow(pheromoneMap[currentCityID, candidateID], BetaValue);
+                        fitnessSum += fitness[j];
+
+
+                        if (!(traveledCitiesID.Contains(j)))
                         {
-                            case SelectionType.Deterministic:
-                                itaValue = heuristicValues[s, j];
-                                break;
-                            case SelectionType.Stochastic:
-                                // random number based on from to distance
-                                itaValue = heuristicValues[s, j] * randomizer.NextDouble();
-                                break;
+                            // determinstic checking method
+                            switch (OptimizationMethod)
+                            {
+                                case OptimizationType.Maximization:
+                                    if (fitness[j] < maxFit) // 望大 deterministic
+                                    {
+                                        maxFit = fitness[j];
+                                        pos = j;
+                                    }
+                                    break;
+                                case OptimizationType.Minimization:
+                                    if (fitness[j] > maxFit) // 望小 deterministic
+                                    {
+                                        maxFit = fitness[j];
+                                        pos = j;
+                                    }
+                                    break;
+                            }
                         }
-
-                        // calculate fitness value
-                        // todo: * power of alpha
-                        // bug!
-                        fitness[j] = Math.Pow(pheromoneMap[currentCityID, candidateID], itaValue); // need to be done
-
-                        // check if best
-                        switch (OptimizationMethod)
-                        {
-                            case OptimizationType.Maximization:
-                                if (fitness[j] < maxFit) // 望大 deterministic
-                                {
-                                    maxFit = fitness[j];
-                                    pos = j;
-                                }
-                                break;
-                            case OptimizationType.Minimization:
-                                if (fitness[j] > maxFit) // 望小 deterministic
-                                {
-                                    maxFit = fitness[j];
-                                    pos = j;
-                                }
-                                break;
-                        }
-
-                        // decrease number of candidate
-                        numberCandidates--;
                     }
 
-                    double r = randomizer.NextDouble();
+                    // initiate next city id
                     int nextCityID = -1;
 
-                    if (r >= DeterministicThresh)
+                    // decide next city id
+                    switch (PheromoneUpdateMode)
                     {
-                        // stochastic
-                        // randomly select city as next one
-                        pos = randomizer.Next(NumberOfCities);
+                        case UpdateType.AntColonySystem:
+                            if (randomizer.NextDouble() > DeterministicThresh)
+                            {
+                                // stochastic
+                                while (true)
+                                {
+                                    pos = randomizer.Next(NumberOfCities);
+                                    if (!(traveledCitiesID.Contains(pos))) break;
+                                }
+
+                            }
+                            else
+                            {
+                                // deterministic
+                            }
+                            break;
+                        case UpdateType.RankedAntSystem:
+                            break;
+
                     }
-                    else
-                    {
-                        // deterministic
-                        // choose city with best fitness value
-                    }
+
 
                     nextCityID = availableCityIDs[pos];
                     solutions[i][s] = nextCityID;
-
-                    // add to fitnessSum
-                    fitness[i] += fitness[pos];
-
-                    // clear up the position
-                    availableCityIDs[pos] = availableCityIDs[NumberOfCities - 1];
+                    // add to traveled city
+                    traveledCitiesID.Add(nextCityID);
 
                     // add pheromone if segment pheromone dropping is enabled
                     // to do: add pheromone
-                    pheromoneMap[currentCityID, nextCityID] += 0;
+                    pheromoneMap[currentCityID, nextCityID] += PheromoneUpdateAmount;
 
                     currentCityID = nextCityID;
 
@@ -295,13 +311,15 @@ namespace R08546036SHChaoAss10TSP
 
                 for (int j = 0; j < NumberOfCities; j++)
                 {
+                    // continue if j == 0
+                    if (j == 0) continue;
 
                     startCity = solutions[i][j - 1];
                     arrivedCity = solutions[i][j];
 
                     switch (PheromoneUpdateMode)
                     {
-                        case UpdateType.Original:
+                        case UpdateType.AntColonySystem:
                             if (j != 0)
                             {
                                 // pheromone is add by add-up value/fitnessValue
@@ -311,17 +329,14 @@ namespace R08546036SHChaoAss10TSP
                         case UpdateType.RankedAntSystem:
 
                             // add pheromone by elite ant
-                            for (int rank = 0; rank < indexArray.Length; rank++) {
-                                if (indexArray[rank] == i) {
+                            for (int rank = 0; rank < indexArray.Length; rank++)
+                            {
+                                if (indexArray[rank] == i)
+                                {
                                     // pheromone is add by add-up value/fitnessValue
                                     pheromoneMap[startCity, arrivedCity] += ((rankNum - rank) * PheromoneUpdateAmount * fitness[i]);
                                 }
                             }
-
-                            break;
-                        case UpdateType.AntColonySystem:
-
-
                             break;
                     }
 
@@ -333,20 +348,34 @@ namespace R08546036SHChaoAss10TSP
 
         private void ComputeObjectiveValueAndUpdateSoFarTheBest()
         {
-            int[] indexArray = objectiveValues.Take(1)
-           .Select((value, index) => new { value, index })
-           .OrderByDescending(item => item.value)
-           .Select(item => item.index)
-           .ToArray();
+            int[] indexArray;
 
-            switch (OptimizationMethod) {
+            switch (OptimizationMethod)
+            {
                 case OptimizationType.Minimization:
-                    if (objectiveValues[indexArray[0]] < this.soFarTheBestObjective) {
+                    indexArray = objectiveValues.Take(1)
+                        .Select((value, index) => new { value, index })
+                        .OrderBy(item => item.value)
+                        .Select(item => item.index)
+                        .ToArray();
+
+                    iterationBest = objectiveValues[indexArray[0]];
+
+                    if (objectiveValues[indexArray[0]] < this.soFarTheBestObjective)
+                    {
                         this.soFarTheBestObjective = objectiveValues[indexArray[0]];
                         this.soFarTheBestSolution = solutions[indexArray[0]];
                     }
                     break;
                 case OptimizationType.Maximization:
+                    indexArray = objectiveValues.Take(1)
+                        .Select((value, index) => new { value, index })
+                        .OrderByDescending(item => item.value)
+                        .Select(item => item.index)
+                        .ToArray();
+
+                    iterationBest = objectiveValues[indexArray[0]];
+
                     if (objectiveValues[indexArray[0]] > this.soFarTheBestObjective)
                     {
                         this.soFarTheBestObjective = objectiveValues[indexArray[0]];

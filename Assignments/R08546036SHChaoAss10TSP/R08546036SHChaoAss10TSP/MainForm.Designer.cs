@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.btnCreateACSSolver = new System.Windows.Forms.Button();
@@ -40,10 +42,8 @@
             this.gridTheProblemSolver = new System.Windows.Forms.PropertyGrid();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.SPCThird = new System.Windows.Forms.SplitContainer();
-            this.lbSoFarShortestLength = new System.Windows.Forms.Label();
-            this.lbIterationCount = new System.Windows.Forms.Label();
-            this.lbKnownShortestPath = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.chartSolution = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.informationDataGrid = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -57,7 +57,10 @@
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SPCThird)).BeginInit();
+            this.SPCThird.Panel1.SuspendLayout();
             this.SPCThird.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartSolution)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.informationDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -191,10 +194,7 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.Info;
-            this.splitContainer3.Panel2.Controls.Add(this.label1);
-            this.splitContainer3.Panel2.Controls.Add(this.lbSoFarShortestLength);
-            this.splitContainer3.Panel2.Controls.Add(this.lbIterationCount);
-            this.splitContainer3.Panel2.Controls.Add(this.lbKnownShortestPath);
+            this.splitContainer3.Panel2.Controls.Add(this.informationDataGrid);
             this.splitContainer3.Size = new System.Drawing.Size(933, 754);
             this.splitContainer3.SplitterDistance = 402;
             this.splitContainer3.TabIndex = 0;
@@ -206,49 +206,41 @@
             this.SPCThird.Name = "SPCThird";
             this.SPCThird.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
+            // SPCThird.Panel1
+            // 
+            this.SPCThird.Panel1.Controls.Add(this.chartSolution);
+            // 
             // SPCThird.Panel2
             // 
             this.SPCThird.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer4_Panel2_Paint);
             this.SPCThird.Size = new System.Drawing.Size(402, 754);
-            this.SPCThird.SplitterDistance = 86;
+            this.SPCThird.SplitterDistance = 207;
             this.SPCThird.TabIndex = 0;
             // 
-            // lbSoFarShortestLength
+            // chartSolution
             // 
-            this.lbSoFarShortestLength.AutoSize = true;
-            this.lbSoFarShortestLength.Location = new System.Drawing.Point(20, 134);
-            this.lbSoFarShortestLength.Name = "lbSoFarShortestLength";
-            this.lbSoFarShortestLength.Size = new System.Drawing.Size(159, 17);
-            this.lbSoFarShortestLength.TabIndex = 18;
-            this.lbSoFarShortestLength.Text = "So Far Shortest Length:";
+            chartArea3.Name = "ChartArea1";
+            this.chartSolution.ChartAreas.Add(chartArea3);
+            this.chartSolution.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend3.Name = "Legend1";
+            this.chartSolution.Legends.Add(legend3);
+            this.chartSolution.Location = new System.Drawing.Point(0, 0);
+            this.chartSolution.Name = "chartSolution";
+            this.chartSolution.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.chartSolution.Size = new System.Drawing.Size(402, 207);
+            this.chartSolution.TabIndex = 0;
+            this.chartSolution.Text = "chart1";
             // 
-            // lbIterationCount
+            // informationDataGrid
             // 
-            this.lbIterationCount.AutoSize = true;
-            this.lbIterationCount.Location = new System.Drawing.Point(20, 105);
-            this.lbIterationCount.Name = "lbIterationCount";
-            this.lbIterationCount.Size = new System.Drawing.Size(56, 17);
-            this.lbIterationCount.TabIndex = 17;
-            this.lbIterationCount.Text = "Epoch: ";
-            // 
-            // lbKnownShortestPath
-            // 
-            this.lbKnownShortestPath.AutoSize = true;
-            this.lbKnownShortestPath.Location = new System.Drawing.Point(20, 72);
-            this.lbKnownShortestPath.Name = "lbKnownShortestPath";
-            this.lbKnownShortestPath.Size = new System.Drawing.Size(197, 17);
-            this.lbKnownShortestPath.TabIndex = 16;
-            this.lbKnownShortestPath.Text = "Known for the shortest length:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(255, 32);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "Information Panel";
+            this.informationDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.informationDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.informationDataGrid.Location = new System.Drawing.Point(0, 0);
+            this.informationDataGrid.Name = "informationDataGrid";
+            this.informationDataGrid.RowHeadersWidth = 51;
+            this.informationDataGrid.RowTemplate.Height = 24;
+            this.informationDataGrid.Size = new System.Drawing.Size(527, 754);
+            this.informationDataGrid.TabIndex = 20;
             // 
             // MainForm
             // 
@@ -269,11 +261,13 @@
             this.splitContainer2.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
-            this.splitContainer3.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
+            this.SPCThird.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SPCThird)).EndInit();
             this.SPCThird.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartSolution)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.informationDataGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -292,10 +286,8 @@
         private System.Windows.Forms.Button btnCreateACSSolver;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.SplitContainer SPCThird;
-        private System.Windows.Forms.Label lbKnownShortestPath;
-        private System.Windows.Forms.Label lbIterationCount;
-        private System.Windows.Forms.Label lbSoFarShortestLength;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartSolution;
+        private System.Windows.Forms.DataGridView informationDataGrid;
     }
 }
 
