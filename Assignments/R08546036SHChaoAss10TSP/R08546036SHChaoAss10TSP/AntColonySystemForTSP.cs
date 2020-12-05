@@ -29,7 +29,9 @@ namespace R08546036SHChaoAss10TSP
         double itaValue = 0;
         double solutionObjValue = 0;
         double fitnessSum;
+        double[] fitnessNormalized;
         double iterationBest;
+        double iterationAverage;
         List<int> traveledCitiesID = new List<int>();
         #endregion
 
@@ -52,17 +54,19 @@ namespace R08546036SHChaoAss10TSP
         public int[] SoFarTheBestSolution { get => soFarTheBestSolution; }
         public double SoFarTheBestObjective { get => soFarTheBestObjective; }
         public double IterationBestObjective { get => iterationBest; }
-        public int NumberOfCities { get => numberOfCities;}
-        public double InitialPheromoneValue { set; get; } = 0.01;
+        public double IterationAverage { get => iterationAverage; }
+        public int NumberOfCities { get => numberOfCities; }
+        public double InitialPheromoneValue { set; get; } = 0.02;
         public int IterationCount { set; get; } = 100;
         public double[] Fitness { get => fitness; set => fitness = value; }
         public double DeterministicThresh { get; set; } = 0.8;
-        public double PheromoneUpdateAmount { get; set; } = 0.0001;
+        public double PheromoneUpdateAmount { get; set; } = 0.01;
         public double AlphaValue { get; set; } = 3;
         public double BetaValue { get; set; } = 2;
         public double[,] FromToDistance { get; }
         public UpdateType PheromoneUpdateMode { set; get; } = UpdateType.AntColonySystem;
         public OptimizationType OptimizationMethod { set; get; } = OptimizationType.Minimization;
+        
         #endregion
 
         // methods
@@ -154,6 +158,7 @@ namespace R08546036SHChaoAss10TSP
             int currentCityID;
             objectiveValues = new double[NumberOfAnts];
             fitnessAntSum = new double[NumberOfAnts];
+            fitnessNormalized = new double[NumberOfCities];
 
             // create solution for each ant
             for (int i = 0; i < NumberOfAnts; i++)
@@ -235,6 +240,20 @@ namespace R08546036SHChaoAss10TSP
                         }
                     }
 
+                    // calculate fitness normalized array
+                    for (int fitnessi = 0; fitnessi < fitnessNormalized.Length; fitnessi++)
+                    {
+                        if (fitnessi == 0)
+                        {
+                            fitnessNormalized[fitnessi] = fitness[fitnessi] / fitnessSum;
+
+                        }
+                        else
+                        {
+                            fitnessNormalized[fitnessi] = ((fitness[fitnessi] / fitnessSum) + (fitnessNormalized[fitnessi - 1]));
+                        }
+                    }
+
                     // initiate next city id
                     int nextCityID = -1;
 
@@ -245,9 +264,22 @@ namespace R08546036SHChaoAss10TSP
                             if (randomizer.NextDouble() > DeterministicThresh)
                             {
                                 // stochastic
+                                double randomRatio;
                                 while (true)
                                 {
-                                    pos = randomizer.Next(NumberOfCities);
+                                    //randomRatio = randomizer.NextDouble();
+
+                                    //for (int indexi = 0; indexi < fitnessNormalized.Length; indexi++)
+                                    //{
+                                    //    if (fitnessNormalized[indexi] > randomRatio) {
+                                    //        pos = indexi;
+                                    //        break;
+                                    //    }
+                                    //}
+
+                                    // average probability selection
+                                    pos = randomizer.Next(numberOfCities);
+
                                     if (!(traveledCitiesID.Contains(pos))) break;
                                 }
 
@@ -255,13 +287,22 @@ namespace R08546036SHChaoAss10TSP
                             else
                             {
                                 // deterministic
+                                int[] indexArray = fitness.Select((value, index) => new { value, index })
+                                    .OrderByDescending(item => item.value)
+                                    .Select(item => item.index)
+                                    .ToArray();
+
+                                for (int indexi = 0; indexi < numberOfCities; indexi++) {
+                                    pos = indexi;
+                                    if (!(traveledCitiesID.Contains(pos))) break;
+                                }
+
                             }
                             break;
                         case UpdateType.RankedAntSystem:
                             break;
 
                     }
-
 
                     nextCityID = availableCityIDs[pos];
                     solutions[i][s] = nextCityID;
@@ -352,6 +393,8 @@ namespace R08546036SHChaoAss10TSP
         private void ComputeObjectiveValueAndUpdateSoFarTheBest()
         {
             int[] indexArray;
+
+            iterationAverage = ((objectiveValues.Sum()) / NumberOfAnts);
 
             switch (OptimizationMethod)
             {

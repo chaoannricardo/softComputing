@@ -20,6 +20,7 @@ namespace R08546036SHChaoAss10TSP
         int epochRunOneIteration;
         Series theSeriesObj;
         Series iterationBest;
+        Series iterationAverage;
 
         //TSPBenchmarkProblem theProblem;
 
@@ -131,6 +132,12 @@ namespace R08546036SHChaoAss10TSP
                 iterationBest.BorderWidth = 3;
                 chartSolution.Series.Add(iterationBest);
 
+                iterationAverage = new Series("IterationAverage");
+                iterationAverage.ChartType = SeriesChartType.Line;
+                iterationAverage.Color = Color.Green;
+                iterationAverage.BorderWidth = 3;
+                chartSolution.Series.Add(iterationAverage);
+
             }
             catch (System.NullReferenceException Exception)
             {
@@ -158,8 +165,8 @@ namespace R08546036SHChaoAss10TSP
 
                 // add numbers to chart
                 chartSolution.Series[0].Points.AddXY(epochRunOneIteration, theSolver.SoFarTheBestObjective);
-
                 chartSolution.Series[1].Points.AddXY(epochRunOneIteration, theSolver.IterationBestObjective);
+                chartSolution.Series[2].Points.AddXY(epochRunOneIteration, theSolver.IterationAverage);
 
             }
             catch (System.NullReferenceException)
@@ -188,15 +195,12 @@ namespace R08546036SHChaoAss10TSP
 
                     // add numbers to chart
                     chartSolution.Series[0].Points.AddXY(epochRunOneIteration, theSolver.SoFarTheBestObjective);
-
                     chartSolution.Series[1].Points.AddXY(epochRunOneIteration, theSolver.IterationBestObjective);
+                    chartSolution.Series[2].Points.AddXY(epochRunOneIteration, theSolver.IterationAverage);
 
                     // refresh graph panel
                     SPCThird.Panel2.Refresh();
                 }
-
-                // messagebox after finished
-                MessageBox.Show("Iteration limit reached, algorithm ended.");
 
                 // refresh graph panel
                 SPCThird.Panel2.Refresh();
