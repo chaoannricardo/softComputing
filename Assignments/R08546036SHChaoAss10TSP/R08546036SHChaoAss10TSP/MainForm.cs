@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using TSPBenchmark;
 
 namespace R08546036SHChaoAss10TSP
@@ -17,6 +18,8 @@ namespace R08546036SHChaoAss10TSP
         AntColonySystemForTSP theSolver;
         bool initiateFlag;
         int epochRunOneIteration;
+        Series theSeriesObj;
+        Series iterationBest;
 
         //TSPBenchmarkProblem theProblem;
 
@@ -35,8 +38,11 @@ namespace R08546036SHChaoAss10TSP
             //MessageBox.Show(Directory.GetCurrentDirectory());
 
             // initiate data grid
-            informationDataGrid.Rows[0].Cells[0].Value = "Information Gird";
-
+            this.informationDataGrid.Columns.Add("Information Grid", "Information Grid");
+            this.informationDataGrid.Columns.Add("", "");
+            for (int i = 0; i < 3; i++) this.informationDataGrid.Rows.Add();
+            informationDataGrid.Columns[0].Width = 200;
+            informationDataGrid.Columns[1].Width = 250;
         }
 
         private void Open_Click(object sender, EventArgs e)
@@ -47,8 +53,8 @@ namespace R08546036SHChaoAss10TSP
             // refresh painting panel
             SPCThird.Panel2.Refresh();
 
-            informationDataGrid.Rows[1].Cells[0].Value = "Known for the shortest length:";
-            informationDataGrid.Rows[1].Cells[1].Value = TSPBenchmarkProblem.GlobalShorestLength4TSP.ToString();
+            informationDataGrid.Rows[0].Cells[0].Value = "Known for the shortest length:";
+            informationDataGrid.Rows[0].Cells[1].Value = TSPBenchmarkProblem.GlobalShorestLength4TSP.ToString();
 
         }
 
@@ -104,11 +110,26 @@ namespace R08546036SHChaoAss10TSP
                 theSolver.Reset();
 
                 // update label information
-                informationDataGrid.Rows[3].Cells[0].Value = "So Far Shortest Length:";
-                informationDataGrid.Rows[3].Cells[1].Value = theSolver.SoFarTheBestObjective.ToString();
+                informationDataGrid.Rows[2].Cells[0].Value = "So Far Shortest Length:";
+                informationDataGrid.Rows[2].Cells[1].Value = theSolver.SoFarTheBestObjective.ToString();
 
                 // update variables
                 epochRunOneIteration = 0;
+
+                // clear chart
+                chartSolution.Series.Clear();
+
+                theSeriesObj = new Series("SoFarTheBest");
+                theSeriesObj.ChartType = SeriesChartType.Line;
+                theSeriesObj.Color = Color.Red;
+                theSeriesObj.BorderWidth = 3;
+                chartSolution.Series.Add(theSeriesObj);
+
+                iterationBest = new Series("IterationBest");
+                iterationBest.ChartType = SeriesChartType.Line;
+                iterationBest.Color = Color.Orange;
+                iterationBest.BorderWidth = 3;
+                chartSolution.Series.Add(iterationBest);
 
             }
             catch (System.NullReferenceException Exception)
@@ -130,10 +151,16 @@ namespace R08546036SHChaoAss10TSP
 
                 // update label information & variables
                 epochRunOneIteration++;
-                informationDataGrid.Rows[2].Cells[0].Value = "Epoch:";
-                informationDataGrid.Rows[2].Cells[1].Value = epochRunOneIteration.ToString();
-                informationDataGrid.Rows[3].Cells[0].Value = "So Far Shortest Length:";
-                informationDataGrid.Rows[3].Cells[1].Value = theSolver.SoFarTheBestObjective.ToString();
+                informationDataGrid.Rows[1].Cells[0].Value = "Epoch:";
+                informationDataGrid.Rows[1].Cells[1].Value = epochRunOneIteration.ToString();
+                informationDataGrid.Rows[2].Cells[0].Value = "So Far Shortest Length:";
+                informationDataGrid.Rows[2].Cells[1].Value = theSolver.SoFarTheBestObjective.ToString();
+
+                // add numbers to chart
+                chartSolution.Series[0].Points.AddXY(epochRunOneIteration, theSolver.SoFarTheBestObjective);
+
+                chartSolution.Series[1].Points.AddXY(epochRunOneIteration, theSolver.IterationBestObjective);
+
             }
             catch (System.NullReferenceException)
             {
@@ -145,16 +172,27 @@ namespace R08546036SHChaoAss10TSP
         {
             try
             {
+                // initiate time
+                DateTime startTime = DateTime.Now;
+
                 for (int i = 0; i < theSolver.IterationCount; i++)
                 {
                     theSolver.RunOneIteration();
 
 
                     // update label informations.
-                    informationDataGrid.Rows[2].Cells[0].Value = "Epoch:";
-                    informationDataGrid.Rows[2].Cells[1].Value = i.ToString();
-                    informationDataGrid.Rows[3].Cells[0].Value = "So Far Shortest Length:";
-                    informationDataGrid.Rows[3].Cells[1].Value = theSolver.SoFarTheBestObjective.ToString();
+                    informationDataGrid.Rows[1].Cells[0].Value = "Epoch:";
+                    informationDataGrid.Rows[1].Cells[1].Value = i.ToString();
+                    informationDataGrid.Rows[2].Cells[0].Value = "So Far Shortest Length:";
+                    informationDataGrid.Rows[2].Cells[1].Value = theSolver.SoFarTheBestObjective.ToString();
+
+                    // add numbers to chart
+                    chartSolution.Series[0].Points.AddXY(epochRunOneIteration, theSolver.SoFarTheBestObjective);
+
+                    chartSolution.Series[1].Points.AddXY(epochRunOneIteration, theSolver.IterationBestObjective);
+
+                    // refresh graph panel
+                    SPCThird.Panel2.Refresh();
                 }
 
                 // messagebox after finished
@@ -162,6 +200,11 @@ namespace R08546036SHChaoAss10TSP
 
                 // refresh graph panel
                 SPCThird.Panel2.Refresh();
+
+                // calculate taken time
+                DateTime endTime = DateTime.Now;
+                TimeSpan delta = endTime - startTime;
+                lbTime.Text = $"start {startTime}, endtime {endTime}, delta {delta}";
             }
             catch (System.NullReferenceException)
             {

@@ -21,6 +21,8 @@ namespace R08546036SHChaoAss10TSP
         Random randomizer = new Random();
         int[] availableCityIDs;
         double[] fitness;
+        double[] fitnessAntSum;
+        int numberOfCities;
 
 
         // other variables
@@ -50,7 +52,7 @@ namespace R08546036SHChaoAss10TSP
         public int[] SoFarTheBestSolution { get => soFarTheBestSolution; }
         public double SoFarTheBestObjective { get => soFarTheBestObjective; }
         public double IterationBestObjective { get => iterationBest; }
-        public int NumberOfCities { get; set; } = 0;
+        public int NumberOfCities { get => numberOfCities;}
         public double InitialPheromoneValue { set; get; } = 0.01;
         public int IterationCount { set; get; } = 100;
         public double[] Fitness { get => fitness; set => fitness = value; }
@@ -66,7 +68,7 @@ namespace R08546036SHChaoAss10TSP
         // methods
         public AntColonySystemForTSP(int numberOfCities, ObjectiveFuction objFuction, double[,] fromToDistance)
         {
-            this.NumberOfCities = numberOfCities;
+            this.numberOfCities = numberOfCities;
             this.FromToDistance = fromToDistance;
             soFarTheBestSolution = new int[this.NumberOfCities];
             pheromoneMap = new double[numberOfCities, numberOfCities];
@@ -151,6 +153,7 @@ namespace R08546036SHChaoAss10TSP
         {
             int currentCityID;
             objectiveValues = new double[NumberOfAnts];
+            fitnessAntSum = new double[NumberOfAnts];
 
             // create solution for each ant
             for (int i = 0; i < NumberOfAnts; i++)
@@ -323,7 +326,7 @@ namespace R08546036SHChaoAss10TSP
                             if (j != 0)
                             {
                                 // pheromone is add by add-up value/fitnessValue
-                                pheromoneMap[startCity, arrivedCity] += (PheromoneUpdateAmount * fitness[i]);
+                                pheromoneMap[startCity, arrivedCity] += (PheromoneUpdateAmount * objectiveValues[i]);
                             }
                             break;
                         case UpdateType.RankedAntSystem:
@@ -334,7 +337,7 @@ namespace R08546036SHChaoAss10TSP
                                 if (indexArray[rank] == i)
                                 {
                                     // pheromone is add by add-up value/fitnessValue
-                                    pheromoneMap[startCity, arrivedCity] += ((rankNum - rank) * PheromoneUpdateAmount * fitness[i]);
+                                    pheromoneMap[startCity, arrivedCity] += ((rankNum - rank) * PheromoneUpdateAmount * objectiveValues[i]);
                                 }
                             }
                             break;
