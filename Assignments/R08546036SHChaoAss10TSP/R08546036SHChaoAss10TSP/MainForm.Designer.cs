@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.btnCreateACSSolver = new System.Windows.Forms.Button();
@@ -43,7 +43,9 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.SPCThird = new System.Windows.Forms.SplitContainer();
             this.chartSolution = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.informationDataGrid = new System.Windows.Forms.DataGridView();
+            this.datagridPheromone = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lbTime = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -62,7 +64,12 @@
             this.SPCThird.Panel1.SuspendLayout();
             this.SPCThird.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartSolution)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
+            this.splitContainer4.Panel1.SuspendLayout();
+            this.splitContainer4.Panel2.SuspendLayout();
+            this.splitContainer4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.informationDataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridPheromone)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,7 +86,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer1.Size = new System.Drawing.Size(1170, 638);
+            this.splitContainer1.Size = new System.Drawing.Size(1170, 616);
             this.splitContainer1.SplitterDistance = 233;
             this.splitContainer1.TabIndex = 6;
             // 
@@ -104,8 +111,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.gridTheProblemSolver);
-            this.splitContainer2.Size = new System.Drawing.Size(233, 638);
-            this.splitContainer2.SplitterDistance = 278;
+            this.splitContainer2.Size = new System.Drawing.Size(233, 616);
+            this.splitContainer2.SplitterDistance = 267;
             this.splitContainer2.TabIndex = 0;
             // 
             // btnCreateACSSolver
@@ -181,7 +188,7 @@
             this.gridTheProblemSolver.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridTheProblemSolver.Location = new System.Drawing.Point(0, 0);
             this.gridTheProblemSolver.Name = "gridTheProblemSolver";
-            this.gridTheProblemSolver.Size = new System.Drawing.Size(233, 356);
+            this.gridTheProblemSolver.Size = new System.Drawing.Size(233, 345);
             this.gridTheProblemSolver.TabIndex = 2;
             // 
             // splitContainer3
@@ -197,9 +204,9 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.Info;
-            this.splitContainer3.Panel2.Controls.Add(this.informationDataGrid);
-            this.splitContainer3.Size = new System.Drawing.Size(933, 638);
-            this.splitContainer3.SplitterDistance = 402;
+            this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
+            this.splitContainer3.Size = new System.Drawing.Size(933, 616);
+            this.splitContainer3.SplitterDistance = 351;
             this.splitContainer3.TabIndex = 0;
             // 
             // SPCThird
@@ -216,23 +223,41 @@
             // SPCThird.Panel2
             // 
             this.SPCThird.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer4_Panel2_Paint);
-            this.SPCThird.Size = new System.Drawing.Size(402, 638);
-            this.SPCThird.SplitterDistance = 175;
+            this.SPCThird.Size = new System.Drawing.Size(351, 616);
+            this.SPCThird.SplitterDistance = 168;
             this.SPCThird.TabIndex = 0;
             // 
             // chartSolution
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartSolution.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.chartSolution.ChartAreas.Add(chartArea1);
             this.chartSolution.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chartSolution.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            this.chartSolution.Legends.Add(legend1);
             this.chartSolution.Location = new System.Drawing.Point(0, 0);
             this.chartSolution.Name = "chartSolution";
             this.chartSolution.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.chartSolution.Size = new System.Drawing.Size(402, 175);
+            this.chartSolution.Size = new System.Drawing.Size(351, 168);
             this.chartSolution.TabIndex = 0;
             this.chartSolution.Text = "chart1";
+            // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.Name = "splitContainer4";
+            this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.informationDataGrid);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.datagridPheromone);
+            this.splitContainer4.Size = new System.Drawing.Size(578, 616);
+            this.splitContainer4.SplitterDistance = 168;
+            this.splitContainer4.TabIndex = 21;
             // 
             // informationDataGrid
             // 
@@ -242,32 +267,43 @@
             this.informationDataGrid.Name = "informationDataGrid";
             this.informationDataGrid.RowHeadersWidth = 51;
             this.informationDataGrid.RowTemplate.Height = 24;
-            this.informationDataGrid.Size = new System.Drawing.Size(527, 638);
-            this.informationDataGrid.TabIndex = 20;
+            this.informationDataGrid.Size = new System.Drawing.Size(578, 168);
+            this.informationDataGrid.TabIndex = 21;
+            // 
+            // datagridPheromone
+            // 
+            this.datagridPheromone.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datagridPheromone.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.datagridPheromone.Location = new System.Drawing.Point(0, 0);
+            this.datagridPheromone.Name = "datagridPheromone";
+            this.datagridPheromone.RowHeadersWidth = 51;
+            this.datagridPheromone.RowTemplate.Height = 24;
+            this.datagridPheromone.Size = new System.Drawing.Size(578, 444);
+            this.datagridPheromone.TabIndex = 0;
             // 
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lbTime});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 614);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 616);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1170, 24);
+            this.statusStrip1.Size = new System.Drawing.Size(1170, 22);
             this.statusStrip1.TabIndex = 7;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // lbTime
             // 
             this.lbTime.Name = "lbTime";
-            this.lbTime.Size = new System.Drawing.Size(0, 18);
+            this.lbTime.Size = new System.Drawing.Size(0, 16);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1170, 638);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.statusStrip1);
             this.Name = "MainForm";
             this.Text = "ACP Exercise";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -287,7 +323,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.SPCThird)).EndInit();
             this.SPCThird.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartSolution)).EndInit();
+            this.splitContainer4.Panel1.ResumeLayout(false);
+            this.splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
+            this.splitContainer4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.informationDataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridPheromone)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -310,9 +351,11 @@
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.SplitContainer SPCThird;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartSolution;
-        private System.Windows.Forms.DataGridView informationDataGrid;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lbTime;
+        private System.Windows.Forms.SplitContainer splitContainer4;
+        private System.Windows.Forms.DataGridView informationDataGrid;
+        private System.Windows.Forms.DataGridView datagridPheromone;
     }
 }
 

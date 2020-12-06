@@ -57,6 +57,11 @@ namespace R08546036SHChaoAss10TSP
             informationDataGrid.Rows[0].Cells[0].Value = "Known for the shortest length:";
             informationDataGrid.Rows[0].Cells[1].Value = TSPBenchmarkProblem.GlobalShorestLength4TSP.ToString();
 
+            // attempt to clear datagrid pheromone
+            datagridPheromone.CancelEdit();
+            datagridPheromone.Columns.Clear();
+            datagridPheromone.DataSource = null;
+
         }
 
         // painting function to pain on panel 2
@@ -89,6 +94,26 @@ namespace R08546036SHChaoAss10TSP
 
                 // property gird
                 gridTheProblemSolver.SelectedObject = theSolver;
+
+                // add to datagrid pheromone
+                for (int i = 0; i <= theSolver.NumberOfCities; i++) {
+                    if (i == 0) {
+                        this.datagridPheromone.Columns.Add("PheromoneMap", "PheromoneMap");
+                        this.datagridPheromone.Columns.Add($"City {i}", $"City {i}");
+                        this.datagridPheromone.Columns[i].Width = 100;
+                        continue;
+                    }
+                    this.datagridPheromone.Columns.Add($"City {i}", $"City {i}");
+                    this.datagridPheromone.Columns[i].Frozen = false;
+                    this.datagridPheromone.Columns[i].Width = 60;
+                    this.datagridPheromone.Rows.Add();
+                    datagridPheromone.Rows[i].Cells[0].Value = $"City {i}";
+                }
+
+                for (int i = 0; i <= theSolver.NumberOfCities; i++)
+                {
+                    datagridPheromone.Rows[i].Cells[0].Value = $"City {i}";
+                }
 
             }
             catch (System.IndexOutOfRangeException Exception)
@@ -138,6 +163,15 @@ namespace R08546036SHChaoAss10TSP
                 iterationAverage.BorderWidth = 3;
                 chartSolution.Series.Add(iterationAverage);
 
+                // clear pheromone pane;
+                for (int i = 0; i < theSolver.NumberOfCities; i++)
+                {
+                    for (int j = 0; j < theSolver.NumberOfCities; j++)
+                    {
+                        datagridPheromone.Rows[i].Cells[j + 1].Value = 0;
+                    }
+                }
+
             }
             catch (System.NullReferenceException Exception)
             {
@@ -145,7 +179,6 @@ namespace R08546036SHChaoAss10TSP
                 return;
             }
         }
-
 
         // run one iteration function
         private void btnRunOneIteration_Click(object sender, EventArgs e)
@@ -167,6 +200,9 @@ namespace R08546036SHChaoAss10TSP
                 chartSolution.Series[0].Points.AddXY(epochRunOneIteration, theSolver.SoFarTheBestObjective);
                 chartSolution.Series[1].Points.AddXY(epochRunOneIteration, theSolver.IterationBestObjective);
                 chartSolution.Series[2].Points.AddXY(epochRunOneIteration, theSolver.IterationAverage);
+
+                // update pheromone grid
+                UpdatePheromoneGrid(theSolver);
 
             }
             catch (System.NullReferenceException)
@@ -205,6 +241,9 @@ namespace R08546036SHChaoAss10TSP
                 // refresh graph panel
                 SPCThird.Panel2.Refresh();
 
+                // update pheromone grid
+                UpdatePheromoneGrid(theSolver);
+
                 // calculate taken time
                 DateTime endTime = DateTime.Now;
                 TimeSpan delta = endTime - startTime;
@@ -216,5 +255,16 @@ namespace R08546036SHChaoAss10TSP
 
             }
         }
+
+        private void UpdatePheromoneGrid(AntColonySystemForTSP theSolver) {
+            if (theSolver == null) return;
+            for (int i = 0; i < theSolver.NumberOfCities; i++) {
+                for (int j = 0; j < theSolver.NumberOfCities; j++) {
+                    datagridPheromone.Rows[i].Cells[j + 1].Value = Math.Round(theSolver.PheromoneMap[i, j], 2);
+                }
+            }
+        }
+
+
     }
 }

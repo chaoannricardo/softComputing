@@ -29,10 +29,11 @@ namespace R08546036SHChaoAss10TSP
         double itaValue = 0;
         double solutionObjValue = 0;
         double fitnessSum;
-        double[] fitnessNormalized;
         double iterationBest;
         double iterationAverage;
         List<int> traveledCitiesID = new List<int>();
+        List<double> fitnessNormalized = new List<double>();
+        List<int> fitnessNormalizedID = new List<int>();
         #endregion
 
         #region properties
@@ -60,13 +61,14 @@ namespace R08546036SHChaoAss10TSP
         public int IterationCount { set; get; } = 100;
         public double[] Fitness { get => fitness; set => fitness = value; }
         public double DeterministicThresh { get; set; } = 0.8;
-        public double PheromoneUpdateAmount { get; set; } = 0.01;
+        public double PheromoneUpdateAmount { get; set; } = 0.03;
         public double AlphaValue { get; set; } = 3;
         public double BetaValue { get; set; } = 2;
         public double[,] FromToDistance { get; }
         public UpdateType PheromoneUpdateMode { set; get; } = UpdateType.AntColonySystem;
         public OptimizationType OptimizationMethod { set; get; } = OptimizationType.Minimization;
-        
+        public double[,] PheromoneMap { get => pheromoneMap;}
+
         #endregion
 
         // methods
@@ -156,9 +158,9 @@ namespace R08546036SHChaoAss10TSP
         private void EachAntsConstructItsSolution()
         {
             int currentCityID;
+            double randomProb;
             objectiveValues = new double[NumberOfAnts];
             fitnessAntSum = new double[NumberOfAnts];
-            fitnessNormalized = new double[NumberOfCities];
 
             // create solution for each ant
             for (int i = 0; i < NumberOfAnts; i++)
@@ -198,9 +200,6 @@ namespace R08546036SHChaoAss10TSP
                     // decrease number of candidate & set initial value of pos
                     pos = -1;
 
-                    // inititate fitness value
-                    fitnessSum = 0;
-
                     // initiate fit value
                     double maxFit = double.MinValue;
 
@@ -214,8 +213,6 @@ namespace R08546036SHChaoAss10TSP
                         itaValue = heuristicValues[s, j];
                         fitness[j] = Math.Pow(pheromoneMap[currentCityID, candidateID], AlphaValue) *
                             Math.Pow(pheromoneMap[currentCityID, candidateID], BetaValue);
-                        fitnessSum += fitness[j];
-
 
                         if (!(traveledCitiesID.Contains(j)))
                         {
@@ -240,20 +237,6 @@ namespace R08546036SHChaoAss10TSP
                         }
                     }
 
-                    // calculate fitness normalized array
-                    for (int fitnessi = 0; fitnessi < fitnessNormalized.Length; fitnessi++)
-                    {
-                        if (fitnessi == 0)
-                        {
-                            fitnessNormalized[fitnessi] = fitness[fitnessi] / fitnessSum;
-
-                        }
-                        else
-                        {
-                            fitnessNormalized[fitnessi] = ((fitness[fitnessi] / fitnessSum) + (fitnessNormalized[fitnessi - 1]));
-                        }
-                    }
-
                     // initiate next city id
                     int nextCityID = -1;
 
@@ -264,25 +247,43 @@ namespace R08546036SHChaoAss10TSP
                             if (randomizer.NextDouble() > DeterministicThresh)
                             {
                                 // stochastic
-                                double randomRatio;
-                                while (true)
-                                {
-                                    //randomRatio = randomizer.NextDouble();
+                                fitnessNormalized.Clear();
 
-                                    //for (int indexi = 0; indexi < fitnessNormalized.Length; indexi++)
-                                    //{
-                                    //    if (fitnessNormalized[indexi] > randomRatio) {
-                                    //        pos = indexi;
-                                    //        break;
-                                    //    }
-                                    //}
-
-                                    // average probability selection
-                                    pos = randomizer.Next(numberOfCities);
-
-                                    if (!(traveledCitiesID.Contains(pos))) break;
+                                // construct list only include fitness normalized value of city to travel to 
+                                for (int cityToTravel = 0; cityToTravel < numberOfCities; cityToTravel++) {
+                                    if (traveledCitiesID.Contains(cityToTravel)) continue;
+                                    fitnessNormalized.Add(fitness[cityToTravel]);
+                                    fitnessNormalizedID.Add(cityToTravel);
                                 }
 
+                                fitnessSum = fitnessNormalized.Sum();
+
+                                // normalized the value
+                                for (int fitii = 0; fitii < fitnessNormalized.Count(); fitii++) {
+                                    if (fitii == 0)
+                                    {
+                                        fitnessNormalized[fitii] = fitnessNormalized[fitii] / fitnessSum;
+                                    }
+                                    else {
+                                        fitnessNormalized[fitii] = (fitnessNormalized[fitii] / fitnessSum) +
+                                            fitnessNormalized[fitii-1];
+                                    }
+                                }
+
+                                randomProb = randomizer.NextDouble();
+
+                                for (int fitii = 0; fitii < fitnessNormalized.Count(); fitii++)
+                                {
+                                    if (fitnessNormalized[fitii] > randomProb) pos = fitnessNormalizedID[fitii];
+                                    break;
+                                }
+
+                                //while (true)
+                                //{
+                                //    // average probability selection
+                                //    pos = randomizer.Next(numberOfCities);
+                                //    if (!(traveledCitiesID.Contains(pos))) break;
+                                //}
                             }
                             else
                             {
@@ -292,7 +293,8 @@ namespace R08546036SHChaoAss10TSP
                                     .Select(item => item.index)
                                     .ToArray();
 
-                                for (int indexi = 0; indexi < numberOfCities; indexi++) {
+                                for (int indexi = 0; indexi < numberOfCities; indexi++)
+                                {
                                     pos = indexi;
                                     if (!(traveledCitiesID.Contains(pos))) break;
                                 }
@@ -308,6 +310,8 @@ namespace R08546036SHChaoAss10TSP
                     solutions[i][s] = nextCityID;
                     // add to traveled city
                     traveledCitiesID.Add(nextCityID);
+                    // sum up fitness value
+                    fitnessAntSum[i] += maxFit;
 
                     // add pheromone if segment pheromone dropping is enabled
                     // to do: add pheromone
@@ -342,11 +346,32 @@ namespace R08546036SHChaoAss10TSP
             // filter out first 10 ants
             int rankNum = 10;
 
-            indexArray = objectiveValues.Take(rankNum)
-           .Select((value, index) => new { value, index })
-           .OrderByDescending(item => item.value)
-           .Select(item => item.index)
-           .ToArray();
+
+            switch (OptimizationMethod)
+            {
+                case OptimizationType.Minimization:
+                    indexArray = objectiveValues.Take(rankNum)
+                        .Select((value, index) => new { value, index })
+                        .OrderBy(item => item.value)
+                        .Select(item => item.index)
+                        .ToArray();
+                    break;
+                case OptimizationType.Maximization:
+                    indexArray = objectiveValues.Take(rankNum)
+                        .Select((value, index) => new { value, index })
+                        .OrderByDescending(item => item.value)
+                        .Select(item => item.index)
+                        .ToArray();
+                    break;
+                default:
+                    indexArray = objectiveValues.Take(rankNum)
+                        .Select((value, index) => new { value, index })
+                        .OrderBy(item => item.value)
+                        .Select(item => item.index)
+                        .ToArray();
+                    break;
+            }
+
 
             for (int i = 0; i < numberOfAnts; i++)
             {
@@ -367,19 +392,22 @@ namespace R08546036SHChaoAss10TSP
                             if (j != 0)
                             {
                                 // pheromone is add by add-up value/fitnessValue
-                                pheromoneMap[startCity, arrivedCity] += (PheromoneUpdateAmount * objectiveValues[i]);
+                                pheromoneMap[startCity, arrivedCity] += (PheromoneUpdateAmount * (fitnessAntSum[i] / objectiveValues[i]));
                             }
                             break;
                         case UpdateType.RankedAntSystem:
-
                             // add pheromone by elite ant
-                            for (int rank = 0; rank < indexArray.Length; rank++)
+                            if (inRanked)
                             {
-                                if (indexArray[rank] == i)
+                                for (int rank = 0; rank < indexArray.Length; rank++)
                                 {
-                                    // pheromone is add by add-up value/fitnessValue
-                                    pheromoneMap[startCity, arrivedCity] += ((rankNum - rank) * PheromoneUpdateAmount * objectiveValues[i]);
+                                    if (indexArray[rank] == i)
+                                    {
+                                        // pheromone is add by add-up value/fitnessValue
+                                        pheromoneMap[startCity, arrivedCity] += ((rankNum - rank) * PheromoneUpdateAmount * (fitnessAntSum[i] / objectiveValues[i]));
+                                    }
                                 }
+
                             }
                             break;
                     }
