@@ -34,6 +34,7 @@ namespace R08546036SHChaoAss10TSP
         List<int> traveledCitiesID = new List<int>();
         List<double> fitnessNormalized = new List<double>();
         List<int> fitnessNormalizedID = new List<int>();
+        bool[,] needEvaporation;
         #endregion
 
         #region properties
@@ -57,17 +58,18 @@ namespace R08546036SHChaoAss10TSP
         public double IterationBestObjective { get => iterationBest; }
         public double IterationAverage { get => iterationAverage; }
         public int NumberOfCities { get => numberOfCities; }
-        public double InitialPheromoneValue { set; get; } = 0.02;
-        public int IterationCount { set; get; } = 100;
+        public double InitialPheromoneValue { set; get; } = 2;
+        public int IterationCount { set; get; } = 200;
         public double[] Fitness { get => fitness; set => fitness = value; }
-        public double DeterministicThresh { get; set; } = 0.8;
-        public double PheromoneUpdateAmount { get; set; } = 0.03;
+        public double DeterministicThresh { get; set; } = 0.6;
+        public double PheromoneUpdateAmount { get; set; } = 0.2;
         public double AlphaValue { get; set; } = 3;
         public double BetaValue { get; set; } = 2;
         public double[,] FromToDistance { get; }
         public UpdateType PheromoneUpdateMode { set; get; } = UpdateType.AntColonySystem;
         public OptimizationType OptimizationMethod { set; get; } = OptimizationType.Minimization;
         public double[,] PheromoneMap { get => pheromoneMap;}
+        public double EvaporationRate { get; set; } = 0.90;
 
         #endregion
 
@@ -86,6 +88,8 @@ namespace R08546036SHChaoAss10TSP
                 {
                     if (r == c) heuristicValues[r, c] = 1e10;
                     else heuristicValues[r, c] = 1.0 / fromToDistance[r, c];
+
+                    pheromoneMap[r, c] = InitialPheromoneValue;
                 }
             }
 
@@ -98,6 +102,16 @@ namespace R08546036SHChaoAss10TSP
             }
 
             soFarTheBestSolution = TSPBenchmark.TSPBenchmarkProblem.GetGreedyShortestRoute();
+
+            needEvaporation = new bool[numberOfCities, numberOfCities];
+
+            // reset evaporation matrix
+            for (int i = 0; i < numberOfCities; i++) {
+                for (int j = 0; j < numberOfCities; j++) {
+                    needEvaporation[i, j] = true;    
+                }
+            }
+
         }
 
         internal void Reset()
@@ -372,6 +386,14 @@ namespace R08546036SHChaoAss10TSP
                     break;
             }
 
+            // reset evaporation matrix
+            for (int i = 0; i < numberOfCities; i++)
+            {
+                for (int j = 0; j < numberOfCities; j++)
+                {
+                    needEvaporation[i, j] = true;
+                }
+            }
 
             for (int i = 0; i < numberOfAnts; i++)
             {
@@ -393,6 +415,7 @@ namespace R08546036SHChaoAss10TSP
                             {
                                 // pheromone is add by add-up value/fitnessValue
                                 pheromoneMap[startCity, arrivedCity] += (PheromoneUpdateAmount * (fitnessAntSum[i] / objectiveValues[i]));
+                                needEvaporation[startCity, arrivedCity] = false;
                             }
                             break;
                         case UpdateType.RankedAntSystem:
@@ -405,6 +428,7 @@ namespace R08546036SHChaoAss10TSP
                                     {
                                         // pheromone is add by add-up value/fitnessValue
                                         pheromoneMap[startCity, arrivedCity] += ((rankNum - rank) * PheromoneUpdateAmount * (fitnessAntSum[i] / objectiveValues[i]));
+                                        needEvaporation[startCity, arrivedCity] = false;
                                     }
                                 }
 
@@ -412,7 +436,25 @@ namespace R08546036SHChaoAss10TSP
                             break;
                     }
 
+                }
+            }
 
+            // evaporation
+            for (int i = 0; i < numberOfCities; i++)
+            {
+                for (int j = 0; j < numberOfCities; j++)
+                {
+                    if (needEvaporation[i, j] == true) {
+                        pheromoneMap[i, j] *= EvaporationRate;
+
+                        if (pheromoneMap[i, j] < 0.001)
+                        {
+                            pheromoneMap[i, j] = InitialPheromoneValue / 10;
+                        }
+                        else if (pheromoneMap[i, j] > InitialPheromoneValue * 1000) {
+                            pheromoneMap[i, j] = InitialPheromoneValue * 100;
+                        }
+                    }
                 }
             }
 
