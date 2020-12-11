@@ -33,12 +33,16 @@
             this.spcMain = new System.Windows.Forms.SplitContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.spcSecond = new System.Windows.Forms.SplitContainer();
+            this.chartSolution = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.gridTheSolver = new System.Windows.Forms.PropertyGrid();
             this.btnOpen = new System.Windows.Forms.Button();
             this.btnNewProb = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.btnRunOneIteration = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.btnRun = new System.Windows.Forms.Button();
+            this.dataInfo = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.spcMain)).BeginInit();
             this.spcMain.Panel2.SuspendLayout();
             this.spcMain.SuspendLayout();
@@ -49,10 +53,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.spcSecond)).BeginInit();
             this.spcSecond.Panel1.SuspendLayout();
             this.spcSecond.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartSolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataInfo)).BeginInit();
             this.SuspendLayout();
             // 
             // spcMain
@@ -101,10 +107,23 @@
             // 
             // spcSecond.Panel1
             // 
-            this.spcSecond.Panel1.Controls.Add(this.chart1);
+            this.spcSecond.Panel1.Controls.Add(this.chartSolution);
             this.spcSecond.Size = new System.Drawing.Size(390, 489);
             this.spcSecond.SplitterDistance = 130;
             this.spcSecond.TabIndex = 5;
+            // 
+            // chartSolution
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chartSolution.ChartAreas.Add(chartArea1);
+            this.chartSolution.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chartSolution.Legends.Add(legend1);
+            this.chartSolution.Location = new System.Drawing.Point(0, 0);
+            this.chartSolution.Name = "chartSolution";
+            this.chartSolution.Size = new System.Drawing.Size(390, 130);
+            this.chartSolution.TabIndex = 0;
+            this.chartSolution.Text = "chart1";
             // 
             // splitContainer2
             // 
@@ -112,6 +131,10 @@
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.dataInfo);
             // 
             // splitContainer2.Panel2
             // 
@@ -150,7 +173,7 @@
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(139, 54);
+            this.btnCreate.Location = new System.Drawing.Point(129, 54);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(202, 35);
             this.btnCreate.TabIndex = 3;
@@ -158,24 +181,55 @@
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
-            // chart1
+            // btnRunOneIteration
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(0, 0);
-            this.chart1.Name = "chart1";
-            this.chart1.Size = new System.Drawing.Size(390, 130);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
+            this.btnRunOneIteration.Location = new System.Drawing.Point(753, 54);
+            this.btnRunOneIteration.Name = "btnRunOneIteration";
+            this.btnRunOneIteration.Size = new System.Drawing.Size(202, 35);
+            this.btnRunOneIteration.TabIndex = 4;
+            this.btnRunOneIteration.Text = "Run One Iteration";
+            this.btnRunOneIteration.UseVisualStyleBackColor = true;
+            this.btnRunOneIteration.Click += new System.EventHandler(this.btnRunOneIteration_Click);
+            // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(337, 54);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(202, 35);
+            this.btnReset.TabIndex = 5;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // btnRun
+            // 
+            this.btnRun.Location = new System.Drawing.Point(545, 54);
+            this.btnRun.Name = "btnRun";
+            this.btnRun.Size = new System.Drawing.Size(202, 35);
+            this.btnRun.TabIndex = 6;
+            this.btnRun.Text = "Run to End";
+            this.btnRun.UseVisualStyleBackColor = true;
+            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
+            // 
+            // dataInfo
+            // 
+            this.dataInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataInfo.Location = new System.Drawing.Point(0, 0);
+            this.dataInfo.Name = "dataInfo";
+            this.dataInfo.RowHeadersWidth = 51;
+            this.dataInfo.RowTemplate.Height = 24;
+            this.dataInfo.Size = new System.Drawing.Size(388, 134);
+            this.dataInfo.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1218, 610);
+            this.Controls.Add(this.btnRun);
+            this.Controls.Add(this.btnReset);
+            this.Controls.Add(this.btnRunOneIteration);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.btnNewProb);
             this.Controls.Add(this.btnOpen);
@@ -193,10 +247,12 @@
             this.spcSecond.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spcSecond)).EndInit();
             this.spcSecond.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartSolution)).EndInit();
+            this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataInfo)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -211,7 +267,11 @@
         private System.Windows.Forms.SplitContainer spcSecond;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.PropertyGrid gridTheSolver;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartSolution;
+        private System.Windows.Forms.Button btnRunOneIteration;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Button btnRun;
+        private System.Windows.Forms.DataGridView dataInfo;
     }
 }
 
