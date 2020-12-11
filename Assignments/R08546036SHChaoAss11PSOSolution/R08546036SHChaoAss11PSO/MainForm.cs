@@ -55,6 +55,9 @@ namespace R08546036SHChaoAss11PSO
             theSolver = new ParticalSwarmOptimizationSolver(theProblem.Dimension, type,
                 theProblem.LowerBound, theProblem.UpperBound, theProblem.GetObjectiveValue);
 
+            gridTheSolver.SelectedObject = theSolver;
+
+
 
         }
     }

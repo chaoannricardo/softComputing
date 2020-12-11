@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +43,7 @@
             this.pgbStatus = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbOpen = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -64,7 +65,6 @@
             this.rbtnPSO = new System.Windows.Forms.RadioButton();
             this.labSoFarTheBestObjectiveValue = new System.Windows.Forms.Label();
             this.ppgTarget = new System.Windows.Forms.PropertyGrid();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -91,7 +91,7 @@
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.menuStrip1.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.menuStrip1.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
@@ -99,7 +99,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(1444, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(1036, 32);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -108,20 +108,20 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmOpen});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(42, 21);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(53, 26);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // tsmOpen
             // 
             this.tsmOpen.Name = "tsmOpen";
-            this.tsmOpen.Size = new System.Drawing.Size(110, 22);
+            this.tsmOpen.Size = new System.Drawing.Size(140, 26);
             this.tsmOpen.Text = "Open";
             this.tsmOpen.Click += new System.EventHandler(this.OpenABenchmark);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(56, 26);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // statusStrip1
@@ -130,19 +130,19 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.labStatus,
             this.pgbStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 850);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 547);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1444, 31);
+            this.statusStrip1.Size = new System.Drawing.Size(1036, 33);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // labStatus
             // 
             this.labStatus.AutoSize = false;
-            this.labStatus.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labStatus.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labStatus.Name = "labStatus";
-            this.labStatus.Size = new System.Drawing.Size(1175, 26);
+            this.labStatus.Size = new System.Drawing.Size(767, 27);
             this.labStatus.Spring = true;
             this.labStatus.Text = "Time Spent";
             // 
@@ -159,9 +159,9 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbOpen,
             this.toolStripButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 27);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 32);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1444, 32);
+            this.toolStrip1.Size = new System.Drawing.Size(1036, 32);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -171,21 +171,31 @@
             this.tsbOpen.Image = global::R08546019YTKanAss11.Properties.Resources.open;
             this.tsbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOpen.Name = "tsbOpen";
-            this.tsbOpen.Size = new System.Drawing.Size(155, 29);
+            this.tsbOpen.Size = new System.Drawing.Size(200, 29);
             this.tsbOpen.Text = "Open A Benchmark";
             this.tsbOpen.Click += new System.EventHandler(this.OpenABenchmark);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(29, 29);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 59);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 64);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1444, 791);
-            this.splitContainer1.SplitterDistance = 383;
+            this.splitContainer1.Size = new System.Drawing.Size(1036, 483);
+            this.splitContainer1.SplitterDistance = 274;
             this.splitContainer1.TabIndex = 3;
             // 
             // splitContainer2
@@ -201,8 +211,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer2.Size = new System.Drawing.Size(1057, 791);
-            this.splitContainer2.SplitterDistance = 694;
+            this.splitContainer2.Size = new System.Drawing.Size(758, 483);
+            this.splitContainer2.SplitterDistance = 497;
             this.splitContainer2.TabIndex = 0;
             // 
             // splitContainer3
@@ -219,34 +229,34 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.tbcObjNSol);
-            this.splitContainer3.Size = new System.Drawing.Size(694, 791);
-            this.splitContainer3.SplitterDistance = 339;
+            this.splitContainer3.Size = new System.Drawing.Size(497, 483);
+            this.splitContainer3.SplitterDistance = 207;
             this.splitContainer3.TabIndex = 0;
             // 
             // mainChart
             // 
             chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea1.AxisX.IsLabelAutoFit = false;
-            chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             chartArea1.AxisX.LineColor = System.Drawing.Color.DimGray;
             chartArea1.AxisX.LineWidth = 2;
             chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.Silver;
             chartArea1.AxisX.Title = "Iteration";
-            chartArea1.AxisX.TitleFont = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             chartArea1.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea1.AxisY.IsLabelAutoFit = false;
-            chartArea1.AxisY.LabelStyle.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisY.LabelStyle.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             chartArea1.AxisY.LineColor = System.Drawing.Color.DimGray;
             chartArea1.AxisY.LineWidth = 2;
             chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.Silver;
             chartArea1.AxisY.Title = "Objective";
-            chartArea1.AxisY.TitleFont = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             chartArea1.Name = "ChartArea1";
             this.mainChart.ChartAreas.Add(chartArea1);
             this.mainChart.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.Alignment = System.Drawing.StringAlignment.Center;
             legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend1.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend1.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             legend1.IsTextAutoFit = false;
             legend1.Name = "Legend1";
             this.mainChart.Legends.Add(legend1);
@@ -256,27 +266,27 @@
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Color = System.Drawing.Color.YellowGreen;
-            series1.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series1.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series1.Legend = "Legend1";
             series1.Name = "Iteration Average";
             series2.BorderWidth = 2;
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series2.Color = System.Drawing.Color.DeepSkyBlue;
-            series2.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series2.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series2.Legend = "Legend1";
             series2.Name = "Iteration Best";
             series3.BorderWidth = 2;
             series3.ChartArea = "ChartArea1";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series3.Color = System.Drawing.Color.Red;
-            series3.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series3.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series3.Legend = "Legend1";
             series3.Name = "So Far The Best";
             this.mainChart.Series.Add(series1);
             this.mainChart.Series.Add(series2);
             this.mainChart.Series.Add(series3);
-            this.mainChart.Size = new System.Drawing.Size(694, 339);
+            this.mainChart.Size = new System.Drawing.Size(497, 207);
             this.mainChart.TabIndex = 0;
             this.mainChart.Text = "chart1";
             // 
@@ -288,16 +298,16 @@
             this.tbcObjNSol.Location = new System.Drawing.Point(0, 0);
             this.tbcObjNSol.Name = "tbcObjNSol";
             this.tbcObjNSol.SelectedIndex = 0;
-            this.tbcObjNSol.Size = new System.Drawing.Size(694, 448);
+            this.tbcObjNSol.Size = new System.Drawing.Size(497, 272);
             this.tbcObjNSol.TabIndex = 0;
             // 
             // pagObjective
             // 
-            this.pagObjective.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.pagObjective.Location = new System.Drawing.Point(4, 25);
+            this.pagObjective.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.pagObjective.Location = new System.Drawing.Point(4, 28);
             this.pagObjective.Name = "pagObjective";
             this.pagObjective.Padding = new System.Windows.Forms.Padding(3);
-            this.pagObjective.Size = new System.Drawing.Size(686, 419);
+            this.pagObjective.Size = new System.Drawing.Size(489, 240);
             this.pagObjective.TabIndex = 0;
             this.pagObjective.Text = "Objective";
             this.pagObjective.UseVisualStyleBackColor = true;
@@ -306,11 +316,11 @@
             // 
             this.pagSolutionsInfo.Controls.Add(this.ltbSolutions);
             this.pagSolutionsInfo.Controls.Add(this.ckxShowSolutions);
-            this.pagSolutionsInfo.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.pagSolutionsInfo.Location = new System.Drawing.Point(4, 22);
+            this.pagSolutionsInfo.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.pagSolutionsInfo.Location = new System.Drawing.Point(4, 25);
             this.pagSolutionsInfo.Name = "pagSolutionsInfo";
             this.pagSolutionsInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.pagSolutionsInfo.Size = new System.Drawing.Size(811, 471);
+            this.pagSolutionsInfo.Size = new System.Drawing.Size(686, 419);
             this.pagSolutionsInfo.TabIndex = 1;
             this.pagSolutionsInfo.Text = "Solutions Info";
             this.pagSolutionsInfo.UseVisualStyleBackColor = true;
@@ -322,11 +332,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ltbSolutions.FormattingEnabled = true;
             this.ltbSolutions.HorizontalScrollbar = true;
-            this.ltbSolutions.ItemHeight = 16;
+            this.ltbSolutions.ItemHeight = 19;
             this.ltbSolutions.Location = new System.Drawing.Point(15, 47);
             this.ltbSolutions.Name = "ltbSolutions";
             this.ltbSolutions.ScrollAlwaysVisible = true;
-            this.ltbSolutions.Size = new System.Drawing.Size(780, 404);
+            this.ltbSolutions.Size = new System.Drawing.Size(655, 346);
             this.ltbSolutions.TabIndex = 15;
             // 
             // ckxShowSolutions
@@ -334,7 +344,7 @@
             this.ckxShowSolutions.AutoSize = true;
             this.ckxShowSolutions.Location = new System.Drawing.Point(15, 13);
             this.ckxShowSolutions.Name = "ckxShowSolutions";
-            this.ckxShowSolutions.Size = new System.Drawing.Size(113, 20);
+            this.ckxShowSolutions.Size = new System.Drawing.Size(139, 23);
             this.ckxShowSolutions.TabIndex = 14;
             this.ckxShowSolutions.Text = "Show Solutions";
             this.ckxShowSolutions.UseVisualStyleBackColor = true;
@@ -362,18 +372,18 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.ppgTarget);
-            this.splitContainer4.Size = new System.Drawing.Size(359, 791);
-            this.splitContainer4.SplitterDistance = 343;
+            this.splitContainer4.Size = new System.Drawing.Size(257, 483);
+            this.splitContainer4.SplitterDistance = 209;
             this.splitContainer4.TabIndex = 0;
             // 
             // labSoFarTheBestSolution
             // 
             this.labSoFarTheBestSolution.AutoSize = true;
-            this.labSoFarTheBestSolution.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labSoFarTheBestSolution.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labSoFarTheBestSolution.ForeColor = System.Drawing.Color.Navy;
             this.labSoFarTheBestSolution.Location = new System.Drawing.Point(7, 230);
             this.labSoFarTheBestSolution.Name = "labSoFarTheBestSolution";
-            this.labSoFarTheBestSolution.Size = new System.Drawing.Size(169, 17);
+            this.labSoFarTheBestSolution.Size = new System.Drawing.Size(227, 22);
             this.labSoFarTheBestSolution.TabIndex = 10;
             this.labSoFarTheBestSolution.Text = "So Far The Best Solution :  ";
             // 
@@ -383,11 +393,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbSoFarTheBestSolution.BackColor = System.Drawing.SystemColors.Control;
             this.rtbSoFarTheBestSolution.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbSoFarTheBestSolution.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.rtbSoFarTheBestSolution.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.rtbSoFarTheBestSolution.ForeColor = System.Drawing.Color.Navy;
             this.rtbSoFarTheBestSolution.Location = new System.Drawing.Point(10, 248);
             this.rtbSoFarTheBestSolution.Name = "rtbSoFarTheBestSolution";
-            this.rtbSoFarTheBestSolution.Size = new System.Drawing.Size(340, 181);
+            this.rtbSoFarTheBestSolution.Size = new System.Drawing.Size(238, 181);
             this.rtbSoFarTheBestSolution.TabIndex = 18;
             this.rtbSoFarTheBestSolution.Text = "";
             // 
@@ -396,10 +406,10 @@
             this.btnRunToEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRunToEnd.BackColor = System.Drawing.Color.PowderBlue;
-            this.btnRunToEnd.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRunToEnd.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.btnRunToEnd.Location = new System.Drawing.Point(10, 142);
             this.btnRunToEnd.Name = "btnRunToEnd";
-            this.btnRunToEnd.Size = new System.Drawing.Size(340, 30);
+            this.btnRunToEnd.Size = new System.Drawing.Size(238, 30);
             this.btnRunToEnd.TabIndex = 17;
             this.btnRunToEnd.Text = "Run To End";
             this.btnRunToEnd.UseVisualStyleBackColor = false;
@@ -410,10 +420,10 @@
             this.btnRunOneIteration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRunOneIteration.BackColor = System.Drawing.Color.PowderBlue;
-            this.btnRunOneIteration.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnRunOneIteration.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.btnRunOneIteration.Location = new System.Drawing.Point(10, 107);
             this.btnRunOneIteration.Name = "btnRunOneIteration";
-            this.btnRunOneIteration.Size = new System.Drawing.Size(340, 30);
+            this.btnRunOneIteration.Size = new System.Drawing.Size(238, 30);
             this.btnRunOneIteration.TabIndex = 16;
             this.btnRunOneIteration.Text = "Run One Iteration";
             this.btnRunOneIteration.UseVisualStyleBackColor = false;
@@ -424,10 +434,10 @@
             this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnReset.BackColor = System.Drawing.Color.PowderBlue;
-            this.btnReset.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnReset.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.btnReset.Location = new System.Drawing.Point(10, 72);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(340, 30);
+            this.btnReset.Size = new System.Drawing.Size(238, 30);
             this.btnReset.TabIndex = 15;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = false;
@@ -438,10 +448,10 @@
             this.btnCreateSolver.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreateSolver.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btnCreateSolver.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnCreateSolver.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.btnCreateSolver.Location = new System.Drawing.Point(10, 37);
             this.btnCreateSolver.Name = "btnCreateSolver";
-            this.btnCreateSolver.Size = new System.Drawing.Size(340, 30);
+            this.btnCreateSolver.Size = new System.Drawing.Size(238, 30);
             this.btnCreateSolver.TabIndex = 14;
             this.btnCreateSolver.Text = "Create Solver";
             this.btnCreateSolver.UseVisualStyleBackColor = false;
@@ -452,7 +462,7 @@
             this.ckxRealTimeUpdate.AutoSize = true;
             this.ckxRealTimeUpdate.Location = new System.Drawing.Point(10, 180);
             this.ckxRealTimeUpdate.Name = "ckxRealTimeUpdate";
-            this.ckxRealTimeUpdate.Size = new System.Drawing.Size(130, 20);
+            this.ckxRealTimeUpdate.Size = new System.Drawing.Size(160, 23);
             this.ckxRealTimeUpdate.TabIndex = 13;
             this.ckxRealTimeUpdate.Text = "Real-time Update";
             this.ckxRealTimeUpdate.UseVisualStyleBackColor = true;
@@ -460,11 +470,11 @@
             // rbtnGA
             // 
             this.rbtnGA.AutoSize = true;
-            this.rbtnGA.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.rbtnGA.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.rbtnGA.ForeColor = System.Drawing.Color.Navy;
             this.rbtnGA.Location = new System.Drawing.Point(79, 8);
             this.rbtnGA.Name = "rbtnGA";
-            this.rbtnGA.Size = new System.Drawing.Size(45, 21);
+            this.rbtnGA.Size = new System.Drawing.Size(56, 26);
             this.rbtnGA.TabIndex = 12;
             this.rbtnGA.Text = "GA";
             this.rbtnGA.UseVisualStyleBackColor = true;
@@ -473,11 +483,11 @@
             // 
             this.rbtnPSO.AutoSize = true;
             this.rbtnPSO.Checked = true;
-            this.rbtnPSO.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.rbtnPSO.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.rbtnPSO.ForeColor = System.Drawing.Color.Navy;
             this.rbtnPSO.Location = new System.Drawing.Point(10, 8);
             this.rbtnPSO.Name = "rbtnPSO";
-            this.rbtnPSO.Size = new System.Drawing.Size(53, 21);
+            this.rbtnPSO.Size = new System.Drawing.Size(66, 26);
             this.rbtnPSO.TabIndex = 11;
             this.rbtnPSO.TabStop = true;
             this.rbtnPSO.Text = "PSO";
@@ -486,11 +496,11 @@
             // labSoFarTheBestObjectiveValue
             // 
             this.labSoFarTheBestObjectiveValue.AutoSize = true;
-            this.labSoFarTheBestObjectiveValue.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labSoFarTheBestObjectiveValue.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labSoFarTheBestObjectiveValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.labSoFarTheBestObjectiveValue.Location = new System.Drawing.Point(7, 206);
             this.labSoFarTheBestObjectiveValue.Name = "labSoFarTheBestObjectiveValue";
-            this.labSoFarTheBestObjectiveValue.Size = new System.Drawing.Size(211, 17);
+            this.labSoFarTheBestObjectiveValue.Size = new System.Drawing.Size(284, 22);
             this.labSoFarTheBestObjectiveValue.TabIndex = 9;
             this.labSoFarTheBestObjectiveValue.Text = "So Far The Best Objective Value : ";
             // 
@@ -499,29 +509,19 @@
             this.ppgTarget.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ppgTarget.Location = new System.Drawing.Point(0, 0);
             this.ppgTarget.Name = "ppgTarget";
-            this.ppgTarget.Size = new System.Drawing.Size(359, 444);
+            this.ppgTarget.Size = new System.Drawing.Size(257, 270);
             this.ppgTarget.TabIndex = 0;
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(29, 29);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1444, 881);
+            this.ClientSize = new System.Drawing.Size(1036, 580);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";

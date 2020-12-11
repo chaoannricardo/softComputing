@@ -28,16 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.spcMain = new System.Windows.Forms.SplitContainer();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.spcSecond = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.gridTheSolver = new System.Windows.Forms.PropertyGrid();
             this.btnOpen = new System.Windows.Forms.Button();
             this.btnNewProb = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.spcMain)).BeginInit();
             this.spcMain.Panel2.SuspendLayout();
             this.spcMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spcSecond)).BeginInit();
+            this.spcSecond.Panel1.SuspendLayout();
             this.spcSecond.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // spcMain
@@ -55,10 +70,27 @@
             // spcMain.Panel2
             // 
             this.spcMain.Panel2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.spcMain.Panel2.Controls.Add(this.spcSecond);
-            this.spcMain.Size = new System.Drawing.Size(1119, 489);
-            this.spcMain.SplitterDistance = 373;
+            this.spcMain.Panel2.Controls.Add(this.splitContainer1);
+            this.spcMain.Size = new System.Drawing.Size(1178, 489);
+            this.spcMain.SplitterDistance = 392;
             this.spcMain.TabIndex = 0;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.spcSecond);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Size = new System.Drawing.Size(782, 489);
+            this.splitContainer1.SplitterDistance = 390;
+            this.splitContainer1.TabIndex = 0;
             // 
             // spcSecond
             // 
@@ -66,9 +98,35 @@
             this.spcSecond.Location = new System.Drawing.Point(0, 0);
             this.spcSecond.Name = "spcSecond";
             this.spcSecond.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.spcSecond.Size = new System.Drawing.Size(742, 489);
-            this.spcSecond.SplitterDistance = 83;
-            this.spcSecond.TabIndex = 0;
+            // 
+            // spcSecond.Panel1
+            // 
+            this.spcSecond.Panel1.Controls.Add(this.chart1);
+            this.spcSecond.Size = new System.Drawing.Size(390, 489);
+            this.spcSecond.SplitterDistance = 130;
+            this.spcSecond.TabIndex = 5;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.gridTheSolver);
+            this.splitContainer2.Size = new System.Drawing.Size(388, 489);
+            this.splitContainer2.SplitterDistance = 134;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // gridTheSolver
+            // 
+            this.gridTheSolver.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridTheSolver.Location = new System.Drawing.Point(0, 0);
+            this.gridTheSolver.Name = "gridTheSolver";
+            this.gridTheSolver.Size = new System.Drawing.Size(388, 351);
+            this.gridTheSolver.TabIndex = 0;
             // 
             // btnOpen
             // 
@@ -94,17 +152,30 @@
             // 
             this.btnCreate.Location = new System.Drawing.Point(139, 54);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(110, 35);
+            this.btnCreate.Size = new System.Drawing.Size(202, 35);
             this.btnCreate.TabIndex = 3;
             this.btnCreate.Text = "Create PSO Solver";
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(0, 0);
+            this.chart1.Name = "chart1";
+            this.chart1.Size = new System.Drawing.Size(390, 130);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1159, 610);
+            this.ClientSize = new System.Drawing.Size(1218, 610);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.btnNewProb);
             this.Controls.Add(this.btnOpen);
@@ -115,8 +186,17 @@
             this.spcMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spcMain)).EndInit();
             this.spcMain.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.spcSecond.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spcSecond)).EndInit();
             this.spcSecond.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -124,10 +204,14 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer spcMain;
-        private System.Windows.Forms.SplitContainer spcSecond;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Button btnNewProb;
         private System.Windows.Forms.Button btnCreate;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer spcSecond;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.PropertyGrid gridTheSolver;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
 
