@@ -171,8 +171,6 @@ namespace R08546036SHChaoAss12
                 }
             }
 
-            
-
 
         }
 
@@ -212,6 +210,46 @@ namespace R08546036SHChaoAss12
         {
             // add something
 
+            // assign input & target to temp array
+            float[,] tempInput = inputs;
+            float[,] tempTarget = targets;
+
+            int[] indices = new int[inputNumber];
+
+            // initiate array with indices value and randomize indices
+            for (int i = 0; i < inputNumber; i++) {
+                indices[i] = i;
+            }
+            indices = indices.OrderBy(x => randomizer.Next()).ToArray();
+
+            // assign new value to input
+            for (int i = 0; i < indices.Length; i++) {
+                // reassign random normalized input
+                for (int j = 0; j < inputDimension; j++) {
+                    inputs[i, j] = tempInput[indices[i], j];
+                }
+                // reassign random normalized target
+                for (int j = 0; j < targetDimension; j++) {
+                    targets[i, j] = tempTarget[indices[i], j];
+                }
+            }
+
+            tempInput = originalInputs;
+            tempTarget = originalTargets;
+            // assign new value to original input
+            for (int i = 0; i < indices.Length; i++)
+            {
+                // reassign random normalized input
+                for (int j = 0; j < inputDimension; j++)
+                {
+                    originalInputs[i, j] = tempInput[indices[i], j];
+                }
+                // reassign random normalized target
+                for (int j = 0; j < targetDimension; j++)
+                {
+                    originalTargets[i, j] = tempTarget[indices[i], j];
+                }
+            }
 
         }
 
@@ -223,6 +261,7 @@ namespace R08546036SHChaoAss12
         public void ResetWeightsAndInitialCondition()
         {
             // add something
+
         }
 
 
@@ -252,8 +291,6 @@ namespace R08546036SHChaoAss12
             // add something
         }
 
-
-
         /// <summary> 
         /// Compute the output vector for an input vector. Both vectors are in the raw 
         /// format. The input vector is subject to scaling first before forward computing. 
@@ -268,6 +305,8 @@ namespace R08546036SHChaoAss12
             results = new float[targetDimension];
 
             // add something
+
+
             return results;
         }
 

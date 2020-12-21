@@ -54,6 +54,7 @@ namespace R08546036SHChaoAss12
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            theSolver.ResetWeightsAndInitialCondition();
 
         }
 
