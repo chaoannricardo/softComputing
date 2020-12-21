@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace R08546036SHChaoAss12
     {
         #region variables
         float[][] x; // neuron values 
+        Point[][] pts;
         float[][][] w; // weights 
         float[][] e; // epsilon; partial derivative of error with respect to net value. 
 
@@ -128,7 +130,7 @@ namespace R08546036SHChaoAss12
                     if (j < inputDimension)
                     {
                         // input section
-                        
+
                         // intiate upper and lower bound if first iteration
                         if (i == 0)
                         {
@@ -145,25 +147,29 @@ namespace R08546036SHChaoAss12
                         // target section
 
                         // initiate upper and lower bound if first iteration
-                        if (i == 0) {
+                        if (i == 0)
+                        {
                             targetMax[j - inputDimension] = float.MinValue;
                             targetMin[j - inputDimension] = float.MaxValue;
                         }
-                        
+
                         originalTargets[i, (j - inputDimension)] = Convert.ToSingle(items[j]);
                     }
                 }
             }
 
             // normalization
-            for (int i = 0; i < inputNumber; i++) {
-                for (int j = 0; j < (inputDimension + targetDimension); j++) {
+            for (int i = 0; i < inputNumber; i++)
+            {
+                for (int j = 0; j < (inputDimension + targetDimension); j++)
+                {
 
                     if (j < inputDimension)
                     {
                         inputs[i, j] = (originalInputs[i, j] - inputMin[j]) / (inputMax[j] - inputMin[j]);
                     }
-                    else {
+                    else
+                    {
                         targets[i, (j - inputDimension)] = (originalTargets[i, (j - inputDimension)]) /
                                 (targetMax[j - inputDimension] - targetMin[j - inputDimension]);
                     }
@@ -188,17 +194,28 @@ namespace R08546036SHChaoAss12
             n[0] = inputDimension + 1;
             n[layerNumber - 1] = targetDimension + 1;
 
+
+            for (int i = 1; 1 < layerNumber; i++)
+            {
+                n[i] = hiddenNeuronNumbers[i - 1] + 1;
+            }
+            pts = new Point[layerNumber][];
+            for (int l = 0; layerNumber < pts.Length; l++)
+            {
+                pts[l] = new Point[n[l]];
+            }
+
             // add something
 
-            // initiate neuron numbers of network
-            n = new int[layerNumber];
-            for (int i = 0; i < layerNumber; i++)
-            {
-                if (i != 0 || i != (layerNumber-1)) 
-                {
-                    n[i] = neuronNums + 1;
-                }
-            }
+            //// initiate neuron numbers of network
+            //n = new int[layerNumber];
+            //for (int i = 0; i < layerNumber; i++)
+            //{
+            //    if (i != 0 || i != (layerNumber-1)) 
+            //    {
+            //        n[i] = neuronNums + 1;
+            //    }
+            //}
 
         }
 
@@ -217,19 +234,23 @@ namespace R08546036SHChaoAss12
             int[] indices = new int[inputNumber];
 
             // initiate array with indices value and randomize indices
-            for (int i = 0; i < inputNumber; i++) {
+            for (int i = 0; i < inputNumber; i++)
+            {
                 indices[i] = i;
             }
             indices = indices.OrderBy(x => randomizer.Next()).ToArray();
 
             // assign new value to input
-            for (int i = 0; i < indices.Length; i++) {
+            for (int i = 0; i < indices.Length; i++)
+            {
                 // reassign random normalized input
-                for (int j = 0; j < inputDimension; j++) {
+                for (int j = 0; j < inputDimension; j++)
+                {
                     inputs[i, j] = tempInput[indices[i], j];
                 }
                 // reassign random normalized target
-                for (int j = 0; j < targetDimension; j++) {
+                for (int j = 0; j < targetDimension; j++)
+                {
                     targets[i, j] = tempTarget[indices[i], j];
                 }
             }
@@ -261,6 +282,7 @@ namespace R08546036SHChaoAss12
         public void ResetWeightsAndInitialCondition()
         {
             // add something
+
 
         }
 
@@ -329,6 +351,41 @@ namespace R08546036SHChaoAss12
             // add something
 
             return (float)successedCount / (float)(inputNumber - numberOfTrainningVectors);
+        }
+
+        public void DrawMLP(Graphics g, Rectangle bound)
+        {
+            if (n == null) return;
+            int dw = bound.Width / pts.Length;
+            int woff = dw / 2;
+            Rectangle rect = Rectangle.Empty;
+            int halfUnit  = bound.Height / 30;
+            rect.Width = rect.Height = halfUnit + halfUnit;
+
+            for (int l = 0; l < pts.Length; l++)
+            {
+                int dh = bound.Height / n[l];
+                int hoff = dh / 2;
+
+                for (int c = 0; c < n[l]; c++)
+                {
+                    pts[l][c].X = woff + l * dw;
+                    pts[l][c].Y = hoff + c * dh;
+
+                    rect.X = pts[l][c].X - halfUnit;
+                    rect.Y = pts[l][c].Y - halfUnit;
+
+                    g.DrawRectangle(Pens.Red, rect);
+
+
+                }
+
+
+            }
+
+            ResetWeightsAndInitialCondition();
+
+
         }
         #endregion
 

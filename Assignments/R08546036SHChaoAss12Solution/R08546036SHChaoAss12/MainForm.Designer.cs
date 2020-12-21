@@ -31,11 +31,18 @@ namespace R08546036SHChaoAss12
         {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.openFromFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer7 = new System.Windows.Forms.SplitContainer();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nUpDownNeuronNumbers = new System.Windows.Forms.NumericUpDown();
+            this.nUpDownHiddenLayers = new System.Windows.Forms.NumericUpDown();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabGeneralizedData = new System.Windows.Forms.TabPage();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
@@ -52,12 +59,11 @@ namespace R08546036SHChaoAss12
             this.tabGA = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.splitContainer7 = new System.Windows.Forms.SplitContainer();
-            this.nUpDownNeuronNumbers = new System.Windows.Forms.NumericUpDown();
-            this.nUpDownHiddenLayers = new System.Windows.Forms.NumericUpDown();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnReconfigure = new System.Windows.Forms.Button();
+            this.pDocNN = new System.Drawing.Printing.PrintDocument();
+            this.printNNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dlgPreview = new System.Windows.Forms.PrintPreviewDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -67,6 +73,12 @@ namespace R08546036SHChaoAss12
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).BeginInit();
+            this.splitContainer7.Panel1.SuspendLayout();
+            this.splitContainer7.Panel2.SuspendLayout();
+            this.splitContainer7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUpDownNeuronNumbers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUpDownHiddenLayers)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabGeneralizedData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
@@ -85,12 +97,6 @@ namespace R08546036SHChaoAss12
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).BeginInit();
-            this.splitContainer7.Panel1.SuspendLayout();
-            this.splitContainer7.Panel2.SuspendLayout();
-            this.splitContainer7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nUpDownNeuronNumbers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nUpDownHiddenLayers)).BeginInit();
             this.SuspendLayout();
             // 
             // dlgOpen
@@ -101,24 +107,25 @@ namespace R08546036SHChaoAss12
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openFromFilesToolStripMenuItem});
+            this.openFromFilesToolStripMenuItem,
+            this.printNNToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1332, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1332, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // openFromFilesToolStripMenuItem
             // 
             this.openFromFilesToolStripMenuItem.Name = "openFromFilesToolStripMenuItem";
-            this.openFromFilesToolStripMenuItem.Size = new System.Drawing.Size(130, 26);
+            this.openFromFilesToolStripMenuItem.Size = new System.Drawing.Size(130, 24);
             this.openFromFilesToolStripMenuItem.Text = "Open From Files";
             this.openFromFilesToolStripMenuItem.Click += new System.EventHandler(this.openFromFilesToolStripMenuItem_Click);
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 30);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 28);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -128,7 +135,7 @@ namespace R08546036SHChaoAss12
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer1.Size = new System.Drawing.Size(1332, 647);
+            this.splitContainer1.Size = new System.Drawing.Size(1332, 649);
             this.splitContainer1.SplitterDistance = 618;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -146,9 +153,82 @@ namespace R08546036SHChaoAss12
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer2.Size = new System.Drawing.Size(618, 647);
+            this.splitContainer2.Size = new System.Drawing.Size(618, 649);
             this.splitContainer2.SplitterDistance = 233;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // splitContainer7
+            // 
+            this.splitContainer7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer7.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer7.Name = "splitContainer7";
+            // 
+            // splitContainer7.Panel1
+            // 
+            this.splitContainer7.Panel1.Controls.Add(this.listBox1);
+            // 
+            // splitContainer7.Panel2
+            // 
+            this.splitContainer7.Panel2.Controls.Add(this.btnReconfigure);
+            this.splitContainer7.Panel2.Controls.Add(this.button1);
+            this.splitContainer7.Panel2.Controls.Add(this.label4);
+            this.splitContainer7.Panel2.Controls.Add(this.label3);
+            this.splitContainer7.Panel2.Controls.Add(this.nUpDownNeuronNumbers);
+            this.splitContainer7.Panel2.Controls.Add(this.nUpDownHiddenLayers);
+            this.splitContainer7.Size = new System.Drawing.Size(618, 233);
+            this.splitContainer7.SplitterDistance = 125;
+            this.splitContainer7.TabIndex = 0;
+            // 
+            // listBox1
+            // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Items.AddRange(new object[] {
+            "4"});
+            this.listBox1.Location = new System.Drawing.Point(12, 39);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(95, 180);
+            this.listBox1.TabIndex = 0;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(58, 49);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(116, 17);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Neuron Numbers";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(58, 20);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(100, 17);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Hidden Layers";
+            // 
+            // nUpDownNeuronNumbers
+            // 
+            this.nUpDownNeuronNumbers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nUpDownNeuronNumbers.Location = new System.Drawing.Point(253, 49);
+            this.nUpDownNeuronNumbers.Name = "nUpDownNeuronNumbers";
+            this.nUpDownNeuronNumbers.Size = new System.Drawing.Size(201, 22);
+            this.nUpDownNeuronNumbers.TabIndex = 3;
+            this.nUpDownNeuronNumbers.ValueChanged += new System.EventHandler(this.nUpDownNeuronNumbers_ValueChanged);
+            // 
+            // nUpDownHiddenLayers
+            // 
+            this.nUpDownHiddenLayers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nUpDownHiddenLayers.Location = new System.Drawing.Point(253, 20);
+            this.nUpDownHiddenLayers.Name = "nUpDownHiddenLayers";
+            this.nUpDownHiddenLayers.Size = new System.Drawing.Size(201, 22);
+            this.nUpDownHiddenLayers.TabIndex = 2;
             // 
             // tabControl1
             // 
@@ -159,7 +239,7 @@ namespace R08546036SHChaoAss12
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(618, 410);
+            this.tabControl1.Size = new System.Drawing.Size(618, 412);
             this.tabControl1.TabIndex = 0;
             // 
             // tabGeneralizedData
@@ -168,7 +248,7 @@ namespace R08546036SHChaoAss12
             this.tabGeneralizedData.Location = new System.Drawing.Point(4, 25);
             this.tabGeneralizedData.Name = "tabGeneralizedData";
             this.tabGeneralizedData.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGeneralizedData.Size = new System.Drawing.Size(610, 381);
+            this.tabGeneralizedData.Size = new System.Drawing.Size(610, 383);
             this.tabGeneralizedData.TabIndex = 0;
             this.tabGeneralizedData.Text = "Generalized Delta";
             this.tabGeneralizedData.UseVisualStyleBackColor = true;
@@ -186,7 +266,7 @@ namespace R08546036SHChaoAss12
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.splitContainer6);
-            this.splitContainer4.Size = new System.Drawing.Size(604, 375);
+            this.splitContainer4.Size = new System.Drawing.Size(604, 377);
             this.splitContainer4.SplitterDistance = 238;
             this.splitContainer4.TabIndex = 0;
             // 
@@ -204,7 +284,7 @@ namespace R08546036SHChaoAss12
             // splitContainer5.Panel2
             // 
             this.splitContainer5.Panel2.Controls.Add(this.gridSolver);
-            this.splitContainer5.Size = new System.Drawing.Size(238, 375);
+            this.splitContainer5.Size = new System.Drawing.Size(238, 377);
             this.splitContainer5.SplitterDistance = 130;
             this.splitContainer5.TabIndex = 0;
             // 
@@ -225,7 +305,7 @@ namespace R08546036SHChaoAss12
             this.gridSolver.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridSolver.Location = new System.Drawing.Point(0, 0);
             this.gridSolver.Name = "gridSolver";
-            this.gridSolver.Size = new System.Drawing.Size(238, 241);
+            this.gridSolver.Size = new System.Drawing.Size(238, 243);
             this.gridSolver.TabIndex = 2;
             // 
             // splitContainer6
@@ -245,7 +325,7 @@ namespace R08546036SHChaoAss12
             // 
             this.splitContainer6.Panel2.Controls.Add(this.label2);
             this.splitContainer6.Panel2.Controls.Add(this.btnClassificationTest);
-            this.splitContainer6.Size = new System.Drawing.Size(362, 375);
+            this.splitContainer6.Size = new System.Drawing.Size(362, 377);
             this.splitContainer6.SplitterDistance = 138;
             this.splitContainer6.TabIndex = 0;
             // 
@@ -305,7 +385,7 @@ namespace R08546036SHChaoAss12
             this.tabPSO.Location = new System.Drawing.Point(4, 25);
             this.tabPSO.Name = "tabPSO";
             this.tabPSO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPSO.Size = new System.Drawing.Size(610, 382);
+            this.tabPSO.Size = new System.Drawing.Size(610, 381);
             this.tabPSO.TabIndex = 1;
             this.tabPSO.Text = "PSO";
             this.tabPSO.UseVisualStyleBackColor = true;
@@ -314,7 +394,7 @@ namespace R08546036SHChaoAss12
             // 
             this.tabGA.Location = new System.Drawing.Point(4, 25);
             this.tabGA.Name = "tabGA";
-            this.tabGA.Size = new System.Drawing.Size(610, 382);
+            this.tabGA.Size = new System.Drawing.Size(610, 381);
             this.tabGA.TabIndex = 2;
             this.tabGA.Text = "GA";
             this.tabGA.UseVisualStyleBackColor = true;
@@ -333,7 +413,8 @@ namespace R08546036SHChaoAss12
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.Info;
-            this.splitContainer3.Size = new System.Drawing.Size(710, 647);
+            this.splitContainer3.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer3_Panel2_Paint);
+            this.splitContainer3.Size = new System.Drawing.Size(710, 649);
             this.splitContainer3.SplitterDistance = 235;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -350,76 +431,48 @@ namespace R08546036SHChaoAss12
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
-            // splitContainer7
+            // button1
             // 
-            this.splitContainer7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer7.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer7.Name = "splitContainer7";
+            this.button1.Location = new System.Drawing.Point(20, 92);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(335, 40);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // splitContainer7.Panel1
+            // btnReconfigure
             // 
-            this.splitContainer7.Panel1.Controls.Add(this.listBox1);
+            this.btnReconfigure.Location = new System.Drawing.Point(20, 158);
+            this.btnReconfigure.Name = "btnReconfigure";
+            this.btnReconfigure.Size = new System.Drawing.Size(335, 40);
+            this.btnReconfigure.TabIndex = 7;
+            this.btnReconfigure.Text = "Reconfigure";
+            this.btnReconfigure.UseVisualStyleBackColor = true;
+            this.btnReconfigure.Click += new System.EventHandler(this.btnReconfigure_Click);
             // 
-            // splitContainer7.Panel2
+            // pDocNN
             // 
-            this.splitContainer7.Panel2.Controls.Add(this.label4);
-            this.splitContainer7.Panel2.Controls.Add(this.label3);
-            this.splitContainer7.Panel2.Controls.Add(this.nUpDownNeuronNumbers);
-            this.splitContainer7.Panel2.Controls.Add(this.nUpDownHiddenLayers);
-            this.splitContainer7.Size = new System.Drawing.Size(618, 233);
-            this.splitContainer7.SplitterDistance = 125;
-            this.splitContainer7.TabIndex = 0;
+            this.pDocNN.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.pDocNN_PrintPage);
             // 
-            // nUpDownNeuronNumbers
+            // printNNToolStripMenuItem
             // 
-            this.nUpDownNeuronNumbers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.nUpDownNeuronNumbers.Location = new System.Drawing.Point(253, 49);
-            this.nUpDownNeuronNumbers.Name = "nUpDownNeuronNumbers";
-            this.nUpDownNeuronNumbers.Size = new System.Drawing.Size(201, 22);
-            this.nUpDownNeuronNumbers.TabIndex = 3;
-            this.nUpDownNeuronNumbers.ValueChanged += new System.EventHandler(this.nUpDownNeuronNumbers_ValueChanged);
+            this.printNNToolStripMenuItem.Name = "printNNToolStripMenuItem";
+            this.printNNToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
+            this.printNNToolStripMenuItem.Text = "PrintNN";
+            this.printNNToolStripMenuItem.Click += new System.EventHandler(this.printNNToolStripMenuItem_Click);
             // 
-            // nUpDownHiddenLayers
+            // dlgPreview
             // 
-            this.nUpDownHiddenLayers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.nUpDownHiddenLayers.Location = new System.Drawing.Point(253, 20);
-            this.nUpDownHiddenLayers.Name = "nUpDownHiddenLayers";
-            this.nUpDownHiddenLayers.Size = new System.Drawing.Size(201, 22);
-            this.nUpDownHiddenLayers.TabIndex = 2;
-            // 
-            // listBox1
-            // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Items.AddRange(new object[] {
-            "4"});
-            this.listBox1.Location = new System.Drawing.Point(12, 39);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(95, 180);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(58, 20);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 17);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Hidden Layers";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(58, 49);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(116, 17);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Neuron Numbers";
+            this.dlgPreview.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.dlgPreview.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.dlgPreview.ClientSize = new System.Drawing.Size(400, 300);
+            this.dlgPreview.Document = this.pDocNN;
+            this.dlgPreview.Enabled = true;
+            this.dlgPreview.Icon = ((System.Drawing.Icon)(resources.GetObject("dlgPreview.Icon")));
+            this.dlgPreview.Name = "dlgPreview";
+            this.dlgPreview.Visible = false;
+            this.dlgPreview.Click += new System.EventHandler(this.dlgPreview_Click);
             // 
             // MainForm
             // 
@@ -442,6 +495,13 @@ namespace R08546036SHChaoAss12
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.splitContainer7.Panel1.ResumeLayout(false);
+            this.splitContainer7.Panel2.ResumeLayout(false);
+            this.splitContainer7.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).EndInit();
+            this.splitContainer7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nUpDownNeuronNumbers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUpDownHiddenLayers)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabGeneralizedData.ResumeLayout(false);
             this.splitContainer4.Panel1.ResumeLayout(false);
@@ -462,13 +522,6 @@ namespace R08546036SHChaoAss12
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            this.splitContainer7.Panel1.ResumeLayout(false);
-            this.splitContainer7.Panel2.ResumeLayout(false);
-            this.splitContainer7.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).EndInit();
-            this.splitContainer7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nUpDownNeuronNumbers)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nUpDownHiddenLayers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -502,6 +555,11 @@ namespace R08546036SHChaoAss12
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnReconfigure;
+        private System.Drawing.Printing.PrintDocument pDocNN;
+        private System.Windows.Forms.ToolStripMenuItem printNNToolStripMenuItem;
+        private System.Windows.Forms.PrintPreviewDialog dlgPreview;
     }
 }
 

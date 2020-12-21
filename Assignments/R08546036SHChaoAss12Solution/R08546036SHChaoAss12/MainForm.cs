@@ -54,8 +54,13 @@ namespace R08546036SHChaoAss12
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            theSolver.ResetWeightsAndInitialCondition();
+            if (theSolver == null) return;
 
+        }
+
+        private void btnReconfigure_Click(object sender, EventArgs e)
+        {
+            theSolver.ConfigureNeuralNetwork(new int[] { 3, 4 });
         }
 
         // value change function of neuron numbers
@@ -70,6 +75,56 @@ namespace R08546036SHChaoAss12
             nUpDownNeuronNumbers.Value = Convert.ToDecimal(listBox1.GetItemText(listBox1.SelectedItem));
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Graphics g = button1.CreateGraphics();
+            Draw(g, button1.ClientRectangle);
+            Draw(splitContainer3.Panel2.CreateGraphics(), splitContainer3.Panel2.ClientRectangle);
 
+        }
+
+        void Draw(Graphics g, Rectangle bound)
+        {
+            Rectangle rect = Rectangle.Empty;
+            rect.X = 10;
+            rect.Y = 5;
+            rect.Width = 100;
+            rect.Height = 50;
+            g.FillEllipse(Brushes.Gold, rect);
+            g.DrawEllipse(Pens.Red, rect);
+            Pen myPen = new Pen(Color.Blue, 3);
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(button1.Width, button1.Height);
+            g.DrawLine(myPen, p1, p2);
+            g.DrawString("NTU IIE", this.Font, Brushes.Green, new PointF(0.0f, 0.0f));
+            Font myFont = new Font("Arial", 36.0f);
+            StringFormat sf = new StringFormat();
+            sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Center;
+            g.DrawString("National Taiwan University", myFont, Brushes.Magenta, button1.ClientRectangle, sf);
+
+        }
+
+        private void splitContainer3_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+            if (theSolver != null) theSolver.DrawMLP(e.Graphics, e.ClipRectangle);
+        }
+
+        private void pDocNN_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            theSolver.DrawMLP(e.Graphics, e.PageBounds);
+        }
+
+        private void dlgPreview_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void printNNToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dlgPreview.ShowDialog() == DialogResult.OK) {
+                pDocNN.Print();
+            }
+        }
     }
 }
