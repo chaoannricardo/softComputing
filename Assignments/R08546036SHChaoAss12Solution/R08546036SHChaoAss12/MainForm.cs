@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,6 +24,14 @@ namespace R08546036SHChaoAss12
         public MainForm()
         {
             InitializeComponent();
+
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
+
+            object[] pars = { ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true };
+
+            MethodInfo setStyleMethodPanel =  typeof(Panel).GetMethod("SetStyle", BindingFlags.NonPublic | BindingFlags.Instance);
+            setStyleMethodPanel.Invoke(splitContainer3.Panel2, pars);
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
