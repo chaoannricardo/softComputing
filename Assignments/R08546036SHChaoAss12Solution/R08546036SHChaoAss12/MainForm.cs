@@ -17,6 +17,7 @@ namespace R08546036SHChaoAss12
         #region variables
         double[,] dataContent;
         double[,] yContent;
+        int[] hiddenLayers;
         BbackPropagationMLP theSolver;
         #endregion
 
@@ -29,7 +30,7 @@ namespace R08546036SHChaoAss12
 
             object[] pars = { ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true };
 
-            MethodInfo setStyleMethodPanel =  typeof(Panel).GetMethod("SetStyle", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo setStyleMethodPanel = typeof(Panel).GetMethod("SetStyle", BindingFlags.NonPublic | BindingFlags.Instance);
             setStyleMethodPanel.Invoke(splitContainer3.Panel2, pars);
 
         }
@@ -41,6 +42,7 @@ namespace R08546036SHChaoAss12
 
             // element initialize
             nUpDownNeuronNumbers.Visible = false;
+            nUpDownHiddenLayers.Value = 1;
         }
 
         // open file function
@@ -61,29 +63,100 @@ namespace R08546036SHChaoAss12
             gridSolver.SelectedObject = theSolver;
         }
 
+        #region training & reset Function
         private void btnReset_Click(object sender, EventArgs e)
+        {
+            // return if the solver is null
+            if (theSolver == null) return;
+
+            // set up vars
+            hiddenLayers = new int[lbNeurons.Items.Count];
+
+            // initialize hidden layers number
+            for (int i = 0; i < lbNeurons.Items.Count; i++)
+            {
+                hiddenLayers[i] = Convert.ToInt32(lbNeurons.Items[i].ToString());
+            }
+
+            // configure & reset
+            theSolver.ConfigureNeuralNetwork(hiddenLayers);
+            theSolver.ResetWeightsAndInitialCondition();
+
+            // refresh property grid
+            gridSolver.Refresh();
+        }
+
+        private void btnTrainAnEpoch_Click(object sender, EventArgs e)
+        {
+            if (theSolver == null) return;
+            theSolver.TrainAnEpoch();
+        }
+
+        private void btnTrainToEnd_Click(object sender, EventArgs e)
         {
             if (theSolver == null) return;
 
+            for (int i = 0; i < theSolver.TrainingLimit; i++)
+            {
+                theSolver.TrainAnEpoch();
+            }
+        }
+        #endregion
+
+
+        private void splitContainer3_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+            if (theSolver != null) theSolver.DrawMLP(e.Graphics, e.ClipRectangle);
         }
 
-        private void btnReconfigure_Click(object sender, EventArgs e)
+        private void pDocNN_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            theSolver.ConfigureNeuralNetwork(new int[] { 3, 4 });
+            theSolver.DrawMLP(e.Graphics, e.PageBounds);
+        }
+
+        private void dlgPreview_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void printNNToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dlgPreview.ShowDialog() == DialogResult.OK)
+            {
+                pDocNN.Print();
+            }
         }
 
         // value change function of neuron numbers
-        private void nUpDownNeuronNumbers_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            nUpDownNeuronNumbers.Visible = true;
-            nUpDownNeuronNumbers.Value = Convert.ToDecimal(listBox1.GetItemText(listBox1.SelectedItem));
+            try
+            {
+                nUpDownNeuronNumbers.Visible = true;
+                nUpDownNeuronNumbers.Value = Convert.ToDecimal(lbNeurons.GetItemText(lbNeurons.SelectedItem));
+            }
+            catch (System.FormatException Exception)
+            {
+                return;
+            }
         }
 
+        private void nUpDownNeuronNumbers_ValueChanged(object sender, EventArgs e)
+        {
+            lbNeurons.Items[lbNeurons.SelectedIndex] = nUpDownNeuronNumbers.Value;
+        }
+
+        private void nUpDownHiddenLayers_ValueChanged(object sender, EventArgs e)
+        {
+            lbNeurons.Items.Clear();
+            for (int i = 0; i < Convert.ToInt32(nUpDownHiddenLayers.Value); i++)
+            {
+                lbNeurons.Items.Add("4");
+            }
+
+        }
+
+        #region Demo Graph Function
         private void button1_Click(object sender, EventArgs e)
         {
             Graphics g = button1.CreateGraphics();
@@ -113,27 +186,7 @@ namespace R08546036SHChaoAss12
             g.DrawString("National Taiwan University", myFont, Brushes.Magenta, button1.ClientRectangle, sf);
 
         }
+        #endregion
 
-        private void splitContainer3_Panel2_Paint(object sender, PaintEventArgs e)
-        {
-            if (theSolver != null) theSolver.DrawMLP(e.Graphics, e.ClipRectangle);
-        }
-
-        private void pDocNN_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            theSolver.DrawMLP(e.Graphics, e.PageBounds);
-        }
-
-        private void dlgPreview_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void printNNToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (dlgPreview.ShowDialog() == DialogResult.OK) {
-                pDocNN.Print();
-            }
-        }
     }
 }

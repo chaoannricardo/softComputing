@@ -29,16 +29,18 @@ namespace R08546036SHChaoAss12
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.openFromFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.printNNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer7 = new System.Windows.Forms.SplitContainer();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lbNeurons = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.nUpDownNeuronNumbers = new System.Windows.Forms.NumericUpDown();
@@ -59,11 +61,9 @@ namespace R08546036SHChaoAss12
             this.tabGA = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnReconfigure = new System.Windows.Forms.Button();
             this.pDocNN = new System.Drawing.Printing.PrintDocument();
-            this.printNNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dlgPreview = new System.Windows.Forms.PrintPreviewDialog();
+            this.label5 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -122,6 +122,13 @@ namespace R08546036SHChaoAss12
             this.openFromFilesToolStripMenuItem.Text = "Open From Files";
             this.openFromFilesToolStripMenuItem.Click += new System.EventHandler(this.openFromFilesToolStripMenuItem_Click);
             // 
+            // printNNToolStripMenuItem
+            // 
+            this.printNNToolStripMenuItem.Name = "printNNToolStripMenuItem";
+            this.printNNToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
+            this.printNNToolStripMenuItem.Text = "PrintNN";
+            this.printNNToolStripMenuItem.Click += new System.EventHandler(this.printNNToolStripMenuItem_Click);
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -165,12 +172,11 @@ namespace R08546036SHChaoAss12
             // 
             // splitContainer7.Panel1
             // 
-            this.splitContainer7.Panel1.Controls.Add(this.listBox1);
+            this.splitContainer7.Panel1.Controls.Add(this.label5);
+            this.splitContainer7.Panel1.Controls.Add(this.lbNeurons);
             // 
             // splitContainer7.Panel2
             // 
-            this.splitContainer7.Panel2.Controls.Add(this.btnReconfigure);
-            this.splitContainer7.Panel2.Controls.Add(this.button1);
             this.splitContainer7.Panel2.Controls.Add(this.label4);
             this.splitContainer7.Panel2.Controls.Add(this.label3);
             this.splitContainer7.Panel2.Controls.Add(this.nUpDownNeuronNumbers);
@@ -179,19 +185,30 @@ namespace R08546036SHChaoAss12
             this.splitContainer7.SplitterDistance = 125;
             this.splitContainer7.TabIndex = 0;
             // 
-            // listBox1
+            // lbNeurons
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbNeurons.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Items.AddRange(new object[] {
+            this.lbNeurons.FormattingEnabled = true;
+            this.lbNeurons.ItemHeight = 16;
+            this.lbNeurons.Items.AddRange(new object[] {
             "4"});
-            this.listBox1.Location = new System.Drawing.Point(12, 39);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(95, 180);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.lbNeurons.Location = new System.Drawing.Point(12, 39);
+            this.lbNeurons.Name = "lbNeurons";
+            this.lbNeurons.Size = new System.Drawing.Size(95, 180);
+            this.lbNeurons.TabIndex = 0;
+            this.lbNeurons.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1178, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 24);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Graph Demo";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label4
             // 
@@ -213,8 +230,6 @@ namespace R08546036SHChaoAss12
             // 
             // nUpDownNeuronNumbers
             // 
-            this.nUpDownNeuronNumbers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.nUpDownNeuronNumbers.Location = new System.Drawing.Point(253, 49);
             this.nUpDownNeuronNumbers.Name = "nUpDownNeuronNumbers";
             this.nUpDownNeuronNumbers.Size = new System.Drawing.Size(201, 22);
@@ -223,12 +238,11 @@ namespace R08546036SHChaoAss12
             // 
             // nUpDownHiddenLayers
             // 
-            this.nUpDownHiddenLayers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.nUpDownHiddenLayers.Location = new System.Drawing.Point(253, 20);
             this.nUpDownHiddenLayers.Name = "nUpDownHiddenLayers";
             this.nUpDownHiddenLayers.Size = new System.Drawing.Size(201, 22);
             this.nUpDownHiddenLayers.TabIndex = 2;
+            this.nUpDownHiddenLayers.ValueChanged += new System.EventHandler(this.nUpDownHiddenLayers_ValueChanged);
             // 
             // tabControl1
             // 
@@ -348,6 +362,7 @@ namespace R08546036SHChaoAss12
             this.btnTrainToEnd.TabIndex = 8;
             this.btnTrainToEnd.Text = "Train To End";
             this.btnTrainToEnd.UseVisualStyleBackColor = true;
+            this.btnTrainToEnd.Click += new System.EventHandler(this.btnTrainToEnd_Click);
             // 
             // btnTrainAnEpoch
             // 
@@ -359,6 +374,7 @@ namespace R08546036SHChaoAss12
             this.btnTrainAnEpoch.TabIndex = 7;
             this.btnTrainAnEpoch.Text = "Train An Epoch";
             this.btnTrainAnEpoch.UseVisualStyleBackColor = true;
+            this.btnTrainAnEpoch.Click += new System.EventHandler(this.btnTrainAnEpoch_Click);
             // 
             // label2
             // 
@@ -385,7 +401,7 @@ namespace R08546036SHChaoAss12
             this.tabPSO.Location = new System.Drawing.Point(4, 25);
             this.tabPSO.Name = "tabPSO";
             this.tabPSO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPSO.Size = new System.Drawing.Size(610, 381);
+            this.tabPSO.Size = new System.Drawing.Size(610, 383);
             this.tabPSO.TabIndex = 1;
             this.tabPSO.Text = "PSO";
             this.tabPSO.UseVisualStyleBackColor = true;
@@ -394,7 +410,7 @@ namespace R08546036SHChaoAss12
             // 
             this.tabGA.Location = new System.Drawing.Point(4, 25);
             this.tabGA.Name = "tabGA";
-            this.tabGA.Size = new System.Drawing.Size(610, 381);
+            this.tabGA.Size = new System.Drawing.Size(610, 383);
             this.tabGA.TabIndex = 2;
             this.tabGA.Text = "GA";
             this.tabGA.UseVisualStyleBackColor = true;
@@ -420,47 +436,20 @@ namespace R08546036SHChaoAss12
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(0, 0);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(710, 235);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(20, 92);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(335, 40);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // btnReconfigure
-            // 
-            this.btnReconfigure.Location = new System.Drawing.Point(20, 158);
-            this.btnReconfigure.Name = "btnReconfigure";
-            this.btnReconfigure.Size = new System.Drawing.Size(335, 40);
-            this.btnReconfigure.TabIndex = 7;
-            this.btnReconfigure.Text = "Reconfigure";
-            this.btnReconfigure.UseVisualStyleBackColor = true;
-            this.btnReconfigure.Click += new System.EventHandler(this.btnReconfigure_Click);
-            // 
             // pDocNN
             // 
             this.pDocNN.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.pDocNN_PrintPage);
-            // 
-            // printNNToolStripMenuItem
-            // 
-            this.printNNToolStripMenuItem.Name = "printNNToolStripMenuItem";
-            this.printNNToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
-            this.printNNToolStripMenuItem.Text = "PrintNN";
-            this.printNNToolStripMenuItem.Click += new System.EventHandler(this.printNNToolStripMenuItem_Click);
             // 
             // dlgPreview
             // 
@@ -474,11 +463,21 @@ namespace R08546036SHChaoAss12
             this.dlgPreview.Visible = false;
             this.dlgPreview.Click += new System.EventHandler(this.dlgPreview_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 16);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(234, 17);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Neuron Num for Each Hidden Layer";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1332, 677);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -496,6 +495,7 @@ namespace R08546036SHChaoAss12
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.splitContainer7.Panel1.ResumeLayout(false);
+            this.splitContainer7.Panel1.PerformLayout();
             this.splitContainer7.Panel2.ResumeLayout(false);
             this.splitContainer7.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).EndInit();
@@ -552,14 +552,14 @@ namespace R08546036SHChaoAss12
         private System.Windows.Forms.SplitContainer splitContainer7;
         private System.Windows.Forms.NumericUpDown nUpDownNeuronNumbers;
         private System.Windows.Forms.NumericUpDown nUpDownHiddenLayers;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lbNeurons;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnReconfigure;
         private System.Drawing.Printing.PrintDocument pDocNN;
         private System.Windows.Forms.ToolStripMenuItem printNNToolStripMenuItem;
         private System.Windows.Forms.PrintPreviewDialog dlgPreview;
+        private System.Windows.Forms.Label label5;
     }
 }
 

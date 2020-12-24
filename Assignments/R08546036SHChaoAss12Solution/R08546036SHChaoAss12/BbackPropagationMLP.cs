@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace R08546036SHChaoAss12
 {
@@ -44,8 +45,8 @@ namespace R08546036SHChaoAss12
 
         // variables defined 
         int neuronNums;
+        int trainingLimit = 100;
         #endregion
-
 
 
         #region properties
@@ -78,6 +79,11 @@ namespace R08546036SHChaoAss12
         {
             get { return rootMeanSquareError; } //set { rootMeanSquare = value; } 
         }
+
+        public int[] NeuronNumbers { get => n; }
+        public int TrainingLimit { get => trainingLimit; set => trainingLimit = value; }
+        public float[][][] Weight { get => w; }
+        public float[][] NeuronValue { get => x;}
 
 
         #endregion
@@ -188,35 +194,23 @@ namespace R08546036SHChaoAss12
         /// <param name="hiddenNeuronNumbers">list of numbers of neurons of hidden layers</param> 
         public void ConfigureNeuralNetwork(int[] hiddenNeuronNumbers)
         {
-
+            // add something - finished
             layerNumber = hiddenNeuronNumbers.Length + 2;
             n = new int[layerNumber];
             n[0] = inputDimension + 1;
+
             n[layerNumber - 1] = targetDimension + 1;
 
-
-            for (int i = 1; 1 < layerNumber; i++)
+            for (int i = 1; i < (layerNumber - 1); i++)
             {
                 n[i] = hiddenNeuronNumbers[i - 1] + 1;
             }
+
             pts = new Point[layerNumber][];
             for (int l = 0; layerNumber < pts.Length; l++)
             {
                 pts[l] = new Point[n[l]];
             }
-
-            // add something
-
-            //// initiate neuron numbers of network
-            //n = new int[layerNumber];
-            //for (int i = 0; i < layerNumber; i++)
-            //{
-            //    if (i != 0 || i != (layerNumber-1)) 
-            //    {
-            //        n[i] = neuronNums + 1;
-            //    }
-            //}
-
         }
 
 
@@ -283,6 +277,50 @@ namespace R08546036SHChaoAss12
         {
             // add something
 
+            // random the indices
+            RandomizeIndices();
+
+            // initiate weight: layerNum, toWhichNode, fromWhichNode
+            w = new float[layerNumber][][];
+
+            for (int i = 0; i < layerNumber; i++)
+            {
+                if (i != 0) {
+                    
+                    w[i] = new float[n[i]][];
+
+                    for (int j = 0; j < n[i]; j++)
+                    {
+
+                        w[i][j] = new float[n[i - 1]];
+
+                        for (int l = 0; l < n[i - 1]; l++)
+                        {
+
+                            w[i][j][l] = 0.4F;
+
+                        }
+                    }
+                }
+
+            }
+
+            // initate neuron value & epsilon
+            x = new float[layerNumber][];
+            e = new float[layerNumber][];
+
+            for (int i = 0; i < layerNumber; i++)
+            {
+
+                x[i] = new float[n[i]];
+                e[i] = new float[n[i]];
+
+                for (int j = 0; j < n[i]; j++)
+                {
+                    x[i][j] = 0F;
+                    e[i][j] = float.MaxValue;
+                }
+            }
 
         }
 
@@ -301,16 +339,79 @@ namespace R08546036SHChaoAss12
             /// forward computing for all neuro values. 
             // add something
 
-            /// compute the epsilon values for neurons on the output layer 
-            // add something
+            for (int sample = 0; sample < 2; sample++)
+            {
+                // clear all value in neurons
+                for (int i = 0; i < layerNumber; i++)
+                {
+                    for (int j = 0; j < n[i]; j++)
+                    {
+                        x[i][j] = 0;
+                        e[i][j] = float.MaxValue;
+                    }
+                }
+
+                // set neurons in first layer
+                for (int i = 0; i < n[0]; i++)
+                {
+                    if (i == 0)
+                    {
+                        // bias section
+                        x[0][i] = 1;
+                    }
+                    else
+                    {
+                        x[0][i] = inputs[sample, i - 1];
+                    }
+                }
+
+                // calculate value of other neurons
+                // note: weight: layerNum, toWhichNode, fromWhichNode
+                for (int i = 0; i < (layerNumber - 1); i++)
+                {
+                    for (int j = 0; j < n[i]; j++)
+                    {
+                        for (int l = 0; l < n[i + 1]; l++)
+                        {
+                            if (l == 0)
+                            {
+                                // bias section
+                                x[i + 1][l] = 1;
+                            }
+                            else
+                            {
+                                x[i + 1][l] += (w[i + 1][l][j] * x[i][j]);
+                            }
+                        }
+
+                    }
+
+                }
+
+                // compute the epsilon values for neurons on the output layer
+                // add something
+                for (int i = 0; i < targetDimension; i++)
+                {
+                 e[(layerNumber) - 1][i + 1] = targets[sample, i] - x[(layerNumber) - 1][i + 1];
+                }
+
+
+            }
+
 
             /// backward computing for the epsilon values 
             // add something
+
+
+
             /// update weights for all weights by using epsilon and neuron values. 
             // add something
 
             /// update step size of the updating amount 
             // add something
+
+
+
         }
 
         /// <summary> 
@@ -359,7 +460,7 @@ namespace R08546036SHChaoAss12
             int dw = bound.Width / pts.Length;
             int woff = dw / 2;
             Rectangle rect = Rectangle.Empty;
-            int halfUnit  = bound.Height / 30;
+            int halfUnit = bound.Height / 30;
             rect.Width = rect.Height = halfUnit + halfUnit;
 
             for (int l = 0; l < pts.Length; l++)
