@@ -25,7 +25,7 @@ namespace R08546036SHChaoAss12
         BbackPropagationMLP theSolver;
         #endregion
 
-
+        #region mainform initiate and load
         public MainForm()
         {
             InitializeComponent();
@@ -48,6 +48,7 @@ namespace R08546036SHChaoAss12
             nUpDownNeuronNumbers.Visible = false;
             nUpDownHiddenLayers.Value = 1;
         }
+        #endregion
 
         // open file function
         private void openFromFilesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -113,28 +114,38 @@ namespace R08546036SHChaoAss12
 
         }
 
-        private void TrainAnEpoch() {
+        private void TrainAnEpoch()
+        {
+
+            if (theSolver == null || theSolver.IsReset == false)
+            {
+                MessageBox.Show("Create and Reset the Solver First!");
+                return;
+            }
 
             theSolver.TrainAnEpoch();
 
             // add numbers to chart
             chartSolution.Series[0].Points.AddXY(theSolver.IterationCount, theSolver.RootMeanSquareError);
 
+            // UI refresh
             gridSolver.Refresh();
             chartSolution.Update();
+            lbRMSE.Text = "RMSE " + theSolver.RootMeanSquareError;
+            lbRMSE.Refresh();
+
         }
 
 
         private void btnTrainAnEpoch_Click(object sender, EventArgs e)
         {
-            if (theSolver == null) return;
-            
+
+
             TrainAnEpoch();
         }
 
         private void btnTrainToEnd_Click(object sender, EventArgs e)
         {
-            if (theSolver == null) return;
 
             for (int i = theSolver.IterationCount; i < theSolver.TrainingLimit; i++)
             {
@@ -143,7 +154,6 @@ namespace R08546036SHChaoAss12
 
         }
         #endregion
-
 
         private void splitContainer3_Panel2_Paint(object sender, PaintEventArgs e)
         {
@@ -168,7 +178,7 @@ namespace R08546036SHChaoAss12
             }
         }
 
-        // value change function of neuron numbers
+        #region value change function of neuron numbers
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -196,6 +206,7 @@ namespace R08546036SHChaoAss12
             }
 
         }
+        #endregion
 
         #region Demo Graph Function
         private void button1_Click(object sender, EventArgs e)

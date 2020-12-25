@@ -48,6 +48,7 @@ namespace R08546036SHChaoAss12
         int trainingLimit = 100;
         int iterationCount = 0;
         float trainingRatio = 0.0F;
+        bool isReset = false;
         #endregion
 
 
@@ -88,6 +89,8 @@ namespace R08546036SHChaoAss12
         public float[][] NeuronValue { get => x; }
         public float TrainingRatio { get => trainingRatio; set => trainingRatio = value; }
         public int IterationCount { get => iterationCount;}
+        public bool IsReset { get => isReset;}
+        public float[][] Epilson { get => e;}
 
 
         #endregion
@@ -318,15 +321,8 @@ namespace R08546036SHChaoAss12
 
             for (int i = 0; i < layerNumber; i++)
             {
-
                 x[i] = new float[n[i]];
                 e[i] = new float[n[i]];
-
-                for (int j = 0; j < n[i]; j++)
-                {
-                    x[i][j] = 0F;
-                    e[i][j] = float.MaxValue;
-                }
             }
 
             // set amount for training
@@ -334,6 +330,8 @@ namespace R08546036SHChaoAss12
 
             // other stuff
             iterationCount = 0;
+            isReset = true;
+            eta = initialEta;
 
         }
 
@@ -350,7 +348,7 @@ namespace R08546036SHChaoAss12
             int layerNumberMinusOne = layerNumber - 1;
 
             /// forward computing for all neuro values. 
-            // add something
+            // add something numberOfTrainningVectors
 
             for (int sample = 0; sample < numberOfTrainningVectors; sample++)
             {
@@ -359,8 +357,8 @@ namespace R08546036SHChaoAss12
                 {
                     for (int j = 0; j < n[i]; j++)
                     {
-                        x[i][j] = 0;
-                        e[i][j] = float.MaxValue;
+                        x[i][j] = 0.0F;
+                        e[i][j] = 0.0F;
                     }
                 }
 
@@ -382,6 +380,7 @@ namespace R08546036SHChaoAss12
                 // note: weight: layerNum, toWhichNode, fromWhichNode
                 for (int i = 0; i < (layerNumber - 1); i++)
                 {
+                    // calculate vertice value
                     for (int j = 0; j < n[i]; j++)
                     {
                         for (int l = 0; l < n[i + 1]; l++)
@@ -399,6 +398,13 @@ namespace R08546036SHChaoAss12
 
                     }
 
+                    // apply sigmoidal function
+                    for (int j = 1; j < n[i + 1]; j++)
+                    {
+                        x[i + 1][j] = Convert.ToSingle(1 / (1 + Math.Exp(-x[i + 1][j])));
+                    }
+
+
                 }
 
                 // compute the epsilon values for neurons on the output layer
@@ -406,9 +412,8 @@ namespace R08546036SHChaoAss12
                 // add something
                 for (int i = 0; i < targetDimension; i++)
                 {
-                    e[(layerNumber) - 1][i + 1] = (-2) * ((targets[sample, i] 
-                        - x[(layerNumber) - 1][i + 1]))
-                        * x[(layerNumber) - 1][i + 1] * (1 - x[(layerNumber) - 1][i + 1]);
+                    e[(layerNumber) - 1][i + 1] = (-2) * ((targets[sample, i] - x[(layerNumber) - 1][i + 1]))
+                        * (1 - x[(layerNumber) - 1][i + 1]);
 
                     errorSquareSum += (((targets[sample, i] - x[(layerNumber) - 1][i + 1])) *
                         ((targets[sample, i] - x[(layerNumber) - 1][i + 1])));
@@ -428,14 +433,17 @@ namespace R08546036SHChaoAss12
                         sumation = 0.0F;
 
                         for (int l = 0; l < n[i + 1]; l++) {
-                            sumation += w[i + 1][l][j] * e[i+1][l];
+                            sumation += (w[i + 1][l][j] * e[i+1][l]);
                         }
 
+
                         e[i][j] = x[i][j] * (1 - x[i][j]) * sumation;
+
 
                     }
                 
                 }
+
 
                 /// update weights for all weights by using epsilon and neuron values. 
                 // add something
@@ -449,10 +457,6 @@ namespace R08546036SHChaoAss12
                             {
                                 updateAmount = (-eta) * e[i][j] * x[i - 1][l];
 
-                                //MessageBox.Show("1 " + (-eta).ToString());
-                                //MessageBox.Show("2 " + (e[i][j]).ToString());
-                                //MessageBox.Show("3 " + (x[i - 1][l]).ToString());
-
                                 w[i][j][l] += updateAmount;
                             }
                         }
@@ -463,6 +467,8 @@ namespace R08546036SHChaoAss12
             }
 
             // calculate error term
+
+
             rootMeanSquareError = Convert.ToSingle(Math.Sqrt(errorSquareSum / (targetDimension * numberOfTrainningVectors)));
 
             /// update step size of the updating amount 
@@ -509,7 +515,12 @@ namespace R08546036SHChaoAss12
             int successedCount = 0;
 
             float v;
+
+
             // add something
+
+
+
 
             return (float)successedCount / (float)(inputNumber - numberOfTrainningVectors);
         }
