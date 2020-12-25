@@ -47,6 +47,7 @@ namespace R08546036SHChaoAss12
         int neuronNums;
         int trainingLimit = 100;
         int iterationCount = 0;
+        int[,] confusingTable;
         float trainingRatio = 0.66F;
         bool isReset = false;
         bool isTrained = false;
@@ -54,7 +55,9 @@ namespace R08546036SHChaoAss12
         Rectangle rect = Rectangle.Empty;
         SolidBrush redBrush = new SolidBrush(Color.Red);
         SolidBrush whiteBrush = new SolidBrush(Color.White);
+        SolidBrush blackBrush = new SolidBrush(Color.Black);
         Font neuronFont = new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point);
+        Font weightFont = new Font("Arial", 8, FontStyle.Bold, GraphicsUnit.Point);
         StringFormat stringFormat = new StringFormat();
         
         #endregion
@@ -101,6 +104,9 @@ namespace R08546036SHChaoAss12
         public Point[][] Pts { get => pts; }
         [Browsable(false)]
         public bool IsTrained { get => isTrained;}
+        [Browsable(false)]
+        public int[,] ConfusingTable { get => confusingTable;}
+        public int TargetDimension { get => targetDimension;}
         #endregion
 
         public BbackPropagationMLP(int hiddenLayerNum, int neuronNums)
@@ -243,7 +249,6 @@ namespace R08546036SHChaoAss12
             // other shape vars
             int halfUnit = bound.Height / 30;
             
-
             // draw lines
             for (int l = 0; l < pts.Length; l++)
             {
@@ -260,13 +265,17 @@ namespace R08546036SHChaoAss12
                         for (int k = 0; k < n[l - 1]; k++)
                         {
                             g.DrawLine(Pens.Black, pts[l - 1][k].X, pts[l - 1][k].Y, pts[l][c].X, pts[l][c].Y);
+                            g.DrawString(w[l][c][k].ToString(), weightFont, redBrush,
+                                (0.7F * pts[l - 1][k].X + 0.3F * pts[l][c].X),
+                                (0.7F * pts[l - 1][k].Y + 0.3F * pts[l][c].Y),
+                                stringFormat);
                         }
                     }
                 }
             }
 
-
-            for (int l = 0; l < pts.Length; l++)
+            // draw circles
+            for (int l = 0; l < layerNumber; l++)
             {
                 int dh = bound.Height / n[l];
                 int hoff = dh / 2;
@@ -345,12 +354,12 @@ namespace R08546036SHChaoAss12
             // assign new value to original input
             for (int i = 0; i < indices.Length; i++)
             {
-                // reassign random normalized input
+                // reassign random original input
                 for (int j = 0; j < inputDimension; j++)
                 {
                     originalInputs[i, j] = tempInput[indices[i], j];
                 }
-                // reassign random normalized target
+                // reassign random original target
                 for (int j = 0; j < targetDimension; j++)
                 {
                     originalTargets[i, j] = tempTarget[indices[i], j];
@@ -460,31 +469,31 @@ namespace R08546036SHChaoAss12
 
                 // calculate value of other neurons
                 // note: weight: layerNum, toWhichNode, fromWhichNode
-                for (int i = 0; i < (layerNumber - 1); i++)
+                for (int layerNum = 0; layerNum < (layerNumber - 1); layerNum++)
                 {
                     // calculate vertice value
-                    for (int l = 0; l < n[i + 1]; l++)
+                    for (int toNode = 0; toNode < n[layerNum + 1]; toNode++)
                     {
-                        for (int j = 0; j < n[i]; j++)
+                        for (int fromNode = 0; fromNode < n[layerNum]; fromNode++)
                         {
 
-                            if (l == 0)
+                            if (toNode == 0)
                             {
                                 // bias section
-                                x[i + 1][l] = 1;
+                                x[layerNum + 1][toNode] = 1;
                             }
                             else
                             {
-                                x[i + 1][l] += (w[i + 1][l][j] * x[i][j]);
+                                x[layerNum + 1][toNode] += (w[layerNum + 1][toNode][fromNode] * x[layerNum][fromNode]);
                             }
                         }
 
                     }
 
                     // apply sigmoidal function
-                    for (int j = 1; j < n[i + 1]; j++)
+                    for (int toNode = 1; toNode < n[layerNum + 1]; toNode++)
                     {
-                        x[i + 1][j] = Convert.ToSingle(1 / (1 + Math.Exp(-(x[i + 1][j]))));
+                        x[layerNum + 1][toNode] = Convert.ToSingle(1 / (1 + Math.Exp(-(x[layerNum + 1][toNode]))));
                     }
 
                 }
@@ -547,7 +556,6 @@ namespace R08546036SHChaoAss12
 
             // calculate error term
 
-
             rootMeanSquareError = Convert.ToSingle(Math.Sqrt(errorSquareSum / (targetDimension * numberOfTrainningVectors)));
 
             /// update step size of the updating amount 
@@ -589,14 +597,22 @@ namespace R08546036SHChaoAss12
         /// <returns>the ratio between the number of correctly classified testing data and the total number of testing data.</returns> 
         public float TestingClassification()
         {
-            int[,] confusingTable = new int[targetDimension, targetDimension];
+            confusingTable = new int[targetDimension, targetDimension];
 
             int successedCount = 0;
             int output = int.MinValue;
-
+            float[] evaluateArray;
 
             // add something
 
+            // initiate confusing table
+            for (int i = 0; i < targetDimension; i++) {
+                for (int j = 0; j < targetDimension; j++) {
+                    confusingTable[i, j] = 0;    
+                }
+            }
+
+            // testing start
             for (int sample = numberOfTrainningVectors; sample < inputNumber; sample++)
             {
                 // clear all value in neurons
@@ -655,22 +671,29 @@ namespace R08546036SHChaoAss12
                 }
 
                 // check correctness
+                evaluateArray = x[layerNumber - 1];
+                evaluateArray[0] = 0;
+
                 for (int neuron = 1; neuron < n[layerNumber - 1]; neuron++) {
-                    if (x[layerNumber - 1][neuron] == 1) {
-                        output = neuron;
+                    if (x[layerNumber - 1][neuron] == evaluateArray.Max()) {
+                        output = neuron - 1;
                         break;
                     }
                 }
 
+                // check the answer
+                if (originalTargets[sample, output] == 1)
+                {
+                    successedCount += 1;
+                }
+
+                // record the correct answer
                 for (int neuron = 0; neuron < targetDimension; neuron++)
                 {
-                    if (targets[sample, neuron] == 1)
-                    {
-                        successedCount += 1;
+                    if (originalTargets[sample, neuron] == 1) {
+                        confusingTable[output, neuron] += 1;
+                        break;
                     }
-                    //else {
-                    //    MessageBox.Show(targets[sample, neuron].ToString());
-                    //}
                 }
 
             }

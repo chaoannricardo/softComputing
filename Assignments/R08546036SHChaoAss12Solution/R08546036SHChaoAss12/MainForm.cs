@@ -47,6 +47,15 @@ namespace R08546036SHChaoAss12
             // element initialize
             nUpDownNeuronNumbers.Visible = false;
             nUpDownHiddenLayers.Value = 1;
+
+            // label initiate
+            lbConfusing.Font = new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point);
+            lbCorrectness.Font = new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point);
+            lbRMSE.Font = new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point);
+            lbConfusing.ForeColor = Color.DarkRed;
+            lbCorrectness.ForeColor = Color.DarkRed;
+            lbRMSE.ForeColor = Color.DarkRed;
+
         }
         #endregion
 
@@ -88,16 +97,12 @@ namespace R08546036SHChaoAss12
 
             // refresh property grid
             gridSolver.Refresh();
-
-            // chart reset part
             chartSolution.Series.Clear();
-
             theSeriesObj = new Series("RMSE");
             theSeriesObj.ChartType = SeriesChartType.Line;
             theSeriesObj.Color = Color.Red;
             theSeriesObj.BorderWidth = 3;
             chartSolution.Series.Add(theSeriesObj);
-
             splitContainer3.Panel2.Refresh();
 
         }
@@ -127,9 +132,8 @@ namespace R08546036SHChaoAss12
 
         private void btnTrainAnEpoch_Click(object sender, EventArgs e)
         {
-
-
             TrainAnEpoch();
+            testClassification();
         }
 
         private void btnTrainToEnd_Click(object sender, EventArgs e)
@@ -145,12 +149,31 @@ namespace R08546036SHChaoAss12
                 TrainAnEpoch();
             }
 
+            testClassification();
+
+        }
+
+        private void testClassification() {
+            if (theSolver.IsTrained == false) return;
+            lbCorrectness.Text = "Correctness = " + theSolver.TestingClassification().ToString();
+
+            string Answer = "Confusing Matrix:\n";
+
+            for (int i = 0; i < theSolver.TargetDimension; i++)
+            {
+                for (int j = 0; j < theSolver.TargetDimension; j++)
+                {
+                    Answer += theSolver.ConfusingTable[i, j].ToString() + "    ";
+                }
+                Answer += "\n";
+            }
+
+            lbConfusing.Text = Answer;
         }
 
         private void btnClassificationTest_Click(object sender, EventArgs e)
         {
-            if (theSolver.IsTrained == false) return;
-            lbCorrectness.Text = "Correctness = " + theSolver.TestingClassification().ToString();
+            testClassification();
         }
 
         #endregion

@@ -55,6 +55,7 @@ namespace R08546036SHChaoAss12
             this.lbRMSE = new System.Windows.Forms.Label();
             this.btnTrainToEnd = new System.Windows.Forms.Button();
             this.btnTrainAnEpoch = new System.Windows.Forms.Button();
+            this.lbCorrectness = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnClassificationTest = new System.Windows.Forms.Button();
             this.tabPSO = new System.Windows.Forms.TabPage();
@@ -64,7 +65,7 @@ namespace R08546036SHChaoAss12
             this.button1 = new System.Windows.Forms.Button();
             this.pDocNN = new System.Drawing.Printing.PrintDocument();
             this.dlgPreview = new System.Windows.Forms.PrintPreviewDialog();
-            this.lbCorrectness = new System.Windows.Forms.Label();
+            this.lbConfusing = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -337,6 +338,7 @@ namespace R08546036SHChaoAss12
             // 
             // splitContainer6.Panel2
             // 
+            this.splitContainer6.Panel2.Controls.Add(this.lbConfusing);
             this.splitContainer6.Panel2.Controls.Add(this.lbCorrectness);
             this.splitContainer6.Panel2.Controls.Add(this.label2);
             this.splitContainer6.Panel2.Controls.Add(this.btnClassificationTest);
@@ -375,6 +377,14 @@ namespace R08546036SHChaoAss12
             this.btnTrainAnEpoch.Text = "Train An Epoch";
             this.btnTrainAnEpoch.UseVisualStyleBackColor = true;
             this.btnTrainAnEpoch.Click += new System.EventHandler(this.btnTrainAnEpoch_Click);
+            // 
+            // lbCorrectness
+            // 
+            this.lbCorrectness.AutoSize = true;
+            this.lbCorrectness.Location = new System.Drawing.Point(16, 60);
+            this.lbCorrectness.Name = "lbCorrectness";
+            this.lbCorrectness.Size = new System.Drawing.Size(0, 17);
+            this.lbCorrectness.TabIndex = 9;
             // 
             // label2
             // 
@@ -473,13 +483,13 @@ namespace R08546036SHChaoAss12
             this.dlgPreview.Visible = false;
             this.dlgPreview.Click += new System.EventHandler(this.dlgPreview_Click);
             // 
-            // lbCorrectness
+            // lbConfusing
             // 
-            this.lbCorrectness.AutoSize = true;
-            this.lbCorrectness.Location = new System.Drawing.Point(16, 60);
-            this.lbCorrectness.Name = "lbCorrectness";
-            this.lbCorrectness.Size = new System.Drawing.Size(0, 17);
-            this.lbCorrectness.TabIndex = 9;
+            this.lbConfusing.AutoSize = true;
+            this.lbConfusing.Location = new System.Drawing.Point(16, 99);
+            this.lbConfusing.Name = "lbConfusing";
+            this.lbConfusing.Size = new System.Drawing.Size(0, 17);
+            this.lbConfusing.TabIndex = 10;
             // 
             // MainForm
             // 
@@ -570,6 +580,7 @@ namespace R08546036SHChaoAss12
         private System.Windows.Forms.PrintPreviewDialog dlgPreview;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lbCorrectness;
+        private System.Windows.Forms.Label lbConfusing;
     }
 }
 
