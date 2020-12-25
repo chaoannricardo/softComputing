@@ -47,10 +47,17 @@ namespace R08546036SHChaoAss12
         int neuronNums;
         int trainingLimit = 100;
         int iterationCount = 0;
-        float trainingRatio = 0.0F;
+        float trainingRatio = 0.66F;
         bool isReset = false;
+        bool isTrained = false;
+        // drawing vars
+        Rectangle rect = Rectangle.Empty;
+        SolidBrush redBrush = new SolidBrush(Color.Red);
+        SolidBrush whiteBrush = new SolidBrush(Color.White);
+        Font neuronFont = new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point);
+        StringFormat stringFormat = new StringFormat();
+        
         #endregion
-
 
         #region properties
         /// <summary> 
@@ -62,10 +69,8 @@ namespace R08546036SHChaoAss12
             get { return learningRate; }
             set { learningRate = value; }
         }
-
         float eta; // step size that specify the update amount on each weight 
         float initialEta = 0.7f; // initial step size, specified by the user 
-
         /// <summary> 
         /// Initialize variable of the eta (can be regarded as step size). 
         /// </summary> 
@@ -74,25 +79,28 @@ namespace R08546036SHChaoAss12
             set { initialEta = value; }
             get { return initialEta; }
         }
-
         /// <summary> 
         /// Current root mean square after an epoch training. 
         /// </summary> 
         public float RootMeanSquareError
         {
-            get { return rootMeanSquareError; } 
+            get { return rootMeanSquareError; }
         }
-
-        public int[] NeuronNumbers { get => n; }
         public int TrainingLimit { get => trainingLimit; set => trainingLimit = value; }
         public float[][][] Weight { get => w; }
         public float[][] NeuronValue { get => x; }
         public float TrainingRatio { get => trainingRatio; set => trainingRatio = value; }
-        public int IterationCount { get => iterationCount;}
-        public bool IsReset { get => isReset;}
-        public float[][] Epilson { get => e;}
-
-
+        public int IterationCount { get => iterationCount; }
+        public float[][] Epilson { get => e; }
+        // not browsable properties
+        [Browsable(false)]
+        public int[] NeuronNumbers { get => n; }
+        [Browsable(false)]
+        public bool IsReset { get => isReset; }
+        [Browsable(false)]
+        public Point[][] Pts { get => pts; }
+        [Browsable(false)]
+        public bool IsTrained { get => isTrained;}
         #endregion
 
         public BbackPropagationMLP(int hiddenLayerNum, int neuronNums)
@@ -195,7 +203,6 @@ namespace R08546036SHChaoAss12
 
         }
 
-
         /// <summary> 
         /// Configure the topology of the NN with the user specified numbers of hidden 
         /// neuorns and layers. 
@@ -216,12 +223,87 @@ namespace R08546036SHChaoAss12
             }
 
             pts = new Point[layerNumber][];
-            for (int l = 0; layerNumber < pts.Length; l++)
+            for (int l = 0; l < pts.Length; l++)
             {
                 pts[l] = new Point[n[l]];
             }
         }
 
+        public void DrawMLP(Graphics g, Rectangle bound)
+        {
+            // vars
+            if (n == null) return;
+            int dw = bound.Width / pts.Length;
+            int woff = dw / 2;
+
+            // string format
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
+
+            // other shape vars
+            int halfUnit = bound.Height / 30;
+            
+
+            // draw lines
+            for (int l = 0; l < pts.Length; l++)
+            {
+                int dh = bound.Height / n[l];
+                int hoff = dh / 2;
+
+                for (int c = 0; c < n[l]; c++)
+                {
+                    pts[l][c].X = woff + l * dw;
+                    pts[l][c].Y = hoff + c * dh;
+
+                    if (l != 0 && c != 0)
+                    {
+                        for (int k = 0; k < n[l - 1]; k++)
+                        {
+                            g.DrawLine(Pens.Black, pts[l - 1][k].X, pts[l - 1][k].Y, pts[l][c].X, pts[l][c].Y);
+                        }
+                    }
+                }
+            }
+
+
+            for (int l = 0; l < pts.Length; l++)
+            {
+                int dh = bound.Height / n[l];
+                int hoff = dh / 2;
+
+                for (int c = 0; c < n[l]; c++)
+                {
+                    if (c == 0)
+                    {
+                        pts[l][c].X = woff + l * dw;
+                        pts[l][c].Y = hoff + c * dh;
+
+                        rect.Width = rect.Height = halfUnit;
+                        rect.X = pts[l][c].X - halfUnit;
+                        rect.Y = pts[l][c].Y - halfUnit;
+
+                        g.FillEllipse(redBrush, rect);
+                        g.DrawEllipse(Pens.Red, rect);
+                    }
+                    else
+                    {
+                        pts[l][c].X = woff + l * dw;
+                        pts[l][c].Y = hoff + c * dh;
+
+                        rect.Width = rect.Height = (halfUnit + halfUnit) * 2;
+                        rect.X = pts[l][c].X - halfUnit;
+                        rect.Y = pts[l][c].Y - halfUnit;
+
+                        g.FillEllipse(whiteBrush, rect);
+                        g.DrawString(Math.Round(x[l][c], 2).ToString(), neuronFont, Brushes.Black, rect, stringFormat);
+                        g.DrawEllipse(Pens.Red, rect);
+                    }
+                    
+                }
+
+            }
+
+        }
 
         /// <summary> 
         /// Randomly shuffle the orders of the data in the data set. 
@@ -277,7 +359,6 @@ namespace R08546036SHChaoAss12
 
         }
 
-
         /// <summary> 
         /// Randomly set values of weights between [-1,1] and randomly shuffle the orders of all 
         /// the datum in the data set. Reset value of initial eta and root mean square to 0.0. 
@@ -307,7 +388,7 @@ namespace R08546036SHChaoAss12
                         for (int l = 0; l < n[i - 1]; l++)
                         {
 
-                            w[i][j][l] = 0.4F;
+                            w[i][j][l] = Convert.ToSingle((2 * (randomizer.NextDouble()) / 1) - 1);
 
                         }
                     }
@@ -326,11 +407,12 @@ namespace R08546036SHChaoAss12
             }
 
             // set amount for training
-            numberOfTrainningVectors = (int) Math.Round(inputNumber * trainingRatio);
+            numberOfTrainningVectors = (int)Math.Round(inputNumber * trainingRatio);
 
             // other stuff
             iterationCount = 0;
             isReset = true;
+            isTrained = false;
             eta = initialEta;
 
         }
@@ -381,10 +463,11 @@ namespace R08546036SHChaoAss12
                 for (int i = 0; i < (layerNumber - 1); i++)
                 {
                     // calculate vertice value
-                    for (int j = 0; j < n[i]; j++)
+                    for (int l = 0; l < n[i + 1]; l++)
                     {
-                        for (int l = 0; l < n[i + 1]; l++)
+                        for (int j = 0; j < n[i]; j++)
                         {
+
                             if (l == 0)
                             {
                                 // bias section
@@ -401,9 +484,8 @@ namespace R08546036SHChaoAss12
                     // apply sigmoidal function
                     for (int j = 1; j < n[i + 1]; j++)
                     {
-                        x[i + 1][j] = Convert.ToSingle(1 / (1 + Math.Exp(-x[i + 1][j])));
+                        x[i + 1][j] = Convert.ToSingle(1 / (1 + Math.Exp(-(x[i + 1][j]))));
                     }
-
 
                 }
 
@@ -415,54 +497,51 @@ namespace R08546036SHChaoAss12
                     e[(layerNumber) - 1][i + 1] = (-2) * ((targets[sample, i] - x[(layerNumber) - 1][i + 1]))
                         * (1 - x[(layerNumber) - 1][i + 1]);
 
-                    errorSquareSum += (((targets[sample, i] - x[(layerNumber) - 1][i + 1])) *
+                    errorSquareSum += (((targets[sample, i] - x[layerNumber - 1][i + 1])) *
                         ((targets[sample, i] - x[(layerNumber) - 1][i + 1])));
                 }
 
                 /// backward computing for the epsilon values 
                 /// // add something
                 /// 
-                for (int i = (layerNumber - 2); i >= 0; i--) {
+                for (int i = (layerNumber - 2); i >= 0; i--)
+                {
 
-                    for (int j = 0; j < n[i]; j++) {
+                    for (int j = 0; j < n[i]; j++)
+                    {
 
-                        // comput epsilon from backward
+                        // compute epsilon from backward
                         // Note: weight: layerNum, toWhichNode, fromWhichNode
 
                         // use sumation as temperory variable keeping
                         sumation = 0.0F;
 
-                        for (int l = 0; l < n[i + 1]; l++) {
-                            sumation += (w[i + 1][l][j] * e[i+1][l]);
+                        for (int l = 0; l < n[i + 1]; l++)
+                        {
+                            sumation += (w[i + 1][l][j] * e[i + 1][l]);
                         }
-
 
                         e[i][j] = x[i][j] * (1 - x[i][j]) * sumation;
 
-
                     }
-                
+
                 }
 
 
                 /// update weights for all weights by using epsilon and neuron values. 
                 // add something
-                for (int i = 0; i < (layerNumber - 1); i++)
+                for (int layer = 1; layer < (layerNumber); layer++)
                 {
-                    if (i != 0)
+                    for (int toNode = 1; toNode < n[layer]; toNode++)
                     {
-                        for (int j = 0; j < n[i]; j++)
+                        for (int fromNode = 0; fromNode < n[layer - 1]; fromNode++)
                         {
-                            for (int l = 0; l < n[i - 1]; l++)
-                            {
-                                updateAmount = (-eta) * e[i][j] * x[i - 1][l];
+                            updateAmount = (-eta) * e[layer][toNode] * x[layer - 1][fromNode];
 
-                                w[i][j][l] += updateAmount;
-                            }
+                            w[layer][toNode][fromNode] += updateAmount;
                         }
                     }
                 }
-
 
             }
 
@@ -475,7 +554,7 @@ namespace R08546036SHChaoAss12
             // add something
 
             eta *= learningRate;
-
+            isTrained = true;
             iterationCount += 1;
 
         }
@@ -508,57 +587,97 @@ namespace R08546036SHChaoAss12
         /// </summary> 
         /// <param name="confusingTable">generated confusing table</param> 
         /// <returns>the ratio between the number of correctly classified testing data and the total number of testing data.</returns> 
-        public float TestingClassification(out int[,] confusingTable)
+        public float TestingClassification()
         {
-            confusingTable = new int[targetDimension, targetDimension];
+            int[,] confusingTable = new int[targetDimension, targetDimension];
 
             int successedCount = 0;
-
-            float v;
+            int output = int.MinValue;
 
 
             // add something
 
+            for (int sample = numberOfTrainningVectors; sample < inputNumber; sample++)
+            {
+                // clear all value in neurons
+                for (int i = 0; i < layerNumber; i++)
+                {
+                    for (int j = 0; j < n[i]; j++)
+                    {
+                        x[i][j] = 0.0F;
+                        e[i][j] = 0.0F;
+                    }
+                }
 
+                // set neurons in first layer
+                for (int i = 0; i < n[0]; i++)
+                {
+                    if (i == 0)
+                    {
+                        // bias section
+                        x[0][i] = 1;
+                    }
+                    else
+                    {
+                        x[0][i] = inputs[sample, i - 1];
+                    }
+                }
 
+                // calculate value of other neurons
+                // note: weight: layerNum, toWhichNode, fromWhichNode
+                for (int i = 0; i < (layerNumber - 1); i++)
+                {
+                    // calculate vertice value
+                    for (int l = 0; l < n[i + 1]; l++)
+                    {
+                        for (int j = 0; j < n[i]; j++)
+                        {
+
+                            if (l == 0)
+                            {
+                                // bias section
+                                x[i + 1][l] = 1;
+                            }
+                            else
+                            {
+                                x[i + 1][l] += (w[i + 1][l][j] * x[i][j]);
+                            }
+                        }
+
+                    }
+
+                    // apply sigmoidal function
+                    for (int j = 1; j < n[i + 1]; j++)
+                    {
+                        x[i + 1][j] = Convert.ToSingle(1 / (1 + Math.Exp(-(x[i + 1][j]))));
+                    }
+
+                }
+
+                // check correctness
+                for (int neuron = 1; neuron < n[layerNumber - 1]; neuron++) {
+                    if (x[layerNumber - 1][neuron] == 1) {
+                        output = neuron;
+                        break;
+                    }
+                }
+
+                for (int neuron = 0; neuron < targetDimension; neuron++)
+                {
+                    if (targets[sample, neuron] == 1)
+                    {
+                        successedCount += 1;
+                    }
+                    //else {
+                    //    MessageBox.Show(targets[sample, neuron].ToString());
+                    //}
+                }
+
+            }
 
             return (float)successedCount / (float)(inputNumber - numberOfTrainningVectors);
         }
 
-        public void DrawMLP(Graphics g, Rectangle bound)
-        {
-            if (n == null) return;
-            int dw = bound.Width / pts.Length;
-            int woff = dw / 2;
-            Rectangle rect = Rectangle.Empty;
-            int halfUnit = bound.Height / 30;
-            rect.Width = rect.Height = halfUnit + halfUnit;
-
-            for (int l = 0; l < pts.Length; l++)
-            {
-                int dh = bound.Height / n[l];
-                int hoff = dh / 2;
-
-                for (int c = 0; c < n[l]; c++)
-                {
-                    pts[l][c].X = woff + l * dw;
-                    pts[l][c].Y = hoff + c * dh;
-
-                    rect.X = pts[l][c].X - halfUnit;
-                    rect.Y = pts[l][c].Y - halfUnit;
-
-                    g.DrawRectangle(Pens.Red, rect);
-
-
-                }
-
-
-            }
-
-            ResetWeightsAndInitialCondition();
-
-
-        }
         #endregion
 
 

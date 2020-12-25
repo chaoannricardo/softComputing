@@ -29,8 +29,8 @@ namespace R08546036SHChaoAss12
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -64,6 +64,7 @@ namespace R08546036SHChaoAss12
             this.button1 = new System.Windows.Forms.Button();
             this.pDocNN = new System.Drawing.Printing.PrintDocument();
             this.dlgPreview = new System.Windows.Forms.PrintPreviewDialog();
+            this.lbCorrectness = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -336,6 +337,7 @@ namespace R08546036SHChaoAss12
             // 
             // splitContainer6.Panel2
             // 
+            this.splitContainer6.Panel2.Controls.Add(this.lbCorrectness);
             this.splitContainer6.Panel2.Controls.Add(this.label2);
             this.splitContainer6.Panel2.Controls.Add(this.btnClassificationTest);
             this.splitContainer6.Size = new System.Drawing.Size(362, 477);
@@ -379,9 +381,8 @@ namespace R08546036SHChaoAss12
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(16, 60);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 17);
+            this.label2.Size = new System.Drawing.Size(0, 17);
             this.label2.TabIndex = 8;
-            this.label2.Text = "label2";
             // 
             // btnClassificationTest
             // 
@@ -393,13 +394,14 @@ namespace R08546036SHChaoAss12
             this.btnClassificationTest.TabIndex = 7;
             this.btnClassificationTest.Text = "Classification Test";
             this.btnClassificationTest.UseVisualStyleBackColor = true;
+            this.btnClassificationTest.Click += new System.EventHandler(this.btnClassificationTest_Click);
             // 
             // tabPSO
             // 
             this.tabPSO.Location = new System.Drawing.Point(4, 25);
             this.tabPSO.Name = "tabPSO";
             this.tabPSO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPSO.Size = new System.Drawing.Size(610, 481);
+            this.tabPSO.Size = new System.Drawing.Size(610, 483);
             this.tabPSO.TabIndex = 1;
             this.tabPSO.Text = "PSO";
             this.tabPSO.UseVisualStyleBackColor = true;
@@ -408,7 +410,7 @@ namespace R08546036SHChaoAss12
             // 
             this.tabGA.Location = new System.Drawing.Point(4, 25);
             this.tabGA.Name = "tabGA";
-            this.tabGA.Size = new System.Drawing.Size(610, 481);
+            this.tabGA.Size = new System.Drawing.Size(610, 483);
             this.tabGA.TabIndex = 2;
             this.tabGA.Text = "GA";
             this.tabGA.UseVisualStyleBackColor = true;
@@ -434,11 +436,11 @@ namespace R08546036SHChaoAss12
             // 
             // chartSolution
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartSolution.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.chartSolution.ChartAreas.Add(chartArea1);
             this.chartSolution.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "Legend1";
-            this.chartSolution.Legends.Add(legend3);
+            legend1.Name = "Legend1";
+            this.chartSolution.Legends.Add(legend1);
             this.chartSolution.Location = new System.Drawing.Point(0, 0);
             this.chartSolution.Name = "chartSolution";
             this.chartSolution.Size = new System.Drawing.Size(710, 234);
@@ -470,6 +472,14 @@ namespace R08546036SHChaoAss12
             this.dlgPreview.Name = "dlgPreview";
             this.dlgPreview.Visible = false;
             this.dlgPreview.Click += new System.EventHandler(this.dlgPreview_Click);
+            // 
+            // lbCorrectness
+            // 
+            this.lbCorrectness.AutoSize = true;
+            this.lbCorrectness.Location = new System.Drawing.Point(16, 60);
+            this.lbCorrectness.Name = "lbCorrectness";
+            this.lbCorrectness.Size = new System.Drawing.Size(0, 17);
+            this.lbCorrectness.TabIndex = 9;
             // 
             // MainForm
             // 
@@ -559,6 +569,7 @@ namespace R08546036SHChaoAss12
         private System.Windows.Forms.ToolStripMenuItem printNNToolStripMenuItem;
         private System.Windows.Forms.PrintPreviewDialog dlgPreview;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lbCorrectness;
     }
 }
 

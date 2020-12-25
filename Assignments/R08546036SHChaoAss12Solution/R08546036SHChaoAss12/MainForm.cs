@@ -50,7 +50,7 @@ namespace R08546036SHChaoAss12
         }
         #endregion
 
-        // open file function
+        #region solver related function
         private void openFromFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -63,12 +63,11 @@ namespace R08546036SHChaoAss12
             theSolver = new BbackPropagationMLP((int)nUpDownHiddenLayers.Value,
                 (int)nUpDownNeuronNumbers.Value);
 
-            theSolver.ReadInDataSet(sr, (float)0.8);
+            theSolver.ReadInDataSet(sr, (float)0.66);
 
             gridSolver.SelectedObject = theSolver;
         }
 
-        #region training & reset Function
         private void btnReset_Click(object sender, EventArgs e)
         {
             // return if the solver is null
@@ -90,7 +89,6 @@ namespace R08546036SHChaoAss12
             // refresh property grid
             gridSolver.Refresh();
 
-
             // chart reset part
             chartSolution.Series.Clear();
 
@@ -100,17 +98,7 @@ namespace R08546036SHChaoAss12
             theSeriesObj.BorderWidth = 3;
             chartSolution.Series.Add(theSeriesObj);
 
-            iterationBest = new Series("IterationBest");
-            iterationBest.ChartType = SeriesChartType.Line;
-            iterationBest.Color = Color.Orange;
-            iterationBest.BorderWidth = 3;
-            chartSolution.Series.Add(iterationBest);
-
-            iterationAverage = new Series("IterationAverage");
-            iterationAverage.ChartType = SeriesChartType.Line;
-            iterationAverage.Color = Color.Green;
-            iterationAverage.BorderWidth = 3;
-            chartSolution.Series.Add(iterationAverage);
+            splitContainer3.Panel2.Refresh();
 
         }
 
@@ -133,9 +121,9 @@ namespace R08546036SHChaoAss12
             chartSolution.Update();
             lbRMSE.Text = "RMSE " + theSolver.RootMeanSquareError;
             lbRMSE.Refresh();
+            splitContainer3.Panel2.Refresh();
 
         }
-
 
         private void btnTrainAnEpoch_Click(object sender, EventArgs e)
         {
@@ -146,6 +134,11 @@ namespace R08546036SHChaoAss12
 
         private void btnTrainToEnd_Click(object sender, EventArgs e)
         {
+            if (theSolver == null || theSolver.IsReset == false)
+            {
+                MessageBox.Show("Create and Reset the Solver First!");
+                return;
+            }
 
             for (int i = theSolver.IterationCount; i < theSolver.TrainingLimit; i++)
             {
@@ -153,8 +146,16 @@ namespace R08546036SHChaoAss12
             }
 
         }
+
+        private void btnClassificationTest_Click(object sender, EventArgs e)
+        {
+            if (theSolver.IsTrained == false) return;
+            lbCorrectness.Text = "Correctness = " + theSolver.TestingClassification().ToString();
+        }
+
         #endregion
 
+        #region graphing function
         private void splitContainer3_Panel2_Paint(object sender, PaintEventArgs e)
         {
             if (theSolver != null) theSolver.DrawMLP(e.Graphics, e.ClipRectangle);
@@ -177,6 +178,7 @@ namespace R08546036SHChaoAss12
                 pDocNN.Print();
             }
         }
+        #endregion
 
         #region value change function of neuron numbers
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -240,5 +242,6 @@ namespace R08546036SHChaoAss12
         }
         #endregion
 
+        
     }
 }
