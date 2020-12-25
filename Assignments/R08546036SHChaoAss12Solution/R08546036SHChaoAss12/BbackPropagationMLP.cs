@@ -46,6 +46,8 @@ namespace R08546036SHChaoAss12
         // variables defined 
         int neuronNums;
         int trainingLimit = 100;
+        int iterationCount = 0;
+        float trainingRatio = 0.0F;
         #endregion
 
 
@@ -77,13 +79,15 @@ namespace R08546036SHChaoAss12
         /// </summary> 
         public float RootMeanSquareError
         {
-            get { return rootMeanSquareError; } //set { rootMeanSquare = value; } 
+            get { return rootMeanSquareError; } 
         }
 
         public int[] NeuronNumbers { get => n; }
         public int TrainingLimit { get => trainingLimit; set => trainingLimit = value; }
         public float[][][] Weight { get => w; }
-        public float[][] NeuronValue { get => x;}
+        public float[][] NeuronValue { get => x; }
+        public float TrainingRatio { get => trainingRatio; set => trainingRatio = value; }
+        public int IterationCount { get => iterationCount;}
 
 
         #endregion
@@ -114,6 +118,8 @@ namespace R08546036SHChaoAss12
             inputWidth = Convert.ToInt32(items[3]);
 
             // add something in following part
+
+            this.trainingRatio = trainingRatio;
 
             // initiate vars
             inputMax = new float[inputDimension];
@@ -285,8 +291,9 @@ namespace R08546036SHChaoAss12
 
             for (int i = 0; i < layerNumber; i++)
             {
-                if (i != 0) {
-                    
+                if (i != 0)
+                {
+
                     w[i] = new float[n[i]][];
 
                     for (int j = 0; j < n[i]; j++)
@@ -322,8 +329,13 @@ namespace R08546036SHChaoAss12
                 }
             }
 
-        }
+            // set amount for training
+            numberOfTrainningVectors = (int) Math.Round(inputNumber * trainingRatio);
 
+            // other stuff
+            iterationCount = 0;
+
+        }
 
         /// <summary> 
         /// Sequentially loop through each training datum of the training data whose indices are 
@@ -334,12 +346,13 @@ namespace R08546036SHChaoAss12
             float v;
             float errorSquareSum = 0.0f;
             float sumation = 0.0f;
+            float updateAmount = 0.0f;
             int layerNumberMinusOne = layerNumber - 1;
 
             /// forward computing for all neuro values. 
             // add something
 
-            for (int sample = 0; sample < 2; sample++)
+            for (int sample = 0; sample < numberOfTrainningVectors; sample++)
             {
                 // clear all value in neurons
                 for (int i = 0; i < layerNumber; i++)
@@ -389,28 +402,75 @@ namespace R08546036SHChaoAss12
                 }
 
                 // compute the epsilon values for neurons on the output layer
+                // and error square sum
                 // add something
                 for (int i = 0; i < targetDimension; i++)
                 {
-                 e[(layerNumber) - 1][i + 1] = targets[sample, i] - x[(layerNumber) - 1][i + 1];
+                    e[(layerNumber) - 1][i + 1] = (-2) * ((targets[sample, i] 
+                        - x[(layerNumber) - 1][i + 1]))
+                        * x[(layerNumber) - 1][i + 1] * (1 - x[(layerNumber) - 1][i + 1]);
+
+                    errorSquareSum += (((targets[sample, i] - x[(layerNumber) - 1][i + 1])) *
+                        ((targets[sample, i] - x[(layerNumber) - 1][i + 1])));
+                }
+
+                /// backward computing for the epsilon values 
+                /// // add something
+                /// 
+                for (int i = (layerNumber - 2); i >= 0; i--) {
+
+                    for (int j = 0; j < n[i]; j++) {
+
+                        // comput epsilon from backward
+                        // Note: weight: layerNum, toWhichNode, fromWhichNode
+
+                        // use sumation as temperory variable keeping
+                        sumation = 0.0F;
+
+                        for (int l = 0; l < n[i + 1]; l++) {
+                            sumation += w[i + 1][l][j] * e[i+1][l];
+                        }
+
+                        e[i][j] = x[i][j] * (1 - x[i][j]) * sumation;
+
+                    }
+                
+                }
+
+                /// update weights for all weights by using epsilon and neuron values. 
+                // add something
+                for (int i = 0; i < (layerNumber - 1); i++)
+                {
+                    if (i != 0)
+                    {
+                        for (int j = 0; j < n[i]; j++)
+                        {
+                            for (int l = 0; l < n[i - 1]; l++)
+                            {
+                                updateAmount = (-eta) * e[i][j] * x[i - 1][l];
+
+                                //MessageBox.Show("1 " + (-eta).ToString());
+                                //MessageBox.Show("2 " + (e[i][j]).ToString());
+                                //MessageBox.Show("3 " + (x[i - 1][l]).ToString());
+
+                                w[i][j][l] += updateAmount;
+                            }
+                        }
+                    }
                 }
 
 
             }
 
-
-            /// backward computing for the epsilon values 
-            // add something
-
-
-
-            /// update weights for all weights by using epsilon and neuron values. 
-            // add something
+            // calculate error term
+            rootMeanSquareError = Convert.ToSingle(Math.Sqrt(errorSquareSum / (targetDimension * numberOfTrainningVectors)));
 
             /// update step size of the updating amount 
             // add something
 
+            eta *= learningRate;
 
+            iterationCount += 1;
 
         }
 

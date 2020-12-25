@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace R08546036SHChaoAss12
 {
@@ -18,6 +19,9 @@ namespace R08546036SHChaoAss12
         double[,] dataContent;
         double[,] yContent;
         int[] hiddenLayers;
+        Series theSeriesObj;
+        Series iterationBest;
+        Series iterationAverage;
         BbackPropagationMLP theSolver;
         #endregion
 
@@ -84,22 +88,59 @@ namespace R08546036SHChaoAss12
 
             // refresh property grid
             gridSolver.Refresh();
+
+
+            // chart reset part
+            chartSolution.Series.Clear();
+
+            theSeriesObj = new Series("RMSE");
+            theSeriesObj.ChartType = SeriesChartType.Line;
+            theSeriesObj.Color = Color.Red;
+            theSeriesObj.BorderWidth = 3;
+            chartSolution.Series.Add(theSeriesObj);
+
+            iterationBest = new Series("IterationBest");
+            iterationBest.ChartType = SeriesChartType.Line;
+            iterationBest.Color = Color.Orange;
+            iterationBest.BorderWidth = 3;
+            chartSolution.Series.Add(iterationBest);
+
+            iterationAverage = new Series("IterationAverage");
+            iterationAverage.ChartType = SeriesChartType.Line;
+            iterationAverage.Color = Color.Green;
+            iterationAverage.BorderWidth = 3;
+            chartSolution.Series.Add(iterationAverage);
+
         }
+
+        private void TrainAnEpoch() {
+
+            theSolver.TrainAnEpoch();
+
+            // add numbers to chart
+            chartSolution.Series[0].Points.AddXY(theSolver.IterationCount, theSolver.RootMeanSquareError);
+
+            gridSolver.Refresh();
+            chartSolution.Update();
+        }
+
 
         private void btnTrainAnEpoch_Click(object sender, EventArgs e)
         {
             if (theSolver == null) return;
-            theSolver.TrainAnEpoch();
+            
+            TrainAnEpoch();
         }
 
         private void btnTrainToEnd_Click(object sender, EventArgs e)
         {
             if (theSolver == null) return;
 
-            for (int i = 0; i < theSolver.TrainingLimit; i++)
+            for (int i = theSolver.IterationCount; i < theSolver.TrainingLimit; i++)
             {
-                theSolver.TrainAnEpoch();
+                TrainAnEpoch();
             }
+
         }
         #endregion
 

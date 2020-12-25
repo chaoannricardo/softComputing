@@ -29,8 +29,8 @@ namespace R08546036SHChaoAss12
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -60,7 +60,7 @@ namespace R08546036SHChaoAss12
             this.tabPSO = new System.Windows.Forms.TabPage();
             this.tabGA = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartSolution = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pDocNN = new System.Drawing.Printing.PrintDocument();
             this.dlgPreview = new System.Windows.Forms.PrintPreviewDialog();
             this.label5 = new System.Windows.Forms.Label();
@@ -96,7 +96,7 @@ namespace R08546036SHChaoAss12
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartSolution)).BeginInit();
             this.SuspendLayout();
             // 
             // dlgOpen
@@ -299,7 +299,7 @@ namespace R08546036SHChaoAss12
             // 
             this.splitContainer5.Panel2.Controls.Add(this.gridSolver);
             this.splitContainer5.Size = new System.Drawing.Size(238, 377);
-            this.splitContainer5.SplitterDistance = 130;
+            this.splitContainer5.SplitterDistance = 74;
             this.splitContainer5.TabIndex = 0;
             // 
             // btnReset
@@ -319,7 +319,7 @@ namespace R08546036SHChaoAss12
             this.gridSolver.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridSolver.Location = new System.Drawing.Point(0, 0);
             this.gridSolver.Name = "gridSolver";
-            this.gridSolver.Size = new System.Drawing.Size(238, 243);
+            this.gridSolver.Size = new System.Drawing.Size(238, 299);
             this.gridSolver.TabIndex = 2;
             // 
             // splitContainer6
@@ -424,7 +424,7 @@ namespace R08546036SHChaoAss12
             // 
             // splitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.chart1);
+            this.splitContainer3.Panel1.Controls.Add(this.chartSolution);
             // 
             // splitContainer3.Panel2
             // 
@@ -434,18 +434,18 @@ namespace R08546036SHChaoAss12
             this.splitContainer3.SplitterDistance = 235;
             this.splitContainer3.TabIndex = 0;
             // 
-            // chart1
+            // chartSolution
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
-            this.chart1.Location = new System.Drawing.Point(0, 0);
-            this.chart1.Name = "chart1";
-            this.chart1.Size = new System.Drawing.Size(710, 235);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
+            chartArea1.Name = "ChartArea1";
+            this.chartSolution.ChartAreas.Add(chartArea1);
+            this.chartSolution.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chartSolution.Legends.Add(legend1);
+            this.chartSolution.Location = new System.Drawing.Point(0, 0);
+            this.chartSolution.Name = "chartSolution";
+            this.chartSolution.Size = new System.Drawing.Size(710, 235);
+            this.chartSolution.TabIndex = 0;
+            this.chartSolution.Text = "chart1";
             // 
             // pDocNN
             // 
@@ -521,7 +521,7 @@ namespace R08546036SHChaoAss12
             this.splitContainer3.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartSolution)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -534,7 +534,7 @@ namespace R08546036SHChaoAss12
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartSolution;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabGeneralizedData;
         private System.Windows.Forms.TabPage tabPSO;
