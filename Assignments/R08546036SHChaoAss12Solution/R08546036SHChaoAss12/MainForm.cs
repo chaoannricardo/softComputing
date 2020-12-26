@@ -72,7 +72,7 @@ namespace R08546036SHChaoAss12
             theSolver = new BbackPropagationMLP((int)nUpDownHiddenLayers.Value,
                 (int)nUpDownNeuronNumbers.Value);
 
-            theSolver.ReadInDataSet(sr, (float)0.66);
+            theSolver.ReadInDataSet(sr, (float)0.9);
 
             gridSolver.SelectedObject = theSolver;
         }

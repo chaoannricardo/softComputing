@@ -304,7 +304,7 @@ namespace R08546036SHChaoAss12
                         rect.Y = pts[l][c].Y - halfUnit;
 
                         g.FillEllipse(whiteBrush, rect);
-                        g.DrawString(Math.Round(x[l][c], 2).ToString(), neuronFont, Brushes.Black, rect, stringFormat);
+                        g.DrawString(Math.Round(x[l][c], 4).ToString(), neuronFont, Brushes.Black, rect, stringFormat);
                         g.DrawEllipse(Pens.Red, rect);
                     }
                     
@@ -382,27 +382,22 @@ namespace R08546036SHChaoAss12
             // initiate weight: layerNum, toWhichNode, fromWhichNode
             w = new float[layerNumber][][];
 
-            for (int i = 0; i < layerNumber; i++)
+            for (int i = 1; i < layerNumber; i++)
             {
-                if (i != 0)
+                w[i] = new float[n[i]][];
+
+                for (int j = 0; j < n[i]; j++)
                 {
 
-                    w[i] = new float[n[i]][];
+                    w[i][j] = new float[n[i - 1]];
 
-                    for (int j = 0; j < n[i]; j++)
+                    for (int l = 0; l < n[i - 1]; l++)
                     {
 
-                        w[i][j] = new float[n[i - 1]];
+                        w[i][j][l] = Convert.ToSingle((2 * (randomizer.NextDouble()) / 1) - 1);
 
-                        for (int l = 0; l < n[i - 1]; l++)
-                        {
-
-                            w[i][j][l] = Convert.ToSingle((2 * (randomizer.NextDouble()) / 1) - 1);
-
-                        }
                     }
                 }
-
             }
 
             // initate neuron value & epsilon
@@ -469,7 +464,7 @@ namespace R08546036SHChaoAss12
 
                 // calculate value of other neurons
                 // note: weight: layerNum, toWhichNode, fromWhichNode
-                for (int layerNum = 0; layerNum < (layerNumber - 1); layerNum++)
+                for (int layerNum = 0; layerNum < (layerNumber - 2); layerNum++)
                 {
                     // calculate vertice value
                     for (int toNode = 1; toNode < n[layerNum + 1]; toNode++)
@@ -487,20 +482,35 @@ namespace R08546036SHChaoAss12
                         x[layerNum + 1][toNode] = Convert.ToSingle(1 / (1 + Math.Exp(-(x[layerNum + 1][toNode]))));
                     }
 
+                    // bias node
+                    x[layerNum + 1][0] = 1;
+
                 }
+
+                // last layer
+                for (int toNode = 1; toNode < n[layerNumber - 1]; toNode++)
+                {
+                    for (int fromNode = 0; fromNode < n[layerNumber - 2]; fromNode++)
+                    {
+                        x[layerNumber - 1][toNode] += (w[layerNumber - 1][toNode][fromNode] * x[layerNumber - 2][fromNode]);
+                        //MessageBox.Show((w[layerNumber - 1][toNode][fromNode] * x[layerNumber - 2][fromNode]).ToString());
+                    }
+
+                    // apply sigmoidal function
+                    x[layerNumber - 1][toNode] = Convert.ToSingle(1 / (1 + Math.Exp(-(x[layerNumber - 1][toNode]))));
+                }
+
 
                 // compute the epsilon values for neurons on the output layer
                 // and error square sum
                 // add something
                 for (int i = 0; i < targetDimension; i++)
                 {
-                    e[(layerNumber) - 1][i + 1] = (-2) * ((targets[sample, i] - x[(layerNumber) - 1][i + 1]))
+                    e[(layerNumber) - 1][i + 1] = (-2) * ((originalTargets[sample, i] - x[(layerNumber) - 1][i + 1]))
                         * (x[(layerNumber) - 1][i + 1]) * (1 - x[(layerNumber) - 1][i + 1]);
 
-                    //errorSquareSum += (((targets[sample, i] - x[layerNumber - 1][i + 1])) *
-                    //    ((targets[sample, i] - x[(layerNumber) - 1][i + 1])));
-
-                    errorSquareSum += (e[(layerNumber) - 1][i + 1] * e[(layerNumber) - 1][i + 1]);
+                    errorSquareSum += (((originalTargets[sample, i] - x[layerNumber - 1][i + 1])) *
+                        ((originalTargets[sample, i] - x[(layerNumber) - 1][i + 1])));
                 }
 
                 /// backward computing for the epsilon values 
@@ -527,7 +537,6 @@ namespace R08546036SHChaoAss12
                     }
 
                 }
-
 
                 /// update weights for all weights by using epsilon and neuron values. 
                 // add something
@@ -591,7 +600,6 @@ namespace R08546036SHChaoAss12
             confusingTable = new int[targetDimension, targetDimension];
 
             int successedCount = 0;
-            int output = int.MinValue;
             float[] evaluateArray;
 
             // add something
@@ -664,6 +672,8 @@ namespace R08546036SHChaoAss12
                 // check correctness
                 evaluateArray = x[layerNumber - 1];
                 evaluateArray[0] = 0;
+
+                int output = int.MaxValue;
 
                 for (int neuron = 1; neuron < n[layerNumber - 1]; neuron++) {
                     if (x[layerNumber - 1][neuron] == evaluateArray.Max()) {
