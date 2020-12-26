@@ -105,6 +105,11 @@ namespace R08546036SHChaoAss12
             chartSolution.Series.Add(theSeriesObj);
             splitContainer3.Panel2.Refresh();
 
+            // clear labels
+            lbRMSE.Text = "";
+            lbCorrectness.Text = "";
+            lbConfusing.Text = "";
+
         }
 
         private void TrainAnEpoch()

@@ -472,20 +472,11 @@ namespace R08546036SHChaoAss12
                 for (int layerNum = 0; layerNum < (layerNumber - 1); layerNum++)
                 {
                     // calculate vertice value
-                    for (int toNode = 0; toNode < n[layerNum + 1]; toNode++)
+                    for (int toNode = 1; toNode < n[layerNum + 1]; toNode++)
                     {
                         for (int fromNode = 0; fromNode < n[layerNum]; fromNode++)
                         {
-
-                            if (toNode == 0)
-                            {
-                                // bias section
-                                x[layerNum + 1][toNode] = 1;
-                            }
-                            else
-                            {
-                                x[layerNum + 1][toNode] += (w[layerNum + 1][toNode][fromNode] * x[layerNum][fromNode]);
-                            }
+                            x[layerNum + 1][toNode] += (w[layerNum + 1][toNode][fromNode] * x[layerNum][fromNode]);
                         }
 
                     }
@@ -504,10 +495,12 @@ namespace R08546036SHChaoAss12
                 for (int i = 0; i < targetDimension; i++)
                 {
                     e[(layerNumber) - 1][i + 1] = (-2) * ((targets[sample, i] - x[(layerNumber) - 1][i + 1]))
-                        * (1 - x[(layerNumber) - 1][i + 1]);
+                        * (x[(layerNumber) - 1][i + 1]) * (1 - x[(layerNumber) - 1][i + 1]);
 
-                    errorSquareSum += (((targets[sample, i] - x[layerNumber - 1][i + 1])) *
-                        ((targets[sample, i] - x[(layerNumber) - 1][i + 1])));
+                    //errorSquareSum += (((targets[sample, i] - x[layerNumber - 1][i + 1])) *
+                    //    ((targets[sample, i] - x[(layerNumber) - 1][i + 1])));
+
+                    errorSquareSum += (e[(layerNumber) - 1][i + 1] * e[(layerNumber) - 1][i + 1]);
                 }
 
                 /// backward computing for the epsilon values 
@@ -515,8 +508,7 @@ namespace R08546036SHChaoAss12
                 /// 
                 for (int i = (layerNumber - 2); i >= 0; i--)
                 {
-
-                    for (int j = 0; j < n[i]; j++)
+                    for (int fromNode = 0; fromNode < n[i]; fromNode++)
                     {
 
                         // compute epsilon from backward
@@ -525,12 +517,12 @@ namespace R08546036SHChaoAss12
                         // use sumation as temperory variable keeping
                         sumation = 0.0F;
 
-                        for (int l = 0; l < n[i + 1]; l++)
+                        for (int toNode = 1; toNode < n[i + 1]; toNode++)
                         {
-                            sumation += (w[i + 1][l][j] * e[i + 1][l]);
+                            sumation += (w[i + 1][toNode][fromNode] * e[i + 1][toNode]);
                         }
 
-                        e[i][j] = x[i][j] * (1 - x[i][j]) * sumation;
+                        e[i][fromNode] = (x[i][fromNode] * (1 - x[i][fromNode]) * sumation);
 
                     }
 
@@ -555,7 +547,6 @@ namespace R08546036SHChaoAss12
             }
 
             // calculate error term
-
             rootMeanSquareError = Convert.ToSingle(Math.Sqrt(errorSquareSum / (targetDimension * numberOfTrainningVectors)));
 
             /// update step size of the updating amount 
