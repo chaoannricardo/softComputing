@@ -52,9 +52,11 @@ namespace R08546036SHChaoAss12
             lbConfusing.Font = new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point);
             lbCorrectness.Font = new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point);
             lbRMSE.Font = new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point);
+            lbTime.Font = new Font("Arial", 10, FontStyle.Bold, GraphicsUnit.Point);
             lbConfusing.ForeColor = Color.DarkRed;
             lbCorrectness.ForeColor = Color.DarkRed;
             lbRMSE.ForeColor = Color.DarkRed;
+            lbTime.ForeColor = Color.DarkRed;
 
         }
         #endregion
@@ -72,7 +74,7 @@ namespace R08546036SHChaoAss12
             theSolver = new BbackPropagationMLP((int)nUpDownHiddenLayers.Value,
                 (int)nUpDownNeuronNumbers.Value);
 
-            theSolver.ReadInDataSet(sr, (float)0.9);
+            theSolver.ReadInDataSet(sr, (float)0.66);
 
             gridSolver.SelectedObject = theSolver;
         }
@@ -114,7 +116,6 @@ namespace R08546036SHChaoAss12
 
         private void TrainAnEpoch()
         {
-
             if (theSolver == null || theSolver.IsReset == false)
             {
                 MessageBox.Show("Create and Reset the Solver First!");
@@ -132,13 +133,19 @@ namespace R08546036SHChaoAss12
             lbRMSE.Text = "RMSE " + theSolver.RootMeanSquareError;
             lbRMSE.Refresh();
             splitContainer3.Panel2.Refresh();
-
+            
         }
 
         private void btnTrainAnEpoch_Click(object sender, EventArgs e)
         {
+            DateTime startTime = DateTime.Now;
+
             TrainAnEpoch();
             testClassification();
+
+            DateTime endTime = DateTime.Now;
+            TimeSpan delta = endTime - startTime;
+            lbTime.Text = $"Start Time: {startTime}\nEndtime: {endTime}\nDelta {delta}";
         }
 
         private void btnTrainToEnd_Click(object sender, EventArgs e)
@@ -149,12 +156,18 @@ namespace R08546036SHChaoAss12
                 return;
             }
 
+            DateTime startTime = DateTime.Now;
+
             for (int i = theSolver.IterationCount; i < theSolver.TrainingLimit; i++)
             {
                 TrainAnEpoch();
             }
 
             testClassification();
+
+            DateTime endTime = DateTime.Now;
+            TimeSpan delta = endTime - startTime;
+            lbTime.Text = $"Start Time: {startTime}\nEndtime: {endTime}\nDelta: {delta}";
 
         }
 
