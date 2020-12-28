@@ -1,0 +1,14 @@
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\bin\Debug\DataBaseApp.exe.config
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\bin\Debug\DataBaseApp.exe
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\bin\Debug\DataBaseApp.pdb
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\obj\Debug\DataBaseApp.csprojAssemblyReference.cache
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\obj\Debug\DataBaseApp.Form1.resources
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\obj\Debug\DataBaseApp.Properties.Resources.resources
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\obj\Debug\DataBaseApp.csproj.GenerateResource.cache
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\obj\Debug\DataBaseApp.csproj.CoreCompileInputs.cache
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\obj\Debug\DataBaseApp.exe
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\obj\Debug\DataBaseApp.pdb
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\obj\Debug\DataBaseApp.Form2.resources
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\obj\Debug\DataBaseApp.Form3.resources
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\obj\Debug\DataBaseApp.csproj.ResolveComReference.cache
+D:\Windows_Storage\Storage\Github\softComputing\Database\DataBaseAppSolution\DataBaseApp\obj\Debug\DataBaseApp.Form4.resources
