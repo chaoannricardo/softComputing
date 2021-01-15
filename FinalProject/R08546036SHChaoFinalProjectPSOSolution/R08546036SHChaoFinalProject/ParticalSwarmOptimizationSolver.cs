@@ -9,6 +9,7 @@ using System.Windows.Forms;
 namespace R08546036SHChaoFinalProject
 {
     public enum OptimizationType { Minimization, Maximization };
+    public enum EnvironmentType { Harsh, Average, Calm };
     public delegate double ObjectiveFunction(double[] solution);
 
     class PSOBasedType
@@ -21,7 +22,6 @@ namespace R08546036SHChaoFinalProject
         protected double[] objectivesBestIndividual;
         protected double[] solutionLowerBound;
         protected double[] solutionUpperBound;
-
         protected int particleNum = 50;
         protected int iterationLimit = 100;
         protected int iterationCount = 0;
@@ -259,8 +259,8 @@ namespace R08546036SHChaoFinalProject
         public int ParticleNum { get => particleNum; set => particleNum = value; }
         public double SocialFactor { get => socialFactor; set => socialFactor = value; }
         public double CognitionFactor { get => cognitionFactor; set => cognitionFactor = value; }
-        public double[] SolutionLowerBound { get => solutionLowerBound;}
-        public double[] SolutionUpperBound { get => solutionUpperBound;}
+        public double[] SolutionLowerBound { get => solutionLowerBound; }
+        public double[] SolutionUpperBound { get => solutionUpperBound; }
         public override int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
         public override int IterationCount { get => iterationCount; set => iterationCount = value; }
         // only get
@@ -545,8 +545,8 @@ namespace R08546036SHChaoFinalProject
         public OptimizationType OptimizationMethod { get; set; } = OptimizationType.Minimization;
         public ObjectiveFunction ObjFunction { get; }
         public int ParticleNum { get => particleNum; set => particleNum = value; }
-        public double[] SolutionLowerBound { get => solutionLowerBound;}
-        public double[] SolutionUpperBound { get => solutionUpperBound;}
+        public double[] SolutionLowerBound { get => solutionLowerBound; }
+        public double[] SolutionUpperBound { get => solutionUpperBound; }
         public override int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
         public override int IterationCount { get => iterationCount; set => iterationCount = value; }
         // only get
@@ -688,7 +688,7 @@ namespace R08546036SHChaoFinalProject
             }
 
             // check if reorganization is needed
-           if (Math.Abs(swarmsoFarTheBestObjective - swarmSoFarTheWorstObjective) <= divergenceThreshold) ReorganizeSolution();
+            if (Math.Abs(swarmsoFarTheBestObjective - swarmSoFarTheWorstObjective) <= divergenceThreshold) ReorganizeSolution();
         }
 
         public void ComputeObjectiveValueAndUpdate()
@@ -760,15 +760,31 @@ namespace R08546036SHChaoFinalProject
 
     class AnimalFoodChainBasedPSO : PSOBasedType
     {
+        #region ownVars
+        int herbivoresNum;
+        int omnivoresNum;
+        int carnivoresNum;
+        #endregion
+
         #region properties
         public override double[][] Solutions { get => solutions; }
         public OptimizationType OptimizationMethod { get; set; } = OptimizationType.Minimization;
         public ObjectiveFunction ObjFunction { get; }
-        public int ParticleNum { get => particleNum; set => particleNum = value; }
+        public int ParticleNum
+        {
+            get => particleNum;
+            set
+            {
+                if (value >= 50)
+                {
+                    particleNum = value;
+                }
+            }
+        }
         public double SocialFactor { get => socialFactor; set => socialFactor = value; }
         public double CognitionFactor { get => cognitionFactor; set => cognitionFactor = value; }
-        public double[] SolutionLowerBound { get => solutionLowerBound;}
-        public double[] SolutionUpperBound { get => solutionUpperBound;}
+        public double[] SolutionLowerBound { get => solutionLowerBound; }
+        public double[] SolutionUpperBound { get => solutionUpperBound; }
         public override int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
         public override int IterationCount { get => iterationCount; set => iterationCount = value; }
         // only get
@@ -780,6 +796,8 @@ namespace R08546036SHChaoFinalProject
         public override double SoFarTheBestObjectiveIteration { get => soFarTheBestObjectiveIteration; }
         [Browsable(false)]
         public override bool IsReset { get => isReset; }
+        // additional properties
+        public EnvironmentType EnvironmentType { get; set; } = EnvironmentType.Calm;
 
         #endregion
 
@@ -792,6 +810,9 @@ namespace R08546036SHChaoFinalProject
             solutionLowerBound = lowerBounds;
             solutionUpperBound = upperBounds;
             ObjFunction = objFunction;
+
+            // additional set up of default variables
+            particleNum = 51;
         }
 
         public override void Reset()
@@ -857,6 +878,30 @@ namespace R08546036SHChaoFinalProject
 
             }
 
+            // set up herbivores, omnivores, carnivores number based on selection
+            switch (EnvironmentType) {
+                case EnvironmentType.Harsh:
+                    herbivoresNum = Convert.ToInt32(particleNum * (10 / 14));
+                    omnivoresNum = Convert.ToInt32(particleNum * (3 / 14));
+                    carnivoresNum = Convert.ToInt32(particleNum * (1 / 14));
+                    break;
+                case EnvironmentType.Average:
+                    herbivoresNum = Convert.ToInt32(particleNum * (25 / 32));
+                    omnivoresNum = Convert.ToInt32(particleNum * (6 / 32));
+                    carnivoresNum = Convert.ToInt32(particleNum * (1 / 32));
+                    break;
+                case EnvironmentType.Calm:
+                    herbivoresNum = Convert.ToInt32(particleNum * (40 / 51));
+                    omnivoresNum = Convert.ToInt32(particleNum * (10 / 51));
+                    carnivoresNum = Convert.ToInt32(particleNum * (1 / 51));
+                    break;
+            }
+
+            // make sure sum is determined
+            while (herbivoresNum + omnivoresNum + carnivoresNum > particleNum) {
+                herbivoresNum -= 1;
+            }
+
         }
 
         public override void RunOneIteration()
@@ -868,7 +913,6 @@ namespace R08546036SHChaoFinalProject
 
         public void UpdateSolution()
         {
-
             for (int i = 0; i < particleNum; i++)
             {
 
@@ -877,12 +921,28 @@ namespace R08546036SHChaoFinalProject
 
                 for (int j = 0; j < numberOfVariables; j++)
                 {
-                    // update solution
-                    solutions[i][j] += (alphaValue * (solutionBestIndividual[i][j] - solutions[i][j])
-                        + betaValue * (solutionBest[j] - solutions[i][j]));
-                    // check if solution excess the boundary
-                    if (solutions[i][j] > solutionUpperBound[j]) solutions[i][j] = solutionUpperBound[j];
-                    else if (solutions[i][j] < solutionLowerBound[j]) solutions[i][j] = solutionLowerBound[j];
+                    if (i < herbivoresNum)
+                    {
+                        // herbivores update method
+
+                        // update solution
+                        solutions[i][j] += (alphaValue * (solutionBestIndividual[i][j] - solutions[i][j])
+                            + betaValue * (solutionBest[j] - solutions[i][j]));
+                        // check if solution excess the boundary
+                        if (solutions[i][j] > solutionUpperBound[j]) solutions[i][j] = solutionUpperBound[j];
+                        else if (solutions[i][j] < solutionLowerBound[j]) solutions[i][j] = solutionLowerBound[j];
+                    }
+                    else if (i < (herbivoresNum + omnivoresNum))
+                    {
+                        // omnivores update method
+
+                    }
+                    else
+                    {
+                        // carnivores update method
+
+
+                    }
                 }
             }
 
