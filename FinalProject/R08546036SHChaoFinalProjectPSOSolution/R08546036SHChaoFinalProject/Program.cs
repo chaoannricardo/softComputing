@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace R08546036SHChaoAss11PSO
+namespace R08546036SHChaoFinalProject
 {
     static class Program
     {

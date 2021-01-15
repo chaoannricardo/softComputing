@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace R08546036SHChaoAss11PSO
+namespace R08546036SHChaoFinalProject
 {
     public enum OptimizationType { Minimization, Maximization };
     public delegate double ObjectiveFunction(double[] solution);

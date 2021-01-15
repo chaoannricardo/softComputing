@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using COP;
 
-namespace R08546036SHChaoAss11PSO
+namespace R08546036SHChaoFinalProject
 {
     public partial class MainForm : Form
     {
@@ -31,6 +31,9 @@ namespace R08546036SHChaoAss11PSO
             // let application to go full screen
             WindowState = FormWindowState.Maximized;
 
+            // initiate PSO selection
+            cbPSOSelector.SelectedText = "AnimalFoodChainBasedPSO";
+
             // initiate data grid
             this.dataInfo.Columns.Add("Information Grid", "Information Grid");
             this.dataInfo.Columns.Add("", "");
@@ -43,6 +46,7 @@ namespace R08546036SHChaoAss11PSO
         private void btnOpen_Click(object sender, EventArgs e)
         {
             theProblem = COPBenchmark.LoadAProblemFromAFile();
+
 
             if (theProblem == null) return;
 

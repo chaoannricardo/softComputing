@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace R08546036SHChaoAss11PSO.Properties
+namespace R08546036SHChaoFinalProject.Properties
 {
 
 

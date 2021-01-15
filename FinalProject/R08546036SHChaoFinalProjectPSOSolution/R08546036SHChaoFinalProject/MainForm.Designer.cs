@@ -1,4 +1,4 @@
-﻿namespace R08546036SHChaoAss11PSO
+﻿namespace R08546036SHChaoFinalProject
 {
     partial class MainForm
     {
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.spcMain = new System.Windows.Forms.SplitContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.spcSecond = new System.Windows.Forms.SplitContainer();
@@ -43,6 +43,7 @@
             this.btnRunOneIteration = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnRun = new System.Windows.Forms.Button();
+            this.cbPSOSelector = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.spcMain)).BeginInit();
             this.spcMain.Panel2.SuspendLayout();
             this.spcMain.SuspendLayout();
@@ -114,11 +115,11 @@
             // 
             // chartSolution
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartSolution.ChartAreas.Add(chartArea1);
+            chartArea3.Name = "ChartArea1";
+            this.chartSolution.ChartAreas.Add(chartArea3);
             this.chartSolution.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chartSolution.Legends.Add(legend1);
+            legend3.Name = "Legend1";
+            this.chartSolution.Legends.Add(legend3);
             this.chartSolution.Location = new System.Drawing.Point(0, 0);
             this.chartSolution.Name = "chartSolution";
             this.chartSolution.Size = new System.Drawing.Size(390, 130);
@@ -222,11 +223,25 @@
             this.btnRun.UseVisualStyleBackColor = true;
             this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
+            // cbPSOSelector
+            // 
+            this.cbPSOSelector.FormattingEnabled = true;
+            this.cbPSOSelector.Items.AddRange(new object[] {
+            "ParticalSwarmOptimizationSolver",
+            "PredatorPreyPSO",
+            "HuntingSearchPSO",
+            "AnimalFoodChainBasedPSO"});
+            this.cbPSOSelector.Location = new System.Drawing.Point(130, 12);
+            this.cbPSOSelector.Name = "cbPSOSelector";
+            this.cbPSOSelector.Size = new System.Drawing.Size(281, 24);
+            this.cbPSOSelector.TabIndex = 7;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1218, 610);
+            this.Controls.Add(this.cbPSOSelector);
             this.Controls.Add(this.btnRun);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnRunOneIteration);
@@ -272,6 +287,7 @@
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.DataGridView dataInfo;
+        private System.Windows.Forms.ComboBox cbPSOSelector;
     }
 }
 
