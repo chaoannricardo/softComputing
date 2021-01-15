@@ -11,7 +11,29 @@ namespace R08546036SHChaoFinalProject
     public enum OptimizationType { Minimization, Maximization };
     public delegate double ObjectiveFunction(double[] solution);
 
-    class ParticalSwarmOptimizationSolver
+    class PSOBasedType
+    {
+        public bool IsReset { get; internal set; }
+        public object IterationCount { get; internal set; }
+        public object SoFarTheBestObjective { get; internal set; }
+        public object SolutionBest { get; internal set; }
+        public double[][] Solutions { get; internal set; }
+        public double SoFarTheBestObjectiveIteration { get; internal set; }
+        public double IterationAverage { get; internal set; }
+        public int IterationLimit { get; internal set; }
+
+        internal void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void RunOneIteration()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    class ParticalSwarmOptimizationSolver : PSOBasedType
     {
         #region variables
         double[][] solutions;
@@ -191,7 +213,7 @@ namespace R08546036SHChaoFinalProject
 
     }
 
-    class PredatorPreyPSO
+    class PredatorPreyPSO : PSOBasedType
     {
         #region variables
         double[][] solutions;
@@ -385,7 +407,7 @@ namespace R08546036SHChaoFinalProject
 
     }
 
-    class HuntingSearchPSO
+    class HuntingSearchPSO : PSOBasedType
     {
         #region variables
         double[][] solutions;
@@ -579,7 +601,7 @@ namespace R08546036SHChaoFinalProject
 
     }
 
-    class AnimalFoodChainBasedPSO
+    class AnimalFoodChainBasedPSO : PSOBasedType
     {
         #region variables
         double[][] solutions;

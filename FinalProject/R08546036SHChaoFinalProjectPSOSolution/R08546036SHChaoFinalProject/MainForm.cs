@@ -14,12 +14,11 @@ namespace R08546036SHChaoFinalProject
 {
     public partial class MainForm : Form
     {
-        ParticalSwarmOptimizationSolver theSolver;
+        PSOBasedType theSolver;
         COPBenchmark theProblem;
         Series theSeriesObj;
         Series iterationBest;
         Series iterationAverage;
-
 
         public MainForm()
         {
@@ -47,7 +46,6 @@ namespace R08546036SHChaoFinalProject
         {
             theProblem = COPBenchmark.LoadAProblemFromAFile();
 
-
             if (theProblem == null) return;
 
             theProblem.DisplayOnPanel(spcMain.Panel1);
@@ -66,12 +64,27 @@ namespace R08546036SHChaoFinalProject
             OptimizationType type = theProblem.OptimizationGoal == COP.OptimizationType.Minimization ?
                 OptimizationType.Minimization : OptimizationType.Maximization;
 
-            theSolver = new ParticalSwarmOptimizationSolver(theProblem.Dimension, type,
+            // select solver based on selection
+            switch (cbPSOSelector.SelectedIndex) {
+                case 0:
+                    theSolver = new ParticalSwarmOptimizationSolver(theProblem.Dimension, type,
                 theProblem.LowerBound, theProblem.UpperBound, theProblem.GetObjectiveValue);
+                    break;
+                case 1:
+                    theSolver = new PredatorPreyPSO(theProblem.Dimension, type,
+                theProblem.LowerBound, theProblem.UpperBound, theProblem.GetObjectiveValue);
+                    break;
+                case 2:
+                    theSolver = new HuntingSearchPSO(theProblem.Dimension, type,
+                theProblem.LowerBound, theProblem.UpperBound, theProblem.GetObjectiveValue);
+                    break;
+                case 3:
+                    theSolver = new AnimalFoodChainBasedPSO(theProblem.Dimension, type,
+                theProblem.LowerBound, theProblem.UpperBound, theProblem.GetObjectiveValue);
+                    break;
+            }
 
             gridTheSolver.SelectedObject = theSolver;
-
-
 
         }
 
@@ -127,7 +140,6 @@ namespace R08546036SHChaoFinalProject
             chartSolution.Update();
             dataInfo.Update();
         }
-
 
         private void btnRunOneIteration_Click(object sender, EventArgs e)
         {
