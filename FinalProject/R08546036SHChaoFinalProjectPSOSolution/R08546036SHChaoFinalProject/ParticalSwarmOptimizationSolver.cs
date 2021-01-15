@@ -13,54 +13,58 @@ namespace R08546036SHChaoFinalProject
 
     class PSOBasedType
     {
-        public bool IsReset { get; internal set; }
-        public object IterationCount { get; internal set; }
-        public object SoFarTheBestObjective { get; internal set; }
-        public object SolutionBest { get; internal set; }
-        public double[][] Solutions { get; internal set; }
-        public double SoFarTheBestObjectiveIteration { get; internal set; }
-        public double IterationAverage { get; internal set; }
-        public int IterationLimit { get; internal set; }
+        #region variables
+        protected double[][] solutions;
+        protected double[][] solutionBestIndividual;
+        protected double[] solutionBest;
+        protected double[] objectives;
+        protected double[] objectivesBestIndividual;
+        protected double[] solutionLowerBound;
+        protected double[] solutionUpperBound;
 
-        internal void Reset()
+        protected int particleNum = 10;
+        protected int iterationLimit = 100;
+        protected int iterationCount = 0;
+        protected int numberOfVariables;
+        protected double socialFactor = 0.5;
+        protected double cognitionFactor = 0.5;
+        protected double soFarTheBestObjective;
+        protected double soFarTheBestObjectiveIteration;
+        protected double iterationAverage;
+        protected double alphaValue;
+        protected double betaValue;
+        protected bool isReset = false;
+        protected Random randomizer = new Random();
+        #endregion
+
+        #region basedTypeProperties
+        public virtual bool IsReset { get; internal set; }
+        public virtual int IterationCount { get; set; }
+        public virtual double SoFarTheBestObjective { get; internal set; }
+        public virtual double[] SolutionBest { get; internal set; }
+        public virtual double[][] Solutions { get; internal set; }
+        public virtual double SoFarTheBestObjectiveIteration { get; internal set; }
+        public virtual double IterationAverage { get; set; }
+        public virtual int IterationLimit { get; set; }
+        #endregion
+
+        #region basedTypeFunctions
+        public virtual void Reset()
         {
             throw new NotImplementedException();
         }
 
-        internal void RunOneIteration()
+        public virtual void RunOneIteration()
         {
             throw new NotImplementedException();
         }
+        #endregion
     }
 
     class ParticalSwarmOptimizationSolver : PSOBasedType
     {
-        #region variables
-        double[][] solutions;
-        double[][] solutionBestIndividual;
-        double[] solutionBest;
-        double[] objectives;
-        double[] objectivesBestIndividual;
-        double[] solutionLowerBound;
-        double[] solutionUpperBound;
-
-        int particleNum = 10;
-        int iterationLimit = 100;
-        int iterationCount = 0;
-        int numberOfVariables;
-        double socialFactor = 0.5;
-        double cognitionFactor = 0.5;
-        double soFarTheBestObjective;
-        double soFarTheBestObjectiveIteration;
-        double iterationAverage;
-        double alphaValue;
-        double betaValue;
-        bool isReset = false;
-        Random randomizer = new Random();
-        #endregion
-
         #region properties
-        public double[][] Solutions { get => solutions;}
+        public override double[][] Solutions { get => solutions;}
         public OptimizationType OptimizationMethod { get; set; } = OptimizationType.Minimization;
         public ObjectiveFunction ObjFunction { get; }
         public int ParticleNum { get => particleNum; set => particleNum = value; }
@@ -68,17 +72,17 @@ namespace R08546036SHChaoFinalProject
         public double CognitionFactor { get => cognitionFactor; set => cognitionFactor = value; }
         public double[] SolutionLowerBound { get => solutionLowerBound; set => solutionLowerBound = value; }
         public double[] SolutionUpperBound { get => solutionUpperBound; set => solutionUpperBound = value; }
-        public int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
-        public int IterationCount { get => iterationCount; set => iterationCount = value; }
+        public override int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
+        public override int IterationCount { get => iterationCount; set => iterationCount = value; }
         // only get
         public int NumberOfVariables { get => numberOfVariables; }
         public double[] ObjectivesBestIndividual { get => objectivesBestIndividual; }
-        public double SoFarTheBestObjective { get => soFarTheBestObjective; }
-        public double[] SolutionBest { get => solutionBest; }
-        public double IterationAverage { get => iterationAverage; }
-        public double SoFarTheBestObjectiveIteration { get => soFarTheBestObjectiveIteration;}
+        public override double SoFarTheBestObjective { get => soFarTheBestObjective; }
+        public override double[] SolutionBest { get => solutionBest; }
+        public override double IterationAverage { get => iterationAverage; }
+        public override double SoFarTheBestObjectiveIteration { get => soFarTheBestObjectiveIteration;}
         [Browsable(false)]
-        public bool IsReset { get => isReset; }
+        public override bool IsReset { get => isReset; }
 
         #endregion
 
@@ -93,7 +97,7 @@ namespace R08546036SHChaoFinalProject
             ObjFunction = objFunction;
         }
 
-        public void Reset() {
+        public override void Reset() {
             isReset = true;
 
             // reset variables
@@ -152,7 +156,7 @@ namespace R08546036SHChaoFinalProject
 
         }
 
-        public void RunOneIteration() {
+        public override void RunOneIteration() {
             iterationCount += 1;
             UpdateSolution();
             ComputeObjectiveValueAndUpdate();
@@ -215,32 +219,8 @@ namespace R08546036SHChaoFinalProject
 
     class PredatorPreyPSO : PSOBasedType
     {
-        #region variables
-        double[][] solutions;
-        double[][] solutionBestIndividual;
-        double[] solutionBest;
-        double[] objectives;
-        double[] objectivesBestIndividual;
-        double[] solutionLowerBound;
-        double[] solutionUpperBound;
-
-        int particleNum = 10;
-        int iterationLimit = 100;
-        int iterationCount = 0;
-        int numberOfVariables;
-        double socialFactor = 0.5;
-        double cognitionFactor = 0.5;
-        double soFarTheBestObjective;
-        double soFarTheBestObjectiveIteration;
-        double iterationAverage;
-        double alphaValue;
-        double betaValue;
-        bool isReset = false;
-        Random randomizer = new Random();
-        #endregion
-
         #region properties
-        public double[][] Solutions { get => solutions; }
+        public override double[][] Solutions { get => solutions; }
         public OptimizationType OptimizationMethod { get; set; } = OptimizationType.Minimization;
         public ObjectiveFunction ObjFunction { get; }
         public int ParticleNum { get => particleNum; set => particleNum = value; }
@@ -248,17 +228,17 @@ namespace R08546036SHChaoFinalProject
         public double CognitionFactor { get => cognitionFactor; set => cognitionFactor = value; }
         public double[] SolutionLowerBound { get => solutionLowerBound; set => solutionLowerBound = value; }
         public double[] SolutionUpperBound { get => solutionUpperBound; set => solutionUpperBound = value; }
-        public int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
-        public int IterationCount { get => iterationCount; set => iterationCount = value; }
+        public override int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
+        public override int IterationCount { get => iterationCount; set => iterationCount = value; }
         // only get
         public int NumberOfVariables { get => numberOfVariables; }
         public double[] ObjectivesBestIndividual { get => objectivesBestIndividual; }
-        public double SoFarTheBestObjective { get => soFarTheBestObjective; }
-        public double[] SolutionBest { get => solutionBest; }
-        public double IterationAverage { get => iterationAverage; }
-        public double SoFarTheBestObjectiveIteration { get => soFarTheBestObjectiveIteration; }
+        public override double SoFarTheBestObjective { get => soFarTheBestObjective; }
+        public override double[] SolutionBest { get => solutionBest; }
+        public override double IterationAverage { get => iterationAverage; }
+        public override double SoFarTheBestObjectiveIteration { get => soFarTheBestObjectiveIteration; }
         [Browsable(false)]
-        public bool IsReset { get => isReset; }
+        public override bool IsReset { get => isReset; }
 
         #endregion
 
@@ -273,7 +253,7 @@ namespace R08546036SHChaoFinalProject
             ObjFunction = objFunction;
         }
 
-        public void Reset()
+        public override void Reset()
         {
             isReset = true;
 
@@ -338,7 +318,7 @@ namespace R08546036SHChaoFinalProject
 
         }
 
-        public void RunOneIteration()
+        public override void RunOneIteration()
         {
             iterationCount += 1;
             UpdateSolution();
@@ -367,7 +347,7 @@ namespace R08546036SHChaoFinalProject
 
         }
 
-        public void ComputeObjectiveValueAndUpdate()
+        public  void ComputeObjectiveValueAndUpdate()
         {
             for (int i = 0; i < particleNum; i++)
             {
@@ -409,32 +389,8 @@ namespace R08546036SHChaoFinalProject
 
     class HuntingSearchPSO : PSOBasedType
     {
-        #region variables
-        double[][] solutions;
-        double[][] solutionBestIndividual;
-        double[] solutionBest;
-        double[] objectives;
-        double[] objectivesBestIndividual;
-        double[] solutionLowerBound;
-        double[] solutionUpperBound;
-
-        int particleNum = 10;
-        int iterationLimit = 100;
-        int iterationCount = 0;
-        int numberOfVariables;
-        double socialFactor = 0.5;
-        double cognitionFactor = 0.5;
-        double soFarTheBestObjective;
-        double soFarTheBestObjectiveIteration;
-        double iterationAverage;
-        double alphaValue;
-        double betaValue;
-        bool isReset = false;
-        Random randomizer = new Random();
-        #endregion
-
         #region properties
-        public double[][] Solutions { get => solutions; }
+        public override double[][] Solutions { get => solutions; }
         public OptimizationType OptimizationMethod { get; set; } = OptimizationType.Minimization;
         public ObjectiveFunction ObjFunction { get; }
         public int ParticleNum { get => particleNum; set => particleNum = value; }
@@ -442,17 +398,17 @@ namespace R08546036SHChaoFinalProject
         public double CognitionFactor { get => cognitionFactor; set => cognitionFactor = value; }
         public double[] SolutionLowerBound { get => solutionLowerBound; set => solutionLowerBound = value; }
         public double[] SolutionUpperBound { get => solutionUpperBound; set => solutionUpperBound = value; }
-        public int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
-        public int IterationCount { get => iterationCount; set => iterationCount = value; }
+        public override int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
+        public override int IterationCount { get => iterationCount; set => iterationCount = value; }
         // only get
         public int NumberOfVariables { get => numberOfVariables; }
         public double[] ObjectivesBestIndividual { get => objectivesBestIndividual; }
-        public double SoFarTheBestObjective { get => soFarTheBestObjective; }
-        public double[] SolutionBest { get => solutionBest; }
-        public double IterationAverage { get => iterationAverage; }
-        public double SoFarTheBestObjectiveIteration { get => soFarTheBestObjectiveIteration; }
+        public override double SoFarTheBestObjective { get => soFarTheBestObjective; }
+        public override double[] SolutionBest { get => solutionBest; }
+        public override double IterationAverage { get => iterationAverage; }
+        public override double SoFarTheBestObjectiveIteration { get => soFarTheBestObjectiveIteration; }
         [Browsable(false)]
-        public bool IsReset { get => isReset; }
+        public override bool IsReset { get => isReset; }
 
         #endregion
 
@@ -467,7 +423,7 @@ namespace R08546036SHChaoFinalProject
             ObjFunction = objFunction;
         }
 
-        public void Reset()
+        public override void Reset()
         {
             isReset = true;
 
@@ -532,7 +488,7 @@ namespace R08546036SHChaoFinalProject
 
         }
 
-        public void RunOneIteration()
+        public override void RunOneIteration()
         {
             iterationCount += 1;
             UpdateSolution();
@@ -603,32 +559,8 @@ namespace R08546036SHChaoFinalProject
 
     class AnimalFoodChainBasedPSO : PSOBasedType
     {
-        #region variables
-        double[][] solutions;
-        double[][] solutionBestIndividual;
-        double[] solutionBest;
-        double[] objectives;
-        double[] objectivesBestIndividual;
-        double[] solutionLowerBound;
-        double[] solutionUpperBound;
-
-        int particleNum = 10;
-        int iterationLimit = 100;
-        int iterationCount = 0;
-        int numberOfVariables;
-        double socialFactor = 0.5;
-        double cognitionFactor = 0.5;
-        double soFarTheBestObjective;
-        double soFarTheBestObjectiveIteration;
-        double iterationAverage;
-        double alphaValue;
-        double betaValue;
-        bool isReset = false;
-        Random randomizer = new Random();
-        #endregion
-
         #region properties
-        public double[][] Solutions { get => solutions; }
+        public override double[][] Solutions { get => solutions; }
         public OptimizationType OptimizationMethod { get; set; } = OptimizationType.Minimization;
         public ObjectiveFunction ObjFunction { get; }
         public int ParticleNum { get => particleNum; set => particleNum = value; }
@@ -636,17 +568,17 @@ namespace R08546036SHChaoFinalProject
         public double CognitionFactor { get => cognitionFactor; set => cognitionFactor = value; }
         public double[] SolutionLowerBound { get => solutionLowerBound; set => solutionLowerBound = value; }
         public double[] SolutionUpperBound { get => solutionUpperBound; set => solutionUpperBound = value; }
-        public int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
-        public int IterationCount { get => iterationCount; set => iterationCount = value; }
+        public override int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
+        public override int IterationCount { get => iterationCount; set => iterationCount = value; }
         // only get
         public int NumberOfVariables { get => numberOfVariables; }
         public double[] ObjectivesBestIndividual { get => objectivesBestIndividual; }
-        public double SoFarTheBestObjective { get => soFarTheBestObjective; }
-        public double[] SolutionBest { get => solutionBest; }
-        public double IterationAverage { get => iterationAverage; }
-        public double SoFarTheBestObjectiveIteration { get => soFarTheBestObjectiveIteration; }
+        public override double SoFarTheBestObjective { get => soFarTheBestObjective; }
+        public override double[] SolutionBest { get => solutionBest; }
+        public override double IterationAverage { get => iterationAverage; }
+        public override double SoFarTheBestObjectiveIteration { get => soFarTheBestObjectiveIteration; }
         [Browsable(false)]
-        public bool IsReset { get => isReset; }
+        public override bool IsReset { get => isReset; }
 
         #endregion
 
@@ -661,7 +593,7 @@ namespace R08546036SHChaoFinalProject
             ObjFunction = objFunction;
         }
 
-        public void Reset()
+        public override void Reset()
         {
             isReset = true;
 
@@ -726,7 +658,7 @@ namespace R08546036SHChaoFinalProject
 
         }
 
-        public void RunOneIteration()
+        public override void RunOneIteration()
         {
             iterationCount += 1;
             UpdateSolution();

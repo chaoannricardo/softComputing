@@ -32,6 +32,7 @@ namespace R08546036SHChaoFinalProject
 
             // initiate PSO selection
             cbPSOSelector.SelectedText = "AnimalFoodChainBasedPSO";
+            cbPSOSelector.SelectedIndex = 3;
 
             // initiate data grid
             this.dataInfo.Columns.Add("Information Grid", "Information Grid");
