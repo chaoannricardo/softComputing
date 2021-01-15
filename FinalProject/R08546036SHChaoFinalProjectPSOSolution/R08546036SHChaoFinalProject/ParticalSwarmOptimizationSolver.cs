@@ -259,8 +259,8 @@ namespace R08546036SHChaoFinalProject
         public int ParticleNum { get => particleNum; set => particleNum = value; }
         public double SocialFactor { get => socialFactor; set => socialFactor = value; }
         public double CognitionFactor { get => cognitionFactor; set => cognitionFactor = value; }
-        public double[] SolutionLowerBound { get => solutionLowerBound; set => solutionLowerBound = value; }
-        public double[] SolutionUpperBound { get => solutionUpperBound; set => solutionUpperBound = value; }
+        public double[] SolutionLowerBound { get => solutionLowerBound;}
+        public double[] SolutionUpperBound { get => solutionUpperBound;}
         public override int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
         public override int IterationCount { get => iterationCount; set => iterationCount = value; }
         // only get
@@ -425,13 +425,13 @@ namespace R08546036SHChaoFinalProject
                         // update velocity
                         if (randomizer.NextDouble() <= fearProb)
                         {
-                            
 
-                            
-                            
-                            velocities[i][j] = velocityWeight * velocities[i][j] 
+
+
+
+                            velocities[i][j] = velocityWeight * velocities[i][j]
                                 + (alphaValue * (solutionBestIndividual[i][j] - solutions[i][j])
-                                + betaValue * (solutionBest[j] - solutions[i][j])) 
+                                + betaValue * (solutionBest[j] - solutions[i][j]))
                                 + fearFactor * randomizer.NextDouble() * (DistanceCoefficientA * Math.Exp(-(DistanceCoefficientB * nearestPredatorDistance)));
 
                         }
@@ -528,15 +528,25 @@ namespace R08546036SHChaoFinalProject
 
     class HuntingSearchPSO : PSOBasedType
     {
+        #region ownVars
+        double maximumMovement = 0.5;
+        double divergenceThreshold = 0.05;
+        double reorganizeConstantA = 0.5;
+        double reorganizeConstantB = 0.5;
+        // not properties
+        double swarmSoFarTheWorstObjective;
+        double[] swarmsolutionBest;
+        double swarmsoFarTheBestObjective;
+        int reorganizeCount = 0;
+        #endregion
+
         #region properties
         public override double[][] Solutions { get => solutions; }
         public OptimizationType OptimizationMethod { get; set; } = OptimizationType.Minimization;
         public ObjectiveFunction ObjFunction { get; }
         public int ParticleNum { get => particleNum; set => particleNum = value; }
-        public double SocialFactor { get => socialFactor; set => socialFactor = value; }
-        public double CognitionFactor { get => cognitionFactor; set => cognitionFactor = value; }
-        public double[] SolutionLowerBound { get => solutionLowerBound; set => solutionLowerBound = value; }
-        public double[] SolutionUpperBound { get => solutionUpperBound; set => solutionUpperBound = value; }
+        public double[] SolutionLowerBound { get => solutionLowerBound;}
+        public double[] SolutionUpperBound { get => solutionUpperBound;}
         public override int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
         public override int IterationCount { get => iterationCount; set => iterationCount = value; }
         // only get
@@ -548,6 +558,11 @@ namespace R08546036SHChaoFinalProject
         public override double SoFarTheBestObjectiveIteration { get => soFarTheBestObjectiveIteration; }
         [Browsable(false)]
         public override bool IsReset { get => isReset; }
+        // additional properties
+        public double MaximumMovement { get => maximumMovement; set => maximumMovement = value; }
+        public double DivergenceThreshold { get => divergenceThreshold; set => divergenceThreshold = value; }
+        public double ReorganizeConstantA { get => reorganizeConstantA; set => reorganizeConstantA = value; }
+        public double ReorganizeConstantB { get => reorganizeConstantB; set => reorganizeConstantB = value; }
 
         #endregion
 
@@ -586,10 +601,14 @@ namespace R08546036SHChaoFinalProject
                 case OptimizationType.Minimization:
                     soFarTheBestObjective = double.MaxValue;
                     soFarTheBestObjectiveIteration = double.MaxValue;
+                    swarmSoFarTheWorstObjective = double.MinValue;
+                    swarmsoFarTheBestObjective = double.MaxValue;
                     break;
                 case OptimizationType.Maximization:
                     soFarTheBestObjective = double.MinValue;
                     soFarTheBestObjectiveIteration = double.MaxValue;
+                    swarmsoFarTheBestObjective = double.MinValue;
+                    swarmSoFarTheWorstObjective = double.MaxValue;
                     break;
             }
 
@@ -611,6 +630,7 @@ namespace R08546036SHChaoFinalProject
                         if (objectives[i] < soFarTheBestObjective)
                         {
                             soFarTheBestObjective = objectives[i];
+                            swarmsoFarTheBestObjective = objectives[i];
                             solutionBest = solutions[i];
                         }
                         break;
@@ -618,6 +638,7 @@ namespace R08546036SHChaoFinalProject
                         if (objectives[i] > soFarTheBestObjective)
                         {
                             soFarTheBestObjective = objectives[i];
+                            swarmsoFarTheBestObjective = objectives[i];
                             solutionBest = solutions[i];
                         }
                         break;
@@ -630,8 +651,24 @@ namespace R08546036SHChaoFinalProject
         public override void RunOneIteration()
         {
             iterationCount += 1;
-            UpdateSolution();
             ComputeObjectiveValueAndUpdate();
+            UpdateSolution();
+        }
+
+        public void ReorganizeSolution()
+        {
+            for (int i = 0; i < particleNum; i++)
+            {
+                if (objectives[i] != swarmsoFarTheBestObjective)
+                {
+                    for (int j = 0; j < numberOfVariables; j++)
+                    {
+                        solutions[i][j] = solutionLowerBound[j] +
+                        (randomizer.NextDouble() * (solutionUpperBound[j] - solutionLowerBound[j]))
+                        + reorganizeConstantA * Math.Exp(-(reorganizeConstantB * reorganizeCount));
+                    }
+                }
+            }
         }
 
         public void UpdateSolution()
@@ -639,25 +676,38 @@ namespace R08546036SHChaoFinalProject
 
             for (int i = 0; i < particleNum; i++)
             {
-
-                alphaValue = cognitionFactor * randomizer.NextDouble();
-                betaValue = socialFactor * randomizer.NextDouble();
-
                 for (int j = 0; j < numberOfVariables; j++)
                 {
                     // update solution
-                    solutions[i][j] += (alphaValue * (solutionBestIndividual[i][j] - solutions[i][j])
-                        + betaValue * (solutionBest[j] - solutions[i][j]));
+                    solutions[i][j] += randomizer.NextDouble() * maximumMovement * (swarmsolutionBest[j] - solutions[i][j]);
+
                     // check if solution excess the boundary
                     if (solutions[i][j] > solutionUpperBound[j]) solutions[i][j] = solutionUpperBound[j];
                     else if (solutions[i][j] < solutionLowerBound[j]) solutions[i][j] = solutionLowerBound[j];
                 }
             }
 
+            // check if reorganization is needed
+           if (Math.Abs(swarmsoFarTheBestObjective - swarmSoFarTheWorstObjective) <= divergenceThreshold) ReorganizeSolution();
         }
 
         public void ComputeObjectiveValueAndUpdate()
         {
+            // reset swarm best and swarm worst solution
+            switch (OptimizationMethod)
+            {
+                case OptimizationType.Minimization:
+                    swarmSoFarTheWorstObjective = double.MinValue;
+                    swarmsoFarTheBestObjective = double.MaxValue;
+                    swarmsolutionBest = new double[numberOfVariables];
+                    break;
+                case OptimizationType.Maximization:
+                    swarmsoFarTheBestObjective = double.MinValue;
+                    swarmSoFarTheWorstObjective = double.MaxValue;
+                    swarmsolutionBest = new double[numberOfVariables];
+                    break;
+            }
+
             for (int i = 0; i < particleNum; i++)
             {
                 objectives[i] = ObjFunction(solutions[i]);
@@ -676,6 +726,12 @@ namespace R08546036SHChaoFinalProject
                             soFarTheBestObjective = objectives[i];
                             solutionBest = solutions[i];
                         }
+                        if (objectives[i] > swarmSoFarTheWorstObjective) swarmSoFarTheWorstObjective = objectives[i];
+                        if (objectives[i] < swarmsoFarTheBestObjective)
+                        {
+                            swarmsoFarTheBestObjective = objectives[i];
+                            swarmsolutionBest = solutions[i];
+                        }
                         break;
                     case OptimizationType.Maximization:
                         if (objectives[i] > objectivesBestIndividual[i]) objectivesBestIndividual[i] = objectives[i];
@@ -688,6 +744,12 @@ namespace R08546036SHChaoFinalProject
                         {
                             soFarTheBestObjective = objectives[i];
                             solutionBest = solutions[i];
+                        }
+                        if (objectives[i] < swarmSoFarTheWorstObjective) swarmSoFarTheWorstObjective = objectives[i];
+                        if (objectives[i] > swarmsoFarTheBestObjective)
+                        {
+                            swarmsoFarTheBestObjective = objectives[i];
+                            swarmsolutionBest = solutions[i];
                         }
                         break;
                 }
@@ -705,8 +767,8 @@ namespace R08546036SHChaoFinalProject
         public int ParticleNum { get => particleNum; set => particleNum = value; }
         public double SocialFactor { get => socialFactor; set => socialFactor = value; }
         public double CognitionFactor { get => cognitionFactor; set => cognitionFactor = value; }
-        public double[] SolutionLowerBound { get => solutionLowerBound; set => solutionLowerBound = value; }
-        public double[] SolutionUpperBound { get => solutionUpperBound; set => solutionUpperBound = value; }
+        public double[] SolutionLowerBound { get => solutionLowerBound;}
+        public double[] SolutionUpperBound { get => solutionUpperBound;}
         public override int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
         public override int IterationCount { get => iterationCount; set => iterationCount = value; }
         // only get
