@@ -761,9 +761,42 @@ namespace R08546036SHChaoFinalProject
     class AnimalFoodChainBasedPSO : PSOBasedType
     {
         #region ownVars
+        // with properties
+        // overall
+        double velocityWeight = 0.5;
+        double accerlationCoefficientA = 0.5;
+        double accerlationCoefficientB = 0.5;
+        double accerlationCoefficientC = 0.5;
+        double accerlationCoefficientD = 0.5;
+        double distanceCoefA = 0.5;
+        double distanceCoefB = 0.5;
+
+        // herb 
+        double fearFactorHerbToOmnivores = 0.5;
+        double fearFactorHerbToCarnivores = 0.5;
+        // omni
+        double fearFactorOmniToCarnivores = 0.5;
+        // omni
+        //carnivores
+        // not properties
         int herbivoresNum;
         int omnivoresNum;
         int carnivoresNum;
+        double temp;
+        double objectiveBestHerbivores;
+        double objectiveBestOmnivores;
+        double objectiveBestCarnivores;
+        double ProbOmniToBePredator;
+        double[] solutionBestHerbivores;
+        double[] solutionBestOmnivores;
+        double[] solutionBestCarnivores;
+        double[] solutionNearestOmniToHerb;
+        double[] solutionNearestCarnToHerb;
+        double[] solutionNearestCarnToOmni;
+        double distanceNearestOmniToHerb;
+        double distanceNearestCarnToHerb;
+        double distanceNearestCarnToOmni;
+        double[][] velocities;
         #endregion
 
         #region properties
@@ -781,8 +814,6 @@ namespace R08546036SHChaoFinalProject
                 }
             }
         }
-        public double SocialFactor { get => socialFactor; set => socialFactor = value; }
-        public double CognitionFactor { get => cognitionFactor; set => cognitionFactor = value; }
         public double[] SolutionLowerBound { get => solutionLowerBound; }
         public double[] SolutionUpperBound { get => solutionUpperBound; }
         public override int IterationLimit { get => iterationLimit; set => iterationLimit = value; }
@@ -797,8 +828,28 @@ namespace R08546036SHChaoFinalProject
         [Browsable(false)]
         public override bool IsReset { get => isReset; }
         // additional properties
+        [Category("Environment Factor")]
         public EnvironmentType EnvironmentType { get; set; } = EnvironmentType.Calm;
-
+        [Category("Environment Factor")]
+        public double VelocityWeight { get => velocityWeight; set => velocityWeight = value; }
+        [Category("Environment Factor")]
+        public double AccerlationCoefficientA { get => accerlationCoefficientA; set => accerlationCoefficientA = value; }
+        [Category("Environment Factor")]
+        public double AccerlationCoefficientB { get => accerlationCoefficientB; set => accerlationCoefficientB = value; }
+        [Category("Environment Factor")]
+        public double AccerlationCoefficientC { get => accerlationCoefficientC; set => accerlationCoefficientC = value; }
+        [Category("Environment Factor")]
+        public double AccerlationCoefficientD { get => accerlationCoefficientD; set => accerlationCoefficientD = value; }
+        [Category("Environment Factor")]
+        public double DistanceCoefA { get => distanceCoefA; set => distanceCoefA = value; }
+        [Category("Environment Factor")]
+        public double DstanceCoedfB { get => distanceCoefB; set => distanceCoefB = value; }
+        [Category("Herbivores Factor")]
+        public double FearFactorHerbToOmnivores { get => fearFactorHerbToOmnivores; set => fearFactorHerbToOmnivores = value; }
+        [Category("Herbivores Factor")]
+        public double FearFactorHerbToCarnivores { get => fearFactorHerbToCarnivores; set => fearFactorHerbToCarnivores = value; }
+        [Category("Omnivores Factor")]
+        public double FearFactorOmniToCarnivores { get => fearFactorOmniToCarnivores; set => fearFactorOmniToCarnivores = value; }
         #endregion
 
         public AnimalFoodChainBasedPSO(int numberOfVariables,
@@ -822,8 +873,13 @@ namespace R08546036SHChaoFinalProject
             // reset variables
             solutions = new double[particleNum][];
             solutionBestIndividual = new double[particleNum][];
+            velocities = new double[particleNum][];
+            solutionBest = new double[numberOfVariables];
             objectives = new double[particleNum];
             objectivesBestIndividual = new double[particleNum];
+            solutionBestHerbivores = new double[numberOfVariables];
+            solutionBestOmnivores = new double[numberOfVariables];
+            solutionBestCarnivores = new double[numberOfVariables];
             iterationCount = 0;
 
             // initiate solution and objectives
@@ -831,6 +887,7 @@ namespace R08546036SHChaoFinalProject
             {
                 solutions[i] = new double[numberOfVariables];
                 solutionBestIndividual[i] = new double[numberOfVariables];
+                velocities[i] = new double[numberOfVariables];
             }
 
             // set up properties based on optimization type
@@ -854,6 +911,9 @@ namespace R08546036SHChaoFinalProject
                     solutions[i][j] = solutionLowerBound[j] +
                         (randomizer.NextDouble() * (solutionUpperBound[j] - solutionLowerBound[j]));
                     solutionBestIndividual[i][j] = solutions[i][j];
+
+                    // initiate velocity part
+                    velocities[i][j] = (randomizer.NextDouble() * (solutionUpperBound[j] - solutionLowerBound[j]));
                 }
 
                 objectives[i] = ObjFunction(solutions[i]);
@@ -879,7 +939,8 @@ namespace R08546036SHChaoFinalProject
             }
 
             // set up herbivores, omnivores, carnivores number based on selection
-            switch (EnvironmentType) {
+            switch (EnvironmentType)
+            {
                 case EnvironmentType.Harsh:
                     herbivoresNum = Convert.ToInt32(particleNum * (10 / 14));
                     omnivoresNum = Convert.ToInt32(particleNum * (3 / 14));
@@ -898,65 +959,173 @@ namespace R08546036SHChaoFinalProject
             }
 
             // make sure sum is determined
-            while (herbivoresNum + omnivoresNum + carnivoresNum > particleNum) {
+            while (herbivoresNum + omnivoresNum + carnivoresNum > particleNum)
+            {
                 herbivoresNum -= 1;
             }
-
         }
 
         public override void RunOneIteration()
         {
             iterationCount += 1;
-            UpdateSolution();
             ComputeObjectiveValueAndUpdate();
+            UpdateSolution();
         }
 
         public void UpdateSolution()
         {
             for (int i = 0; i < particleNum; i++)
             {
-
                 alphaValue = cognitionFactor * randomizer.NextDouble();
                 betaValue = socialFactor * randomizer.NextDouble();
+
+                // reset swarm nearest value
+                distanceNearestOmniToHerb = double.MaxValue;
+                distanceNearestCarnToHerb = double.MaxValue;
+                distanceNearestCarnToOmni = double.MaxValue;
+                solutionNearestOmniToHerb = new double[numberOfVariables];
+                solutionNearestCarnToHerb = new double[numberOfVariables];
+                solutionNearestCarnToOmni = new double[numberOfVariables];
 
                 for (int j = 0; j < numberOfVariables; j++)
                 {
                     if (i < herbivoresNum)
                     {
+                        // herb distance calculation
+                        for (int distanceIndex = herbivoresNum; distanceIndex < particleNum; distanceIndex++)
+                        {
+                            temp = 0;
+                            if (distanceIndex < (herbivoresNum + omnivoresNum))
+                            {
+                                for (int variableIndex = 0; variableIndex < numberOfVariables; variableIndex++)
+                                {
+                                    temp += Math.Abs(solutions[i][variableIndex] - solutions[distanceIndex][variableIndex]);
+                                }
+                                if (temp < distanceNearestOmniToHerb)
+                                {
+                                    distanceNearestOmniToHerb = temp;
+                                    solutionNearestOmniToHerb = solutions[distanceIndex];
+                                }
+                            }
+                            else
+                            {
+                                for (int variableIndex = 0; variableIndex < numberOfVariables; variableIndex++)
+                                {
+                                    temp += Math.Abs(solutions[i][variableIndex] - solutions[distanceIndex][variableIndex]);
+                                }
+                                if (temp < distanceNearestCarnToHerb)
+                                {
+                                    distanceNearestCarnToHerb = temp;
+                                    solutionNearestCarnToHerb = solutions[distanceIndex];
+                                }
+                            }
+                        }
+
                         // herbivores update method
+                        velocities[i][j] = velocityWeight * velocities[i][j]
+                            + accerlationCoefficientA * randomizer.NextDouble() * (solutionBestIndividual[i][j] - solutions[i][j])
+                            + accerlationCoefficientB * randomizer.NextDouble() * (solutionBestHerbivores[j] - solutions[i][j])
+                            + (Math.Pow(fearFactorHerbToOmnivores, distanceNearestOmniToHerb)) * accerlationCoefficientC * randomizer.NextDouble() * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestOmniToHerb)))
+                            + (Math.Pow(fearFactorHerbToCarnivores, distanceNearestCarnToHerb)) * accerlationCoefficientC * randomizer.NextDouble() * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestCarnToHerb)));
 
                         // update solution
-                        solutions[i][j] += (alphaValue * (solutionBestIndividual[i][j] - solutions[i][j])
-                            + betaValue * (solutionBest[j] - solutions[i][j]));
+                        solutions[i][j] += velocities[i][j];
                         // check if solution excess the boundary
                         if (solutions[i][j] > solutionUpperBound[j]) solutions[i][j] = solutionUpperBound[j];
                         else if (solutions[i][j] < solutionLowerBound[j]) solutions[i][j] = solutionLowerBound[j];
                     }
                     else if (i < (herbivoresNum + omnivoresNum))
                     {
-                        // omnivores update method
+                        
+                        // omnivores distance calculation
 
+                        // calculate nearest herbi
+                        for (int distanceIndex = herbivoresNum; distanceIndex < (herbivoresNum + omnivoresNum); distanceIndex++)
+                        {
+                            temp = 0;
+                            for (int variableIndex = 0; variableIndex < numberOfVariables; variableIndex++)
+                            {
+                                temp += Math.Abs(solutions[i][variableIndex] - solutions[distanceIndex][variableIndex]);
+                            }
+                            if (temp < distanceNearestOmniToHerb)
+                            {
+                                distanceNearestOmniToHerb = temp;
+                                solutionNearestOmniToHerb = solutions[distanceIndex];
+                            }
+                        }
+
+                        // calculate nearest carni
+                        for (int distanceIndex = omnivoresNum; distanceIndex < particleNum; distanceIndex++)
+                        {
+                            temp = 0;
+                            for (int variableIndex = 0; variableIndex < numberOfVariables; variableIndex++)
+                            {
+                                temp += Math.Abs(solutions[i][variableIndex] - solutions[distanceIndex][variableIndex]);
+                            }
+                            if (temp < distanceNearestCarnToOmni)
+                            {
+                                distanceNearestCarnToOmni = temp;
+                                solutionNearestCarnToOmni = solutions[distanceIndex];
+                            }
+                        }
+
+                        // omnivores update method
+                        ProbOmniToBePredator = (distanceNearestOmniToHerb / (distanceNearestOmniToHerb + distanceNearestCarnToOmni));
+                        velocities[i][j] = (1 - ProbOmniToBePredator)
+                            * (velocityWeight * velocities[i][j]
+                            + accerlationCoefficientA * randomizer.NextDouble() * (solutionBestIndividual[i][j] - solutions[i][j])
+                            + accerlationCoefficientB * randomizer.NextDouble() * (solutionBestOmnivores[j] - solutions[i][j])
+                            + (Math.Pow(fearFactorOmniToCarnivores, distanceNearestCarnToOmni)) * accerlationCoefficientC * randomizer.NextDouble() * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestCarnToOmni)))
+                            + ProbOmniToBePredator * randomizer.NextDouble() * (solutionBestOmnivores[j] - solutions[i][j]));
                     }
                     else
                     {
                         // carnivores update method
+                        velocities[i][j] = randomizer.NextDouble() * (solutionBestCarnivores[j] - solutions[i][j]);
 
+                        // update solution
+                        solutions[i][j] += velocities[i][j];
+                        // check if solution excess the boundary
+                        if (solutions[i][j] > solutionUpperBound[j]) solutions[i][j] = solutionUpperBound[j];
+                        else if (solutions[i][j] < solutionLowerBound[j]) solutions[i][j] = solutionLowerBound[j];
 
                     }
                 }
             }
-
         }
 
         public void ComputeObjectiveValueAndUpdate()
         {
+
+            switch (OptimizationMethod)
+            {
+                case OptimizationType.Minimization:
+                    objectiveBestHerbivores = double.MaxValue;
+                    objectiveBestOmnivores = double.MaxValue;
+                    objectiveBestCarnivores = double.MaxValue;
+                    solutionBestHerbivores = new double[numberOfVariables];
+                    solutionBestOmnivores = new double[numberOfVariables];
+                    solutionBestCarnivores = new double[numberOfVariables];
+                    break;
+                case OptimizationType.Maximization:
+                    objectiveBestHerbivores = double.MinValue;
+                    objectiveBestOmnivores = double.MinValue;
+                    objectiveBestCarnivores = double.MinValue;
+                    solutionBestHerbivores = new double[numberOfVariables];
+                    solutionBestOmnivores = new double[numberOfVariables];
+                    solutionBestCarnivores = new double[numberOfVariables];
+                    break;
+            }
+
             for (int i = 0; i < particleNum; i++)
             {
                 objectives[i] = ObjFunction(solutions[i]);
                 iterationAverage = (objectives.Sum() / objectives.Length);
+
                 switch (OptimizationMethod)
                 {
                     case OptimizationType.Minimization:
+                        // overall part
                         if (objectives[i] < objectivesBestIndividual[i]) objectivesBestIndividual[i] = objectives[i];
                         if (objectives[i] < soFarTheBestObjectiveIteration)
                         {
@@ -968,8 +1137,36 @@ namespace R08546036SHChaoFinalProject
                             soFarTheBestObjective = objectives[i];
                             solutionBest = solutions[i];
                         }
+
+                        // adding part for food chain algorithm
+                        if (i < herbivoresNum)
+                        {
+                            if (objectives[i] < objectiveBestHerbivores)
+                            {
+                                objectiveBestHerbivores = objectives[i];
+                                solutionBestHerbivores = solutions[i];
+                            }
+
+                        }
+                        else if (i < (herbivoresNum + omnivoresNum))
+                        {
+                            if (objectives[i] < objectiveBestOmnivores)
+                            {
+                                objectiveBestOmnivores = objectives[i];
+                                solutionBestOmnivores = solutions[i];
+                            }
+                        }
+                        else
+                        {
+                            if (objectives[i] < objectiveBestCarnivores)
+                            {
+                                objectiveBestCarnivores = objectives[i];
+                                solutionBestCarnivores = solutions[i];
+                            }
+                        }
                         break;
                     case OptimizationType.Maximization:
+                        // overall part
                         if (objectives[i] > objectivesBestIndividual[i]) objectivesBestIndividual[i] = objectives[i];
                         if (objectives[i] > soFarTheBestObjectiveIteration)
                         {
@@ -981,12 +1178,39 @@ namespace R08546036SHChaoFinalProject
                             soFarTheBestObjective = objectives[i];
                             solutionBest = solutions[i];
                         }
+
+                        // adding part for food chain algorithm
+                        // adding part for food chain algorithm
+                        if (i < herbivoresNum)
+                        {
+                            if (objectives[i] > objectiveBestHerbivores)
+                            {
+                                objectiveBestHerbivores = objectives[i];
+                                solutionBestHerbivores = solutions[i];
+                            }
+
+                        }
+                        else if (i > (herbivoresNum + omnivoresNum))
+                        {
+                            if (objectives[i] < objectiveBestOmnivores)
+                            {
+                                objectiveBestOmnivores = objectives[i];
+                                solutionBestOmnivores = solutions[i];
+                            }
+                        }
+                        else
+                        {
+                            if (objectives[i] > objectiveBestCarnivores)
+                            {
+                                objectiveBestCarnivores = objectives[i];
+                                solutionBestCarnivores = solutions[i];
+                            }
+                        }
                         break;
                 }
+
             }
         }
 
     }
-
-
 }
