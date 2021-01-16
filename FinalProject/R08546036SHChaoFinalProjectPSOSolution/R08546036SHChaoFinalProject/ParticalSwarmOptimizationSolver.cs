@@ -788,10 +788,10 @@ namespace R08546036SHChaoFinalProject
         double reorganizeConstantA = 0.5;
         double reorganizeConstantB = 0.5;
         // herb 
-        double fearFactorHerbToOmnivores = 0.5;
-        double fearFactorHerbToCarnivores = 0.5;
+        double fearFactorHerbToOmnivores = 0.05;
+        double fearFactorHerbToCarnivores = 0.05;
         // omni
-        double fearFactorOmniToCarnivores = 0.5;
+        double fearFactorOmniToCarnivores = 0.05;
 
         // not properties
         int herbivoresNum;
@@ -805,6 +805,7 @@ namespace R08546036SHChaoFinalProject
         double ProbOmniToBePredator;
         double swarmsoFarTheBestObjective;
         double swarmSoFarTheWorstObjective;
+        double totalSolutionDistance = 0;
         double[] solutionBestHerbivores;
         double[] solutionBestOmnivores;
         double[] solutionBestCarnivores;
@@ -847,7 +848,7 @@ namespace R08546036SHChaoFinalProject
         public override bool IsReset { get => isReset; }
         // additional properties
         [Category("Environment Factor")]
-        public EnvironmentType EnvironmentType { get; set; } = EnvironmentType.Calm;
+        public EnvironmentType EnvironmentSelection { get; set; } = EnvironmentType.Calm;
         [Category("Environment Factor")]
         public double VelocityWeight { get => velocityWeight; set => velocityWeight = value; }
         [Category("Environment Factor")]
@@ -884,9 +885,9 @@ namespace R08546036SHChaoFinalProject
             accerlationCoefficientD = randomizer.NextDouble();
             distanceCoefA = randomizer.NextDouble();
             distanceCoefB = randomizer.NextDouble();
-            fearFactorHerbToCarnivores = randomizer.NextDouble();
-            fearFactorHerbToOmnivores = randomizer.NextDouble();
-            fearFactorOmniToCarnivores = randomizer.NextDouble();
+            //fearFactorHerbToCarnivores = randomizer.NextDouble();
+            //fearFactorHerbToOmnivores = randomizer.NextDouble();
+            //fearFactorOmniToCarnivores = randomizer.NextDouble();
 
             // initiate variable value
             this.OptimizationMethod = optimizationType;
@@ -914,6 +915,12 @@ namespace R08546036SHChaoFinalProject
             solutionBestOmnivores = new double[numberOfVariables];
             solutionBestCarnivores = new double[numberOfVariables];
             iterationCount = 0;
+
+            // calculate total distance
+            for (int i = 0; i < solutionLowerBound.Length; i++)
+            {
+                totalSolutionDistance += Math.Abs(solutionUpperBound[i] - solutionLowerBound[i]);
+            }
 
             // initiate solution and objectives
             for (int i = 0; i < solutions.Length; i++)
@@ -976,22 +983,22 @@ namespace R08546036SHChaoFinalProject
             }
 
             // set up herbivores, omnivores, carnivores number based on selection
-            switch (EnvironmentType)
+            switch (EnvironmentSelection)
             {
                 case EnvironmentType.Harsh:
-                    herbivoresNum = Convert.ToInt32(particleNum * (10 / 14));
-                    omnivoresNum = Convert.ToInt32(particleNum * (3 / 14));
-                    carnivoresNum = Convert.ToInt32(particleNum * (1 / 14));
+                    herbivoresNum = (int)(Math.Round((double)(particleNum * (10f / 14f))));
+                    omnivoresNum = (int)(Math.Round((double)(particleNum * (3f / 14f))));
+                    carnivoresNum = (int)(Math.Round((double)(particleNum * (1f / 14f))));
                     break;
                 case EnvironmentType.Average:
-                    herbivoresNum = Convert.ToInt32(particleNum * (25 / 32));
-                    omnivoresNum = Convert.ToInt32(particleNum * (6 / 32));
-                    carnivoresNum = Convert.ToInt32(particleNum * (1 / 32));
+                    herbivoresNum = (int)(Math.Round((double)(particleNum * (25f / 32f))));
+                    omnivoresNum = (int)(Math.Round((double)(particleNum * (6f / 32f))));
+                    carnivoresNum = (int)(Math.Round((double)(particleNum * (1f / 32f))));
                     break;
                 case EnvironmentType.Calm:
-                    herbivoresNum = Convert.ToInt32(particleNum * (40 / 51));
-                    omnivoresNum = Convert.ToInt32(particleNum * (10 / 51));
-                    carnivoresNum = Convert.ToInt32(particleNum * (1 / 51));
+                    herbivoresNum = (int)(Math.Round((double)(particleNum * (40f / 51f))));
+                    omnivoresNum = (int)(Math.Round((double)(particleNum * (10f / 51f))));
+                    carnivoresNum = (int)(Math.Round((double)(particleNum * (1f / 51f))));
                     break;
             }
 
@@ -1013,8 +1020,6 @@ namespace R08546036SHChaoFinalProject
         {
             for (int i = 0; i < particleNum; i++)
             {
-                alphaValue = cognitionFactor * randomizer.NextDouble();
-                betaValue = socialFactor * randomizer.NextDouble();
 
                 // reset swarm nearest value
                 distanceNearestOmniToHerb = double.MaxValue;
@@ -1061,21 +1066,24 @@ namespace R08546036SHChaoFinalProject
                         }
 
                         // herbivores update method
+                        //MessageBox.Show(distanceNearestOmniToHerb.ToString());
+                        //MessageBox.Show(totalSolutionDistance.ToString());
                         velocities[i][j] = velocityWeight * velocities[i][j]
                             + accerlationCoefficientA * randomizer.NextDouble() * (solutionBestIndividual[i][j] - solutions[i][j])
                             + accerlationCoefficientB * randomizer.NextDouble() * (solutionBestHerbivores[j] - solutions[i][j])
-                            + (Math.Pow(fearFactorHerbToOmnivores, distanceNearestOmniToHerb)) * accerlationCoefficientC * randomizer.NextDouble() * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestOmniToHerb)))
-                            + (Math.Pow(fearFactorHerbToCarnivores, distanceNearestCarnToHerb)) * accerlationCoefficientC * randomizer.NextDouble() * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestCarnToHerb)));
+                            + (1 - (1 - distanceNearestOmniToHerb / (fearFactorHerbToOmnivores * totalSolutionDistance))) * accerlationCoefficientC * randomizer.NextDouble() * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestOmniToHerb)))
+                            + (1 - (1 - distanceNearestCarnToHerb / (fearFactorHerbToCarnivores * totalSolutionDistance))) * accerlationCoefficientC * randomizer.NextDouble() * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestCarnToHerb)));
 
                         // update solution
                         solutions[i][j] += velocities[i][j];
+
                         // check if solution excess the boundary
                         if (solutions[i][j] > solutionUpperBound[j]) solutions[i][j] = solutionUpperBound[j];
                         else if (solutions[i][j] < solutionLowerBound[j]) solutions[i][j] = solutionLowerBound[j];
                     }
                     else if (i < (herbivoresNum + omnivoresNum))
                     {
-                        
+
                         // omnivores distance calculation
 
                         // calculate nearest herbi
@@ -1114,8 +1122,15 @@ namespace R08546036SHChaoFinalProject
                             * (velocityWeight * velocities[i][j]
                             + accerlationCoefficientA * randomizer.NextDouble() * (solutionBestIndividual[i][j] - solutions[i][j])
                             + accerlationCoefficientB * randomizer.NextDouble() * (solutionBestOmnivores[j] - solutions[i][j])
-                            + (Math.Pow(fearFactorOmniToCarnivores, distanceNearestCarnToOmni)) * accerlationCoefficientC * randomizer.NextDouble() * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestCarnToOmni)))
+                            + (1 - (1 - distanceNearestCarnToOmni / (fearFactorOmniToCarnivores * totalSolutionDistance))) * accerlationCoefficientC * randomizer.NextDouble() * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestCarnToOmni)))
                             + ProbOmniToBePredator * randomizer.NextDouble() * (solutionBestOmnivores[j] - solutions[i][j]));
+
+                        // update solution
+                        solutions[i][j] += velocities[i][j];
+
+                        // check if solution excess the boundary
+                        if (solutions[i][j] > solutionUpperBound[j]) solutions[i][j] = solutionUpperBound[j];
+                        else if (solutions[i][j] < solutionLowerBound[j]) solutions[i][j] = solutionLowerBound[j];
                     }
                     else
                     {
@@ -1132,7 +1147,7 @@ namespace R08546036SHChaoFinalProject
                 }
 
                 // check if reorganization is needed
-                if (Math.Abs(swarmsoFarTheBestObjective - swarmSoFarTheWorstObjective) <= divergenceThreshold) ReorganizeSolution();
+                //if (Math.Abs(swarmsoFarTheBestObjective - swarmSoFarTheWorstObjective) <= divergenceThreshold) ReorganizeSolution();
             }
         }
 
