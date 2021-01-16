@@ -286,6 +286,14 @@ namespace R08546036SHChaoFinalProject
         public PredatorPreyPSO(int numberOfVariables,
             OptimizationType optimizationType, double[] lowerBounds, double[] upperBounds, ObjectiveFunction objFunction)
         {
+            // randomized parameters
+            fearProb = randomizer.NextDouble();
+            FearFactor = randomizer.NextDouble();
+            preycoefficient = randomizer.NextDouble();
+            distanceCoefficientA = randomizer.NextDouble();
+            distanceCoefficientB = randomizer.NextDouble();
+            velocityWeight = randomizer.NextDouble();
+
             // initiate variable value
             this.OptimizationMethod = optimizationType;
             this.numberOfVariables = numberOfVariables;
@@ -569,6 +577,11 @@ namespace R08546036SHChaoFinalProject
         public HuntingSearchPSO(int numberOfVariables,
             OptimizationType optimizationType, double[] lowerBounds, double[] upperBounds, ObjectiveFunction objFunction)
         {
+            // randomized parameters
+            maximumMovement = randomizer.NextDouble();
+            reorganizeConstantA = randomizer.NextDouble();
+            reorganizeConstantB = randomizer.NextDouble();
+
             // initiate variable value
             this.OptimizationMethod = optimizationType;
             this.numberOfVariables = numberOfVariables;
@@ -666,6 +679,7 @@ namespace R08546036SHChaoFinalProject
                         solutions[i][j] = solutionLowerBound[j] +
                         (randomizer.NextDouble() * (solutionUpperBound[j] - solutionLowerBound[j]))
                         + reorganizeConstantA * Math.Exp(-(reorganizeConstantB * reorganizeCount));
+                        reorganizeCount += 1;
                     }
                 }
             }
@@ -770,23 +784,27 @@ namespace R08546036SHChaoFinalProject
         double accerlationCoefficientD = 0.5;
         double distanceCoefA = 0.5;
         double distanceCoefB = 0.5;
-
+        double divergenceThreshold = 0.05;
+        double reorganizeConstantA = 0.5;
+        double reorganizeConstantB = 0.5;
         // herb 
         double fearFactorHerbToOmnivores = 0.5;
         double fearFactorHerbToCarnivores = 0.5;
         // omni
         double fearFactorOmniToCarnivores = 0.5;
-        // omni
-        //carnivores
+
         // not properties
         int herbivoresNum;
         int omnivoresNum;
         int carnivoresNum;
+        int reorganizeCount = 0;
         double temp;
         double objectiveBestHerbivores;
         double objectiveBestOmnivores;
         double objectiveBestCarnivores;
         double ProbOmniToBePredator;
+        double swarmsoFarTheBestObjective;
+        double swarmSoFarTheWorstObjective;
         double[] solutionBestHerbivores;
         double[] solutionBestOmnivores;
         double[] solutionBestCarnivores;
@@ -850,11 +868,26 @@ namespace R08546036SHChaoFinalProject
         public double FearFactorHerbToCarnivores { get => fearFactorHerbToCarnivores; set => fearFactorHerbToCarnivores = value; }
         [Category("Omnivores Factor")]
         public double FearFactorOmniToCarnivores { get => fearFactorOmniToCarnivores; set => fearFactorOmniToCarnivores = value; }
+        public double DivergenceThreshold { get => divergenceThreshold; set => divergenceThreshold = value; }
+        public double ReorganizeConstantA { get => reorganizeConstantA; set => reorganizeConstantA = value; }
+        public double ReorganizeConstantB { get => reorganizeConstantB; set => reorganizeConstantB = value; }
         #endregion
 
         public AnimalFoodChainBasedPSO(int numberOfVariables,
             OptimizationType optimizationType, double[] lowerBounds, double[] upperBounds, ObjectiveFunction objFunction)
         {
+            // set randomized parameters
+            velocityWeight = randomizer.NextDouble();
+            accerlationCoefficientA = randomizer.NextDouble();
+            accerlationCoefficientB = randomizer.NextDouble();
+            accerlationCoefficientC = randomizer.NextDouble();
+            accerlationCoefficientD = randomizer.NextDouble();
+            distanceCoefA = randomizer.NextDouble();
+            distanceCoefB = randomizer.NextDouble();
+            fearFactorHerbToCarnivores = randomizer.NextDouble();
+            fearFactorHerbToOmnivores = randomizer.NextDouble();
+            fearFactorOmniToCarnivores = randomizer.NextDouble();
+
             // initiate variable value
             this.OptimizationMethod = optimizationType;
             this.numberOfVariables = numberOfVariables;
@@ -896,10 +929,14 @@ namespace R08546036SHChaoFinalProject
                 case OptimizationType.Minimization:
                     soFarTheBestObjective = double.MaxValue;
                     soFarTheBestObjectiveIteration = double.MaxValue;
+                    swarmSoFarTheWorstObjective = double.MinValue;
+                    swarmsoFarTheBestObjective = double.MaxValue;
                     break;
                 case OptimizationType.Maximization:
                     soFarTheBestObjective = double.MinValue;
                     soFarTheBestObjectiveIteration = double.MaxValue;
+                    swarmsoFarTheBestObjective = double.MinValue;
+                    swarmSoFarTheWorstObjective = double.MaxValue;
                     break;
             }
 
@@ -986,6 +1023,8 @@ namespace R08546036SHChaoFinalProject
                 solutionNearestOmniToHerb = new double[numberOfVariables];
                 solutionNearestCarnToHerb = new double[numberOfVariables];
                 solutionNearestCarnToOmni = new double[numberOfVariables];
+                reorganizeConstantA = randomizer.NextDouble();
+                reorganizeConstantB = randomizer.NextDouble();
 
                 for (int j = 0; j < numberOfVariables; j++)
                 {
@@ -1091,12 +1130,31 @@ namespace R08546036SHChaoFinalProject
 
                     }
                 }
+
+                // check if reorganization is needed
+                if (Math.Abs(swarmsoFarTheBestObjective - swarmSoFarTheWorstObjective) <= divergenceThreshold) ReorganizeSolution();
+            }
+        }
+
+        public void ReorganizeSolution()
+        {
+            for (int i = 0; i < particleNum; i++)
+            {
+                if (objectives[i] != swarmsoFarTheBestObjective)
+                {
+                    for (int j = 0; j < numberOfVariables; j++)
+                    {
+                        solutions[i][j] = solutionLowerBound[j] +
+                        (randomizer.NextDouble() * (solutionUpperBound[j] - solutionLowerBound[j]))
+                        + reorganizeConstantA * Math.Exp(-(reorganizeConstantB * reorganizeCount));
+                        reorganizeCount += 1;
+                    }
+                }
             }
         }
 
         public void ComputeObjectiveValueAndUpdate()
         {
-
             switch (OptimizationMethod)
             {
                 case OptimizationType.Minimization:
@@ -1106,6 +1164,8 @@ namespace R08546036SHChaoFinalProject
                     solutionBestHerbivores = new double[numberOfVariables];
                     solutionBestOmnivores = new double[numberOfVariables];
                     solutionBestCarnivores = new double[numberOfVariables];
+                    swarmSoFarTheWorstObjective = double.MinValue;
+                    swarmsoFarTheBestObjective = double.MaxValue;
                     break;
                 case OptimizationType.Maximization:
                     objectiveBestHerbivores = double.MinValue;
@@ -1114,6 +1174,8 @@ namespace R08546036SHChaoFinalProject
                     solutionBestHerbivores = new double[numberOfVariables];
                     solutionBestOmnivores = new double[numberOfVariables];
                     solutionBestCarnivores = new double[numberOfVariables];
+                    swarmsoFarTheBestObjective = double.MinValue;
+                    swarmSoFarTheWorstObjective = double.MaxValue;
                     break;
             }
 
@@ -1164,6 +1226,13 @@ namespace R08546036SHChaoFinalProject
                                 solutionBestCarnivores = solutions[i];
                             }
                         }
+
+                        // reorganization part
+                        if (objectives[i] > swarmSoFarTheWorstObjective) swarmSoFarTheWorstObjective = objectives[i];
+                        if (objectives[i] < swarmsoFarTheBestObjective)
+                        {
+                            swarmsoFarTheBestObjective = objectives[i];
+                        }
                         break;
                     case OptimizationType.Maximization:
                         // overall part
@@ -1205,6 +1274,13 @@ namespace R08546036SHChaoFinalProject
                                 objectiveBestCarnivores = objectives[i];
                                 solutionBestCarnivores = solutions[i];
                             }
+                        }
+
+                        // reorganization part
+                        if (objectives[i] < swarmSoFarTheWorstObjective) swarmSoFarTheWorstObjective = objectives[i];
+                        if (objectives[i] > swarmsoFarTheBestObjective)
+                        {
+                            swarmsoFarTheBestObjective = objectives[i];
                         }
                         break;
                 }
