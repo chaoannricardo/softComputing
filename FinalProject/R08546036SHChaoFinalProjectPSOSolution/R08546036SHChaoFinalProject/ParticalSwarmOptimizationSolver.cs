@@ -23,7 +23,7 @@ namespace R08546036SHChaoFinalProject
         protected double[] solutionLowerBound;
         protected double[] solutionUpperBound;
         protected int particleNum = 50;
-        protected int iterationLimit = 100;
+        protected int iterationLimit = 200;
         protected int iterationCount = 0;
         protected int numberOfVariables;
         protected double socialFactor = 0.5;
@@ -695,6 +695,8 @@ namespace R08546036SHChaoFinalProject
                     // update solution
                     solutions[i][j] += randomizer.NextDouble() * maximumMovement * (swarmsolutionBest[j] - solutions[i][j]);
 
+                    solutions[i][j] += randomizer.NextDouble();
+
                     // check if solution excess the boundary
                     if (solutions[i][j] > solutionUpperBound[j]) solutions[i][j] = solutionUpperBound[j];
                     else if (solutions[i][j] < solutionLowerBound[j]) solutions[i][j] = solutionLowerBound[j];
@@ -878,13 +880,13 @@ namespace R08546036SHChaoFinalProject
             OptimizationType optimizationType, double[] lowerBounds, double[] upperBounds, ObjectiveFunction objFunction)
         {
             // set randomized parameters
-            velocityWeight = randomizer.NextDouble();
-            accerlationCoefficientA = randomizer.NextDouble();
-            accerlationCoefficientB = randomizer.NextDouble();
-            accerlationCoefficientC = randomizer.NextDouble();
-            accerlationCoefficientD = randomizer.NextDouble();
-            distanceCoefA = randomizer.NextDouble();
-            distanceCoefB = randomizer.NextDouble();
+            //velocityWeight = randomizer.NextDouble();
+            //accerlationCoefficientA = randomizer.NextDouble();
+            //accerlationCoefficientB = randomizer.NextDouble();
+            //accerlationCoefficientC = randomizer.NextDouble();
+            //accerlationCoefficientD = randomizer.NextDouble();
+            //distanceCoefA = randomizer.NextDouble();
+            //distanceCoefB = randomizer.NextDouble();
             //fearFactorHerbToCarnivores = randomizer.NextDouble();
             //fearFactorHerbToOmnivores = randomizer.NextDouble();
             //fearFactorOmniToCarnivores = randomizer.NextDouble();
@@ -969,6 +971,10 @@ namespace R08546036SHChaoFinalProject
                         {
                             soFarTheBestObjective = objectives[i];
                             solutionBest = solutions[i];
+                            solutionBestCarnivores = solutions[i];
+                            solutionBestHerbivores = solutions[i];
+                            solutionBestOmnivores = solutions[i];
+
                         }
                         break;
                     case OptimizationType.Maximization:
@@ -976,6 +982,9 @@ namespace R08546036SHChaoFinalProject
                         {
                             soFarTheBestObjective = objectives[i];
                             solutionBest = solutions[i];
+                            solutionBestCarnivores = solutions[i];
+                            solutionBestHerbivores = solutions[i];
+                            solutionBestOmnivores = solutions[i];
                         }
                         break;
                 }
@@ -1014,6 +1023,8 @@ namespace R08546036SHChaoFinalProject
             iterationCount += 1;
             ComputeObjectiveValueAndUpdate();
             UpdateSolution();
+
+
         }
 
         public void UpdateSolution()
@@ -1028,8 +1039,6 @@ namespace R08546036SHChaoFinalProject
                 solutionNearestOmniToHerb = new double[numberOfVariables];
                 solutionNearestCarnToHerb = new double[numberOfVariables];
                 solutionNearestCarnToOmni = new double[numberOfVariables];
-                reorganizeConstantA = randomizer.NextDouble();
-                reorganizeConstantB = randomizer.NextDouble();
 
                 for (int j = 0; j < numberOfVariables; j++)
                 {
@@ -1066,13 +1075,15 @@ namespace R08546036SHChaoFinalProject
                         }
 
                         // herbivores update method
-                        //MessageBox.Show(distanceNearestOmniToHerb.ToString());
-                        //MessageBox.Show(totalSolutionDistance.ToString());
                         velocities[i][j] = velocityWeight * velocities[i][j]
                             + accerlationCoefficientA * randomizer.NextDouble() * (solutionBestIndividual[i][j] - solutions[i][j])
                             + accerlationCoefficientB * randomizer.NextDouble() * (solutionBestHerbivores[j] - solutions[i][j])
-                            + (1 - (1 - distanceNearestOmniToHerb / (fearFactorHerbToOmnivores * totalSolutionDistance))) * accerlationCoefficientC * randomizer.NextDouble() * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestOmniToHerb)))
-                            + (1 - (1 - distanceNearestCarnToHerb / (fearFactorHerbToCarnivores * totalSolutionDistance))) * accerlationCoefficientC * randomizer.NextDouble() * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestCarnToHerb)));
+                        + (1 - (1 - distanceNearestOmniToHerb / (fearFactorHerbToOmnivores * totalSolutionDistance))) *
+                        accerlationCoefficientC * randomizer.NextDouble()
+                        * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestOmniToHerb)))
+                        + (1 - (1 - distanceNearestCarnToHerb / (fearFactorHerbToCarnivores * totalSolutionDistance)))
+                        * accerlationCoefficientC * randomizer.NextDouble()
+                        * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestCarnToHerb)));
 
                         // update solution
                         solutions[i][j] += velocities[i][j];
@@ -1086,18 +1097,31 @@ namespace R08546036SHChaoFinalProject
 
                         // omnivores distance calculation
 
-                        // calculate nearest herbi
+                        // reset swarm nearest value
+                        distanceNearestOmniToHerb = double.MaxValue;
+                        distanceNearestCarnToHerb = double.MaxValue;
+                        distanceNearestCarnToOmni = double.MaxValue;
+                        solutionNearestOmniToHerb = new double[numberOfVariables];
+                        solutionNearestCarnToHerb = new double[numberOfVariables];
+                        solutionNearestCarnToOmni = new double[numberOfVariables];
+
+                        // calculate nearest ombi
                         for (int distanceIndex = herbivoresNum; distanceIndex < (herbivoresNum + omnivoresNum); distanceIndex++)
                         {
-                            temp = 0;
-                            for (int variableIndex = 0; variableIndex < numberOfVariables; variableIndex++)
+                            if (i != distanceIndex)
                             {
-                                temp += Math.Abs(solutions[i][variableIndex] - solutions[distanceIndex][variableIndex]);
-                            }
-                            if (temp < distanceNearestOmniToHerb)
-                            {
-                                distanceNearestOmniToHerb = temp;
-                                solutionNearestOmniToHerb = solutions[distanceIndex];
+                                temp = 0;
+                                for (int variableIndex = 0; variableIndex < numberOfVariables; variableIndex++)
+                                {
+
+                                    temp += temp += Math.Abs(solutions[i][variableIndex] - solutions[distanceIndex][variableIndex]);
+
+                                }
+                                if (temp < distanceNearestOmniToHerb)
+                                {
+                                    distanceNearestOmniToHerb = temp;
+                                    solutionNearestOmniToHerb = solutions[distanceIndex];
+                                }
                             }
                         }
 
@@ -1107,8 +1131,10 @@ namespace R08546036SHChaoFinalProject
                             temp = 0;
                             for (int variableIndex = 0; variableIndex < numberOfVariables; variableIndex++)
                             {
-                                temp += Math.Abs(solutions[i][variableIndex] - solutions[distanceIndex][variableIndex]);
+                                temp += Math.Sqrt((solutions[i][variableIndex] - solutions[distanceIndex][variableIndex])
+                                    * (solutions[i][variableIndex] - solutions[distanceIndex][variableIndex]));
                             }
+
                             if (temp < distanceNearestCarnToOmni)
                             {
                                 distanceNearestCarnToOmni = temp;
@@ -1117,13 +1143,17 @@ namespace R08546036SHChaoFinalProject
                         }
 
                         // omnivores update method
-                        ProbOmniToBePredator = (distanceNearestOmniToHerb / (distanceNearestOmniToHerb + distanceNearestCarnToOmni));
+                        ProbOmniToBePredator = (distanceNearestOmniToHerb / (distanceNearestOmniToHerb + distanceNearestCarnToOmni) * randomizer.NextDouble());
+                        //if (iterationCount != 1) MessageBox.Show(ProbOmniToBePredator.ToString());
                         velocities[i][j] = (1 - ProbOmniToBePredator)
                             * (velocityWeight * velocities[i][j]
                             + accerlationCoefficientA * randomizer.NextDouble() * (solutionBestIndividual[i][j] - solutions[i][j])
-                            + accerlationCoefficientB * randomizer.NextDouble() * (solutionBestOmnivores[j] - solutions[i][j])
-                            + (1 - (1 - distanceNearestCarnToOmni / (fearFactorOmniToCarnivores * totalSolutionDistance))) * accerlationCoefficientC * randomizer.NextDouble() * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestCarnToOmni)))
-                            + ProbOmniToBePredator * randomizer.NextDouble() * (solutionBestOmnivores[j] - solutions[i][j]));
+                            + accerlationCoefficientB * randomizer.NextDouble() * (solutionBest[j] - solutions[i][j]))
+                            + (1 - (1 - distanceNearestCarnToOmni / (fearFactorOmniToCarnivores * totalSolutionDistance))) * 
+                            accerlationCoefficientC * randomizer.NextDouble() * (distanceCoefA * Math.Exp(-(distanceCoefB * distanceNearestCarnToOmni)))
+                            + ProbOmniToBePredator * randomizer.NextDouble() * (solutionBestOmnivores[j] - solutions[i][j]);
+
+                        //if (double.IsNaN(velocities[i][j])) velocities[i][j] = randomizer.NextDouble();
 
                         // update solution
                         solutions[i][j] += velocities[i][j];
@@ -1135,10 +1165,11 @@ namespace R08546036SHChaoFinalProject
                     else
                     {
                         // carnivores update method
-                        velocities[i][j] = randomizer.NextDouble() * (solutionBestCarnivores[j] - solutions[i][j]);
+                        velocities[i][j] = randomizer.NextDouble() * (solutionBest[j] - solutions[i][j]);
 
                         // update solution
                         solutions[i][j] += velocities[i][j];
+
                         // check if solution excess the boundary
                         if (solutions[i][j] > solutionUpperBound[j]) solutions[i][j] = solutionUpperBound[j];
                         else if (solutions[i][j] < solutionLowerBound[j]) solutions[i][j] = solutionLowerBound[j];
@@ -1146,8 +1177,7 @@ namespace R08546036SHChaoFinalProject
                     }
                 }
 
-                // check if reorganization is needed
-                //if (Math.Abs(swarmsoFarTheBestObjective - swarmSoFarTheWorstObjective) <= divergenceThreshold) ReorganizeSolution();
+
             }
         }
 
@@ -1189,15 +1219,14 @@ namespace R08546036SHChaoFinalProject
                     solutionBestHerbivores = new double[numberOfVariables];
                     solutionBestOmnivores = new double[numberOfVariables];
                     solutionBestCarnivores = new double[numberOfVariables];
-                    swarmsoFarTheBestObjective = double.MinValue;
-                    swarmSoFarTheWorstObjective = double.MaxValue;
+                    swarmsoFarTheBestObjective = double.MaxValue;
+                    swarmSoFarTheWorstObjective = double.MinValue;
                     break;
             }
 
             for (int i = 0; i < particleNum; i++)
             {
                 objectives[i] = ObjFunction(solutions[i]);
-                iterationAverage = (objectives.Sum() / objectives.Length);
 
                 switch (OptimizationMethod)
                 {
@@ -1242,12 +1271,6 @@ namespace R08546036SHChaoFinalProject
                             }
                         }
 
-                        // reorganization part
-                        if (objectives[i] > swarmSoFarTheWorstObjective) swarmSoFarTheWorstObjective = objectives[i];
-                        if (objectives[i] < swarmsoFarTheBestObjective)
-                        {
-                            swarmsoFarTheBestObjective = objectives[i];
-                        }
                         break;
                     case OptimizationType.Maximization:
                         // overall part
@@ -1276,7 +1299,7 @@ namespace R08546036SHChaoFinalProject
                         }
                         else if (i > (herbivoresNum + omnivoresNum))
                         {
-                            if (objectives[i] < objectiveBestOmnivores)
+                            if (objectives[i] > objectiveBestOmnivores)
                             {
                                 objectiveBestOmnivores = objectives[i];
                                 solutionBestOmnivores = solutions[i];
@@ -1291,16 +1314,13 @@ namespace R08546036SHChaoFinalProject
                             }
                         }
 
-                        // reorganization part
-                        if (objectives[i] < swarmSoFarTheWorstObjective) swarmSoFarTheWorstObjective = objectives[i];
-                        if (objectives[i] > swarmsoFarTheBestObjective)
-                        {
-                            swarmsoFarTheBestObjective = objectives[i];
-                        }
                         break;
                 }
 
             }
+
+            iterationAverage = (objectives.Sum() / objectives.Length);
+
         }
 
     }

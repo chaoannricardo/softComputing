@@ -132,6 +132,8 @@ namespace R08546036SHChaoFinalProject
 
             theProblem.DisplaySolutionsOnGraphics(theSolver.Solutions);
 
+            //MessageBox.Show(theSolver.IterationAverage.ToString());
+
             // add numbers to chart
             chartSolution.Series[0].Points.AddXY(theSolver.IterationCount, theSolver.SoFarTheBestObjective);
             chartSolution.Series[1].Points.AddXY(theSolver.IterationCount, theSolver.SoFarTheBestObjectiveIteration);
